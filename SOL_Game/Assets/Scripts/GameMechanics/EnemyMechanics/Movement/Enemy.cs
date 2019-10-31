@@ -12,32 +12,27 @@ using UnityEngine;
 
 public class Enemy : BaseCharacter
 {
-	#region Enums and Defined Constants
-	#endregion
-
-	#region Public Variables
-	public string
-		enemyName;
-	public float
-		attackDmg,   // Base damage from an intentional attack
-		contactDmg,  // Base damage from making contact with the player
-		aggroRange,  // How far away the enemy can detect the player
-		followRange; // How far away the player must get for the enemy to deaggro
-	public int
-		health;
+    public string
+        enemyName;  // The enemy's name
+    public float
+        aggroRange, // The max range where the enemy can detect the player
+		followRange, // How far away the player must get for the enemy to deaggro
+		attackDmg,  // Base damage from an intentional attack
+        contactDmg, // Base damage from making contact with the player
+		moveSpeed;  // Base movement speed
+    public bool
+        aggro;      // The enemy has detected the player
+    public Vector2[]
+        patrol;     // The enemy's patrol points
+	
 	public Rigidbody2D
 		sprite;      // The enemy's sprite
-	public bool
-		aggro;
-	#endregion
 
 	#region Private Variables
-	private Vector2
-		playerPos;  // The player's position
-	#endregion
+    private Vector2
+        playerPos;  // The player's position
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
 	void Start()
 	{
 		sprite = GetComponent<Rigidbody2D>();
@@ -45,9 +40,9 @@ public class Enemy : BaseCharacter
 
 	void FixedUpdate()
 	{
-		playerPos = GameObject.Find("tempPlayer").transform.position;
+		playerPos = GameObject.FindWithTag("Player").transform.position;
 		if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
-		{
+		{ 
 			aggro = true;
 		}
 		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
@@ -55,9 +50,6 @@ public class Enemy : BaseCharacter
 			aggro = false;
 		}
 	}
-	#endregion
-
-	#region Utility Functions
 	Enemy() : base()
 	{
 		health = 5;
@@ -74,8 +66,4 @@ public class Enemy : BaseCharacter
 			Destroy(gameObject);
 		}
 	}
-	#endregion
-
-	#region Coroutines
-	#endregion
 }
