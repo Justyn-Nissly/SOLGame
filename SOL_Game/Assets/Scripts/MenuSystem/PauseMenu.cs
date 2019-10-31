@@ -10,10 +10,10 @@ public class PauseMenu : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public static bool       isPaused = false; // The value for if the game is paused
+	public static bool isPaused = false; // The value for if the game is paused
 	public static GameObject pauseMenuUI;      // The UI object for the pause menu
-	Scene                    activeScene;      // The scene that is currently active
-	public string            sceneName;        // The name of the acctive scene
+	Scene              activeScene;      // The scene that is currently active
+	public string      sceneName;        // The name of the acctive scene
 	#endregion
 
 	#region Private Variables
@@ -30,7 +30,7 @@ public class PauseMenu : MonoBehaviour
 		{
 			pauseMenuUI.GetComponent<Canvas>().enabled = false;
 		}
-		//pauseSingelton = singleton.
+
 		// Check if the escape key was pressed and if the game was paused resume, otherwise pause the game
 		else
 		{

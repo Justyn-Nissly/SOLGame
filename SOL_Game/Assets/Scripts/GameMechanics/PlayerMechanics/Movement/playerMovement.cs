@@ -5,14 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
 {
-	public Animator animator;
 	private float speed;
 	private float moveHorizontal;
 	private float moveVertical;
 	private Vector2 movement;
 	private Rigidbody2D rb2d;
 
-	//bool canMove = true;
+	
 
 	/// <summary>
 	/// Start is called before the first frame update
@@ -36,9 +35,7 @@ public class playerMovement : MonoBehaviour
 	{
 		// get the horizontal movement input
 		if (Input.GetAxis("Horizontal") > 0)
-		{
 			moveHorizontal = speed;
-		}
 		else if (Input.GetAxis("Horizontal") < 0)
 			moveHorizontal = -speed;
 		else
@@ -46,14 +43,9 @@ public class playerMovement : MonoBehaviour
 
 		// get the vertical movement input
 		if (Input.GetAxis("Vertical") > 0)
-		{
 			moveVertical = speed;
-		}
 		else if (Input.GetAxis("Vertical") < 0)
-		{
-			
 			moveVertical = -speed;
-		}
 		else
 			moveVertical = 0;
 

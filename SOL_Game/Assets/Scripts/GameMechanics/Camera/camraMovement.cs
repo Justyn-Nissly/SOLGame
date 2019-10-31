@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class camraMovement : MonoBehaviour
 {
+	#region Enums
+	#endregion
+
+	#region Public Variables
 	public GameObject player;
+	#endregion
 
+	#region Private Variables
 	private Vector3 offset;
+	#endregion
 
+	// Unity Named Methods
+	#region Main Methods
 	// Use this for initialization
 	void Start()
 	{
@@ -19,4 +28,11 @@ public class camraMovement : MonoBehaviour
 	{
 		transform.position = player.transform.position + offset; // move the camera to the players position plus offset
 	}
+	#endregion
+
+	#region Utility Methods
+	#endregion
+
+	#region Coroutines
+	#endregion
 }

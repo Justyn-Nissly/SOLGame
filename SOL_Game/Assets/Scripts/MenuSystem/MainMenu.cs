@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
 	// Loads the game
 	public void PlayGame()
     {
-        SceneManager.LoadScene("Sif-fiDevRoom");
+        SceneManager.LoadScene("Hub");
     }
 
 

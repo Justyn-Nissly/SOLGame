@@ -13,9 +13,7 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-
 	#endregion
-
 	// Unity Named Methods
 	#region Main Methods
 	void Awake()
@@ -27,7 +25,7 @@ public class GameManager : MonoBehaviour
 
 			// Instantiate the pause menu canvas
 			PauseMenu.pauseMenuUI = Instantiate(pauseMenuCanvas, new Vector3(0, 0, 0), Quaternion.identity).gameObject;
-		
+
 			// Keep items persisting across scenes
 			DontDestroyOnLoad(gameObject);
 			DontDestroyOnLoad(PauseMenu.pauseMenuUI);
