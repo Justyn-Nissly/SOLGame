@@ -16,9 +16,10 @@ public class MeleeAttackBase : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private int force = 100;
+	protected float thrust = 10;
+	protected float knockTime = .2f;
 	#endregion
-
+	
 	// Unity Named Methods
 	#region Main Methods
 	private void OnDrawGizmosSelected()
@@ -53,21 +54,52 @@ public class MeleeAttackBase : MonoBehaviour
 	private void ApplyKnockBack(GameObject characterBeingAtacked)
 	{
 		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
-		if (rigidbody2D != null)
+
+		// add knock back
+		if(rigidbody2D != null && characterBeingAtacked.CompareTag("Player"))
 		{
-			Vector2 vector2 = DegreeToVector2(gameObject.transform.eulerAngles.z + 90) * force;
-			rigidbody2D.AddForce(vector2, ForceMode2D.Impulse);
+			rigidbody2D.isKinematic = false;
+			Vector2 difference = characterBeingAtacked.transform.position - transform.position;
+			difference = difference.normalized * thrust;
+
+			rigidbody2D.AddForce(difference, ForceMode2D.Impulse);
+			StartCoroutine(KnockCo(rigidbody2D));
+		}
+		else if (rigidbody2D != null && characterBeingAtacked.CompareTag("Enemy"))
+		{
+			//rigidbody2D.isKinematic = false;
+			Vector2 difference = characterBeingAtacked.transform.position - transform.position;
+			difference = difference.normalized * thrust;
+
+			rigidbody2D.AddForce(difference, ForceMode2D.Impulse);
+			StartCoroutine(KnockCoE(rigidbody2D));
 		}
 	}
 
-	public Vector2 DegreeToVector2(float degree)
+	private IEnumerator KnockCo(Rigidbody2D rigidbody2D)
 	{
-		return RadianToVector2(degree * Mathf.Deg2Rad);
+		if(rigidbody2D != null)
+		{
+			yield return new WaitForSeconds(knockTime);
+			if (rigidbody2D != null)
+			{
+				rigidbody2D.velocity = Vector2.zero;
+				rigidbody2D.isKinematic = true;
+			}
+		}
 	}
 
-	public Vector2 RadianToVector2(float radian)
+	private IEnumerator KnockCoE(Rigidbody2D rigidbody2D)
 	{
-		return new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
+		if (rigidbody2D != null)
+		{
+			yield return new WaitForSeconds(knockTime);
+			if (rigidbody2D != null)
+			{
+				rigidbody2D.velocity = Vector2.zero;
+				//rigidbody2D.isKinematic = true;
+			}
+		}
 	}
 	#endregion
 
