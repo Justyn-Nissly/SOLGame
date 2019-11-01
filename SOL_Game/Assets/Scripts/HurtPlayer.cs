@@ -24,7 +24,7 @@ public class HurtPlayer : MonoBehaviour
 	{
         if (other.gameObject.name == "Player")
 		{
-			other.gameObject.GetComponent<healthManager>().HurtPlayer(damageToGive);
+			other.gameObject.GetComponent<HealthManager>().HurtPlayer(damageToGive);
 		}
 	}
 }

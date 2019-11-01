@@ -19,7 +19,7 @@ public class Player : BaseCharacter
 	#region Main Methods
 	private void Awake()
 	{
-		health = 10;
+		CurrentHealth = MaxHealth.StartingPlayerHP;
 	}
 	#endregion
 
@@ -28,7 +28,7 @@ public class Player : BaseCharacter
 	{
 		base.TakeDamage(damage);
 
-		Debug.Log("player health = " + health);
+		Debug.Log("player CurrentHealth = " + CurrentHealth);
 	}
 	#endregion
 

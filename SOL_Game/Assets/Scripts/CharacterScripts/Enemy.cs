@@ -36,6 +36,7 @@ public class Enemy : BaseCharacter
 	void Start()
 	{
 		sprite = GetComponent<Rigidbody2D>();
+		CurrentHealth = MaxHealth.StartingEnemyHP;
 	}
 
 	void FixedUpdate()
@@ -50,18 +51,14 @@ public class Enemy : BaseCharacter
 			aggro = false;
 		}
 	}
-	Enemy() : base()
-	{
-		health = 5;
-	}
 
 	public override void TakeDamage(int damage)
 	{
 		base.TakeDamage(damage);
 
-		Debug.Log("enemy health = " + health);
+		Debug.Log("enemy CurrentHealth = " + CurrentHealth);
 
-		if (health <= 0)
+		if (CurrentHealth <= 0)
 		{
 			Destroy(gameObject);
 		}
