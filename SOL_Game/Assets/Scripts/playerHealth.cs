@@ -10,7 +10,7 @@ using UnityEngine.UI;
 // do and comment any variables that need commented   //
 //                                                    //
 //****************************************************//
-public class playerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
 	#region Enums
 
