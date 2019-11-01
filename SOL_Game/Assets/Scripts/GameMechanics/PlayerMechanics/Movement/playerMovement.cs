@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
 {
-	private float speed;
+	public float speed;
 	private float moveHorizontal;
 	private float moveVertical;
 	private Vector2 movement;
@@ -19,7 +19,7 @@ public class playerMovement : MonoBehaviour
     /// </summary>
     void Start()
     {
-		speed = .1f;
+		//speed = .1f;
 
 		rb2d = GetComponent<Rigidbody2D>();
 	 }
@@ -56,7 +56,7 @@ public class playerMovement : MonoBehaviour
         // Update the values in the Animator
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Magnitude", speed);
+        animator.SetFloat("Magnitude", movement.magnitude);
 
         // Update the Hero's position, taking note of colliders.
         rb2d.MovePosition(movement + rb2d.position);
