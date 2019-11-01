@@ -19,7 +19,7 @@ public class playerMovement : MonoBehaviour
     /// </summary>
     void Start()
     {
-		//speed = .1f;
+		//+speed = .1f;
 
 		rb2d = GetComponent<Rigidbody2D>();
 	 }
@@ -34,7 +34,7 @@ public class playerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		// Get the Horizontal Axis
+        /*// Get the Horizontal Axis
 		if (Input.GetAxis("Horizontal") > 0)
 			moveHorizontal = speed;
 		else if (Input.GetAxis("Horizontal") < 0)
@@ -51,7 +51,9 @@ public class playerMovement : MonoBehaviour
 			moveVertical = 0;
 
         // Set the movement vector
-		movement = new Vector2(moveHorizontal, moveVertical);
+		movement = new Vector2(moveHorizontal, moveVertical);*/
+
+        movement = new Vector2(Mathf.RoundToInt(Input.GetAxis("Horizontal")) * speed, Mathf.RoundToInt(Input.GetAxis("Vertical")) * speed);
 
         // Update the values in the Animator
         animator.SetFloat("Horizontal", movement.x);
