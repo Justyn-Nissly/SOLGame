@@ -8,10 +8,10 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public GameObject gameObjectToLookAt;
 	#endregion
 
 	#region Private Variables
+	private GameObject gameObjectToLookAt;
 	#endregion
 
 	// Unity Named Methods
@@ -22,6 +22,11 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 		{
 			LookInEightDirectionOfGameObject();
 		}
+	}
+
+	private void Start()
+	{
+		gameObjectToLookAt = GameObject.FindGameObjectWithTag("Player").gameObject;
 	}
 	#endregion
 
