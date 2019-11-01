@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 8519565967622166671}
   - component: {fileID: 6282561799727342091}
   - component: {fileID: 5739502366995004431}
+  - component: {fileID: 2556137754337693789}
   m_Layer: 9
   m_Name: LightMeleeEnemy
   m_TagString: Enemy
@@ -177,7 +178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectToLookAt: {fileID: 0}
 --- !u!114 &8519565967622166671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,3 +237,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2556137754337693789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519565967622166670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94496abf717a74f4cb18d249ecf1b0fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTime: 3
+  minTime: 1
+  moveSpeed: 1.5
+  waitTime: 0
