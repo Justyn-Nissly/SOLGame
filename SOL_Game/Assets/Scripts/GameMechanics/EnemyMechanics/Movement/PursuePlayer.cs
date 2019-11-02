@@ -40,7 +40,7 @@ public class PursuePlayer : MonoBehaviour
     {
         if (enemy.aggro)
         {
-            playerPos = GameObject.Find("tempPlayer").transform.position;
+            playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
             Pursue();
         }
     }
