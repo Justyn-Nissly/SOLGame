@@ -16,7 +16,7 @@ public class MeleeAttackBase : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	protected float thrust = 10;
+	protected float thrust = 7;
 	protected float knockTime = .2f;
 	#endregion
 	
@@ -58,6 +58,7 @@ public class MeleeAttackBase : MonoBehaviour
 		// add knock back
 		if(rigidbody2D != null && characterBeingAtacked.CompareTag("Player"))
 		{
+			rigidbody2D.isKinematic = true;
 			rigidbody2D.isKinematic = false;
 			Vector2 difference = characterBeingAtacked.transform.position - transform.position;
 			difference = difference.normalized * thrust;
@@ -67,12 +68,11 @@ public class MeleeAttackBase : MonoBehaviour
 		}
 		else if (rigidbody2D != null && characterBeingAtacked.CompareTag("Enemy"))
 		{
-			//rigidbody2D.isKinematic = false;
 			Vector2 difference = characterBeingAtacked.transform.position - transform.position;
-			difference = difference.normalized * thrust;
+			difference = difference.normalized * (thrust);
 
 			rigidbody2D.AddForce(difference, ForceMode2D.Impulse);
-			StartCoroutine(KnockCoE(rigidbody2D));
+			StartCoroutine(KnockCoE(characterBeingAtacked));
 		}
 	}
 
@@ -85,19 +85,28 @@ public class MeleeAttackBase : MonoBehaviour
 			{
 				rigidbody2D.velocity = Vector2.zero;
 				rigidbody2D.isKinematic = true;
+				rigidbody2D.isKinematic = false;
+
 			}
 		}
 	}
 
-	private IEnumerator KnockCoE(Rigidbody2D rigidbody2D)
+	private IEnumerator KnockCoE(GameObject characterBeingAtacked)
 	{
+		Enemy enemy = characterBeingAtacked.GetComponent<Enemy>();
+		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
+
+		enemy.aggro = false;
+
 		if (rigidbody2D != null)
 		{
 			yield return new WaitForSeconds(knockTime);
 			if (rigidbody2D != null)
 			{
 				rigidbody2D.velocity = Vector2.zero;
-				//rigidbody2D.isKinematic = true;
+				rigidbody2D.isKinematic = true;
+				rigidbody2D.isKinematic = false;
+				enemy.aggro = true;
 			}
 		}
 	}
