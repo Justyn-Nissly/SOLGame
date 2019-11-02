@@ -13,14 +13,16 @@ public class BulletLogic : MonoBehaviour
 	public Rigidbody2D bulletRigidbody;
 	public GameObject impactEffect;
 	public string ignoreTag; // lets the bullet ignore any game objects it hits with this tag
-	#endregion
+    #endregion
 
-	#region Private Variables
-	#endregion
+    #region Private Variables
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-	public void Start()
+
+
+    // Unity Named Methods
+    #region Main Methods
+    public void Start()
 	{
 		bulletRigidbody.velocity = transform.up * bulletSpeed;
 	}

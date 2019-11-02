@@ -21,7 +21,7 @@ public class LightAttackEnemy : MeleeAttackBase
 	#region Main Methods
 	private void FixedUpdate()
 	{
-		if (countDownTimer <= 0 && enemy.canAttack)
+		if (countDownTimer <= 0 && enemy.CanAttack)
 		{
 			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
 

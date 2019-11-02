@@ -9,21 +9,27 @@ public class RangedAttackPlayer : RangedAttackBase
 
 	#region Public Variables
 	public Player player;
-	public int rangeAttackDamage = 2;
+	public int DamageToGive = 2;
 	public float startTimeBetweenAttacks = 3f;
 	#endregion
 
 	#region Private Variables
 	private float timeBetweenAttacks;
-	#endregion
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-	public void FixedUpdate()
+    //Initialize Values
+    private void Awake()
+    {
+        DamageToGive = MaxHealth.StartingPlayerHP;
+    }
+
+    // Unity Named Methods
+    #region Main Methods
+    public void FixedUpdate()
 	{
 		if (timeBetweenAttacks <= 0)
 		{
-			if (Input.GetButtonUp("Y") && player.canAttack) // Y is the left arrow button and is based on the SNES controller button layout
+			if (Input.GetButtonUp("Y") && player.CanAttack) // Y is the left arrow button and is based on the SNES controller button layout
 			{
 				timeBetweenAttacks = startTimeBetweenAttacks; // reset the time between attacks
 				Shoot();
@@ -44,7 +50,7 @@ public class RangedAttackPlayer : RangedAttackBase
 		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
 		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = rangeAttackDamage;
+		bulletLogic.bulletDamage = DamageToGive;
 	}
 	#endregion
 

@@ -22,13 +22,13 @@ public class ShieldPlayer : ShieldBase
 		{
 			EnableShield();
 			ShieldIsEnabled = true;
-			player.canAttack = false;
+			player.CanAttack = false;
 		}
 		else if (Input.GetButton("B") == false && ShieldIsEnabled)
 		{
 			DisableShield();
 			ShieldIsEnabled = false;
-			player.canAttack = true;
+			player.CanAttack = true;
 		}
 	}
 	#endregion

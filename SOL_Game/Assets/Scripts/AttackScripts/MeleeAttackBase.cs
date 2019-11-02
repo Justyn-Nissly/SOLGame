@@ -13,15 +13,17 @@ public class MeleeAttackBase : MonoBehaviour
 	public LayerMask willDamageLayer;
 	public GameObject weapon;
 	public int damage;
+    public IntValue DamageToGive;
 	#endregion
 
 	#region Private Variables
 	private int force = 100;
-	#endregion
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-	private void OnDrawGizmosSelected()
+
+    // Unity Named Methods
+    #region Main Methods
+    private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(attackPosition.position, attackRange);
@@ -41,7 +43,7 @@ public class MeleeAttackBase : MonoBehaviour
 				characterBeingAtacked.TakeDamage(damage);
 
 
-				ApplyKnockBack(collider.gameObject);
+				//ApplyKnockBack(collider.gameObject); MAKE SURE TO UNCOMMENT THIS BEFORE MERGIMNG TO TEST
 
 			}
 		}

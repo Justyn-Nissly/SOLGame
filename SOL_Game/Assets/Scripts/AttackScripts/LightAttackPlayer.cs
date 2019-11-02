@@ -20,7 +20,7 @@ public class LightAttackPlayer : MeleeAttackBase
 	#region Main Methods
 	private void FixedUpdate()
 	{
-		if (timeBetweenAttacks <= 0 && Input.GetButtonDown("A") && player.canAttack)
+		if (timeBetweenAttacks <= 0 && Input.GetButtonDown("A") && player.CanAttack)
 		{
 			timeBetweenAttacks = startTimeBetweenAttacks; // reset the time between attacks
 

@@ -24,7 +24,7 @@ public class ShieldEnemy : ShieldBase
 	{
 		EnableShield();
 		ShieldIsEnabled = true;
-		enemy.canAttack = false;
+		enemy.CanAttack = false;
 	}
 
 	public void FixedUpdate()
@@ -36,7 +36,7 @@ public class ShieldEnemy : ShieldBase
 			// disable shield for half a second
 			DisableShield();
 			ShieldIsEnabled = false;
-			enemy.canAttack = true;
+			enemy.CanAttack = true;
 
 			Invoke("ReEnableShield", 0.5f);
 		}
@@ -53,7 +53,7 @@ public class ShieldEnemy : ShieldBase
 	{
 		EnableShield();
 		ShieldIsEnabled = true;
-		enemy.canAttack = false;
+		enemy.CanAttack = false;
 	}
 	#endregion
 

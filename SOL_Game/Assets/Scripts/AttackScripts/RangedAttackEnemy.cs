@@ -8,7 +8,7 @@ public class RangedAttackEnemy : RangedAttackBase
 	#endregion
 
 	#region Public Variables
-	public int rangeAttackDamage = 2;
+	public int rangeAttackDamage;
 
 	public float maxTimeBetweenAttacks = 2f;
 	public float minTimeBetweenAttacks = 1f;
@@ -16,11 +16,19 @@ public class RangedAttackEnemy : RangedAttackBase
 
 	#region Private Variables
 	private float countDownTimer;
-	#endregion
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-	public void Start()
+
+    #region Before Start
+    private void Awake()
+    {
+        rangeAttackDamage = damageToGive.enemyRangedDamage;
+    }
+    #endregion
+
+    // Unity Named Methods
+    #region Main Methods
+    public void Start()
 	{
 		countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 	}

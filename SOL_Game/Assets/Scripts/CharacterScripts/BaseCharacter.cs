@@ -11,8 +11,9 @@ public class BaseCharacter : MonoBehaviour
 	public IntValue MaxHealth;
 	public int CurrentHealth;
 
-	public bool canAttack = true; // for disabling the ability to attack, like when the players shield is up the player cant attack
-	public bool canTakeDamage = true;
+
+    public bool CanAttack = true; // for disabling the ability to attack, like when the players shield is up the player cant attack
+	public bool CanTakeDamage = true;
 	#endregion
 
 	#region Private Variables
@@ -28,7 +29,7 @@ public class BaseCharacter : MonoBehaviour
 
 	public virtual void TakeDamage(int damage)
 	{
-		if(canTakeDamage == true)
+		if(CanTakeDamage == true)
 		{
 			CurrentHealth -= damage;
 			StartCoroutine("StartBlinking");
@@ -42,7 +43,7 @@ public class BaseCharacter : MonoBehaviour
 		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 		float timer = .5f;
 
-		canTakeDamage = false; // cant take damage while blinking
+		CanTakeDamage = false; // cant take damage while blinking
 
 		while (timer >= 0)
 		{
@@ -52,7 +53,7 @@ public class BaseCharacter : MonoBehaviour
 		}
 
 		spriteRenderer.enabled = true; //This toggles it back on in the end
-		canTakeDamage = true; // can take damage again
+		CanTakeDamage = true; // can take damage again
 	}
 	#endregion
 }

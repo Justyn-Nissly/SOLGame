@@ -36,7 +36,7 @@ public class Enemy : BaseCharacter
 	void Start()
 	{
 		sprite = GetComponent<Rigidbody2D>();
-		CurrentHealth = MaxHealth.StartingEnemyHP;
+		CurrentHealth = MaxHealth.startingEnemyHP;
 	}
 
 	void FixedUpdate()
