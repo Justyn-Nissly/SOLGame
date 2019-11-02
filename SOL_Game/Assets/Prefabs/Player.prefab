@@ -158,6 +158,7 @@ MonoBehaviour:
     m_Bits: 512
   weapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff, type: 3}
   damage: 2
+  DamageToGive: {fileID: 0}
   player: {fileID: 6841405128326533493}
   startTimeBetweenAttacks: 0.3
 --- !u!114 &6841405128326533494
@@ -179,6 +180,7 @@ MonoBehaviour:
     m_Bits: 512
   weapon: {fileID: 1422757091534899275, guid: 40fc86e0cf97b244e969a384edc45ef7, type: 3}
   damage: 2
+  DamageToGive: {fileID: 11400000, guid: eaf9e9a4f31d84caaa93f342138291d9, type: 2}
   player: {fileID: 6841405128326533493}
   startTimeBetweenAttacks: 0.6
 --- !u!114 &6841405128326533481
@@ -197,8 +199,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5784550603847278244, guid: 47e5478c8df575141870a0d125fe1c2c,
     type: 3}
   GunSprite: {fileID: 6841405128792758054}
+  damageToGive: {fileID: 0}
   player: {fileID: 6841405128326533493}
-  rangeAttackDamage: 2
+  overRideBulletDamage: 0
   startTimeBetweenAttacks: 0.5
 --- !u!114 &6841405128326533480
 MonoBehaviour:
@@ -240,9 +243,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80b6fb47ed75d045b825214ac97ff67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  canAttack: 1
-  canTakeDamage: 1
+  MaxHealth: {fileID: 11400000, guid: eaf9e9a4f31d84caaa93f342138291d9, type: 2}
+  CurrentHealth: 0
+  CanAttack: 1
+  CanTakeDamage: 1
 --- !u!114 &3775886396450673450
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class BulletLogic : MonoBehaviour
 
 	#region Public Variables
 	public float bulletSpeed = 15f;
-	public int bulletDamage = 2;
+	public int bulletDamage;
 	public Rigidbody2D bulletRigidbody;
 	public GameObject impactEffect;
 	public string ignoreTag; // lets the bullet ignore any game objects it hits with this tag
