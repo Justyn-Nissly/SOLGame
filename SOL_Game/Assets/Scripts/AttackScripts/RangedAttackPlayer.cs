@@ -9,7 +9,7 @@ public class RangedAttackPlayer : RangedAttackBase
 
 	#region Public Variables
 	public Player player;
-	public int DamageToGive = 2;
+	public int overRideBulletDamage; //Overrides The damage given to the bullet
 	public float startTimeBetweenAttacks = 3f;
 	#endregion
 
@@ -20,7 +20,7 @@ public class RangedAttackPlayer : RangedAttackBase
     //Initialize Values
     private void Awake()
     {
-        DamageToGive = MaxHealth.StartingPlayerHP;
+        overRideBulletDamage = damageToGive.enemyRangedDamage;
     }
 
     // Unity Named Methods
@@ -50,7 +50,7 @@ public class RangedAttackPlayer : RangedAttackBase
 		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
 		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = DamageToGive;
+		bulletLogic.bulletDamage = overRideBulletDamage;
 	}
 	#endregion
 
