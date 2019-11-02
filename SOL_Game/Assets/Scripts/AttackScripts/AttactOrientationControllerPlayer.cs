@@ -17,7 +17,7 @@ public class AttactOrientationControllerPlayer : MonoBehaviour
 	public void FixedUpdate()
 	{
 		// don't rotate if the freeze rotation button is down
-		if (Input.GetAxis("FreezeRotation") == 0)
+		if (Input.GetAxis("L") == 0 && Input.GetAxis("R") == 0)
 		{
 			// If the player clicks the left key set rotation to -90 degrees
 			if (Input.GetAxis("Horizontal") < 0)
