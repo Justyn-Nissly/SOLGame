@@ -78,6 +78,8 @@ public class PauseMenu : MonoBehaviour
 	public void QuitGame()
 	{
 		SceneManager.LoadScene("Menu");
+		pauseMenuUI.GetComponent<Canvas>().enabled = false;
+		Time.timeScale = 1.0f;
 	}
 	#endregion
 

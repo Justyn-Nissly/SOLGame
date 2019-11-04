@@ -42,7 +42,7 @@ public class MeleeAttackBase : MonoBehaviour
 				characterBeingAtacked.TakeDamage(damage);
 
 
-				ApplyKnockBack(collider.gameObject);
+				//ApplyKnockBack(collider.gameObject);
 
 			}
 		}
