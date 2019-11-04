@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,11 +14,13 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Private Variables
+	Scene activeScene;
 	#endregion
 	// Unity Named Methods
 	#region Main Methods
 	void Awake()
 	{
+		activeScene = SceneManager.GetActiveScene();
 		// Check if the game manager is assigned to anything
 		if (gameManager == null)
 		{
