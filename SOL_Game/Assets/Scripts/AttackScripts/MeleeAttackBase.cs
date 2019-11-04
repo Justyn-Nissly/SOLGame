@@ -13,7 +13,7 @@ public class MeleeAttackBase : MonoBehaviour
 	public LayerMask willDamageLayer;
 	public GameObject weapon;
 	public int damage;
-    public IntValue DamageToGive;
+    public IntValue damageToGive;
 	#endregion
 
 	#region Private Variables
@@ -31,26 +31,6 @@ public class MeleeAttackBase : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	public void Attack()
-	{
-		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
-
-		foreach (Collider2D collider in enemiesToDamage)
-		{
-			BaseCharacter characterBeingAtacked = collider.GetComponent<BaseCharacter>();
-			if (characterBeingAtacked != null)
-			{
-				characterBeingAtacked.TakeDamage(damage);
-
-
-				//ApplyKnockBack(collider.gameObject); MAKE SURE TO UNCOMMENT THIS BEFORE MERGIMNG TO TEST
-
-			}
-		}
-
-		GameObject weaponInstance = Instantiate(weapon, attackPosition.transform);
-		Destroy(weaponInstance, .3f);
-	}
 
 	private void ApplyKnockBack(GameObject characterBeingAtacked)
 	{
