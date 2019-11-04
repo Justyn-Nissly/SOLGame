@@ -10,6 +10,7 @@ public class HeavyAttackEneny : MeleeAttackBase
 	#region Public Variables
 	public float maxTimeBetweenAttacks = 2f;
 	public float minTimeBetweenAttacks = 1f;
+	public BaseCharacter characterBeingAtacked;
 	#endregion
 
 	#region Private Variables
@@ -31,23 +32,17 @@ public class HeavyAttackEneny : MeleeAttackBase
 			countDownTimer -= Time.deltaTime;
 		}
 	}
-    #endregion
+	#endregion
 
-    #region Utility Methods
-    #endregion
-
-    #region Coroutines
-    #endregion
-
-    // Inflict dagame function
-    #region Utility Methods
-    public void Attack()
+	// Inflict dagame function
+	#region Utility Methods
+	public void Attack()
     {
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
 
         foreach (Collider2D collider in enemiesToDamage)
         {
-            BaseCharacter characterBeingAtacked = collider.GetComponent<BaseCharacter>();
+
             if (characterBeingAtacked != null)
             {
                 characterBeingAtacked.TakeDamage(damageToGive.enemyHeavyDamage);
@@ -61,6 +56,6 @@ public class HeavyAttackEneny : MeleeAttackBase
         GameObject weaponInstance = Instantiate(weapon, attackPosition.transform);
         Destroy(weaponInstance, .3f);
     }
-    #endregion
+	#endregion
 
 }
