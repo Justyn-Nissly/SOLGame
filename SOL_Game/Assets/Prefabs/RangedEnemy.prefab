@@ -208,6 +208,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7549428206187076222, guid: d4509fd34558c224ab7965e97917a0ad,
     type: 3}
   GunSprite: {fileID: 7703339030343377253}
+  damageToGive: {fileID: 11400000, guid: eaf9e9a4f31d84caaa93f342138291d9, type: 2}
   rangeAttackDamage: 1
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
@@ -236,15 +237,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5b0595d1bf11f49a1acc658f942350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  canAttack: 1
+  MaxHealth: {fileID: 11400000, guid: eaf9e9a4f31d84caaa93f342138291d9, type: 2}
+  CurrentHealth: 0
+  CanAttack: 1
+  CanTakeDamage: 1
   enemyName: 
   aggroRange: 0
+  followRange: 0
   attackDmg: 0
   contactDmg: 0
   moveSpeed: 0
   aggro: 0
   patrol: []
+  sprite: {fileID: 0}
 --- !u!1 &7703339031401645890
 GameObject:
   m_ObjectHideFlags: 0

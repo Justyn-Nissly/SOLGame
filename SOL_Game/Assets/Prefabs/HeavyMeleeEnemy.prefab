@@ -130,6 +130,7 @@ MonoBehaviour:
     m_Bits: 256
   weapon: {fileID: 1422757091534899275, guid: 40fc86e0cf97b244e969a384edc45ef7, type: 3}
   damage: 2
+  DamageToGive: {fileID: 11400000, guid: eaf9e9a4f31d84caaa93f342138291d9, type: 2}
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
 --- !u!114 &8293376742899619630
@@ -157,15 +158,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5b0595d1bf11f49a1acc658f942350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  canAttack: 1
+  MaxHealth: {fileID: 11400000, guid: eaf9e9a4f31d84caaa93f342138291d9, type: 2}
+  CurrentHealth: 0
+  CanAttack: 1
+  CanTakeDamage: 1
   enemyName: 
   aggroRange: 0
+  followRange: 0
   attackDmg: 0
   contactDmg: 0
   moveSpeed: 0
   aggro: 0
   patrol: []
+  sprite: {fileID: 0}
 --- !u!1 &8293376743106351247
 GameObject:
   m_ObjectHideFlags: 0
