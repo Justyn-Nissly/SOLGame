@@ -16,6 +16,7 @@ public class FreeRoam : MonoBehaviour
     public float
         maxTime,   // Maximum time the enemy moves before choosing new direction
         minTime,   // Minimum time the enemy moves before choosing new direction
+        moveSpeed,
         waitTime;  // Waiting time before moving in new direction
     #endregion
 
@@ -101,7 +102,7 @@ public class FreeRoam : MonoBehaviour
         }
 
         // Set the new path and movement time
-        path     = new Vector2(x * enemy.moveSpeed, y * enemy.moveSpeed);
+        path     = new Vector2(x * moveSpeed, y * moveSpeed);
         moveTime = Random.Range(minTime, maxTime);
     }
 
@@ -125,7 +126,7 @@ public class FreeRoam : MonoBehaviour
             enemy.sprite.MovePosition((Vector2)transform.position + path * Time.deltaTime);
             moveTime -= Time.deltaTime;
             // If the enemy hits an obstacle it stops and chooses a different direction
-            if (Vector2.Distance(transform.position, lastPos) < 0.01f * enemy.moveSpeed * Time.deltaTime)
+            if (Vector2.Distance(transform.position, lastPos) < 0.01f * moveSpeed * Time.deltaTime)
             {
                 moveTime      = -0.1f;
                 waiting       = waitTime * 0.4f;

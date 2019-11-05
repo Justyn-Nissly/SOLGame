@@ -9,14 +9,19 @@ public class PursuePlayer : MonoBehaviour
 
     #region Public Variables
     public float
+        speed,
         maxChaseTime; // Time left before the enemy might deaggro
     #endregion
 
     #region Private Variables
     private float
+        angle,     // The angle from the enemy to the player
+        x,         // The enmy's x-axis movement
+        y,         // The enmy's y-axis movement
         chaseTime; // Time left before the enemy might deaggro
     private Vector2
-        playerPos; // The player's position
+        playerPos, // The player's position
+        direction; // The enemy's movement direction
     private Enemy
         enemy; // Access the enemy's members
     #endregion
@@ -31,11 +36,11 @@ public class PursuePlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (enemy.aggro)
         {
-            playerPos = GameObject.FindWithTag("Player").transform.position;
+            playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
             Pursue();
         }
     }
@@ -52,9 +57,11 @@ public class PursuePlayer : MonoBehaviour
                 enemy.aggro = false;
             }
         }
-        enemy.sprite.position = Vector2.MoveTowards(enemy.sprite.position,
-                                                    playerPos,
-                                                    enemy.moveSpeed * Time.deltaTime);
+        angle      = Mathf.Atan2(playerPos.y - enemy.transform.position.y, playerPos.x - enemy.transform.position.x);
+        x          = Cos(angle) * speed;
+        y          = Sin(angle) * speed;
+        direction  = new Vector2(x, y);
+        enemy.sprite.MovePosition(enemy.sprite.position + direction);
         chaseTime -= Time.deltaTime;
     }
 

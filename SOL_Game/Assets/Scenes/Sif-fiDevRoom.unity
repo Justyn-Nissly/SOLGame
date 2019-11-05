@@ -15068,11 +15068,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightMeleeEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 8519565967622166670, guid: f1eca1112838fe24cb66670739160314,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15307,18 +15302,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5afa98b79fcbd434b819ed5125726ca2, type: 3}
---- !u!61 &1181550848 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 5073558192703537281, guid: 777d64f2aed0e2b46afcec5a32a31381,
-    type: 3}
-  m_PrefabInstance: {fileID: 1579166471}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &1181550850 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5073558192703537287, guid: 777d64f2aed0e2b46afcec5a32a31381,
-    type: 3}
-  m_PrefabInstance: {fileID: 1579166471}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1227820481
 GameObject:
   m_ObjectHideFlags: 0
@@ -18523,16 +18506,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 7703339030992561050, guid: 26af7c5a5104cf24b841fe07b062005a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1775283602783030044, guid: 26af7c5a5104cf24b841fe07b062005a,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 7703339030992561040, guid: 26af7c5a5104cf24b841fe07b062005a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18593,21 +18566,6 @@ PrefabInstance:
       propertyPath: gameObjectToLookAt
       value: 
       objectReference: {fileID: 1103019767}
-    - target: {fileID: 7703339030992561053, guid: 26af7c5a5104cf24b841fe07b062005a,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7703339030992561053, guid: 26af7c5a5104cf24b841fe07b062005a,
-        type: 3}
-      propertyPath: aggroRange
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7703339030992561053, guid: 26af7c5a5104cf24b841fe07b062005a,
-        type: 3}
-      propertyPath: followRange
-      value: 8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26af7c5a5104cf24b841fe07b062005a, type: 3}
 --- !u!1001 &1482397210
@@ -18621,11 +18579,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HeavyMeleeEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8293376742899619616, guid: 402135d012038a046bd7d30193ce8979,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8293376742899619626, guid: 402135d012038a046bd7d30193ce8979,
         type: 3}
@@ -18701,41 +18654,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4925452052291255808, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: chargeSpeed
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 4925452052291255808, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4925452052291255808, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: evasionDistance
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4925452052291255808, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: waitTime
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -1494527648047725511, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1494527648047725511, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5073558193283732433, guid: 777d64f2aed0e2b46afcec5a32a31381,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18796,52 +18714,8 @@ PrefabInstance:
       propertyPath: gameObjectToLookAt
       value: 
       objectReference: {fileID: 1103019767}
-    - target: {fileID: 5073558193283732429, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5073558193283732428, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5073558193283732430, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: aggroRange
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5073558193283732430, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: followRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5073558193283732430, guid: 777d64f2aed0e2b46afcec5a32a31381,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
---- !u!1 &1837936875 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7703339030992561050, guid: 26af7c5a5104cf24b841fe07b062005a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1280947952}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1837936877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837936875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e048834a6517e9449bbcfdd3e4d35986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  evasionDistance: 6
 --- !u!1001 &2075377983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18853,66 +18727,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MeleeShieldEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317361776883795863, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8147577534898307346, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: shieldSprite
-      value: 
-      objectReference: {fileID: 1181550850}
-    - target: {fileID: 8147577534898307346, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: shieldBoxCollider
-      value: 
-      objectReference: {fileID: 1181550848}
-    - target: {fileID: 8147577534898307346, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: maxTimeBetweenAttacks
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8147577534898307346, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: minTimeBetweenAttacks
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8147577534898307346, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8147577534898307346, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: shieldDropTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: -7943860403318789106, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628603387885392272, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -2979283113475744098, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: -2979283113475744098, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -2979283113475744098, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8317361776883795854, guid: 04eca85e8598df447a1bae871c12069a,
         type: 3}
@@ -18974,35 +18788,5 @@ PrefabInstance:
       propertyPath: gameObjectToLookAt
       value: 
       objectReference: {fileID: 1103019767}
-    - target: {fileID: 8317361776883795861, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317361776883795851, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317361776883795860, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317361776883795860, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: maxTimeBetweenAttacks
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317361776883795860, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: minTimeBetweenAttacks
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317361777845739306, guid: 04eca85e8598df447a1bae871c12069a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04eca85e8598df447a1bae871c12069a, type: 3}

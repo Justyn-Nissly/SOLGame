@@ -8,52 +8,43 @@ public class ShieldEnemy : ShieldBase
 	#endregion
 
 	#region Public Variables
+	public Enemy enemy;
 	public bool hasAttack = false;
 	public float maxTimeBetweenAttacks = 1.2f;
 	public float minTimeBetweenAttacks = 0.7f;
 	#endregion
 
 	#region Private Variables
-	private float
-        shieldDownTimer; // When this timer runs out the enemy drops its shield
-    private Enemy
-        enemy; // Access the enemy's members
-    private EvasiveStrike
-        strike;
-    #endregion
+	private float countDownTimer;
+	#endregion
 
-    // Unity Named Methods
-    #region Main Methods
-    private void Start()
+	// Unity Named Methods
+	#region Main Methods
+	private void Start()
 	{
 		EnableShield();
-        enemy           = GetComponent<Enemy>();
-        strike          = GetComponent<EvasiveStrike>();
 		ShieldIsEnabled = true;
-        enemy.canAttack = false;
-        shieldDownTimer = 0.0f;
-    }
+		enemy.canAttack = false;
+	}
 
 	public void FixedUpdate()
 	{
-        if (shieldDownTimer > 0.0f)
-        {
-            shieldDownTimer -= Time.deltaTime;
-            if (shieldDownTimer <= 0.0f)
-            {
-                DisableShield();
-                ShieldIsEnabled = false;
-                enemy.canAttack = true;
-            }
-        }
-        else if (strike.charging)
-        {
-            shieldDownTimer = 1.5f;
-        }
-        else
-        {
-            Invoke("ReEnableShield", 1.5f);
-        }
+		if (countDownTimer <= 0 && hasAttack)
+		{
+			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
+
+			// disable shield for half a second
+			DisableShield();
+			ShieldIsEnabled = false;
+			enemy.canAttack = true;
+
+			Invoke("ReEnableShield", 0.5f);
+		}
+		else
+		{
+			countDownTimer -= Time.deltaTime;
+		}
+
 	}
 	#endregion
 

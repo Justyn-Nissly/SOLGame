@@ -1,30 +1,36 @@
-﻿using System.Collections;
+﻿/******************************************************************************/
+/* File Name:      Enemy.cs                                                   */
+/* Initial Author: Luke Koser                                                 */
+/* File Created:   10/4/19                                                    */
+/* Last Updated:   10/6/19                                                    */
+/* Purpose:        Comprise the variables common among enemies in the game.   */
+/******************************************************************************/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 
 public class Enemy : BaseCharacter
 {
-    #region Public Variables
     public string
-        enemyName; // The enemy's name
+        enemyName;  // The enemy's name
     public float
-        aggroRange,  // The max range where the enemy can detect the player
+        aggroRange, // The max range where the enemy can detect the player
 		followRange, // How far away the player must get for the enemy to deaggro
-		attackDmg,   // Base damage from an intentional attack
-        contactDmg,  // Base damage from making contact with the player
-		moveSpeed;   // Base movement speed
+		attackDmg,  // Base damage from an intentional attack
+        contactDmg, // Base damage from making contact with the player
+		moveSpeed;  // Base movement speed
     public bool
-        aggro; // The enemy has detected the player
+        aggro;      // The enemy has detected the player
     public Vector2[]
-        patrol; // The enemy's patrol points
-    public Vector2
-        playerPos;  // The player's position
-    public Rigidbody2D
-		sprite; // The enemy's sprite
-    #endregion
+        patrol;     // The enemy's patrol points
+	
+	public Rigidbody2D
+		sprite;      // The enemy's sprite
 
 	#region Private Variables
+    private Vector2
+        playerPos;  // The player's position
     #endregion
 
 	void Start()
@@ -43,10 +49,6 @@ public class Enemy : BaseCharacter
 		{
 			aggro = false;
 		}
-        if (aggro)
-        {
-            canAttack = true;
-        }
 	}
 	Enemy() : base()
 	{

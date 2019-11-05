@@ -9,6 +9,7 @@ public class EvadePlayer : MonoBehaviour
 
     #region Public Variables
     public float
+        speed,
         evasionDistance; // How far the enemy tries to stay from the player
     #endregion
 
@@ -33,11 +34,11 @@ public class EvadePlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (enemy.aggro)
         {
-            playerPos = GameObject.FindWithTag("Player").transform.position;
+            playerPos = GameObject.Find("tempPlayer").transform.position;
             Evade();
         }
     }
@@ -59,7 +60,7 @@ public class EvadePlayer : MonoBehaviour
         {
             enemy.sprite.position = Vector2.MoveTowards((Vector2)transform.position,
                                                         (Vector2)transform.position + new Vector2(x, y),
-                                                         enemy.moveSpeed * Time.deltaTime);
+                                                        speed * Time.deltaTime);
         }
     }
 
