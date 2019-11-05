@@ -14,14 +14,13 @@ public class HeavyAttackEneny : MeleeAttackBase
 
 	#region Private Variables
 	private float countDownTimer;
-	private Enemy enemy;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	private void FixedUpdate()
 	{
-		if (countDownTimer <= 0 && enemy.aggro)
+		if (countDownTimer <= 0)
 		{
 			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
 
@@ -31,11 +30,6 @@ public class HeavyAttackEneny : MeleeAttackBase
 		{
 			countDownTimer -= Time.deltaTime;
 		}
-	}
-
-	private void Start()
-	{
-		enemy = GetComponent<Enemy>();
 	}
 	#endregion
 

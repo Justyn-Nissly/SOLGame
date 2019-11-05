@@ -16,7 +16,7 @@ public class MeleeAttackBase : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private int force = 100;
+	private int force = 2;
 	#endregion
 
 	// Unity Named Methods
@@ -41,7 +41,7 @@ public class MeleeAttackBase : MonoBehaviour
 				characterBeingAtacked.TakeDamage(damage);
 
 
-				//ApplyKnockBack(collider.gameObject);
+				ApplyKnockBack(collider.gameObject);
 
 			}
 		}

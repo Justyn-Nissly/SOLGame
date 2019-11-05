@@ -8,36 +8,43 @@ public class RangedAttackEnemy : RangedAttackBase
 	#endregion
 
 	#region Public Variables
-	public int rangeAttackDamage = 2;
+	public int
+        rangeAttackDamage = 2;
+	public float
+        maxTimeBetweenAttacks = 2f,
+        minTimeBetweenAttacks = 1f;
+    #endregion
 
-	public float maxTimeBetweenAttacks = 2f;
-	public float minTimeBetweenAttacks = 1f;
-	#endregion
-
-	#region Private Variables
-	private float countDownTimer;
+    #region Private Variables
+    private Enemy
+        enemy; // Access the enemy's members
+    private float
+        countDownTimer;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	public void Start()
 	{
-		countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+        enemy          = GetComponent<Enemy>();
+        countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 	}
 
-	public void FixedUpdate()
-	{
-		if (countDownTimer <= 0)
-		{
-			Shoot();
-			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
-		}
-		else
-		{
-			countDownTimer -= Time.deltaTime;
-		}
-
-	}
+    public void FixedUpdate()
+    {
+        if (enemy.aggro)
+        {
+            if (countDownTimer <= 0)
+            {
+                Shoot();
+                countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+            }
+            else
+            {
+                countDownTimer -= Time.deltaTime;
+            }
+        }
+    }
 	#endregion
 
 	#region Utility Methods
@@ -60,12 +67,4 @@ public class RangedAttackEnemy : RangedAttackBase
 
 	#region Coroutines
 	#endregion
-
-
-
-
-
-
-
-
 }

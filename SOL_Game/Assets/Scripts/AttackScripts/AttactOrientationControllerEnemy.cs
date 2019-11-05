@@ -8,25 +8,27 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	#endregion
+	public GameObject gameObjectToLookAt;
+    #endregion
 
-	#region Private Variables
-	private GameObject gameObjectToLookAt;
-	#endregion
+    #region Private Variables
+    private Enemy
+        enemy; // Access the enemy's members
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-	private void FixedUpdate()
+    // Unity Named Methods
+    #region Main Methods
+    void Start()
+    {
+        enemy = GetComponent<Enemy>();
+    }
+
+    private void FixedUpdate()
 	{
-		if (gameObjectToLookAt != null)
+		if (gameObjectToLookAt != null && enemy.aggro)
 		{
 			LookInEightDirectionOfGameObject();
 		}
-	}
-
-	private void Start()
-	{
-		gameObjectToLookAt = GameObject.FindGameObjectWithTag("Player").gameObject;
 	}
 	#endregion
 
@@ -34,52 +36,23 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 	public void LookInEightDirectionOfGameObject()
 	{
 		// This makes the game object that this script is attached to rotate on the z axis to look at the game object to look at
-		// and only lets that game object "look" in eight directions
+		// and that game object "looks" in only orthogonal and diagonal directions
 		Vector3 dir = gameObjectToLookAt.transform.position - transform.position;
-		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 22.5f;
 
-		// Make positive if negative
-		if (angle < 0)
+		// 0 <= angle < 360
+		if (angle < 0.0f)
 		{
-			angle += 360;
+			angle += 360.0f;
 		}
+        if (angle >= 360.0f)
+        {
+            angle -= 360.0f;
+        }
+        angle = (float) (((int) angle) / 45) * 45.0f;
 
-		// Round to the closest angle in eight directions
-		if (angle >= 0 && angle < 22.5f || angle >= 337.5f && angle < 360)
-		{
-			angle = 0;
-		}
-		else if (angle >= 22.5f && angle < 67.5f)
-		{
-			angle = 45;
-		}
-		else if (angle >= 67.5f && angle < 112.5f)
-		{
-			angle = 90;
-		}
-		else if (angle >= 112.5f && angle < 157.5f)
-		{
-			angle = 135;
-		}
-		else if (angle >= 157.5f && angle < 202.5f)
-		{
-			angle = 180;
-		}
-		else if (angle >= 202.5f && angle < 247.5f)
-		{
-			angle = 225;
-		}
-		else if (angle >= 247.5f && angle < 292.5f)
-		{
-			angle = 270;
-		}
-		else
-		{
-			angle = 315;
-		}
-
-		// apply rotation
-		transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        // apply rotation
+        transform.rotation = Quaternion.AngleAxis(angle - 90.0f, Vector3.forward);
 	}
 	#endregion
 
