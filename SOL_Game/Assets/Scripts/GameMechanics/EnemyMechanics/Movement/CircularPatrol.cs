@@ -8,9 +8,6 @@ public class CircularPatrol : MonoBehaviour
     #endregion
 
     #region Public Variables
-    public float
-        speed;
-
     public bool
         clockwise; // The enemy is patrolling clockwise
     #endregion
@@ -33,7 +30,7 @@ public class CircularPatrol : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (true/*enemy.aggro == false*/)
+        if (enemy.aggro == false)
         {
             CirclePatrol(ref angle);
         }
@@ -44,7 +41,8 @@ public class CircularPatrol : MonoBehaviour
     // Patrol  in a circular pattern
     public void CirclePatrol(ref float angle)
     {
-        enemy.sprite.MovePosition(enemy.sprite.position + new Vector2(Cos(angle), Sin(angle)) * Time.deltaTime * speed);
+        enemy.sprite.MovePosition(enemy.sprite.position + new Vector2(Cos(angle), Sin(angle))
+                                                        * Time.deltaTime * enemy.moveSpeed * 2.0f);
 
         // Update the movement angle
         if (clockwise)

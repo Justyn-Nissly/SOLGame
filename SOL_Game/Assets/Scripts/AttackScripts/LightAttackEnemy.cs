@@ -8,34 +8,41 @@ public class LightAttackEnemy : MeleeAttackBase
 	#endregion
 
 	#region Public Variables
-	public float maxTimeBetweenAttacks = 1.2f;
-	public float minTimeBetweenAttacks = 0.7f;
+	public Enemy
+        enemy;
+    public float
+	    maxTimeBetweenAttacks = 1.2f,
+	    minTimeBetweenAttacks = 0.7f,
+	    countDownTimer;
+    public bool
+        attacking;
 	#endregion
 
 	#region Private Variables
-	private float countDownTimer;
-	private Enemy enemy;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	private void FixedUpdate()
 	{
-		if (countDownTimer <= 0 && enemy.canAttack && enemy.aggro)
-		{
-			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
-
-			Attack();
-		}
-		else
-		{
-			countDownTimer -= Time.deltaTime;
-		}
-	}
-
-	private void Start()
-	{
-		enemy = GetComponent<Enemy>();
+        if (enemy.aggro)
+        {
+            if (countDownTimer <= 0 && enemy.canAttack && Vector2.Distance(transform.position, enemy.playerPos) <= attackRange + 0.6f)
+            {
+                countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
+                attacking      = true;
+                Attack();
+            }
+            else
+            {
+                attacking = false;
+                countDownTimer -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            countDownTimer = 0.0f;
+        }
 	}
 	#endregion
 
