@@ -22,7 +22,7 @@ public class RangedAttackEnemy : RangedAttackBase
     #region Before Start
     private void Awake()
     {
-        rangeAttackDamage = damageToGive.enemyRangedDamage;
+        rangeAttackDamage = (int)damageToGive.initialValue;
     }
     #endregion
 

@@ -40,28 +40,6 @@ public class HeavyAttackPlayer : MeleeAttackBase
     #endregion
 
 
-    // Inflict dagame function
-    #region Utility Methods
-    public void Attack()
-    {
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
-
-        foreach (Collider2D collider in enemiesToDamage)
-        {
-            BaseCharacter characterBeingAtacked = collider.GetComponent<BaseCharacter>();
-            if (characterBeingAtacked != null)
-            {
-                characterBeingAtacked.TakeDamage(damageToGive.playerHeavyDamage);
-
-
-                //ApplyKnockBack(collider.gameObject); MAKE SURE TO UNCOMMENT THIS BEFORE MERGIMNG TO TEST
-
-            }
-        }
-
-        GameObject weaponInstance = Instantiate(weapon, attackPosition.transform);
-        Destroy(weaponInstance, .3f);
-    }
-    #endregion
+   
 
 }

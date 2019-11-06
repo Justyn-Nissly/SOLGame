@@ -14,7 +14,7 @@ public class RangedAttackBase : MonoBehaviour
 	public Transform firePoint;
 	public GameObject bulletPrefab;
 	public SpriteRenderer GunSprite;
-    public IntValue damageToGive;
+    public FloatValue damageToGive;
     #endregion
 
     #region Private Variables

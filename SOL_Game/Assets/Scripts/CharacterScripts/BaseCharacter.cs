@@ -8,8 +8,7 @@ public class BaseCharacter : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public IntValue MaxHealth;
-	public int CurrentHealth;
+	public FloatValue currentHealth;
 
 
     public bool CanAttack = true; // for disabling the ability to attack, like when the players shield is up the player cant attack
@@ -31,7 +30,7 @@ public class BaseCharacter : MonoBehaviour
 	{
 		if(CanTakeDamage == true)
 		{
-			CurrentHealth -= damage;
+			currentHealth.runTimeValue -= damage;
 			StartCoroutine("StartBlinking");
 		}
 	}

@@ -20,7 +20,7 @@ public class RangedAttackPlayer : RangedAttackBase
     //Initialize Values
     private void Awake()
     {
-        overRideBulletDamage = damageToGive.playerRangedDamage;
+        overRideBulletDamage = (int)damageToGive.initialValue;
     }
 
     // Unity Named Methods

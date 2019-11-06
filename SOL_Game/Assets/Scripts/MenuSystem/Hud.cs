@@ -27,7 +27,7 @@ public class Hud : MonoBehaviour
     }
 	void Update()
 	{
-        HeartUI.sprite = HeartSprites[player.CurrentHealth];
+        HeartUI.sprite = HeartSprites[(int)player.currentHealth.initialValue];
 	}
 	#endregion
 

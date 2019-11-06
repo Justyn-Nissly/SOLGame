@@ -35,9 +35,9 @@ public class BulletLogic : MonoBehaviour
 			{
 				Player player = collision.GetComponent<Player>();
 				player.TakeDamage(bulletDamage);
-				Debug.Log("players CurrentHealth = " + player.CurrentHealth);
+				Debug.Log("players CurrentHealth = " + player.currentHealth.initialValue);
 
-				if (player.CurrentHealth <= 0)
+				if (player.currentHealth.initialValue <= 0)
 				{
 					Debug.Log("the player died");
 				}
@@ -46,9 +46,9 @@ public class BulletLogic : MonoBehaviour
 			{
 				Enemy enemy = collision.GetComponent<Enemy>();
 				enemy.TakeDamage(bulletDamage);
-				Debug.Log("enemy's CurrentHealth = " + enemy.CurrentHealth);
+				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth.initialValue);
 
-				if (enemy.CurrentHealth <= 0)
+				if (enemy.currentHealth.initialValue <= 0)
 				{
 					Destroy(collision.gameObject);
 				}
