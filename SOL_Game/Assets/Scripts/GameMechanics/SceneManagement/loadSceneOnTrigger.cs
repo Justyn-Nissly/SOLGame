@@ -8,6 +8,8 @@ public class loadSceneOnTrigger : MonoBehaviour
 {
 	public string sceneToLoad; // the name of the scene that will be loaded when the player enters this trigger
 
+	public bool onTeleportStartInBeginingPosition = true;
+
 	public Image canvisFadeImage; // this is a black image that is on the canvas that covers the whole screen
 
 	/// play fade to black coroutine when there is a collision
@@ -42,6 +44,8 @@ public class loadSceneOnTrigger : MonoBehaviour
 
 			yield return null; // wait to the next frame to continue
 		}
+
+		GlobalVarablesAndMethods.startInBeginingPosition = onTeleportStartInBeginingPosition;
 		SceneManager.LoadScene(sceneToLoad); // load this scene once the image is black
 	}
 }

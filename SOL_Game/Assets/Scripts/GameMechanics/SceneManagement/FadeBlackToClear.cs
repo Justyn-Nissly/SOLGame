@@ -11,6 +11,8 @@ public class FadeBlackToClear : MonoBehaviour
 {
 	public Image canvisFadeImage; // this is a black image that is on the canvas that covers the whole screen
 
+	float fadeToClearTime = 2f;
+
 	/// <summary>
 	/// fade to clear at the start of this scene
 	/// </summary>
@@ -24,26 +26,28 @@ public class FadeBlackToClear : MonoBehaviour
 	/// </summary>
 	private void FadeToClear()
 	{
-		float fadeSpeed = 1f;
+		float fadeSpeed = 1.2f;
 
 		canvisFadeImage.color = Color.Lerp(canvisFadeImage.color, Color.clear, fadeSpeed * Time.deltaTime);
 	}
-
 
 	/// <summary>
 	/// fades an image to clear over time
 	/// </summary>
 	public IEnumerator FadeToClearCoroutine()
 	{
+		float timer = fadeToClearTime;
+
 		canvisFadeImage.color = Color.black; // make image black
 
-		while (canvisFadeImage.color.a >= 0.05f)
+		yield return new WaitForSeconds(.1f); // add a pause before starting the fade to clear
+
+		while (timer >= 0)
 		{
 			FadeToClear();
+			timer -= Time.deltaTime;
 
 			yield return null; // wait to the next frame to continue
 		}
-
-		canvisFadeImage.color = Color.clear; // make image transparent
 	}
 }

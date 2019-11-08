@@ -8,23 +8,37 @@ using UnityEngine;
 /// </summary>
 public class LoadPlayer : MonoBehaviour
 {
-	public Transform playerStartingPosition;
+	public Transform defaultPlayerStartingPosition;
+	public Transform altStartingPosition;
 
 	public GameObject playerPrefab; // the player prefab, it will be instantiated if there is no player in the scene already
+
+	private Transform startingPosition;
 
 	private void Awake()
 	{
 		GameObject playerInScene = GameObject.FindGameObjectWithTag("Player");
 
+		// pick the right starting position
+		if (GlobalVarablesAndMethods.startInBeginingPosition == false && altStartingPosition != null)
+		{
+			startingPosition = altStartingPosition;
+		}
+		else
+		{
+			startingPosition = defaultPlayerStartingPosition;
+		}
+
+
 		if (playerInScene != null)
 		{
 			// just move the player scene its in the scene
-			playerInScene.transform.position = playerStartingPosition.position;
+			playerInScene.transform.position = startingPosition.position;
 		}
 		else
 		{
 			// instantiate the player prefab because there is no player in this scene
-			Instantiate(playerPrefab, playerStartingPosition.position, playerPrefab.transform.rotation);
+			Instantiate(playerPrefab, startingPosition.position, playerPrefab.transform.rotation);
 		}
 	}
 }
