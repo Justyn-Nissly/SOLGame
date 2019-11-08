@@ -8,33 +8,34 @@ public class ShieldBase : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public SpriteRenderer shieldSprite;
-	public BoxCollider2D shieldBoxCollider;
+	public SpriteRenderer
+        shieldSprite; // Shield graphics
+	public BoxCollider2D
+        shieldBoxCollider; // The shield itself
 	#endregion
 
 	#region Private Variables
-	// so that you don't call disable shield if the shield is already disabled
-	protected bool ShieldIsEnabled = false;
-	#endregion
+	protected bool
+        shieldIsEnabled; // For toggling the shield on/off
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-
+    // Unity Named Methods
+    #region Main Methods
+    void Start()
+    {
+        shieldIsEnabled = false;
+    }
 	#endregion
 
 	#region Utility Methods
-	/// <summary>
-	/// Enable the shield sprite
-	/// </summary>
+	// Turn on the shield
 	public void EnableShield()
 	{
-		shieldSprite.enabled = true;
+		shieldSprite.enabled      = true;
 		shieldBoxCollider.enabled = true;
 	}
 
-	/// <summary>
-	/// Disable the shield sprite
-	/// </summary>
+	// Turn off the shield
 	public void DisableShield()
 	{
 		shieldSprite.enabled = false;

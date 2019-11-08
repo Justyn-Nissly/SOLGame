@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-	private GameObject pauseMenu;
+
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.End))
@@ -17,9 +17,7 @@ public class MainMenu : MonoBehaviour
 	public void PlayGame()
     {
         SceneManager.LoadScene("Hub");
-		pauseMenu = GameObject.Find("PauseMenuCanvas(Clone)");
-		pauseMenu.GetComponent<Canvas>().enabled = false;
-	}
+    }
 
 
     // Quits the game

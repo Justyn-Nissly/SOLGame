@@ -8,9 +8,11 @@ public class ShieldEnemy : ShieldBase
 	#endregion
 
 	#region Public Variables
-	public bool hasAttack = false;
-	public float maxTimeBetweenAttacks = 1.2f;
-	public float minTimeBetweenAttacks = 0.7f;
+	public bool
+        hasAttack = false;
+	public float
+        maxTimeBetweenAttacks = 1.2f,
+	    minTimeBetweenAttacks = 0.7f;
 	#endregion
 
 	#region Private Variables
@@ -29,9 +31,10 @@ public class ShieldEnemy : ShieldBase
 		EnableShield();
         enemy           = GetComponent<Enemy>();
         strike          = GetComponent<EvasiveStrike>();
-		ShieldIsEnabled = true;
+		shieldIsEnabled = true;
         enemy.canAttack = false;
         shieldDownTimer = 0.0f;
+        hasAttack       = false;
     }
 
 	public void FixedUpdate()
@@ -42,7 +45,7 @@ public class ShieldEnemy : ShieldBase
             if (shieldDownTimer <= 0.0f)
             {
                 DisableShield();
-                ShieldIsEnabled = false;
+                shieldIsEnabled = false;
                 enemy.canAttack = true;
             }
         }
@@ -61,7 +64,7 @@ public class ShieldEnemy : ShieldBase
 	public void ReEnableShield()
 	{
 		EnableShield();
-		ShieldIsEnabled = true;
+		shieldIsEnabled = true;
 		enemy.canAttack = false;
 	}
 	#endregion

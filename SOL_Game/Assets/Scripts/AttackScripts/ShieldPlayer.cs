@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ShieldPlayer : ShieldBase
 {
-	#region Enums
+	#region Enums and Defined Constants
 	#endregion
 
 	#region Public Variables
-	public Player player;
+	public Player
+        player; // Reference player script
 	#endregion
 
 	#region Private Variables
@@ -18,16 +19,18 @@ public class ShieldPlayer : ShieldBase
 	#region Main Methods
 	private void FixedUpdate()
 	{
+        // On input activate the player's shield
 		if (Input.GetButton("B"))
 		{
 			EnableShield();
-			ShieldIsEnabled = true;
+			shieldIsEnabled = true;
 			player.canAttack = false;
 		}
-		else if (Input.GetButton("B") == false && ShieldIsEnabled)
+        // On release of input deactivate the player's shield
+        else if (Input.GetButton("B") == false && shieldIsEnabled)
 		{
 			DisableShield();
-			ShieldIsEnabled = false;
+			shieldIsEnabled = false;
 			player.canAttack = true;
 		}
 	}

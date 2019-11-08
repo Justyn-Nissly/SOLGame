@@ -5,21 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
 {
-	public float speed;
+	private float speed;
 	private float moveHorizontal;
 	private float moveVertical;
 	private Vector2 movement;
 	private Rigidbody2D rb2d;
-    public Animator animator;
 
+	
 
-
-    /// <summary>
-    /// Start is called before the first frame update
-    /// </summary>
-    void Start()
+	/// <summary>
+	/// Start is called before the first frame update
+	/// </summary>
+	void Start()
     {
-		//+speed = .1f;
+		speed = .1f;
 
 		rb2d = GetComponent<Rigidbody2D>();
 	 }
@@ -34,7 +33,7 @@ public class playerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-        /*// Get the Horizontal Axis
+		// get the horizontal movement input
 		if (Input.GetAxis("Horizontal") > 0)
 			moveHorizontal = speed;
 		else if (Input.GetAxis("Horizontal") < 0)
@@ -42,7 +41,7 @@ public class playerMovement : MonoBehaviour
 		else
 			moveHorizontal = 0;
 
-		// Get the Vertical Axis
+		// get the vertical movement input
 		if (Input.GetAxis("Vertical") > 0)
 			moveVertical = speed;
 		else if (Input.GetAxis("Vertical") < 0)
@@ -50,17 +49,14 @@ public class playerMovement : MonoBehaviour
 		else
 			moveVertical = 0;
 
-        // Set the movement vector
-		movement = new Vector2(moveHorizontal, moveVertical);*/
+		movement = new Vector2(moveHorizontal, moveVertical);
 
-        movement = new Vector2(Mathf.RoundToInt(Input.GetAxis("Horizontal")) * speed, Mathf.RoundToInt(Input.GetAxis("Vertical")) * speed);
+		// move the player if there not colliding with a object
 
-        // Update the values in the Animator
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Magnitude", movement.magnitude);
-
-        // Update the Hero's position, taking note of colliders.
-        rb2d.MovePosition(movement + rb2d.position);
+		rb2d.MovePosition(movement + rb2d.position);
+//        if (Input.GetKeyDown(KeyCode.Escape))
+//        {
+//            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+//        }
 	}
 }
