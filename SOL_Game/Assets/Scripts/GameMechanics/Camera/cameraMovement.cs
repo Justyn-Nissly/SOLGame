@@ -15,7 +15,7 @@ public class cameraMovement : MonoBehaviour
 
 	#region Private Variables
 	private Transform target; // the target the camera will follow, the player
-	private float smoothing = 0.1f; // how close should the camera follow the player
+	private float smoothing = 0.05f; // how close should the camera follow the player
 	#endregion
 
 	// Unity Named Methods

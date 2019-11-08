@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalVarablesAndMethods : MonoBehaviour
+public class GlobalVarablesAndMethods
 {
+	#region Enums
+	#endregion
+
+	#region Public Variables
 	/// <summary>
 	/// this a flag for if you want the player to start at the default start position in a facility
 	/// for example if you go from the hub to a facility you want to be at the start but
@@ -11,6 +15,18 @@ public class GlobalVarablesAndMethods : MonoBehaviour
 	/// at the beginning you want to start at the top of the stairs
 	/// </summary>
 	public static bool startInBeginingPosition = true;
+	#endregion
 
+	#region Private Variables
+	#endregion
 
+	// Unity Named Methods
+	#region Main Methods
+	#endregion
+
+	#region Utility Methods
+	#endregion
+
+	#region Coroutines
+	#endregion
 }

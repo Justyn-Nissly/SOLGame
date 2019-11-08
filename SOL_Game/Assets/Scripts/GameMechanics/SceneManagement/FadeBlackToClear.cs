@@ -9,10 +9,19 @@ using UnityEngine.UI;
 /// </summary>
 public class FadeBlackToClear : MonoBehaviour
 {
+	#region Enums
+	#endregion
+
+	#region Public Variables
 	public Image canvisFadeImage; // this is a black image that is on the canvas that covers the whole screen
+	#endregion
 
-	float fadeToClearTime = 2f;
+	#region Private Variables
+	private float fadeToClearTime = 2f;
+	#endregion
 
+	// Unity Named Methods
+	#region Main Methods
 	/// <summary>
 	/// fade to clear at the start of this scene
 	/// </summary>
@@ -20,7 +29,9 @@ public class FadeBlackToClear : MonoBehaviour
 	{
 		StartCoroutine(FadeToClearCoroutine());
 	}
+	#endregion
 
+	#region Utility Methods
 	/// <summary>
 	/// fades an image to clear over time, called from a coroutine
 	/// </summary>
@@ -30,7 +41,9 @@ public class FadeBlackToClear : MonoBehaviour
 
 		canvisFadeImage.color = Color.Lerp(canvisFadeImage.color, Color.clear, fadeSpeed * Time.deltaTime);
 	}
+	#endregion
 
+	#region Coroutines
 	/// <summary>
 	/// fades an image to clear over time
 	/// </summary>
@@ -50,4 +63,5 @@ public class FadeBlackToClear : MonoBehaviour
 			yield return null; // wait to the next frame to continue
 		}
 	}
+	#endregion
 }

@@ -8,13 +8,22 @@ using UnityEngine;
 /// </summary>
 public class LoadPlayer : MonoBehaviour
 {
+	#region Enums
+	#endregion
+
+	#region Public Variables
 	public Transform defaultPlayerStartingPosition;
 	public Transform altStartingPosition;
 
 	public GameObject playerPrefab; // the player prefab, it will be instantiated if there is no player in the scene already
+	#endregion
 
+	#region Private Variables
 	private Transform startingPosition;
+	#endregion
 
+	// Unity Named Methods
+	#region Main Methods
 	private void Awake()
 	{
 		GameObject playerInScene = GameObject.FindGameObjectWithTag("Player");
@@ -41,4 +50,18 @@ public class LoadPlayer : MonoBehaviour
 			Instantiate(playerPrefab, startingPosition.position, playerPrefab.transform.rotation);
 		}
 	}
+	#endregion
+
+	#region Utility Methods
+	#endregion
+
+	#region Coroutines
+	#endregion
+
+
+
+
+
+
+
 }
