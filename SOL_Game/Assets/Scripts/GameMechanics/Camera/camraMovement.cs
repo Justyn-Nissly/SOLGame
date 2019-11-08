@@ -20,7 +20,12 @@ public class camraMovement : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		offset = transform.position - player.transform.position;
+		if(player == null)
+		{
+			player = GameObject.FindGameObjectWithTag("Player");
+		}
+
+		offset.z = -10;
 	}
 
 	// LateUpdate is called after Update each frame
