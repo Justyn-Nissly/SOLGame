@@ -12,7 +12,7 @@ public class playerMovement : MonoBehaviour
 	private Rigidbody2D rb2d;
     public Animator animator;
 
-
+	private Player player;
 
     /// <summary>
     /// Start is called before the first frame update
@@ -22,45 +22,22 @@ public class playerMovement : MonoBehaviour
 		//+speed = .1f;
 
 		rb2d = GetComponent<Rigidbody2D>();
+		player = GetComponent<Player>();
 	 }
-
-	/// <summary>
-	/// Update is called once per frame
-	/// </summary>
-	void Update()
-	{
-		
-	}
 
 	private void FixedUpdate()
 	{
-        /*// Get the Horizontal Axis
-		if (Input.GetAxis("Horizontal") > 0)
-			moveHorizontal = speed;
-		else if (Input.GetAxis("Horizontal") < 0)
-			moveHorizontal = -speed;
-		else
-			moveHorizontal = 0;
+		if (player.canMove)
+		{
+			movement = new Vector2(Mathf.RoundToInt(Input.GetAxis("Horizontal")) * speed, Mathf.RoundToInt(Input.GetAxis("Vertical")) * speed);
 
-		// Get the Vertical Axis
-		if (Input.GetAxis("Vertical") > 0)
-			moveVertical = speed;
-		else if (Input.GetAxis("Vertical") < 0)
-			moveVertical = -speed;
-		else
-			moveVertical = 0;
+			// Update the values in the Animator
+			animator.SetFloat("Horizontal", movement.x);
+			animator.SetFloat("Vertical", movement.y);
+			animator.SetFloat("Magnitude", movement.magnitude);
 
-        // Set the movement vector
-		movement = new Vector2(moveHorizontal, moveVertical);*/
-
-        movement = new Vector2(Mathf.RoundToInt(Input.GetAxis("Horizontal")) * speed, Mathf.RoundToInt(Input.GetAxis("Vertical")) * speed);
-
-        // Update the values in the Animator
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Magnitude", movement.magnitude);
-
-        // Update the Hero's position, taking note of colliders.
-        rb2d.MovePosition(movement + rb2d.position);
+			// Update the Hero's position, taking note of colliders.
+			rb2d.MovePosition(movement + rb2d.position);
+		}
 	}
 }

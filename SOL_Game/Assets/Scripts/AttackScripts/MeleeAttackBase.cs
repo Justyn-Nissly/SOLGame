@@ -18,8 +18,10 @@ public class MeleeAttackBase : MonoBehaviour
 	#region Private Variables
 	protected float thrust = 7;
 	protected float knockTime = .2f;
+	private Player player;
+
 	#endregion
-	
+
 	// Unity Named Methods
 	#region Main Methods
 	private void OnDrawGizmosSelected()
@@ -27,6 +29,7 @@ public class MeleeAttackBase : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(attackPosition.position, attackRange);
 	}
+
 	#endregion
 
 	#region Utility Methods
@@ -41,9 +44,7 @@ public class MeleeAttackBase : MonoBehaviour
 			{
 				characterBeingAtacked.TakeDamage(damage);
 
-
-				//ApplyKnockBack(collider.gameObject);
-
+				ApplyKnockBack(collider.gameObject);
 			}
 		}
 
@@ -58,6 +59,9 @@ public class MeleeAttackBase : MonoBehaviour
 		// add knock back
 		if(rigidbody2D != null && characterBeingAtacked.CompareTag("Player"))
 		{
+			player = characterBeingAtacked.GetComponent<Player>();
+			player.canMove = false;
+
 			rigidbody2D.isKinematic = true;
 			rigidbody2D.isKinematic = false;
 			Vector2 difference = characterBeingAtacked.transform.position - transform.position;
@@ -69,7 +73,7 @@ public class MeleeAttackBase : MonoBehaviour
 		else if (rigidbody2D != null && characterBeingAtacked.CompareTag("Enemy"))
 		{
 			Vector2 difference = characterBeingAtacked.transform.position - transform.position;
-			difference = difference.normalized * (thrust);
+			difference = difference.normalized * (thrust * 2);
 
 			rigidbody2D.AddForce(difference, ForceMode2D.Impulse);
 			StartCoroutine(KnockCoE(characterBeingAtacked));
@@ -86,6 +90,8 @@ public class MeleeAttackBase : MonoBehaviour
 				rigidbody2D.velocity = Vector2.zero;
 				rigidbody2D.isKinematic = true;
 				rigidbody2D.isKinematic = false;
+
+				player.canMove = true;
 
 			}
 		}

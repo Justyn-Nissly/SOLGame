@@ -38,45 +38,23 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 		Vector3 dir = gameObjectToLookAt.transform.position - transform.position;
 		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
+
+		if (angle < 0f)
+		{
+			angle += 360f;
+		}
+		else if (angle >= 360f)
+		{
+			angle -= 360f;
+		}
+
 		// Make positive if negative
 		if (angle < 0)
 		{
 			angle += 360;
 		}
 
-		// Round to the closest angle in eight directions
-		if (angle >= 0 && angle < 22.5f || angle >= 337.5f && angle < 360)
-		{
-			angle = 0;
-		}
-		else if (angle >= 22.5f && angle < 67.5f)
-		{
-			angle = 45;
-		}
-		else if (angle >= 67.5f && angle < 112.5f)
-		{
-			angle = 90;
-		}
-		else if (angle >= 112.5f && angle < 157.5f)
-		{
-			angle = 135;
-		}
-		else if (angle >= 157.5f && angle < 202.5f)
-		{
-			angle = 180;
-		}
-		else if (angle >= 202.5f && angle < 247.5f)
-		{
-			angle = 225;
-		}
-		else if (angle >= 247.5f && angle < 292.5f)
-		{
-			angle = 270;
-		}
-		else
-		{
-			angle = 315;
-		}
+		angle = (float)(((int)angle) / 45) * 45.0f;
 
 		// apply rotation
 		transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);

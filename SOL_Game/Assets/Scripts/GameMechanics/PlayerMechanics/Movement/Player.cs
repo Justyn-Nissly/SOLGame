@@ -10,6 +10,7 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Public Variables
+	public bool canMove = true;
 	#endregion
 
 	#region Private Variables
