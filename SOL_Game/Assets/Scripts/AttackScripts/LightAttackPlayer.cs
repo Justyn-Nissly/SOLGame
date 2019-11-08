@@ -18,6 +18,13 @@ public class LightAttackPlayer : MeleeAttackBase
 
 	// Unity Named Methods
 	#region Main Methods
+	private void Start()
+	{
+		thrust = 20;
+		knockTime = .4f;
+	}
+
+
 	private void FixedUpdate()
 	{
 		if (timeBetweenAttacks <= 0 && Input.GetButtonDown("A") && player.canAttack)
