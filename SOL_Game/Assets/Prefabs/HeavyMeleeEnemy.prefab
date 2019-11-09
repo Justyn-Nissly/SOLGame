@@ -141,10 +141,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8293376742899619616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
+  m_Script: {fileID: 11500000, guid: f4b593f0bf7aada449313a14c664dd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectToLookAt: {fileID: 0}
+  objectToRotate: {fileID: 0}
 --- !u!114 &8293376742899619631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,13 +159,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   canAttack: 1
+  canTakeDamage: 1
   enemyName: 
   aggroRange: 0
+  followRange: 0
   attackDmg: 0
   contactDmg: 0
   moveSpeed: 0
   aggro: 0
   patrol: []
+  playerPos: {x: 0, y: 0}
+  sprite: {fileID: 0}
 --- !u!1 &8293376743106351247
 GameObject:
   m_ObjectHideFlags: 0
