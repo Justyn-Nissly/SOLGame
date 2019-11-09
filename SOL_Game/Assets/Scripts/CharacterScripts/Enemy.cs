@@ -8,10 +8,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 [System.Serializable]
 
 public class Enemy : BaseCharacter
 {
+    public Image healthBar;
     public string
         enemyName;  // The enemy's name
     public float
@@ -31,6 +33,8 @@ public class Enemy : BaseCharacter
 	#region Private Variables
     private Vector2
         playerPos;  // The player's position
+
+
     #endregion
 
 	void Start()
@@ -55,11 +59,19 @@ public class Enemy : BaseCharacter
 	{
 		base.TakeDamage(damage);
 
-		Debug.Log("enemy CurrentHealth = " + currentHealth.initialValue);
+        float percentHealth = currentHealth.runTimeValue / maxHealth.initialValue;
+        SetHealth(percentHealth);
 
-		if (currentHealth.initialValue <= 0)
+        Debug.Log("enemy CurrentHealth = " + currentHealth.initialValue);
+
+		if (currentHealth.runTimeValue <= 0)
 		{
 			Destroy(gameObject);
 		}
 	}
+
+    void SetHealth(float percentHelth)
+    {
+        healthBar.fillAmount = percentHelth;
+    }
 }

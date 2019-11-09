@@ -9,6 +9,7 @@ public class BaseCharacter : MonoBehaviour
 
 	#region Public Variables
 	public FloatValue currentHealth;
+    public FloatValue maxHealth;
 
 
     public bool CanAttack = true; // for disabling the ability to attack, like when the players shield is up the player cant attack

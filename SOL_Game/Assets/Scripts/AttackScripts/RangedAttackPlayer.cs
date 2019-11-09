@@ -20,6 +20,7 @@ public class RangedAttackPlayer : RangedAttackBase
     //Initialize Values
     private void Awake()
     {
+
         overRideBulletDamage = (int)damageToGive.initialValue;
     }
 
