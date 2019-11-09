@@ -136,7 +136,7 @@ MonoBehaviour:
   followRange: 8
   attackDmg: 0
   contactDmg: 0
-  moveSpeed: 2
+  moveSpeed: 5
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
@@ -155,8 +155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shieldSprite: {fileID: 0}
   shieldBoxCollider: {fileID: 0}
-  hasAttack: 0
-  shieldDropTime: 0
+  hasAttack: 1
+  shieldDropTime: 5
   shieldDownTimer: 0
 --- !u!114 &8317361776883795860
 MonoBehaviour:
@@ -177,9 +177,9 @@ MonoBehaviour:
     m_Bits: 256
   weapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff, type: 3}
   damage: 2
-  enemy: {fileID: 0}
-  maxTimeBetweenAttacks: 3
-  minTimeBetweenAttacks: 0.8
+  enemy: {fileID: 8317361776883795851}
+  maxTimeBetweenAttacks: 1
+  minTimeBetweenAttacks: 1
   countDownTimer: 0
   attacking: 0
 --- !u!114 &8317361776883795861
