@@ -9,27 +9,28 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public static GameManager gameManager; // The game manager object keeps track of the items that need to persist across scenes
-	public Canvas pauseMenuCanvas;         // The canvas that houses the controls for the pause menu
+	public static GameManager gameManager;     // The game manager object keeps track of the items that need to persist across scenes
+	public        Canvas      pauseMenuCanvas; // The canvas that houses the controls for the pause menu
+	Scene                     activeScene;     // The scene that is currently active
 	#endregion
 
 	#region Private Variables
-	Scene activeScene;
+
 	#endregion
 	// Unity Named Methods
 	#region Main Methods
 	void Awake()
 	{
 		activeScene = SceneManager.GetActiveScene();
-		// Check if the game manager is assigned to anything
+		/// Check if the game manager is assigned to anything
 		if (gameManager == null)
 		{
 			gameManager = this;
 
-			// Instantiate the pause menu canvas
+			/// Instantiate the pause menu canvas
 			PauseMenu.pauseMenuUI = Instantiate(pauseMenuCanvas, new Vector3(0, 0, 0), Quaternion.identity).gameObject;
 
-			// Keep items persisting across scenes
+			/// Keep items persisting across scenes
 			DontDestroyOnLoad(gameObject);
 			DontDestroyOnLoad(PauseMenu.pauseMenuUI);
 			DontDestroyOnLoad(GameObject.Find("EventSystem"));
@@ -47,11 +48,3 @@ public class GameManager : MonoBehaviour
 	#region Coroutines
 	#endregion
 }
-/*void Awake()
-	{
-		PauseMenu.pauseMenuUI = Instantiate(pauseMenuCanvas, new Vector3(0, 0, 0), Quaternion.identity).gameObject;
-		DontDestroyOnLoad(gameObject);
-		DontDestroyOnLoad(PauseMenu.pauseMenuUI);
-		DontDestroyOnLoad(GameObject.Find("EventSystem"));
-		Destroy(GetComponent<InstantiatePauseMenu>());
-	}*/

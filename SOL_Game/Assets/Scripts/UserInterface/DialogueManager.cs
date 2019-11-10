@@ -10,10 +10,10 @@ public class DialogueManager : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public Text nameText;
-	public Text dialogueText;
-	public Animator animator;
-	public Queue<string> sentences; // All sentences for the characters dialogue
+	public Animator      animator;     // The animator controler to make the dialogue box appear
+	public Text          dialogueText; // The text that the NPC is currently speaking
+	public Text          nameText;     // The name of the NPC currently Speaking
+	public Queue<string> sentences;    // All sentences for the characters dialogue
 	#endregion
 
 	#region Private Variables
@@ -37,6 +37,7 @@ public class DialogueManager : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// Start the dialogue with the player
 	public void StartDialogue (Dialogue dialogue)
 	{
 		animator.SetBool("IsOpen", true);
@@ -51,6 +52,7 @@ public class DialogueManager : MonoBehaviour
 		DisplayNextSentence();
 	}
 
+	/// Display the next sentence the nonplayable character will speak
 	public void DisplayNextSentence()
 	{
 		if (sentences.Count == 0)
@@ -64,6 +66,7 @@ public class DialogueManager : MonoBehaviour
 		StartCoroutine(TypeSentence(sentence));
 	}
 
+	/// End the dialogue with the player and close the dialogue box
 	public void EndDialogue()
 	{
 		animator.SetBool("IsOpen", false);
@@ -72,6 +75,7 @@ public class DialogueManager : MonoBehaviour
 	#endregion
 
 	#region Coroutines
+	/// Type each letter of a sentence into the dialogue box one at a time
 	IEnumerator TypeSentence(string sentence)
 	{
 		dialogueText.text = "";

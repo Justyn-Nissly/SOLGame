@@ -9,9 +9,8 @@ public class DialogueTrigger : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public playerMovement playerMovement;
 	public Dialogue dialogue; // The dialogue for the nonplayable character
-	public GameObject NPC;
+	public GameObject NPC;    // The NonPlayable Character that is currently speaking
 	#endregion
 
 	#region Private Variables
@@ -20,6 +19,7 @@ public class DialogueTrigger : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
+	/// Trigger the dialogue between the player and the NPC
 	void OnTriggerEnter2D(Collider2D NPC)
 	{
 		if (NPC.CompareTag("Player"))
