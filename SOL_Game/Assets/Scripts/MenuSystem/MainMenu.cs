@@ -5,7 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+	#region Enums
 
+	#endregion
+
+	#region Public Variables
+
+	#endregion
+
+	#region Private Variables
+	private GameObject pauseMenu;
+	#endregion
+
+	// Unity Named Methods
+	#region Main Methods
+	/// Check every frame if the user has hit the "end" key to open the developer menu
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.End))
@@ -13,17 +27,27 @@ public class MainMenu : MonoBehaviour
 			SceneManager.LoadScene("DevMenu");
 		}
 	}
-	// Loads the game
+	#endregion
+
+	#region Utility Methods
+	/// Loads the game
 	public void PlayGame()
+	{
+		SceneManager.LoadScene("Hub");
+	}
+
+	/// Quits the game
+	public void QuitGame()
+	{
+		Debug.Log("QUIT");
+		Application.Quit();
+	}
+	#endregion
+
     {
         SceneManager.LoadScene("Hub");
     }
+	#region Coroutines
 
-
-    // Quits the game
-    public void QuitGame()
-    {
-        Debug.Log("QUIT");
-        Application.Quit();
-    }
+	#endregion
 }

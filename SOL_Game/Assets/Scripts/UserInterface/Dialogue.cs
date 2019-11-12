@@ -11,7 +11,7 @@ public class Dialogue
 	#endregion
 
 	#region Public Variables
-	public string name;        // The name of teh nonplayable character
+	public string name;        // The name of the nonplayable character
 
 	[TextArea(3,10)]
 	public string[] sentences; // The sentences the nonplayable character will speak
