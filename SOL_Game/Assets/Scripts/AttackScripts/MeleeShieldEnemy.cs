@@ -30,13 +30,12 @@ public class MeleeShieldEnemy : ShieldBase
         EnableShield();
         enemy = GetComponent<Enemy>();
         lightAttackEnemy = GetComponent<LightAttackEnemy>();
-        ShieldIsEnabled = true;
+        shieldIsEnabled = true;
         shieldDownTimer = 0.0f;
     }
 
     public void FixedUpdate()
     {
-Debug.Log("ShieldIsEnabled == " + ShieldIsEnabled);
         shieldDownTimer -= Time.deltaTime;
         if (shieldDownTimer <= 0.0f)
         {
@@ -50,15 +49,15 @@ Debug.Log("ShieldIsEnabled == " + ShieldIsEnabled);
     public void ReEnableShield()
     {
         EnableShield();
-        ShieldIsEnabled = true;
+        shieldIsEnabled = true;
     }
 
     public void ToggleShield()
     {
-        if (ShieldIsEnabled)
+        if (shieldIsEnabled)
         {
             DisableShield();
-            ShieldIsEnabled = false;
+            shieldIsEnabled = false;
             enemy.canAttack = true;
         }
         else

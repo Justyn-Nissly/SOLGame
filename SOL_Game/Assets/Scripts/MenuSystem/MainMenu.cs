@@ -44,6 +44,9 @@ public class MainMenu : MonoBehaviour
 	}
 	#endregion
 
+    {
+        SceneManager.LoadScene("Hub");
+    }
 	#region Coroutines
 
 	#endregion

@@ -12,8 +12,11 @@ GameObject:
   - component: {fileID: 8293376742899619627}
   - component: {fileID: 8293376742899619628}
   - component: {fileID: 8293376742899619629}
-  - component: {fileID: 8293376742899619630}
   - component: {fileID: 8293376742899619631}
+  - component: {fileID: 302527603158291442}
+  - component: {fileID: 2184432884482877022}
+  - component: {fileID: 7347723363600433070}
+  - component: {fileID: 8385601126491959586}
   m_Layer: 9
   m_Name: HeavyMeleeEnemy
   m_TagString: Enemy
@@ -30,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 8293376742899619616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.168522, y: -2.702234, z: -0.7954795}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 8293376743106351246}
   m_Father: {fileID: 0}
@@ -132,19 +135,6 @@ MonoBehaviour:
   damage: 2
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
---- !u!114 &8293376742899619630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8293376742899619616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameObjectToLookAt: {fileID: 0}
 --- !u!114 &8293376742899619631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,13 +149,79 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   canAttack: 1
+  canTakeDamage: 1
   enemyName: 
-  aggroRange: 0
+  aggroRange: 6
+  followRange: 1
   attackDmg: 0
   contactDmg: 0
-  moveSpeed: 0
+  moveSpeed: 5
   aggro: 0
   patrol: []
+  playerPos: {x: 0, y: 0}
+  sprite: {fileID: 2184432884482877022}
+--- !u!114 &302527603158291442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &2184432884482877022
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &7347723363600433070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372e5866b75e48e448d35f8994ea5a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxChaseTime: 1
+  canMoveAtPlayer: 1
+--- !u!114 &8385601126491959586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94496abf717a74f4cb18d249ecf1b0fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTime: 6
+  minTime: 6
+  waitTime: 1
 --- !u!1 &8293376743106351247
 GameObject:
   m_ObjectHideFlags: 0

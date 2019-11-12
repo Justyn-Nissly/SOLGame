@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 7703339030992561050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.83, y: -2.76, z: -0.7954795}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 7703339030343377252}
   - {fileID: 7703339031401645893}
@@ -217,6 +217,7 @@ MonoBehaviour:
   moveSpeed: 2
   aggro: 0
   patrol: []
+  playerPos: {x: 0, y: 0}
   sprite: {fileID: 0}
 --- !u!114 &7703339030992561055
 MonoBehaviour:
@@ -249,7 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectToLookAt: {fileID: 0}
 --- !u!114 &5913705651091652437
 MonoBehaviour:
   m_ObjectHideFlags: 0

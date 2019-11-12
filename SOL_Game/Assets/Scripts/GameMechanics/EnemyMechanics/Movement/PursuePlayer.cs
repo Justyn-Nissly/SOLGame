@@ -33,16 +33,30 @@ public class PursuePlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (enemy.aggro)
+        if (enemy.aggro && canMoveAtPlayer)
         {
             playerPos = GameObject.FindWithTag("Player").transform.position;
             Pursue();
         }
     }
-    #endregion
 
-    #region Utility Methods
-    public void Pursue()
+	public bool canMoveAtPlayer = true;
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Player"))
+			canMoveAtPlayer = false;
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Player"))
+			canMoveAtPlayer = true;
+	}
+	#endregion
+
+	#region Utility Methods
+	public void Pursue()
     {
         if (chaseTime <= 0.0f)
         {
