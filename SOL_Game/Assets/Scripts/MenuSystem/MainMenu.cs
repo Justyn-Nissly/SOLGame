@@ -43,10 +43,7 @@ public class MainMenu : MonoBehaviour
 		Application.Quit();
 	}
 	#endregion
-
-    {
-        SceneManager.LoadScene("Hub");
-    }
+ 
 	#region Coroutines
 
 	#endregion

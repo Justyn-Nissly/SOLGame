@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 	#region Public Variables
 	public static GameManager gameManager;     // The game manager object keeps track of the items that need to persist across scenes
 	public        Canvas      pauseMenuCanvas; // The canvas that houses the controls for the pause menu
-	Scene                     activeScene;     // The scene that is currently active
 	#endregion
 
 	#region Private Variables
