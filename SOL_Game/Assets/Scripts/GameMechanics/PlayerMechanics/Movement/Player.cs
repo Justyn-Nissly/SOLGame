@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class Player : BaseCharacter
 {
+    public Signal playerHealthSignal;
+
 	#region Enums
 
 	#endregion
@@ -18,18 +20,17 @@ public class Player : BaseCharacter
 	#endregion
 	// Unity Named Methods
 	#region Main Methods
-	private void Awake()
-	{
-		health = 10;
-	}
+
 	#endregion
 
 	#region Utility Methods
 	public override void TakeDamage(int damage)
 	{
-		base.TakeDamage(damage);
 
-		Debug.Log("player health = " + health);
+		base.TakeDamage(damage);
+        playerHealthSignal.Raise();
+
+        Debug.Log("player CurrentHealth = " + currentHealth.initialValue);
 	}
 	#endregion
 

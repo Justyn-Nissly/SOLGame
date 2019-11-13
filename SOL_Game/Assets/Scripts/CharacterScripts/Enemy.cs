@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 [System.Serializable]
 
 public class Enemy : BaseCharacter
 {
     #region Public Variables
+    public Image healthBar;
     public string
         enemyName; // The enemy's name
     public float
@@ -25,7 +27,7 @@ public class Enemy : BaseCharacter
     #endregion
 
 	#region Private Variables
-    #endregion
+  #endregion
 
 	void Start()
 	{
@@ -36,7 +38,7 @@ public class Enemy : BaseCharacter
 	{
 		playerPos = GameObject.FindWithTag("Player").transform.position;
 		if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
-		{ 
+		{
 			aggro = true;
 		}
 		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
@@ -48,20 +50,24 @@ public class Enemy : BaseCharacter
             canAttack = true;
         }
 	}
-	Enemy() : base()
-	{
-		health = 5;
-	}
 
 	public override void TakeDamage(int damage)
 	{
 		base.TakeDamage(damage);
 
-		Debug.Log("enemy health = " + health);
+        float percentHealth = currentHealth.runTimeValue / maxHealth.initialValue;
+        SetHealth(percentHealth);
 
-		if (health <= 0)
+        Debug.Log("enemy CurrentHealth = " + currentHealth.initialValue);
+
+		if (currentHealth.runTimeValue <= 0)
 		{
 			Destroy(gameObject);
 		}
 	}
+
+    void SetHealth(float percentHelth)
+    {
+        healthBar.fillAmount = percentHelth;
+    }
 }

@@ -44,11 +44,11 @@ public class LightAttackEnemy : MeleeAttackBase
             countDownTimer = 0.0f;
         }
 	}
-	#endregion
+    #endregion
 
-	#region Utility Methods
-	#endregion
+    #region Utility Methods
+    #endregion
 
-	#region Coroutines
-	#endregion
+	  #region Coroutines
+	  #endregion
 }

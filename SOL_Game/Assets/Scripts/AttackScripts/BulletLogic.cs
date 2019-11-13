@@ -9,18 +9,20 @@ public class BulletLogic : MonoBehaviour
 
 	#region Public Variables
 	public float bulletSpeed = 15f;
-	public int bulletDamage = 2;
+	public int bulletDamage;
 	public Rigidbody2D bulletRigidbody;
 	public GameObject impactEffect;
 	public string ignoreTag; // lets the bullet ignore any game objects it hits with this tag
-	#endregion
+    #endregion
 
-	#region Private Variables
-	#endregion
+    #region Private Variables
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-	public void Start()
+
+
+    // Unity Named Methods
+    #region Main Methods
+    public void Start()
 	{
 		bulletRigidbody.velocity = transform.up * bulletSpeed;
 	}
@@ -33,9 +35,9 @@ public class BulletLogic : MonoBehaviour
 			{
 				Player player = collision.GetComponent<Player>();
 				player.TakeDamage(bulletDamage);
-				Debug.Log("players health = " + player.health);
+				Debug.Log("players CurrentHealth = " + player.currentHealth.initialValue);
 
-				if (player.health <= 0)
+				if (player.currentHealth.initialValue <= 0)
 				{
 					Debug.Log("the player died");
 				}
@@ -44,9 +46,9 @@ public class BulletLogic : MonoBehaviour
 			{
 				Enemy enemy = collision.GetComponent<Enemy>();
 				enemy.TakeDamage(bulletDamage);
-				Debug.Log("enemy's health = " + enemy.health);
+				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth.initialValue);
 
-				if (enemy.health <= 0)
+				if (enemy.currentHealth.initialValue <= 0)
 				{
 					Destroy(collision.gameObject);
 				}

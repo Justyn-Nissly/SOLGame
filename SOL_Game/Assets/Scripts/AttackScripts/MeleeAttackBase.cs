@@ -13,6 +13,7 @@ public class MeleeAttackBase : MonoBehaviour
 	public LayerMask willDamageLayer;
 	public GameObject weapon;
 	public int damage;
+    public FloatValue damageToGive;
 	#endregion
 
 	#region Private Variables
@@ -32,25 +33,38 @@ public class MeleeAttackBase : MonoBehaviour
 
 	#endregion
 
-	#region Utility Methods
-	public void Attack()
+    // Inflict dagame function
+    #region Utility Methods
+    public void Attack()
+    {
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
+
+        foreach (Collider2D collider in enemiesToDamage)
+        {
+            BaseCharacter characterBeingAtacked = collider.GetComponent<BaseCharacter>();
+            if (characterBeingAtacked != null)
+            {
+							characterBeingAtacked.TakeDamage((int)damageToGive.initialValue);
+							ApplyKnockBack(collider.gameObject);
+						}
+		 		}
+        GameObject weaponInstance = Instantiate(weapon, attackPosition.transform);
+        Destroy(weaponInstance, .3f);
+    }
+    #endregion
+
+
+
+    // Unity Named Methods
+    #region Main Methods
+    private void OnDrawGizmosSelected()
 	{
-		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
-
-		foreach (Collider2D collider in enemiesToDamage)
-		{
-			BaseCharacter characterBeingAtacked = collider.GetComponent<BaseCharacter>();
-			if (characterBeingAtacked != null)
-			{
-				characterBeingAtacked.TakeDamage(damage);
-
-				ApplyKnockBack(collider.gameObject);
-			}
-		}
-
-		GameObject weaponInstance = Instantiate(weapon, attackPosition.transform);
-		Destroy(weaponInstance, .3f);
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(attackPosition.position, attackRange);
 	}
+	#endregion
+
+	#region Utility Methods
 
 	private void ApplyKnockBack(GameObject characterBeingAtacked)
 	{

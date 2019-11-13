@@ -8,22 +8,25 @@ public class RangedAttackPlayer : RangedAttackBase
 	#endregion
 
 	#region Public Variables
-	public Player
-        player; // Reference player script
-	public int
-        rangeAttackDamage = 2;
-	public float
-        startTimeBetweenAttacks = 3.0f;
+	public Player player;
+	public int overRideBulletDamage; //Overrides The damage given to the bullet
+	public float startTimeBetweenAttacks = 3f;
 	#endregion
 
 	#region Private Variables
-	private float
-        timeBetweenAttacks;
-	#endregion
+	private float timeBetweenAttacks;
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-	public void FixedUpdate()
+    //Initialize Values
+    private void Awake()
+    {
+
+        overRideBulletDamage = (int)damageToGive.initialValue;
+    }
+
+    // Unity Named Methods
+    #region Main Methods
+    public void FixedUpdate()
 	{
         // The player can fire the blaster on cooldown
 		if (timeBetweenAttacks <= 0.0f)
@@ -52,7 +55,7 @@ public class RangedAttackPlayer : RangedAttackBase
         // Create and launch blaster bullet
 		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = rangeAttackDamage;
+		bulletLogic.bulletDamage = overRideBulletDamage;
 	}
 	#endregion
 

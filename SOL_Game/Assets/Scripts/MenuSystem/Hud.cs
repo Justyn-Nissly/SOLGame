@@ -10,7 +10,7 @@ public class Hud : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public Sprite[] HeartSprites; // The different heart sprites for players health
+	public Sprite[] HeartSprites; // The different heart sprites for players CurrentHealth
 	public Image HeartUI;         // The heart containers
 	#endregion
 
@@ -23,10 +23,11 @@ public class Hud : MonoBehaviour
 	void Start()
 	{
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-	}
+
+    }
 	void Update()
 	{
-		HeartUI.sprite = HeartSprites[player.health];
+        HeartUI.sprite = HeartSprites[(int)player.currentHealth.initialValue];
 	}
 	#endregion
 

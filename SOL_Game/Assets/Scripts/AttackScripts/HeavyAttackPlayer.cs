@@ -20,7 +20,7 @@ public class HeavyAttackPlayer : MeleeAttackBase
 	#region Main Methods
 	private void FixedUpdate()
 	{
-		if (timeBetweenAttacks <= 0 && Input.GetButtonDown("X") && player.canAttack)
+		if (timeBetweenAttacks <= 0 && Input.GetButtonDown("X") && player.CanAttack)
 		{
 			timeBetweenAttacks = startTimeBetweenAttacks; // reset the time between attacks
 
@@ -31,11 +31,15 @@ public class HeavyAttackPlayer : MeleeAttackBase
 			timeBetweenAttacks -= Time.deltaTime;
 		}
 	}
-	#endregion
+    #endregion
 
-	#region Utility Methods
-	#endregion
+    #region Utility Methods
+    #endregion
 
-	#region Coroutines
-	#endregion
+    #region Coroutines
+    #endregion
+
+
+   
+
 }

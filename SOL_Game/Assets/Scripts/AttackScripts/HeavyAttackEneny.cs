@@ -10,6 +10,7 @@ public class HeavyAttackEneny : MeleeAttackBase
 	#region Public Variables
 	public float maxTimeBetweenAttacks = 2f;
 	public float minTimeBetweenAttacks = 1f;
+	public BaseCharacter characterBeingAtacked;
 	#endregion
 
 	#region Private Variables
@@ -33,9 +34,6 @@ public class HeavyAttackEneny : MeleeAttackBase
 	}
 	#endregion
 
-	#region Utility Methods
-	#endregion
+	
 
-	#region Coroutines
-	#endregion
 }

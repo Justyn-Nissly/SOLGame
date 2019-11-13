@@ -14,21 +14,22 @@ public class RangedAttackBase : MonoBehaviour
 	public Transform firePoint;
 	public GameObject bulletPrefab;
 	public SpriteRenderer GunSprite;
-	#endregion
+    public FloatValue damageToGive;
+    #endregion
 
-	#region Private Variables
-	#endregion
+    #region Private Variables
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
+    // Unity Named Methods
+    #region Main Methods
 
-	#endregion
+    #endregion
 
-	#region Utility Methods
-	/// <summary>
-	/// Instantiates a bullet
-	/// </summary>
-	public virtual void Shoot()
+    #region Utility Methods
+    /// <summary>
+    /// Instantiates a bullet
+    /// </summary>
+    public virtual void Shoot()
 	{
 		EnableGun();
 		Invoke("DisableGun", .5f);
