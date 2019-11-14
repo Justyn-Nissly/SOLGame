@@ -16,6 +16,7 @@ public class RangedAttackEnemy : RangedAttackBase
 
 	#region Private Variables
 	private float countDownTimer;
+	private Enemy enemy;
     #endregion
 
 

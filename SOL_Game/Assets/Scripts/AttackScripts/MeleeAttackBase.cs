@@ -53,17 +53,6 @@ public class MeleeAttackBase : MonoBehaviour
     }
     #endregion
 
-
-
-    // Unity Named Methods
-    #region Main Methods
-    private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(attackPosition.position, attackRange);
-	}
-	#endregion
-
 	#region Utility Methods
 
 	private void ApplyKnockBack(GameObject characterBeingAtacked)
