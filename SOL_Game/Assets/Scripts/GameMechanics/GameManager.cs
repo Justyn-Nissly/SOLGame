@@ -23,12 +23,8 @@ public class GameManager : MonoBehaviour
 		{
 			gameManager = this;
 
-			/// Instantiate the pause menu canvas
-			PauseMenu.pauseMenuUI = Instantiate(pauseMenuCanvas, new Vector3(0, 0, 0), Quaternion.identity).gameObject;
-
 			/// Keep items persisting across scenes
 			DontDestroyOnLoad(gameObject);
-			DontDestroyOnLoad(PauseMenu.pauseMenuUI);
 			DontDestroyOnLoad(GameObject.Find("EventSystem"));
 		}
 		else

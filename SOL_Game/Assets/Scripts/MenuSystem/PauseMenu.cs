@@ -11,8 +11,10 @@ public class PauseMenu : MonoBehaviour
 
 	#region Public Variables
 	public static bool       isPaused = false;  // The value for if the game is paused
-	public static GameObject pauseMenuUI;       // The UI object for the pause menu
+	public GameObject pauseMenuUI;       // The UI object for the pause menu
 	public string            sceneName;         // The name of the acctive scene
+	//public Canvas pauseMenuCanvas; // The canvas that houses the controls for the pause menu
+	//public Signal pauseSignal;
 	#endregion
 
 	#region Private Variables
@@ -27,6 +29,7 @@ public class PauseMenu : MonoBehaviour
 		/// Check if the escape key was pressed and if the game was paused resume, otherwise pause the game
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
+			InstantiatePauseMenu();
 			if (isPaused)
 			{
 				Resume();
@@ -46,18 +49,26 @@ public class PauseMenu : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// Instantiates the pause menu when the player presses escape
+	public void InstantiatePauseMenu()
+	{
+		if (GameObject.Find("PauseMenuCanvas(Clone)") == null)
+		{
+			Instantiate(pauseMenuUI, new Vector3(0, 0, 0), Quaternion.identity);
+		}
+	}
 	/// Resume the game
 	public void Resume()
 	{
-		pauseMenuUI.SetActive(false);
+		Destroy(GameObject.Find("PauseMenuCanvas(Clone)"));
 		Time.timeScale = 1.0f;
-		isPaused = false;
+		isPaused = false;	
 	}
 
 	/// Pause the game
 	void Pause()
 	{
-		pauseMenuUI.SetActive(true);
+		
 		Time.timeScale = 0.0f;
 		isPaused = true;
 	}
@@ -66,9 +77,10 @@ public class PauseMenu : MonoBehaviour
 	public void QuitGame()
 	{
 		SceneManager.LoadScene("Menu");
-		pauseMenuUI.SetActive(false);
+		
 		Time.timeScale = 1.0f;
 		isPaused = false;
+		Destroy(GameObject.Find("PauseMenuCanvas(Clone)"));
 	}
 	#endregion
 
