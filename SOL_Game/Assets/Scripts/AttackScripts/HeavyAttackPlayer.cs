@@ -8,7 +8,6 @@ public class HeavyAttackPlayer : MeleeAttackBase
 	#endregion
 
 	#region Public Variables
-	public Player player;
 	public float startTimeBetweenAttacks = .6f;
 	#endregion
 
@@ -18,6 +17,12 @@ public class HeavyAttackPlayer : MeleeAttackBase
 
 	// Unity Named Methods
 	#region Main Methods
+
+	private void Start()
+	{
+		player = GetComponent<Player>();
+	}
+
 	private void FixedUpdate()
 	{
 		if (timeBetweenAttacks <= 0 && Input.GetButtonDown("X") && player.canAttack)

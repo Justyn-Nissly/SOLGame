@@ -19,7 +19,7 @@ public class MeleeAttackBase : MonoBehaviour
 	#region Private Variables
 	protected float thrust = 7;
 	protected float knockTime = .2f;
-	private Player player;
+	protected Player player;
 
 	#endregion
 

@@ -8,7 +8,6 @@ public class LightAttackPlayer : MeleeAttackBase
 	#endregion
 
 	#region Public Variables
-	public Player player;
 	public float startTimeBetweenAttacks = .3f;
 	#endregion
 
@@ -22,6 +21,8 @@ public class LightAttackPlayer : MeleeAttackBase
 	{
 		thrust = 20;
 		knockTime = .4f;
+
+		player = GetComponent<Player>();
 	}
 
 
