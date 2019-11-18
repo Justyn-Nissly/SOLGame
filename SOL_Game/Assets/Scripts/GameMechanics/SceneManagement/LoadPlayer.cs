@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public class LoadPlayer : MonoBehaviour
 {
+	// Empty
 	#region Enums
 	#endregion
 
@@ -19,14 +20,24 @@ public class LoadPlayer : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private Transform startingPosition;
+	protected Transform startingPosition;
+	protected GameObject playerInScene;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	private void Awake()
 	{
-		GameObject playerInScene = GameObject.FindGameObjectWithTag("Player");
+		SetStartingPostion();
+
+		PlacePlayer();
+	}
+	#endregion
+
+	#region Utility Methods
+	public virtual void SetStartingPostion()
+	{
+		playerInScene = GameObject.FindGameObjectWithTag("Player");
 
 		// pick the right starting position
 		if (GlobalVarablesAndMethods.startInBeginingPosition == false && altStartingPosition != null)
@@ -37,8 +48,13 @@ public class LoadPlayer : MonoBehaviour
 		{
 			startingPosition = defaultPlayerStartingPosition;
 		}
+	}
 
-
+	/// <summary>
+	/// will instantiate the player if he's not in the scene then place the player at the starting position
+	/// </summary>
+	public virtual void PlacePlayer()
+	{
 		if (playerInScene != null)
 		{
 			// just move the player scene its in the scene
@@ -52,9 +68,7 @@ public class LoadPlayer : MonoBehaviour
 	}
 	#endregion
 
-	#region Utility Methods
-	#endregion
-
+	// Empty
 	#region Coroutines
 	#endregion
 

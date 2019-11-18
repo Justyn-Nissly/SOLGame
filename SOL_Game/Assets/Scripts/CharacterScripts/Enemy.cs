@@ -23,15 +23,15 @@ public class Enemy : BaseCharacter
     public Vector2
         playerPos;  // The player's position
     public Rigidbody2D
-		sprite; // The enemy's sprite
-    #endregion
+		enemyRigidbody; // The enemy's Rigidbody2D
+	#endregion
 
 	#region Private Variables
-  #endregion
+	#endregion
 
 	void Start()
 	{
-		sprite = GetComponent<Rigidbody2D>();
+		enemyRigidbody = GetComponent<Rigidbody2D>();
 	}
 
 	void FixedUpdate()

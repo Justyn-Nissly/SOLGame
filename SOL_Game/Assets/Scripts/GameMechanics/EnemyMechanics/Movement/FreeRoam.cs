@@ -122,7 +122,7 @@ public class FreeRoam : MonoBehaviour
         // The enemy is moving
         else
         {
-            enemy.sprite.MovePosition((Vector2)transform.position + path * Time.deltaTime);
+            enemy.enemyRigidbody.MovePosition((Vector2)transform.position + path * Time.deltaTime);
             moveTime -= Time.deltaTime;
             // If the enemy hits an obstacle it stops and chooses a different direction
             if (Vector2.Distance(transform.position, lastPos) < 0.01f * enemy.moveSpeed * Time.deltaTime)

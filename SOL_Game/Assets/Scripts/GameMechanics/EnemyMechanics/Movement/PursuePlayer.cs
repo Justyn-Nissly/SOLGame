@@ -66,7 +66,7 @@ public class PursuePlayer : MonoBehaviour
                 enemy.aggro = false;
             }
         }
-        enemy.sprite.position = Vector2.MoveTowards(enemy.sprite.position,
+        enemy.enemyRigidbody.position = Vector2.MoveTowards(enemy.enemyRigidbody.position,
                                                     playerPos,
                                                     enemy.moveSpeed * Time.deltaTime);
         chaseTime -= Time.deltaTime;

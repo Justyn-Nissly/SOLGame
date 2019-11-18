@@ -65,7 +65,7 @@ public class EvasiveStrike : MonoBehaviour
                     waiting    = true;
                     waitTime   = 0.4f;
                     charging   = true;
-                    chargeTime = Vector2.Distance(enemy.sprite.position, playerPos);
+                    chargeTime = Vector2.Distance(enemy.enemyRigidbody.position, playerPos);
                 }
             }
             else if (waiting)
@@ -99,7 +99,7 @@ public class EvasiveStrike : MonoBehaviour
         if (Vector2.Distance(playerPos, transform.position) <= evasionDistance - 0.5f ||
             Vector2.Distance(playerPos, transform.position) >= evasionDistance + 0.5f)
         {
-            enemy.sprite.position = Vector2.MoveTowards((Vector2)transform.position,
+            enemy.enemyRigidbody.position = Vector2.MoveTowards((Vector2)transform.position,
                                                         (Vector2)transform.position + new Vector2(x, y),
                                                          enemy.moveSpeed * Time.deltaTime);
         }
@@ -107,11 +107,11 @@ public class EvasiveStrike : MonoBehaviour
 
     public void ChargePlayer()
     {
-        enemy.sprite.position = Vector2.MoveTowards(enemy.sprite.position,
+        enemy.enemyRigidbody.position = Vector2.MoveTowards(enemy.enemyRigidbody.position,
                                                     playerPos,
                                                     chargeSpeed * Time.deltaTime);
 
-        if (Vector2.Distance(enemy.sprite.position, lastPos) < 0.000000001f * enemy.moveSpeed * Time.deltaTime)
+        if (Vector2.Distance(enemy.enemyRigidbody.position, lastPos) < 0.000000001f * enemy.moveSpeed * Time.deltaTime)
         {
             chargeTime = -1.0f;
         }
@@ -127,7 +127,7 @@ public class EvasiveStrike : MonoBehaviour
         }
         else
         {
-            lastPos = enemy.sprite.position;
+            lastPos = enemy.enemyRigidbody.position;
         }
     }
 
