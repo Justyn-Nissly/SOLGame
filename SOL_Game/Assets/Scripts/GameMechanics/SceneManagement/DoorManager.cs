@@ -18,9 +18,7 @@ public class DoorManager : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary>
-	/// unlocks all doors in the doors list
-	/// </summary>
+	/// <summary> unlocks all doors in the doors list </summary>
 	public void UnlockAllDoors()
 	{
 		foreach (DoorLogic door in doors)
