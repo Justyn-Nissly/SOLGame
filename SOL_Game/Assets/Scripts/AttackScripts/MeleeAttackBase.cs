@@ -63,7 +63,7 @@ public class MeleeAttackBase : MonoBehaviour
 		if(rigidbody2D != null && characterBeingAtacked.CompareTag("Player"))
 		{
 			player = characterBeingAtacked.GetComponent<Player>();
-			player.canMove = false;
+			player.playerAllowedToMove = false;
 
 			rigidbody2D.isKinematic = true;
 			rigidbody2D.isKinematic = false;
@@ -94,7 +94,7 @@ public class MeleeAttackBase : MonoBehaviour
 				rigidbody2D.isKinematic = true;
 				rigidbody2D.isKinematic = false;
 
-				player.canMove = true;
+				player.playerAllowedToMove = true;
 
 			}
 		}

@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 6841405128326533483}
   - component: {fileID: 6841405128326533493}
   - component: {fileID: 6958614015349643136}
-  - component: {fileID: 2505919064853826791}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -159,7 +158,6 @@ MonoBehaviour:
   weapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff, type: 3}
   damage: 2
   damageToGive: {fileID: 11400000, guid: cc79a7d840ed643deabf522b53715fbf, type: 2}
-  player: {fileID: 6841405128326533493}
   startTimeBetweenAttacks: 0.3
 --- !u!114 &6841405128326533494
 MonoBehaviour:
@@ -181,7 +179,6 @@ MonoBehaviour:
   weapon: {fileID: 1422757091534899275, guid: 40fc86e0cf97b244e969a384edc45ef7, type: 3}
   damage: 2
   damageToGive: {fileID: 11400000, guid: 407388b32b3744906a314923fdc93802, type: 2}
-  player: {fileID: 6841405128326533493}
   startTimeBetweenAttacks: 0.6
 --- !u!114 &6841405128326533481
 MonoBehaviour:
@@ -247,8 +244,9 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: f14b1a1b671224a198bad7265575b949, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  playerAllowedToMove: 1
+  playerAnimator: {fileID: 6958614015349643136}
   playerHealthSignal: {fileID: 11400000, guid: ac92ac62b06a941faa2337f33d033a24, type: 2}
-  canMove: 1
 --- !u!95 &6958614015349643136
 Animator:
   serializedVersion: 3
@@ -268,20 +266,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2505919064853826791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6841405128326533482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ef0f331b61d3174f929dd658c76a208, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.1
-  animator: {fileID: 6958614015349643136}
 --- !u!1 &6841405128640148714
 GameObject:
   m_ObjectHideFlags: 0
