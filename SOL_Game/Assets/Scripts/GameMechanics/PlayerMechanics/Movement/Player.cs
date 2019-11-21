@@ -12,6 +12,7 @@ public class Player : BaseCharacter
 	public bool playerAllowedToMove = true; // used to disable player movement like when the player is knocked back
 	public Animator playerAnimator; // used to animate the players movement
 	public Signal playerHealthSignal; // used to signal the health UI system that the player has taken damage
+	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated 
 	#endregion
 
 	#region Private Variables
@@ -38,16 +39,14 @@ public class Player : BaseCharacter
 		// If the player is allowed to move, check for player movement input and apply it to the player
 		if (playerAllowedToMove)
 		{
-			// Get the amount of movement that the player needs to move
-			playerMovementAmount = new Vector2(Mathf.RoundToInt(Input.GetAxis("Horizontal")) * playerMovementSpeed, Mathf.RoundToInt(Input.GetAxis("Vertical")) * playerMovementSpeed);
+			ApplyPlayerMovement();
+		}
 
-			// Update the values in the Animator for the players animations
-			playerAnimator.SetFloat("Horizontal", playerMovementAmount.x);
-			playerAnimator.SetFloat("Vertical", playerMovementAmount.y);
-			playerAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);
-
-			// Update the Hero's position, taking note of colliders.
-			playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
+		// rotate the players attack object if there is input
+		// but don't rotate if the freeze rotation button is down
+		if (Input.GetAxis("FreezeRotation") == 0)
+		{
+			ApplyAttackGameObjectRotation();
 		}
 	}
 	#endregion
@@ -65,6 +64,64 @@ public class Player : BaseCharacter
 
 		// print the players current heath to the console for debugging
 		Debug.Log("player CurrentHealth = " + currentHealth.initialValue);
+	}
+
+	/// <summary> Rotates the players attack game object so that the players weapons are "fired" in the right direction </summary>
+	private void ApplyAttackGameObjectRotation()
+	{
+		// If the player clicks the left key set rotation to -90 degrees
+		if (Input.GetAxis("Horizontal") < 0)
+		{
+			playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, -90f);
+		}
+		// If the player clicks the right key set rotation to 90 degrees
+		else if (Input.GetAxis("Horizontal") > 0)
+		{
+			playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, 90f);
+		}
+		// If the player clicks the up key set rotation to 180 degrees
+		else if (Input.GetAxis("Vertical") > 0)
+		{
+			playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, 180f);
+		}
+		// If the player clicks the down key set rotation to zero degrees
+		else if (Input.GetAxis("Vertical") < 0)
+		{
+			playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, 0f);
+		}
+	}
+
+	/// <summary>
+	/// check for player movement input and apply it to the player
+	/// </summary>
+	private void ApplyPlayerMovement()
+	{
+		// Get the amount of movement that the player needs to move
+		playerMovementAmount = GetPlayerMovementAmount();
+
+		// Update the values in the Animator for the players animation
+		SetPlayerAnimatorValues();
+
+		// Update the Hero's position, taking note of colliders.
+		playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
+	}
+
+	/// <summary>
+	/// Get the amount of movement that the player needs to move
+	/// </summary>
+	private Vector2 GetPlayerMovementAmount()
+	{
+		return new Vector2(Mathf.RoundToInt(Input.GetAxis("Horizontal")) * playerMovementSpeed, Mathf.RoundToInt(Input.GetAxis("Vertical")) * playerMovementSpeed);
+	}
+
+	/// <summary>
+	/// Update the values in the Animator for the players animations
+	/// </summary>
+	private void SetPlayerAnimatorValues()
+	{
+		playerAnimator.SetFloat("Horizontal", playerMovementAmount.x);
+		playerAnimator.SetFloat("Vertical", playerMovementAmount.y);
+		playerAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);
 	}
 	#endregion
 

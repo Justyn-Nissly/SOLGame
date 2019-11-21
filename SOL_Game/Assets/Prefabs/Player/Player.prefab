@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 6841405128326533494}
   - component: {fileID: 6841405128326533481}
   - component: {fileID: 6841405128326533480}
-  - component: {fileID: 6841405128326533483}
   - component: {fileID: 6841405128326533493}
   - component: {fileID: 6958614015349643136}
   m_Layer: 8
@@ -215,19 +214,6 @@ MonoBehaviour:
   shieldSprite: {fileID: 6841405128981744527}
   shieldBoxCollider: {fileID: 6841405128981744513}
   player: {fileID: 6841405128326533493}
---- !u!114 &6841405128326533483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6841405128326533482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4b593f0bf7aada449313a14c664dd3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToRotate: {fileID: 6841405128845876855}
 --- !u!114 &6841405128326533493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +233,7 @@ MonoBehaviour:
   playerAllowedToMove: 1
   playerAnimator: {fileID: 6958614015349643136}
   playerHealthSignal: {fileID: 11400000, guid: ac92ac62b06a941faa2337f33d033a24, type: 2}
+  playerAttackGameObject: {fileID: 6841405128845876855}
 --- !u!95 &6958614015349643136
 Animator:
   serializedVersion: 3
