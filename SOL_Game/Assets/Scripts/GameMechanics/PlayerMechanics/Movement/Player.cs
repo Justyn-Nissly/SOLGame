@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class Player : BaseCharacter
 {
 	// Empty
@@ -26,8 +25,10 @@ public class Player : BaseCharacter
 	/// <summary> Start is called before the first frame update </summary>
 	void Start()
 	{
+		// Set the players movement speed
 		playerMovementSpeed = .1f;
 
+		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
 	}
 
