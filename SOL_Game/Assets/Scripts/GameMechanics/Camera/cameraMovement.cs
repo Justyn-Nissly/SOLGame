@@ -2,44 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// new camera movement script
-/// </summary>
 public class cameraMovement : MonoBehaviour
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
-	#region Public Variables
+	#region Public Variables (Empty)
 	#endregion
 
 	#region Private Variables
-	private Transform target; // the target the camera will follow, the player
-	private float smoothing = 0.05f; // how close should the camera follow the player
+	private Transform
+		target; // Center the camera on the player
+	private float
+		smoothing = 0.05f; // Make camera movement smooth
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-
+	/// <summary> Assign the camera to follow the player </summary>
 	private void Start()
 	{
 		target = GameObject.FindGameObjectWithTag("Player").transform;
 	}
 
+	/// <summary> Make the camera follow the player at the end of a frame </summary>
 	private void LateUpdate()
 	{
+		// The camera doesn't move if already centered on the player
 		if (transform.position != target.position)
 		{
-			Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
-			transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing);
+			transform.position = Vector3.Lerp(transform.position,
+											  new Vector3(target.position.x, target.position.y, transform.position.z),
+											  smoothing);
 		}
 	}
-
 	#endregion
 
-	#region Utility Methods
+	#region Utility Methods (Empty)
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }
