@@ -15593,25 +15593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba554c1a748fc47e1b84088985a24d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearts:
-  - {fileID: 1453071855}
-  - {fileID: 2099910612}
-  - {fileID: 1357163979}
-  - {fileID: 707379600}
-  - {fileID: 1872119465}
-  - {fileID: 294066652}
-  - {fileID: 10714757}
-  - {fileID: 2128544819}
-  - {fileID: 394614275}
-  fullHeart: {fileID: 8333231276030249781, guid: aecc7c25f113b460a87ef3b7b9fdb431,
-    type: 3}
-  halfHeart: {fileID: 1839936456640211576, guid: aecc7c25f113b460a87ef3b7b9fdb431,
-    type: 3}
-  emptyHeart: {fileID: 6491530708181946762, guid: aecc7c25f113b460a87ef3b7b9fdb431,
-    type: 3}
-  heartContainers: {fileID: 11400000, guid: 755250ec6489b4fa2a53168a72144f5d, type: 2}
-  playerCurrentHealth: {fileID: 11400000, guid: f14b1a1b671224a198bad7265575b949,
-    type: 2}
 --- !u!114 &1041099744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19477,6 +19458,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: eaf9e9a4f31d84caaa93f342138291d9,
         type: 2}
+    - target: {fileID: 5073558193283732430, guid: 777d64f2aed0e2b46afcec5a32a31381,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4925452052291255808, guid: 777d64f2aed0e2b46afcec5a32a31381,
+        type: 3}
+      propertyPath: waitTime
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
 --- !u!1 &1872119463
@@ -19619,6 +19610,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6841405128326533490, guid: 5afa98b79fcbd434b819ed5125726ca2,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5afa98b79fcbd434b819ed5125726ca2, type: 3}

@@ -493,7 +493,7 @@ MonoBehaviour:
   followRange: 8
   attackDmg: 0
   contactDmg: 2
-  moveSpeed: 0
+  moveSpeed: 2
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
@@ -554,11 +554,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f0aeeb8b9cec2b46ba45875c0ba6069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evasionDistance: 0
-  minEvadeTime: 0
-  maxEvadeTime: 0
-  chargeSpeed: 0
-  waitTime: 0
+  evasionDistance: 6
+  minEvadeTime: 4
+  maxEvadeTime: 8
+  chargeSpeed: 18
+  waitTime: 1.2
   charging: 0
 --- !u!50 &-1494527648047725511
 Rigidbody2D:
