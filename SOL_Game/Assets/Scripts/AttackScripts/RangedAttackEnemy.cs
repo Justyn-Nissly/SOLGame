@@ -53,21 +53,6 @@ public class RangedAttackEnemy : RangedAttackBase
 	#endregion
 
 	#region Utility Methods
-	public override void Shoot()
-	{
-		base.Shoot();
-
-		// there's a delay here so that there is a delay before the enemy shoots
-		Invoke("InstantiateBullet", .2f);
-	}
-
-	public void InstantiateBullet()
-	{
-		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-
-		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = rangeAttackDamage;
-	}
 	#endregion
 
 	#region Coroutines

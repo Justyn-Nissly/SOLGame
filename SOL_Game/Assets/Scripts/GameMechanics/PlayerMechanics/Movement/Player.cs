@@ -9,16 +9,63 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Public Variables
+	// player movement variables
 	public bool playerAllowedToMove = true; // used to disable player movement like when the player is knocked back
 	public Animator playerAnimator; // used to animate the players movement
 	public Signal playerHealthSignal; // used to signal the health UI system that the player has taken damage
-	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated 
+
+	// player attack origination variables
+	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated
+
+	// players light melee attack variables
+	public Transform lightMeleAttackPosition;
+	public LayerMask willDamageLayer;
+	public GameObject lightMeleeWeapon;
+	public FloatValue lightMeleeDamageToGive;
+
+	// heavy attack variables
+	public Transform heavyMeleAttackPosition;
+	public FloatValue heavyMeleeDamageToGive;
+	public GameObject heavyMeleeWeapon;
+
+	// player shield variables
+	public SpriteRenderer
+		  shieldSprite; // Shield graphics
+	public BoxCollider2D
+		  shieldBoxCollider; // The shield itself
+
+	// player ranged attack variables
+	public Transform firePoint;
+	public Transform gunSpawnPoint;
+	public GameObject bulletPrefab;
+	public GameObject gunPrefab;
+	public SpriteRenderer GunSprite;
+	public FloatValue damageToGive;
 	#endregion
 
 	#region Private Variables
+	// player movement variables
 	private float playerMovementSpeed; // the speed the player can move at
 	private Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
 	private Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
+
+	// players light melee attack variables
+	private MeleeAttackBase playerLightMeleeAttack;
+	private float lightMeleeAttackRange = .7f; 
+	private float lightStartTimeBetweenAttacks = .3f;
+
+	// heavy attack variables
+	private MeleeAttackBase playerHeavyMeleeAttack;
+	private float heavyMeleeAttackRange = 1f;
+	private float heavyStartTimeBetweenAttacks = .6f;
+	private float timeBetweenAttacks;
+
+	// player shield variables
+	private ShieldBase playerShield;
+
+	// player ranged attack variables
+	private RangedAttackBase playerRangedAttack;
+	private float RangedStartTimeBetweenAttacks = .5f;
 	#endregion
 
 	// Unity Named Methods
@@ -31,6 +78,12 @@ public class Player : BaseCharacter
 
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
+
+		// set up the players attacks with the right values
+		playerLightMeleeAttack = new MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive);
+		playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive);
+		playerShield = new ShieldBase(shieldSprite, shieldBoxCollider);
+		playerRangedAttack = new RangedAttackBase(firePoint, gunSpawnPoint, bulletPrefab, gunPrefab, damageToGive, 0);
 	}
 
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly</summary>
@@ -47,6 +100,53 @@ public class Player : BaseCharacter
 		if (Input.GetAxis("FreezeRotation") == 0)
 		{
 			ApplyAttackGameObjectRotation();
+		}
+
+		// On input activate the player's shield
+		if (Input.GetButton("B"))
+		{
+			playerShield.EnableShield();
+			playerShield.shieldIsEnabled = true;
+			canAttack = false;
+		}
+		// On release of input deactivate the player's shield
+		else if (Input.GetButton("B") == false && playerShield.shieldIsEnabled)
+		{
+			playerShield.DisableShield();
+			playerShield.shieldIsEnabled = false;
+			canAttack = true;
+		}
+
+		// The player can use a weapon on cool down
+		if (timeBetweenAttacks <= 0.0f)
+		{
+			// if the player is allowed to attack
+			if (canAttack)
+			{
+				// Y is left arrow based on the SNES controller layout; fire and reset the cooldown
+				if (Input.GetButtonUp("Y"))
+				{
+					timeBetweenAttacks = RangedStartTimeBetweenAttacks;
+					playerRangedAttack.Shoot();
+				}
+				// X is up arrow based on the SNES controller layout; attack with heavy weapon and reset the cooldown
+				else if (Input.GetButtonDown("X"))
+				{
+					timeBetweenAttacks = heavyStartTimeBetweenAttacks; // reset the time between attacks
+					playerHeavyMeleeAttack.Attack();
+				}
+				// A is right arrow based on the SNES controller layout; attack with light weapon and reset the cooldown
+				else if (Input.GetButtonDown("A"))
+				{
+					timeBetweenAttacks = lightStartTimeBetweenAttacks; // reset the time between attacks
+					playerLightMeleeAttack.Attack();
+				}
+			}
+		}
+		// The attack cool down has not finished yet
+		else
+		{
+			timeBetweenAttacks -= Time.deltaTime;
 		}
 	}
 	#endregion
@@ -123,6 +223,7 @@ public class Player : BaseCharacter
 		playerAnimator.SetFloat("Vertical", playerMovementAmount.y);
 		playerAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);
 	}
+
 	#endregion
 
 	// Empty
