@@ -42,10 +42,6 @@ GameObject:
   - component: {fileID: 6841405128326533488}
   - component: {fileID: 6841405128326533491}
   - component: {fileID: 6841405128326533490}
-  - component: {fileID: 6841405128326533495}
-  - component: {fileID: 6841405128326533494}
-  - component: {fileID: 6841405128326533481}
-  - component: {fileID: 6841405128326533480}
   - component: {fileID: 6841405128326533493}
   - component: {fileID: 6958614015349643136}
   m_Layer: 8
@@ -167,85 +163,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6841405128326533495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6841405128326533482}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e88dab2d860a24bb82733ddd29a96b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPosition: {fileID: 6841405130317107374}
-  attackRange: 0.7
-  willDamageLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  weapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff, type: 3}
-  damageToGive: {fileID: 11400000, guid: cc79a7d840ed643deabf522b53715fbf, type: 2}
-  startTimeBetweenAttacks: 0.3
---- !u!114 &6841405128326533494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6841405128326533482}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831879110ec6c2c4ba699ac762553f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPosition: {fileID: 6841405129432834922}
-  attackRange: 1
-  willDamageLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  weapon: {fileID: 1422757091534899275, guid: 40fc86e0cf97b244e969a384edc45ef7, type: 3}
-  damageToGive: {fileID: 11400000, guid: 407388b32b3744906a314923fdc93802, type: 2}
-  startTimeBetweenAttacks: 0.6
---- !u!114 &6841405128326533481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6841405128326533482}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b52e41c9d558f0846a553a7fc24a2ab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 6841405128640148715}
-  gunSpawnPoint: {fileID: 0}
-  bulletPrefab: {fileID: 5784550603847278244, guid: 47e5478c8df575141870a0d125fe1c2c,
-    type: 3}
-  gunPrefab: {fileID: 0}
-  GunSprite: {fileID: 0}
-  damageToGive: {fileID: 11400000, guid: 51ef5b778a62442359d2b6a21ca3c5fc, type: 2}
-  BulletShootingDelay: 0.2
-  player: {fileID: 6841405128326533493}
-  overRideBulletDamage: 0
-  startTimeBetweenAttacks: 0.5
---- !u!114 &6841405128326533480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6841405128326533482}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc8d61b45dc3f3b4c8f9186e8916dfdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shieldSprite: {fileID: 6841405128981744527}
-  shieldBoxCollider: {fileID: 6841405128981744513}
-  shieldIsEnabled: 0
-  player: {fileID: 6841405128326533493}
 --- !u!114 &6841405128326533493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +179,10 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: f14b1a1b671224a198bad7265575b949, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  playerAllowedToMove: 1
+  playerAnimator: {fileID: 6958614015349643136}
+  playerHealthSignal: {fileID: 11400000, guid: ac92ac62b06a941faa2337f33d033a24, type: 2}
+  playerAttackGameObject: {fileID: 6841405128845876855}
   lightMeleAttackPosition: {fileID: 6841405130317107374}
   willDamageLayer:
     serializedVersion: 2
@@ -285,10 +206,6 @@ MonoBehaviour:
     type: 3}
   GunSprite: {fileID: 0}
   damageToGive: {fileID: 11400000, guid: 51ef5b778a62442359d2b6a21ca3c5fc, type: 2}
-  playerAllowedToMove: 1
-  playerAnimator: {fileID: 6958614015349643136}
-  playerHealthSignal: {fileID: 11400000, guid: ac92ac62b06a941faa2337f33d033a24, type: 2}
-  playerAttackGameObject: {fileID: 6841405128845876855}
 --- !u!95 &6958614015349643136
 Animator:
   serializedVersion: 3
