@@ -10,29 +10,50 @@ public class Hud : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public Sprite[] HeartSprites; // The different heart sprites for players CurrentHealth
-	public Image HeartUI;         // The heart containers
+	public Image[] hearts;
+	public Sprite fullHeart;
+	public Sprite halfHeart;
+	public Sprite emptyHeart;
+	public FloatValue heartContainers;
+	public FloatValue playerCurrentHealth;
 	#endregion
 
 	#region Private Variables
-	private Player player;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	// Start is called before the first frame update
 	void Start()
 	{
-		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
-    }
-	void Update()
-	{
-        HeartUI.sprite = HeartSprites[(int)player.currentHealth.initialValue];
+		for (int i = 0; i < heartContainers.initialValue; i++)
+		{
+			hearts[i].gameObject.SetActive(true);
+			hearts[i].sprite = fullHeart;
+		}
 	}
 	#endregion
 
 	#region Utility Methods
-
+	public void UpdateHearts()
+	{
+		float tempHealth = playerCurrentHealth.runTimeValue / 2;
+		for (int i = 0; i < heartContainers.initialValue; i++)
+		{
+			if (i <= tempHealth - 1)
+			{
+				hearts[i].sprite = fullHeart;
+			}
+			else if (i >= tempHealth)
+			{
+				hearts[i].sprite = emptyHeart;
+			}
+			else
+			{
+				hearts[i].sprite = halfHeart;
+			}
+		}
+	}
 	#endregion
 
 	#region Coroutines

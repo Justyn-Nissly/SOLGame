@@ -4,32 +4,30 @@ using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public FloatValue currentHealth;
-    public FloatValue maxHealth;
-
-
-    public bool canAttack = true; // for disabling the ability to attack, like when the players shield is up the player cant attack
-	public bool canTakeDamage = true;
+	public FloatValue
+		currentHealth, // The character's current health
+		maxHealth;     // The character's highest health possible
+	public bool
+		canAttack = true,     // Toggle the character's ability to attack
+		canTakeDamage = true; // Toggle the character's ability to take damage
 	#endregion
 
-	#region Private Variables
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
-	#region Main Methods
-
+	#region Main Methods (Empty)
 	#endregion
 
 	#region Utility Methods
-
-
+	/// <summary> Make the character receive damage and then become temporarily invincible </summary> 
 	public virtual void TakeDamage(int damage)
 	{
-		if(canTakeDamage == true)
+		if (canTakeDamage == true)
 		{
 			currentHealth.runTimeValue -= damage;
 			StartCoroutine("StartBlinking");
@@ -38,22 +36,26 @@ public class BaseCharacter : MonoBehaviour
 	#endregion
 
 	#region Coroutines
+	/// <summary> Make a character blink for a short time after taking damage </summary>
 	IEnumerator StartBlinking()
 	{
-		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-		float timer = .5f;
+		SpriteRenderer
+			spriteRenderer = GetComponent<SpriteRenderer>();
+		float
+			timer = 0.5f;  // The character blinks for a short time after taking damage
+		canTakeDamage = false; // The character cannot take more damage immediately after taking damage
 
-		canTakeDamage = false; // cant take damage while blinking
-
-		while (timer >= 0)
+		// make the character blink
+		while (timer >= 0.0f)
 		{
-			spriteRenderer.enabled = !spriteRenderer.enabled; //This toggles it
-			timer -= Time.deltaTime + .1f;
-			yield return new WaitForSeconds(.1f); //However many seconds you want
+			spriteRenderer.enabled = !spriteRenderer.enabled; // Toggle the sprite's visibility to make it blink
+			timer -= Time.deltaTime + 0.1f;
+			yield return new WaitForSeconds(0.1f);
 		}
 
-		spriteRenderer.enabled = true; //This toggles it back on in the end
-		canTakeDamage = true; // can take damage again
+		// Ensure the sprite is visible and the character can take damage after blinking stops
+		spriteRenderer.enabled = true;
+		canTakeDamage = true;
 	}
 	#endregion
 }

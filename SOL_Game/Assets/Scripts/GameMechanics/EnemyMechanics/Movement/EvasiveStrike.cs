@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EvasiveStrike : MonoBehaviour
 {
-    #region Enums and Defined Constants
-    #endregion
+	#region Enums (Empty)
+	#endregion
 
-    #region Public Variables
-    public float
+	#region Public Variables
+	public float
         evasionDistance, // How far the enemy tries to stay from the player
         minEvadeTime,    // Maximum time the enemy evades the player before charging
         maxEvadeTime,    // Minimum time the enemy evades the player before charging
@@ -31,12 +31,13 @@ public class EvasiveStrike : MonoBehaviour
     private Enemy
         enemy; // Access the enemy's members
     private bool
-        waiting;  // The enemy is briefly waiting to start moving again
+        waiting; // The enemy is briefly waiting to start moving again
     #endregion
 
     // Unity Named Methods
     #region Main Methods
 
+	/// <summary> Initialize the enemy's attack pattern </summary>
     void Start()
     {
         new Random();
@@ -46,20 +47,26 @@ public class EvasiveStrike : MonoBehaviour
         waiting   = false;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+	/// <summary> The enemy alternates evading and charging at the player </summary>
+	void FixedUpdate()
     {
+		// The enemy cannot deaggro when charging
         if (charging)
         {
             enemy.aggro = true;
         }
+
+		// If the enemy has detected the player it starts its attack pattern
         if (enemy.aggro)
         {
+			// The enemy is evading the player
             if (charging == false && waiting == false)
             {
                 playerPos = GameObject.FindWithTag("Player").transform.position;
                 Evade();
                 evadeTime -= Time.deltaTime;
+
+				// Check if the enemy will charge
                 if (evadeTime <= 0.0f)
                 {
                     waiting    = true;
@@ -68,16 +75,21 @@ public class EvasiveStrike : MonoBehaviour
                     chargeTime = Vector2.Distance(enemy.sprite.position, playerPos);
                 }
             }
+			// The enemy is waiting
             else if (waiting)
             {
                 Wait();
             }
+
+			// The enemy is charging
             else
             {
                 ChargePlayer();
                 evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
             }
         }
+
+		// If the enemy is not aggroed, reset the evasion time
         else
         {
             evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
@@ -86,38 +98,46 @@ public class EvasiveStrike : MonoBehaviour
     #endregion
 
     #region Utility Methods
+	/// <summary> The enemy evades the player when aggroed </summary>
     public void Evade()
     {
+		// Calculate the angle between the enemy and the player
         angle = Mathf.Atan2(playerPos.y - enemy.transform.position.y,
                             playerPos.x - enemy.transform.position.x);
+
+		// The enemy evades the player if it is too close
         if (Vector2.Distance(playerPos, transform.position) <= evasionDistance)
         {
             angle += Mathf.PI;
         }
-        x = Cos(angle);
-        y = Sin(angle);
+
+		// The enemy tries to stay a set distance away from the player and moves accordingly
         if (Vector2.Distance(playerPos, transform.position) <= evasionDistance - 0.5f ||
             Vector2.Distance(playerPos, transform.position) >= evasionDistance + 0.5f)
         {
-            enemy.sprite.position = Vector2.MoveTowards((Vector2)transform.position,
-                                                        (Vector2)transform.position + new Vector2(x, y),
-                                                         enemy.moveSpeed * Time.deltaTime);
+            enemy.sprite.position =
+				Vector2.MoveTowards((Vector2)transform.position,
+                                    (Vector2)transform.position + new Vector2(Cos(angle), Sin(angle)),
+                                    enemy.moveSpeed * Time.deltaTime);
         }
     }
 
-    public void ChargePlayer()
+	/// <summary> The enemy eventually charges the player when aggroed </summary>
+	public void ChargePlayer()
     {
+		// Make the enemy move directly towards the player
         enemy.sprite.position = Vector2.MoveTowards(enemy.sprite.position,
                                                     playerPos,
                                                     chargeSpeed * Time.deltaTime);
 
+		// If the enemy stops moving or hits an obstacle it stops trying to charge
         if (Vector2.Distance(enemy.sprite.position, lastPos) < 0.000000001f * enemy.moveSpeed * Time.deltaTime)
         {
             chargeTime = -1.0f;
         }
 
+		// Check if the enemy stops trying to charge
         chargeTime -= Time.deltaTime;
-
         if (chargeTime <= 0.0f)
         {
             charging = false;
@@ -125,13 +145,15 @@ public class EvasiveStrike : MonoBehaviour
             waitTime = 1.0f;
             enemy.aggro = false;
         }
+		// Set the enemy's previous position to see if it has stopped moving
         else
         {
             lastPos = enemy.sprite.position;
         }
     }
 
-    public void Wait()
+	/// <summary> The enemy waits for a short time </summary>
+	public void Wait()
     {
         waitTime -= Time.deltaTime;
         if (waitTime <= 0.0f)
@@ -141,40 +163,46 @@ public class EvasiveStrike : MonoBehaviour
         }
     }
 
-    // Calculate an angle's sine; helps determine the enemy's y-location
-    public static float Sin(float angle)
+	/// <summary> / Calculate an angle's sine; custom-made and kept local to run faster </summary>
+	public static float Sin(float angle)
     {
         float
-            sine = 0.0f,
-            part;
+            sine = 0.0f, // Sine is a calculated sum
+			part;        // Track the current part being added to the sum
         int
-            counter1,
-            counter2;
+            counter1, // Track the current iteration
+            counter2; // 
 
-        for (counter1 = 1; counter1 < 100; counter1 += 2)
-        {
-            part = 1.0f;
-            for (counter2 = 1; counter2 <= counter1; counter2++)
-            {
-                part *= angle;
-                part /= counter2;
-            }
-            if (counter1 % 4 == 1)
-                sine += part;
-            else
-                sine -= part;
-        }
+		// Approximate sine by finite sum: n = 0, Σ (-1)^n[x^(2n+1)]/[(2n+1)!]
+		for (counter1 = 1; counter1 < 100; counter1 += 2)
+		{
+			part = 1.0f;
+			for (counter2 = 1; counter2 <= counter1; counter2++)
+			{
+				part *= angle;
+				part /= counter2;
+			}
+			if (counter1 % 4 == 1)
+			{
+				sine += part;
+			}
+			else
+			{
+				sine -= part;
+			}
+		}
 
         return sine;
     }
 
-    // Calculate an angle's cosine; helps determine the enemy's x-location
-    public static float Cos(float angle)
+	/// <summary> / Calculate an angle's cosine; custom-made and kept local to run faster </summary>
+	public static float Cos(float angle)
     {
+		// sine(x) = cos(pi/2 - x)
         return Sin(Mathf.PI * 0.5f - angle);
     }
-    #endregion
+	#endregion
 
-    #region Coroutines
-    #endregion
+	#region Coroutines (Empty)
+	#endregion
 }
