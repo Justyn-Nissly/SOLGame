@@ -72,7 +72,7 @@ public class EvasiveStrike : MonoBehaviour
                     waiting    = true;
                     waitTime   = 0.4f;
                     charging   = true;
-                    chargeTime = Vector2.Distance(enemy.sprite.position, playerPos);
+                    chargeTime = Vector2.Distance(enemy.rb2d.position, playerPos);
                 }
             }
 			// The enemy is waiting
@@ -115,7 +115,7 @@ public class EvasiveStrike : MonoBehaviour
         if (Vector2.Distance(playerPos, transform.position) <= evasionDistance - 0.5f ||
             Vector2.Distance(playerPos, transform.position) >= evasionDistance + 0.5f)
         {
-            enemy.sprite.position =
+            enemy.rb2d.position =
 				Vector2.MoveTowards((Vector2)transform.position,
                                     (Vector2)transform.position + new Vector2(Cos(angle), Sin(angle)),
                                     enemy.moveSpeed * Time.deltaTime);
@@ -126,12 +126,12 @@ public class EvasiveStrike : MonoBehaviour
 	public void ChargePlayer()
     {
 		// Make the enemy move directly towards the player
-        enemy.sprite.position = Vector2.MoveTowards(enemy.sprite.position,
+        enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
                                                     playerPos,
                                                     chargeSpeed * Time.deltaTime);
 
 		// If the enemy stops moving or hits an obstacle it stops trying to charge
-        if (Vector2.Distance(enemy.sprite.position, lastPos) < 0.000000001f * enemy.moveSpeed * Time.deltaTime)
+        if (Vector2.Distance(enemy.rb2d.position, lastPos) < 0.000000001f * enemy.moveSpeed * Time.deltaTime)
         {
             chargeTime = -1.0f;
         }
@@ -148,7 +148,7 @@ public class EvasiveStrike : MonoBehaviour
 		// Set the enemy's previous position to see if it has stopped moving
         else
         {
-            lastPos = enemy.sprite.position;
+            lastPos = enemy.rb2d.position;
         }
     }
 

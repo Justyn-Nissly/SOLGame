@@ -41,8 +41,8 @@ public class CircularPatrol : MonoBehaviour
     // Patrol  in a circular pattern
     public void CirclePatrol(ref float angle)
     {
-        enemy.sprite.MovePosition(enemy.sprite.position + new Vector2(Cos(angle), Sin(angle))
-                                                        * Time.deltaTime * enemy.moveSpeed * 2.0f);
+        enemy.rb2d.MovePosition(enemy.rb2d.position + new Vector2(Cos(angle), Sin(angle))
+                                    * Time.deltaTime * enemy.moveSpeed * 2.0f);
 
         // Update the movement angle
         if (clockwise)

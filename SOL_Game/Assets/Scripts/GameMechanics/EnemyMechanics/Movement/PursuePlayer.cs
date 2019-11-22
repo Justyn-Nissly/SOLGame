@@ -66,7 +66,7 @@ public class PursuePlayer : MonoBehaviour
                 enemy.aggro = false;
             }
         }
-        enemy.sprite.position = Vector2.MoveTowards(enemy.sprite.position,
+        enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
                                                     playerPos,
                                                     enemy.moveSpeed * Time.deltaTime);
         chaseTime -= Time.deltaTime;
@@ -104,8 +104,8 @@ public class PursuePlayer : MonoBehaviour
     {
         return Sin(Mathf.PI * 0.5f - angle);
     }
-    #endregion
+	#endregion
 
-    #region Coroutines
-    #endregion
+	#region Coroutines (Empty)
+	#endregion
 }

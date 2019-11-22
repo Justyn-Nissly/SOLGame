@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class Enemy : BaseCharacter
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	float amountHealed = 0;
-	public Image healthBar;
+	float
+		amountHealed = 0;
+	public Image
+		healthBar;
     public string
         enemyName; // The enemy's name
 	public float
@@ -26,51 +28,57 @@ public class Enemy : BaseCharacter
     public bool
         aggro; // The enemy has detected the player
     public Vector2[]
-        patrol; // The enemy's patrol points
+        patrol; // Enemy patrol points
     public Vector2
-        playerPos;  // The player's position
+        playerPos; // Track the player's position
     public Rigidbody2D
-		sprite; // The enemy's sprite
+		rb2d; // The enemy's rigidBody
 	#endregion
 
-	#region Private Variables
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	/// <summary> Initialize the enemy </summary>
 	void Start()
 	{
-		sprite = GetComponent<Rigidbody2D>();
+		rb2d = GetComponent<Rigidbody2D>();
 		healPerLoop = healAmount / duration;
 	}
 
+	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	void FixedUpdate()
 	{
+		// Check if the player is close enough to aggro
 		playerPos = GameObject.FindWithTag("Player").transform.position;
 		if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
 		{
 			aggro = true;
 		}
+		// Enemies that are not aggro heal over time
 		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
 		{
 			aggro = false;
 			StartCoroutine(HealOverTimeCoroutine(healAmount, duration));
 		}
+
+		// Enemies attack the player only if aggroed
 		if (aggro)
 		{
 			canAttack = true;
 		}
+		// DEBUG CODE; REMOVE LATER
 		Debug.Log("enemy CurrentHealth = " + currentHealth.runTimeValue);
 	}
 	#endregion
 
 	#region Utility Methods
+	// Deal damage to the enemy
 	public override void TakeDamage(int damage)
 	{
 		base.TakeDamage(damage);
-
-		float percentHealth = currentHealth.runTimeValue / maxHealth.initialValue;
-		SetHealth(percentHealth);
+		SetHealth(currentHealth.runTimeValue / maxHealth.initialValue);
 
 		Debug.Log("enemy CurrentHealth = " + currentHealth.runTimeValue);
 
@@ -85,7 +93,6 @@ public class Enemy : BaseCharacter
 		healthBar.fillAmount = percentHelth;
 	}
 	#endregion
-
 
 	#region Coroutines
 	//Heal over time

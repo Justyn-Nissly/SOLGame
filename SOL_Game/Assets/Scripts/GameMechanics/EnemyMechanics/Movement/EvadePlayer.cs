@@ -57,7 +57,7 @@ public class EvadePlayer : MonoBehaviour
         if (Vector2.Distance(playerPos, transform.position) <= evasionDistance - 0.5f ||
             Vector2.Distance(playerPos, transform.position) >= evasionDistance + 0.5f)
         {
-            enemy.sprite.position = Vector2.MoveTowards((Vector2)transform.position,
+            enemy.rb2d.position = Vector2.MoveTowards((Vector2)transform.position,
                                                         (Vector2)transform.position + new Vector2(x, y),
                                                          enemy.moveSpeed * Time.deltaTime);
         }

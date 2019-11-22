@@ -80,10 +80,10 @@ public class Player : BaseCharacter
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
 		// set up the players attacks with the right values
-		playerLightMeleeAttack = new MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive);
-		playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive);
-		playerShield = new ShieldBase(shieldSprite, shieldBoxCollider);
-		playerRangedAttack = new RangedAttackBase(firePoint, gunSpawnPoint, bulletPrefab, gunPrefab, damageToGive, 0);
+		playerLightMeleeAttack = MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive);
+		playerHeavyMeleeAttack = MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive);
+		playerShield           = ShieldBase(shieldSprite, shieldBoxCollider);
+		playerRangedAttack     = RangedAttackBase(firePoint, gunSpawnPoint, bulletPrefab, gunPrefab, damageToGive, 0);
 	}
 
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly</summary>

@@ -64,14 +64,14 @@ public class RangedAttackEnemy : RangedAttackBase
 	}
 
 	///<summary> Create the projectile </summary>
-	public void InstantiateBullet()
+/*	public void InstantiateBullet()
 	{
 		GameObject
 			bulletInstance       = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 		BulletLogic
 			bulletLogic	         = bulletInstance.GetComponent<BulletLogic>();
 		bulletLogic.bulletDamage = rangeAttackDamage;
-	}
+	}*/
 	#endregion
 
 	#region Coroutines (Empty)
