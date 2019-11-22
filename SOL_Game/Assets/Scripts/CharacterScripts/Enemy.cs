@@ -6,15 +6,22 @@ using UnityEngine.UI;
 
 public class Enemy : BaseCharacter
 {
-    #region Public Variables
-    public Image healthBar;
+	#region Enums
+	#endregion
+
+	#region Public Variables
+	float amountHealed = 0;
+	public Image healthBar;
     public string
         enemyName; // The enemy's name
-    public float
-        aggroRange,  // The max range where the enemy can detect the player
+	public float
+		aggroRange,  // The max range where the enemy can detect the player
+		duration,
 		followRange, // How far away the player must get for the enemy to deaggro
 		attackDmg,   // Base damage from an intentional attack
         contactDmg,  // Base damage from making contact with the player
+		healPerLoop,
+		healAmount,
 		moveSpeed;   // Base movement speed
     public bool
         aggro; // The enemy has detected the player
@@ -24,14 +31,17 @@ public class Enemy : BaseCharacter
         playerPos;  // The player's position
     public Rigidbody2D
 		sprite; // The enemy's sprite
-    #endregion
+	#endregion
 
 	#region Private Variables
-  #endregion
+	#endregion
 
+	// Unity Named Methods
+	#region Main Methods
 	void Start()
 	{
 		sprite = GetComponent<Rigidbody2D>();
+		healPerLoop = healAmount / duration;
 	}
 
 	void FixedUpdate()
@@ -44,21 +54,25 @@ public class Enemy : BaseCharacter
 		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
 		{
 			aggro = false;
+			StartCoroutine(HealOverTimeCoroutine(healAmount, duration));
 		}
-        if (aggro)
-        {
-            canAttack = true;
-        }
+		if (aggro)
+		{
+			canAttack = true;
+		}
+		Debug.Log("enemy CurrentHealth = " + currentHealth.runTimeValue);
 	}
+	#endregion
 
+	#region Utility Methods
 	public override void TakeDamage(int damage)
 	{
 		base.TakeDamage(damage);
 
-        float percentHealth = currentHealth.runTimeValue / maxHealth.initialValue;
-        SetHealth(percentHealth);
+		float percentHealth = currentHealth.runTimeValue / maxHealth.initialValue;
+		SetHealth(percentHealth);
 
-        Debug.Log("enemy CurrentHealth = " + currentHealth.initialValue);
+		Debug.Log("enemy CurrentHealth = " + currentHealth.runTimeValue);
 
 		if (currentHealth.runTimeValue <= 0)
 		{
@@ -66,8 +80,25 @@ public class Enemy : BaseCharacter
 		}
 	}
 
-    void SetHealth(float percentHelth)
-    {
-        healthBar.fillAmount = percentHelth;
-    }
-}
+	void SetHealth(float percentHelth)
+	{
+		healthBar.fillAmount = percentHelth;
+	}
+	#endregion
+
+
+	#region Coroutines
+	//Heal over time
+	IEnumerator HealOverTimeCoroutine(float healAmount, float duration)
+	{
+
+		while (amountHealed < healAmount)
+		{
+			currentHealth.runTimeValue += healPerLoop;
+			amountHealed += healPerLoop;
+			SetHealth(currentHealth.runTimeValue);
+			yield return new WaitForSeconds(1f);
+		}
+	}
+	#endregion
+}	
