@@ -54,7 +54,7 @@ public class BulletLogic : MonoBehaviour
 			}
 
 			// The bullet impacts then gets destroyed
-			Destroy(Instantiate(impactEffect, transform.position, transform.rotation), 1f);
+			Destroy(Instantiate(impactEffect, transform.position, transform.rotation), 1.0f);
 			Destroy(gameObject);
 		}
 	}

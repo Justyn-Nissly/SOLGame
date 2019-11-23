@@ -74,7 +74,7 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Utility Methods
-	// Deal damage to the enemy
+	///<summary> Deal damage to the enemy </summary>
 	public override void TakeDamage(int damage)
 	{
 		base.TakeDamage(damage);
@@ -82,12 +82,14 @@ public class Enemy : BaseCharacter
 
 		Debug.Log("enemy CurrentHealth = " + currentHealth.runTimeValue);
 
+		// The enemy gets destroyed if it runs out of health
 		if (currentHealth.runTimeValue <= 0)
 		{
 			Destroy(gameObject);
 		}
 	}
 
+	///<summary> Make the health bar show the current health </summary>
 	void SetHealth(float percentHelth)
 	{
 		healthBar.fillAmount = percentHelth;
@@ -95,17 +97,16 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Coroutines
-	//Heal over time
+	///<summary> The enemy heals over time </summary>
 	IEnumerator HealOverTimeCoroutine(float healAmount, float duration)
 	{
-
 		while (amountHealed < healAmount)
 		{
 			currentHealth.runTimeValue += healPerLoop;
-			amountHealed += healPerLoop;
+			amountHealed               += healPerLoop;
 			SetHealth(currentHealth.runTimeValue);
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(1.0f);
 		}
 	}
 	#endregion
-}	
+}

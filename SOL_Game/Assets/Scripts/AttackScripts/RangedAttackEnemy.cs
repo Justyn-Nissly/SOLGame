@@ -60,18 +60,17 @@ public class RangedAttackEnemy : RangedAttackBase
 	public override void Shoot()
 	{
 		base.Shoot();
-		Invoke("InstantiateBullet", 0.2f);
+		// Create and launch blaster bullet
+		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
+		bulletLogic.bulletDamage = rangeAttackDamage;
 	}
 
 	///<summary> Create the projectile </summary>
-/*	public void InstantiateBullet()
+  	public void InstantiateBullet()
 	{
-		GameObject
-			bulletInstance       = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-		BulletLogic
-			bulletLogic	         = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = rangeAttackDamage;
-	}*/
+		// Create and launch blaster bullet
+	}
 	#endregion
 
 	#region Coroutines (Empty)
