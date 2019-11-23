@@ -60,7 +60,7 @@ public class MeleeAttackBase : MonoBehaviour
 			BaseCharacter characterBeingAtacked = collider.GetComponent<BaseCharacter>();
 			if (characterBeingAtacked != null)
 			{
-				characterBeingAtacked.TakeDamage((int)damageToGive.initialValue);
+				characterBeingAtacked.TakeDamage((int)damageToGive.initialValue, true);
 
 				if (characterHasKnockback)
 				{
