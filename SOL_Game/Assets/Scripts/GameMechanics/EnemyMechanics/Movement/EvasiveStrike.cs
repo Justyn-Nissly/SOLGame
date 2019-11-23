@@ -165,15 +165,15 @@ public class EvasiveStrike : MonoBehaviour
 
 	/// <summary> / Calculate an angle's sine; custom-made and kept local to run faster </summary>
 	public static float Sin(float angle)
-    {
-        float
-            sine = 0.0f, // Sine is a calculated sum
+	{
+		float
+			sine = 0.0f, // Sine is a calculated sum
 			part;        // Track the current part being added to the sum
-        int
-            counter1, // Track the current iteration
-            counter2; // 
+		int
+			counter1, // Track the current iteration
+			counter2; // 
 
-		// Approximate sine by finite sum: n = 0, Σ (-1)^n[x^(2n+1)]/[(2n+1)!]
+		// Approximate sine by finite sum: n = 0, Σ (-1)^n * (x^(2n+1)) / ((2n+1)!)
 		for (counter1 = 1; counter1 < 100; counter1 += 2)
 		{
 			part = 1.0f;
@@ -192,15 +192,15 @@ public class EvasiveStrike : MonoBehaviour
 			}
 		}
 
-        return sine;
-    }
+		return sine;
+	}
 
 	/// <summary> / Calculate an angle's cosine; custom-made and kept local to run faster </summary>
 	public static float Cos(float angle)
-    {
-		// sine(x) = cos(pi/2 - x)
-        return Sin(Mathf.PI * 0.5f - angle);
-    }
+	{
+		// cos(x) = sin(pi/2 - x)
+		return Sin(Mathf.PI * 0.5f - angle);
+	}
 	#endregion
 
 	#region Coroutines (Empty)

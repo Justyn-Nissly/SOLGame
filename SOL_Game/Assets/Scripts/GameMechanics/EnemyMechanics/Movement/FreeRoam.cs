@@ -14,9 +14,9 @@ public class FreeRoam : MonoBehaviour
 
     #region Public Variables
     public float
-        maxTime,   // Maximum time the enemy moves before choosing new direction
-        minTime,   // Minimum time the enemy moves before choosing new direction
-        waitTime;  // Waiting time before moving in new direction
+        maxTime,  // Maximum time the enemy moves before choosing new direction
+        minTime,  // Minimum time the enemy moves before choosing new direction
+        waitTime; // Waiting time before moving in new direction
     #endregion
 
     #region Private Variables
@@ -36,13 +36,13 @@ public class FreeRoam : MonoBehaviour
 
     private bool
         stopped; // An obstacle is hindering the enemy
-    #endregion
+	#endregion
 
-    // Unity Named Methods
-    #region Unity Main Methods
-    void Start()
+	// Unity Named Methods
+	#region Unity Main Methods
+	/// <summary> Set up the enemy's movement </summary>
+	void Start()
     {
-        // Initializations
         new Random();
         stopped  = false;
         enemy    = GetComponent<Enemy>();
@@ -50,9 +50,9 @@ public class FreeRoam : MonoBehaviour
         moveTime = Random.Range(minTime, maxTime);
     }
 
-    void FixedUpdate()
+	/// <summary> Roam randomly while the player has not been detected </summary>
+	void FixedUpdate()
     {
-        // Check if the enemy has detected the player
         if (enemy.aggro == false)
         {
             Roam();
@@ -62,12 +62,14 @@ public class FreeRoam : MonoBehaviour
             waiting = waitTime;
         }
     }
-    #endregion
+	#endregion
 
-    #region Utility Functions
-    public void ChooseNewPath()
+	#region Utility Functions
+	/// <summary> Move in a new direction </summary>
+	public void ChooseNewPath()
     {
         lastDirection = direction;
+
         // If the enemy hit an obstacle it will not try to move in the same direction
         direction = Random.Range(UP, RIGHT + 1);
         if (stopped)
@@ -105,7 +107,8 @@ public class FreeRoam : MonoBehaviour
         moveTime = Random.Range(minTime, maxTime);
     }
 
-    public void Roam()
+	/// <summary> Roam around randomly </summary>
+	public void Roam()
     {
         // If the enemy stops moving it chooses a new direction
         if (moveTime <= 0.0f)
@@ -114,11 +117,13 @@ public class FreeRoam : MonoBehaviour
             ChooseNewPath();
             stopped = false;
         }
+
         // The enemy delays before moving in a new direction
         else if (waiting > 0.0f)
         {
             waiting -= Time.deltaTime;
         }
+
         // The enemy is moving
         else
         {
@@ -132,7 +137,8 @@ public class FreeRoam : MonoBehaviour
                 stopped       = true;
                 lastDirection = direction;
             }
-            // The enemy will keep moving
+
+            // The enemy keeps moving
             else
             {
                 lastPos       = transform.position;
@@ -140,8 +146,8 @@ public class FreeRoam : MonoBehaviour
             }
         }
     }
-    #endregion
+	#endregion
 
-    #region Coroutines
-    #endregion
+	#region Coroutines (Empty)
+	#endregion
 }
