@@ -67,10 +67,10 @@ public class RangedAttackEnemy : RangedAttackBase
 	}
 
 	///<summary> Create the projectile </summary>
-  	public void InstantiateBullet()
+  	/*public void InstantiateBullet()
 	{
 		// Create and launch blaster bullet
-	}
+	}*/
 	#endregion
 
 	#region Coroutines (Empty)

@@ -163,7 +163,7 @@ public class Player : BaseCharacter
 		playerHealthSignal.Raise();
 
 		// print the players current heath to the console for debugging
-		Debug.Log("player CurrentHealth = " + currentHealth.initialValue);
+		Debug.Log("player CurrentHealth = " + currentHealth);
 	}
 
 	/// <summary> Rotates the players attack game object so that the players weapons are "fired" in the right direction </summary>
