@@ -66,15 +66,15 @@ public class EvadePlayer : MonoBehaviour
         }
     }
 
-	/// <summary> / Calculate an angle's sine; custom-made and kept local to run faster </summary>
+	/// <summary> Calculate an angle's sine; custom-made and kept local to run faster </summary>
 	public static float Sin(float angle)
     {
         float
             sine = 0.0f, // Sine is a calculated sum
 			part;        // Track the current part being added to the sum
         int
-            counter1, // Track the current iteration
-            counter2; // 
+            counter1, // Track which part of the sum is being calculated
+            counter2; // The power and factorial functions must be done iteratively
 
 		// Approximate sine by finite sum: n = 0, Σ (-1)^n * (x^(2n+1)) / ((2n+1)!)
 		for (counter1 = 1; counter1 < 100; counter1 += 2)
@@ -98,7 +98,7 @@ public class EvadePlayer : MonoBehaviour
         return sine;
     }
 
-	/// <summary> / Calculate an angle's cosine; custom-made and kept local to run faster </summary>
+	/// <summary> Calculate an angle's cosine; custom-made and kept local to run faster </summary>
 	public static float Cos(float angle)
     {
 		// cos(x) = sin(pi/2 - x)

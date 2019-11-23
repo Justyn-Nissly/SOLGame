@@ -5,105 +5,93 @@ using System.Collections.Generic;
 public class FollowPath : MonoBehaviour
 {
     #region Enums
-    public enum MovementType  //Type of Movement
+    public enum MovementType
     {
         MoveTowards,
         LerpTowards
     }
-    #endregion //Enums
+    #endregion
 
     #region Public Variables
-    public MovementType Type = MovementType.MoveTowards; // Movement type used
-    public MovementPath MyPath; // Reference to Movement Path Used
-    public float Speed = 1; // Speed object is moving
-    public float MaxDistanceToGoal = .1f; // How close does it have to be to the point to be considered at point
-    #endregion //Public Variables
+    public MovementType
+		type; // Movement type used
+	public MovementPath
+		movePath;
+	public float
+		speed;
+    #endregion
 
     #region Private Variables
-    private IEnumerator<Transform> pointInPath; //Used to reference points returned from MyPath.GetNextPathPoint
-    #endregion //Private Variables
+    private IEnumerator<Transform>
+		pointInPath; // Reference movePath.GetNextPathPoint
+	#endregion
 
-    // (Unity Named Methods)
-    #region Main Methods
-    public void Start()
+	// Unity Named Methods
+	#region Main Methods
+	/// <summary> Assign the movement path </summary>
+	public void Start()
     {
+		type = MovementType.MoveTowards; // Movement type used
+
         // Make sure there is a path assigned
-        if (MyPath == null)
+        if (movePath == null)
         {
-            Debug.LogError("Movement Path cannot be null, I must have a path to follow.", gameObject);
+            Debug.LogError("ERROR: movement path null. ", gameObject);
             return;
         }
 
-        //Sets up a reference to an instance of the coroutine GetNextPathPoint
-        pointInPath = MyPath.GetNextPathPoint();
-        Debug.Log(pointInPath.Current);
-        //Get the next point in the path to move to (Gets the Default 1st value)
+        // Set reference to GetNextPathPoint
+        pointInPath = movePath.GetNextPathPoint();
+
+        // Get the next path point
         pointInPath.MoveNext();
-        Debug.Log(pointInPath.Current);
 
         //Make sure there is a point to move to
         if (pointInPath.Current == null)
         {
-            Debug.LogError("A path must have points in it to follow", gameObject);
-            return; //Exit Start() if there is no point to move to
+            Debug.LogError("A path must have points in it to follow. ", gameObject);
+            return;
         }
 
-        //Set the position of this object to the position of our starting point
+        // Set this object to the starting point
         transform.position = pointInPath.Current.position;
     }
      
-    //Update is called by Unity every frame
+    // Update is called by Unity every frame
     public void Update()
     {
-        //Validate there is a path with a point in it
+        // Validate the movement path
         if (pointInPath == null || pointInPath.Current == null)
         {
-            return; //Exit if no path is found
+            return;
         }
 
-        if (Type == MovementType.MoveTowards) //If you are using MoveTowards movement type
+		// Move to the next point smoothly
+		if (type == MovementType.MoveTowards)
         {
-            //Move to the next point in path using MoveTowards
-            transform.position =
-                Vector3.MoveTowards(transform.position,
-                                    pointInPath.Current.position,
-                                    Time.deltaTime * Speed);
+            transform.position = Vector3.MoveTowards(transform.position,
+			                                         pointInPath.Current.position,
+			                                         speed * Time.deltaTime);
         }
-        else if (Type == MovementType.LerpTowards) //If you are using LerpTowards movement type
+		// Lerp to the next point
+		else if (type == MovementType.LerpTowards)
         {
-            //Move towards the next point in path using Lerp
             transform.position = Vector3.Lerp(transform.position,
-                                                pointInPath.Current.position,
-                                                Time.deltaTime * Speed);
+			                                  pointInPath.Current.position,
+			                                  speed * Time.deltaTime);
         }
 
-        //Check to see if you are close enough to the next point to start moving to the following one
-        //Using Pythagorean Theorem
-        //per unity suaring a number is faster than the square root of a number
-        //Using .sqrMagnitude 
-        var distanceSquared = (transform.position - pointInPath.Current.position).sqrMagnitude;
-        if (distanceSquared < MaxDistanceToGoal * MaxDistanceToGoal) //If you are close enough
+		// If the enemy has reached the next point get the following point in MovementPath
+		if (Vector2.Distance(transform.position, pointInPath.Current.position) < 0.1f)
         {
-            pointInPath.MoveNext(); //Get next point in MovementPath
+            pointInPath.MoveNext();
         }
-        //The version below uses Vector3.Distance same as Vector3.Magnitude which includes (square root)
-        /*
-        var distanceSquared = Vector3.Distance(transform.position, pointInPath.Current.position);
-        if (distanceSquared < MaxDistanceToGoal) //If you are close enough
-        {
-            pointInPath.MoveNext(); //Get next point in MovementPath
-        }
-        */
     }
-    #endregion //Main Methods
+	#endregion
 
-    //(Custom Named Methods)
-    #region Utility Methods 
+	#region Utility Methods (Empty)
+	#endregion
 
-    #endregion //Utility Methods
-
-    //Coroutines run parallel to other fucntions
-    #region Coroutines
-
-    #endregion //Coroutines
+	#region Coroutines (Empty)
+	#endregion
 }
