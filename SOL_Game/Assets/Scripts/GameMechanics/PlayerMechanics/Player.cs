@@ -198,7 +198,14 @@ public class Player : BaseCharacter
 	{
 		// Get the amount of movement that the player needs to move
 		playerMovementAmount = GetPlayerMovementAmount();
-
+		if (playerMovementAmount.x != 0 || playerMovementAmount.y != 0)
+		{
+			playerAnimator.SetLayerWeight(1, 1);
+		}
+		else
+		{
+			playerAnimator.SetLayerWeight(1, 0);
+		}
 		// Update the values in the Animator for the players animation
 		SetPlayerAnimatorValues();
 
