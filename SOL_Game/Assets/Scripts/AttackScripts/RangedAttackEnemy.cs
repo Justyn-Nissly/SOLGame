@@ -55,22 +55,7 @@ public class RangedAttackEnemy : RangedAttackBase
     }
 	#endregion
 
-	#region Utility Methods
-	///<summary> Fire a projectile after a short delay </summary>
-	public override void Shoot()
-	{
-		base.Shoot();
-		// Create and launch blaster bullet
-		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = rangeAttackDamage;
-	}
-
-	///<summary> Create the projectile </summary>
-  	/*public void InstantiateBullet()
-	{
-		// Create and launch blaster bullet
-	}*/
+	#region Utility Methods (Empty)
 	#endregion
 
 	#region Coroutines (Empty)

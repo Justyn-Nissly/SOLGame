@@ -15,6 +15,10 @@ public class BaseCharacter : MonoBehaviour
 		canTakeDamage = true; // Toggle the character's ability to take damage
 	public float
 		currentHealth; // The character's current health
+
+	public List<AudioClip> takeDamageSounds;
+
+	public AudioSource audioSource;
 	#endregion
 
 	#region Private Variables (Empty)
@@ -26,13 +30,27 @@ public class BaseCharacter : MonoBehaviour
 
 	#region Utility Methods
 	/// <summary> Make the character receive damage and then become temporarily invincible </summary> 
-	public virtual void TakeDamage(int damage)
+	public virtual void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		if (canTakeDamage == true)
 		{
+			if (takeDamageSounds.Count > 0 && playSwordImpactSound)
+			{
+				audioSource.clip = GetRamdomSoundEffect();
+				audioSource.Play();
+			}
+
+
 			currentHealth -= damage;
 			StartCoroutine("StartBlinking");
 		}
+	}
+
+	private AudioClip GetRamdomSoundEffect()
+	{
+		int index = Random.Range(0, takeDamageSounds.Count - 1);
+
+		return takeDamageSounds[index];
 	}
 	#endregion
 

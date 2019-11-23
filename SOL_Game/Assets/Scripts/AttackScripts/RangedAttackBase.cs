@@ -17,6 +17,9 @@ public class RangedAttackBase : MonoBehaviour
 	public GameObject gunPrefab;
 	public FloatValue damageToGive;
 	public float BulletShootingDelay = .2f;
+
+	public AudioClip blasterSound;
+	public AudioSource audioSource;
 	#endregion
 
 	#region Private Variables
@@ -33,7 +36,7 @@ public class RangedAttackBase : MonoBehaviour
 
 	}
 
-	public RangedAttackBase(Transform _firePoint, Transform _gunSpawnPoint, GameObject _bulletPrefab, GameObject _gunPrefab, FloatValue _damageToGive, float _BulletShootingDelay)
+	public RangedAttackBase(Transform _firePoint, Transform _gunSpawnPoint, GameObject _bulletPrefab, GameObject _gunPrefab, FloatValue _damageToGive, float _BulletShootingDelay, AudioClip _blasterSound, AudioSource _audioSource)
 	{
 		firePoint = _firePoint;
 		bulletPrefab = _bulletPrefab;
@@ -41,6 +44,8 @@ public class RangedAttackBase : MonoBehaviour
 		BulletShootingDelay = _BulletShootingDelay;
 		gunSpawnPoint = _gunSpawnPoint;
 		gunPrefab = _gunPrefab;
+		blasterSound = _blasterSound;
+		audioSource = _audioSource;
 	}
 
 
@@ -50,6 +55,12 @@ public class RangedAttackBase : MonoBehaviour
 	public virtual void Shoot()
 	{
 		InstantiateAndDestroyGun();
+
+		if(audioSource != null && blasterSound != null)
+		{
+			audioSource.clip = blasterSound;
+			audioSource.Play();
+		}
 
 		if (BulletShootingDelay == 0)
 		{
