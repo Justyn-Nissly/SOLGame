@@ -13,6 +13,9 @@ public class MeleeAttackBase : MonoBehaviour
 	public LayerMask willDamageLayer;
 	public GameObject weapon;
 	public FloatValue damageToGive;
+
+	public List<AudioClip> soundEffects;
+	public AudioSource audioSource;
 	#endregion
 
 	#region Private Variables
@@ -25,12 +28,6 @@ public class MeleeAttackBase : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(attackPosition.position, attackRange);
-	}
-
 	#endregion
 
 	// Inflict damage function
@@ -38,13 +35,15 @@ public class MeleeAttackBase : MonoBehaviour
 
 	// constructor
 	public MeleeAttackBase(Transform _attackPosition, float _attackRange, LayerMask _willDamageLayer,
-						GameObject _weapon, FloatValue _damageToGive)
+						GameObject _weapon, FloatValue _damageToGive, List<AudioClip> _soundEffects, AudioSource _audioSource)
 	{
 		attackPosition = _attackPosition;
 		attackRange = _attackRange;
 		willDamageLayer = _willDamageLayer;
 		weapon = _weapon;
 		damageToGive = _damageToGive;
+		soundEffects = _soundEffects;
+		audioSource = _audioSource;
 	}
 
 	public MeleeAttackBase()
@@ -69,6 +68,13 @@ public class MeleeAttackBase : MonoBehaviour
 				}
 			}
 		}
+
+		if (soundEffects.Count > 0)
+		{
+			audioSource.clip = GetRamdomSoundEffect();
+			audioSource.Play();
+		}
+
 		GameObject weaponInstance = Instantiate(weapon, attackPosition.transform);
 		Destroy(weaponInstance, .3f);
     }
@@ -144,6 +150,13 @@ public class MeleeAttackBase : MonoBehaviour
 	private Player GetPlayer(GameObject gameObject)
 	{
 		return gameObject.GetComponent<Player>();
+	}
+
+	private AudioClip GetRamdomSoundEffect()
+	{
+		int index = Random.Range(0, soundEffects.Count - 1);
+
+		return soundEffects[index];
 	}
 	#endregion
 

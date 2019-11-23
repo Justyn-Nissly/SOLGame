@@ -39,8 +39,12 @@ public class Player : BaseCharacter
 	public Transform gunSpawnPoint;
 	public GameObject bulletPrefab;
 	public GameObject gunPrefab;
-	public SpriteRenderer GunSprite;
 	public FloatValue damageToGive;
+
+	// player attack sound effects
+	public List<AudioClip> swordSwingSoundEffects;
+
+	public AudioSource audioSourcePlayerMovement;
 	#endregion
 
 	#region Private Variables
@@ -80,8 +84,8 @@ public class Player : BaseCharacter
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
 		// set up the players attacks with the right values
-		playerLightMeleeAttack = new MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive);
-		playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive);
+		playerLightMeleeAttack = new MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive, swordSwingSoundEffects, audioSource);
+		playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive, swordSwingSoundEffects, audioSource);
 		playerShield           = new ShieldBase(shieldSprite, shieldBoxCollider);
 		playerRangedAttack     = new RangedAttackBase(firePoint, gunSpawnPoint, bulletPrefab, gunPrefab, damageToGive, 0);
 	}
@@ -198,6 +202,17 @@ public class Player : BaseCharacter
 	{
 		// Get the amount of movement that the player needs to move
 		playerMovementAmount = GetPlayerMovementAmount();
+
+		// play or stop the player movement sound
+		if(playerMovementAmount != Vector2.zero)
+		{
+			audioSourcePlayerMovement.volume = 1;
+		}
+		else
+		{
+			audioSourcePlayerMovement.volume = 0;
+		}
+		
 
 		// Update the values in the Animator for the players animation
 		SetPlayerAnimatorValues();

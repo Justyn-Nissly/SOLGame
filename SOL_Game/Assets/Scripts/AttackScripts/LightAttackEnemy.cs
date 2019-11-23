@@ -39,10 +39,10 @@ public class LightAttackEnemy : MeleeAttackBase
                 countDownTimer -= Time.deltaTime;
             }
         }
-        else
-        {
-            countDownTimer = 0.0f;
-        }
+        //else
+        //{
+        //    countDownTimer = 0.0f;
+        //}
 	}
     #endregion
 
