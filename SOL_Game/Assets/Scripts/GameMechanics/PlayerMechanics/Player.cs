@@ -211,7 +211,7 @@ public class Player : BaseCharacter
 	/// </summary>
 	private Vector2 GetPlayerMovementAmount()
 	{
-		return new Vector2(Mathf.RoundToInt(Input.GetAxis("Horizontal")) * playerMovementSpeed, Mathf.RoundToInt(Input.GetAxis("Vertical")) * playerMovementSpeed);
+		return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * playerMovementSpeed;
 	}
 
 	/// <summary>
