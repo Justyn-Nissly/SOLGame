@@ -76,7 +76,7 @@ public class MeleeAttackBase : MonoBehaviour
 		}
 
 		GameObject weaponInstance = Instantiate(weapon, attackPosition.transform);
-		Destroy(weaponInstance, .3f);
+		Destroy(weaponInstance, .5f);
     }
     #endregion
 
