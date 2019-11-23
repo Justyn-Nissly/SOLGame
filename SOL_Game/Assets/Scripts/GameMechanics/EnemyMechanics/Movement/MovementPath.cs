@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public class MovementPath : MonoBehaviour
@@ -14,121 +14,89 @@ public class MovementPath : MonoBehaviour
     #endregion //Enums
 
     #region Public Variables
-    public PathTypes PathType; //Indicates type of path (Linear or Looping)
-    public int movementDirection = 1; //1 clockwise/forward || -1 counter clockwise/backwards
-    public int movingTo = 0; //used to identify point in PathSequence we are moving to
-    public Transform[] PathSequence; //Array of all points in the path
-    #endregion //Public Variables
+    public PathTypes
+		pathType; // The path is either linear or looping
+    public int
+		movingTo = 0; // Point to move to
+    public Transform[]
+		pathSequence; // All points in the path
+	#endregion
 
-    #region Private Variables
+	#region Private Variables (Empty)
+	#endregion
 
-    #endregion //Private Variables
-
-    // (Unity Named Methods)
-    #region Main Methods
-    //Update is called by Unity every frame
-    void Update()
-    {
-
-    }
-
-    //OnDrawGizmos will draw lines between our points in the Unity Editor
-    //These lines will allow us to easily see the path that
-    //our moving object will follow in the game
+	// (Unity Named Methods)
+	#region Main Methods
+	/// <summary>  Draw the path the enemy follows </summary>
     public void OnDrawGizmos()
     {
-        //Make sure that your sequence has points in it
-        //and that there are at least two points to constitute a path
-        if(PathSequence == null || PathSequence.Length < 2)
+        // Check if the path exists and has at least two points in it
+        if(pathSequence == null || pathSequence.Length < 2)
         {
-            return; //Exits OnDrawGizmos if no line is needed
+            return;
         }
 
-        //Loop through all of the points in the sequence of points
-        for(var i=1; i < PathSequence.Length; i++)
+        // Draw a line between each point and the one after
+        for(var point = 1; point < pathSequence.Length; point++)
         {
-            //Draw a line between the points
-            Gizmos.DrawLine(PathSequence[i - 1].position, PathSequence[i].position);
+            Gizmos.DrawLine(pathSequence[point - 1].position, pathSequence[i].position);
         }
 
-        //If your path loops back to the begining when it reaches the end
-        if(PathType == PathTypes.loop)
+        // Make the last point in a looping path return to the first point
+        if(pathType == PathTypes.loop)
         {
-            //Draw a line from the last point to the first point in the sequence
-            Gizmos.DrawLine(PathSequence[0].position, PathSequence[PathSequence.Length-1].position);
+            Gizmos.DrawLine(pathSequence[0].position, pathSequence[pathSequence.Length-1].position);
         }
     }
-    #endregion //Main Methods
+	#endregion
 
-    //(Custom Named Methods)
-    #region Utility Methods 
+	#region Utility Methods (Empty)
+	#endregion
 
-    #endregion //Utility Methods
-
-    //Coroutines run parallel to other fucntions
-    #region Coroutines
-    //GetNextPathPoint() returns the transform component of the next point in our path
-    //FollowPath.cs script will inturn move the object it is on to that point in the game
-    public IEnumerator<Transform> GetNextPathPoint()
+	#region Coroutines
+	/// <summary>  Get the next path point </summary>
+	public IEnumerator<Transform> GetNextPathPoint()
     {
-        //Make sure that your sequence has points in it
-        //and that there are at least two points to constitute a path
-        if (PathSequence == null || PathSequence.Length <1)
+		// Exit if the path doesn't exist
+		if (pathSequence == null || pathSequence.Length < 1)
         {
-            yield break; //Exits the Coroutine sequence length check fails
+            yield break;
         }
 
-        while(true) //Does not infinite loop due to yield return!!
+		// Make the enemy continually follow its set path
+		while (true)
         {
-            //Return the current point in PathSequence
-            //and wait for next call of enumerator (Prevents infinite loop)
-            yield return PathSequence[movingTo]; 
-//*********************************PAUSES HERE******************************************************//
-            //If there is only one point exit the coroutine
-            if(PathSequence.Length == 1)
+            // Get current path point and wait for next enumerator call
+            yield return pathSequence[movingTo]; 
+
+            // If there is only one point exit the coroutine
+            if(pathSequence.Length == 1)
             {
                 continue;
             }
 
-            //If Linear path move from start to end then end to start then repeat
-            if (PathType == PathTypes.linear)
+            // A linear path goes start to end then back
+            if (pathType == PathTypes.linear)
             {
-                //If you are at the begining of the path
-                if (movingTo <= 0)
-                {
-                    movementDirection = 1; //Seting to 1 moves forward
-                }
-                //Else if you are at the end of your path
-                else if (movingTo >= PathSequence.Length - 1)
-                {
-                    movementDirection = -1; //Seting to -1 moves backwards
-                }
+				// At path beginning move forward and at end path move backward
+				movingTo = (movingTo > 0 || movingTo < pathSequence.Length - 1) ? movingTo : -movingTo;
             }
 
-            movingTo = movingTo + movementDirection;  
-            //movementDirection should always be either 1 or -1
-            //We add direction to the index to move us to the
-            //next point in the sequence of points in our path
-
-
-            //For Looping path you must move the index when you reach 
-            //the begining or end of the PathSequence to loop the path
-            if(PathType == PathTypes.loop)
+            // A looping returns from the last point directly to the first point
+            if(pathType == PathTypes.loop)
             {
-                //If you just moved past the last point(moving forward)
-                if (movingTo >= PathSequence.Length)
+				// Moving forward past path end (to path beginning)
+				if (movingTo >= pathSequence.Length)
                 {
-                    //Set the next point to move to as the first point in sequence
                     movingTo = 0;
                 }
-                //If you just moved past the first point(moving backwards)
-                if (movingTo < 0)
+				// Moving backward past path beginning (to path end)
+				if (movingTo < 0)
                 {
-                    //Set the next point to move to as the last point in sequence
-                    movingTo = PathSequence.Length - 1;
+                    movingTo = pathSequence.Length - 1;
                 }
             }
         }
     }
-    #endregion //Coroutines
+    #endregion
 }

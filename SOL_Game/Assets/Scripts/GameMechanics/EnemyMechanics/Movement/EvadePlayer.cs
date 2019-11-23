@@ -44,13 +44,13 @@ public class EvadePlayer : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary> Try to stay a set distance away from the player </summary>
+	/// <summary> Try to stay a set distance from the player </summary>
 	public void Evade()
     {
 		// Get the angle between the enemy and the player
         angle = Mathf.Atan2(playerPos.y - enemy.transform.position.y, playerPos.x - enemy.transform.position.x);
 
-		// If the enemy is too close to the player it evades
+		// If the enemy is too close to the player it evades; otherwise it pursues the player
         if (Vector2.Distance(playerPos, transform.position) <= evasionDistance)
         {
             angle += Mathf.PI;
