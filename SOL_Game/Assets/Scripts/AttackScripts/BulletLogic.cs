@@ -4,68 +4,65 @@ using UnityEngine;
 
 public class BulletLogic : MonoBehaviour
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public float bulletSpeed = 15f;
-	public int bulletDamage;
-	public Rigidbody2D bulletRigidbody;
-	public GameObject impactEffect;
-	public string ignoreTag; // lets the bullet ignore any game objects it hits with this tag
-    #endregion
+	public float
+		bulletSpeed = 15f;
+	public int
+		bulletDamage;
+	public Rigidbody2D
+		bulletRigidbody;
+	public GameObject
+		impactEffect; // Bullet impact visual
+	public string
+		ignoreTag; // The bullet ignores game objects with this tag
+	#endregion
 
-    #region Private Variables
-    #endregion
+	#region Private Variables (Empty)
+	#endregion
 
-
-
-    // Unity Named Methods
-    #region Main Methods
-    public void Start()
+	// Unity Named Methods
+	#region Main Methods
+	/// <summary> Set the bullet to move </summary>
+	public void Start()
 	{
 		bulletRigidbody.velocity = transform.up * bulletSpeed;
 	}
 
+	/// <summary> The bullet makes contact with an object </summary>
 	public void OnTriggerEnter2D(Collider2D collision)
 	{
+		// The bullet cannot cause friendly fire damage
 		if (collision.CompareTag(ignoreTag) == false)
 		{
+			// An enemy bullet hits the player
 			if (collision.CompareTag("Player"))
 			{
 				Player player = collision.GetComponent<Player>();
 				player.TakeDamage(bulletDamage);
-				Debug.Log("players CurrentHealth = " + player.currentHealth.initialValue);
-
-				if (player.currentHealth.initialValue <= 0)
-				{
-					Debug.Log("the player died");
-				}
+				// DEBUG CODE, REMOVE LATER
+				Debug.Log("players CurrentHealth = " + player.currentHealth);
 			}
 			else if (collision.CompareTag("Enemy"))
 			{
 				Enemy enemy = collision.GetComponent<Enemy>();
 				enemy.TakeDamage(bulletDamage);
-				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth.initialValue);
-
-				if (enemy.currentHealth.initialValue <= 0)
-				{
-					Destroy(collision.gameObject);
-				}
+				// DEBUG CODE, REMOVE LATER
+				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth);
 			}
 
-			// instantiate a impact effect then destroy the bullet and impact effect
-			GameObject instance = Instantiate(impactEffect, transform.position, transform.rotation);
-			Destroy(instance, 1f); // destroy the impact effect after N seconds
+			// The bullet impacts then gets destroyed
+			Destroy(Instantiate(impactEffect, transform.position, transform.rotation), 1.0f);
 			Destroy(gameObject);
 		}
 	}
 	#endregion
 
-	#region Utility Methods
+	#region Utility Methods (Empty)
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
-
 }

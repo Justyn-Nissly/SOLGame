@@ -4,38 +4,41 @@ using UnityEngine;
 
 public class RangedAttackEnemy : RangedAttackBase
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public int rangeAttackDamage;
-
-	public float maxTimeBetweenAttacks = 2f;
-	public float minTimeBetweenAttacks = 1f;
+	public int
+		rangeAttackDamage;
+	public float
+		maxTimeBetweenAttacks = 2f,
+		minTimeBetweenAttacks = 1f;
 	#endregion
 
 	#region Private Variables
-	private float countDownTimer;
-	private Enemy enemy;
-    #endregion
+	private float
+		countDownTimer; // Track how long before the next attack
+	private Enemy
+		enemy;
+	#endregion
 
+	// Unity Named Methods
+	#region Main Methods
+	///<summary> Assign the attack's damage </summary>
+	private void Awake()
+	{
+		rangeAttackDamage = (int)damageToGive.initialValue;
+	}
 
-    #region Before Start
-    private void Awake()
-    {
-        rangeAttackDamage = (int)damageToGive.initialValue;
-    }
-    #endregion
-
-    // Unity Named Methods
-    #region Main Methods
-    public void Start()
+	///<summary> Make the enemy ready to attack </summary>
+	public void Start()
 	{
         enemy          = GetComponent<Enemy>();
         countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 	}
 
-    public void FixedUpdate()
+	///<summary> If the enemy is aggro it fires at the player </summary>
+	public void FixedUpdate()
     {
         if (enemy.aggro)
         {
@@ -53,23 +56,23 @@ public class RangedAttackEnemy : RangedAttackBase
 	#endregion
 
 	#region Utility Methods
+	///<summary> Fire a projectile after a short delay </summary>
 	public override void Shoot()
 	{
 		base.Shoot();
-
-		// there's a delay here so that there is a delay before the enemy shoots
-		Invoke("InstantiateBullet", .2f);
-	}
-
-	public void InstantiateBullet()
-	{
+		// Create and launch blaster bullet
 		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-
 		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
 		bulletLogic.bulletDamage = rangeAttackDamage;
 	}
+
+	///<summary> Create the projectile </summary>
+  	/*public void InstantiateBullet()
+	{
+		// Create and launch blaster bullet
+	}*/
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }

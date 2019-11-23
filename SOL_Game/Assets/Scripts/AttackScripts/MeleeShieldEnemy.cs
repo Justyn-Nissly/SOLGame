@@ -4,28 +4,27 @@ using UnityEngine;
 
 public class MeleeShieldEnemy : ShieldBase
 {
-    #region Enums
-    #endregion
+	#region Enums (Empty)
+	#endregion
 
-    #region Public Variables
-    public bool
-        hasAttack = false;
+	#region Public Variables
     public float
-        shieldDropTime;
+        shieldDropTime; // How long the enemy drops it shield
     #endregion
 
     #region Private Variables
     public float
-        shieldDownTimer;
+        shieldDownTimer; // Track when to drop the shield
     private Enemy
         enemy; // Access the enemy's members
     private LightAttackEnemy
-        lightAttackEnemy; // Access the enemy's members
-    #endregion
+        lightAttackEnemy; // This enemy uses light attacks
+	#endregion
 
-    // Unity Named Methods
-    #region Main Methods
-    private void Awake()
+	// Unity Named Methods
+	#region Main Methods
+	///<summary> Initialize the enemy </summary>
+	private void Awake()
     {
         EnableShield();
         enemy = GetComponent<Enemy>();
@@ -34,7 +33,8 @@ public class MeleeShieldEnemy : ShieldBase
         shieldDownTimer = 0.0f;
     }
 
-    public void FixedUpdate()
+	///<summary> Toggle the shield on and off based on a timer </summary>
+	public void FixedUpdate()
     {
         shieldDownTimer -= Time.deltaTime;
         if (shieldDownTimer <= 0.0f)
@@ -43,16 +43,18 @@ public class MeleeShieldEnemy : ShieldBase
             shieldDownTimer = shieldDropTime;
         }
     }
-    #endregion
+	#endregion
 
-    #region Utility Methods
-    public void ReEnableShield()
+	#region Utility Methods
+	///<summary> Turn the shield on </summary>
+	public void ReEnableShield()
     {
         EnableShield();
         shieldIsEnabled = true;
     }
 
-    public void ToggleShield()
+	///<summary> Toggle the shield and enable attack if the shield is down </summary>
+	public void ToggleShield()
     {
         if (shieldIsEnabled)
         {
@@ -68,6 +70,6 @@ public class MeleeShieldEnemy : ShieldBase
     }
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }

@@ -4,63 +4,60 @@ using UnityEngine;
 
 public class AttactOrientationControllerEnemy : MonoBehaviour
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
-	#region Public Variables
+	#region Public Variables (Empty)
 	#endregion
 
 	#region Private Variables
-	private GameObject gameObjectToLookAt;
+	private GameObject
+		target;
+	private Enemy
+		enemy;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	///<summary> The enemy tracks the player's position </summary>
+	private void Start()
+	{
+		enemy  = GetComponent<Enemy>();
+		target = GameObject.FindGameObjectWithTag("Player").gameObject;
+	}
+
+	///<summary> Make aggroed enemies face the player </summary>
 	private void FixedUpdate()
 	{
-		if (gameObjectToLookAt != null)
+		if (target != null && enemy.aggro)
 		{
 			LookInEightDirectionOfGameObject();
 		}
 	}
-
-	private void Start()
-	{
-		gameObjectToLookAt = GameObject.FindGameObjectWithTag("Player").gameObject;
-	}
 	#endregion
 
 	#region Utility Methods
+	///<summary> Make the enemy look at the player </summary>
 	public void LookInEightDirectionOfGameObject()
 	{
-		// This makes the game object that this script is attached to rotate on the z axis to look at the game object to look at
-		// and only lets that game object "look" in eight directions
-		Vector3 dir = gameObjectToLookAt.transform.position - transform.position;
+		// Get the angle between the enemy and player and keep it within 0 and 360 degrees
+		Vector3 dir = target.transform.position - transform.position;
 		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 22.5f;
-
-
-		if (angle < 0f)
+		if (angle < 0.0f)
 		{
-			angle += 360f;
+			angle += 360.0f;
 		}
-		else if (angle >= 360f)
+		else if (angle >= 360.0f)
 		{
-			angle -= 360f;
+			angle -= 360.0f;
 		}
 
-		// Make positive if negative
-		if (angle < 0)
-		{
-			angle += 360;
-		}
-
+		// Make the enemy look orthagonally or diagonally at the player
 		angle = (float)(((int)angle) / 45) * 45.0f;
-
-		// apply rotation
-		transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+		transform.rotation = Quaternion.AngleAxis(angle - 90.0f, Vector3.forward);
 	}
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }

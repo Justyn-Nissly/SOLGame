@@ -6,68 +6,108 @@ using UnityEngine.UI;
 
 public class Enemy : BaseCharacter
 {
-    #region Public Variables
-    public Image healthBar;
+	#region Enums (Empty)
+	#endregion
+
+	#region Public Variables
+	float
+		amountHealed = 0;
+	public Image
+		healthBar;
     public string
         enemyName; // The enemy's name
-    public float
-        aggroRange,  // The max range where the enemy can detect the player
+	public float
+		aggroRange,  // The max range where the enemy can detect the player
+		duration,
 		followRange, // How far away the player must get for the enemy to deaggro
 		attackDmg,   // Base damage from an intentional attack
         contactDmg,  // Base damage from making contact with the player
+		healPerLoop,
+		healAmount,
 		moveSpeed;   // Base movement speed
     public bool
         aggro; // The enemy has detected the player
     public Vector2[]
-        patrol; // The enemy's patrol points
+        patrol; // Enemy patrol points
     public Vector2
-        playerPos;  // The player's position
+        playerPos; // Track the player's position
     public Rigidbody2D
-		enemyRigidbody; // The enemy's Rigidbody2D
+		rb2d; // The enemy's rigidBody
 	#endregion
 
-	#region Private Variables
+	#region Private Variables (Empty)
 	#endregion
 
+	// Unity Named Methods
+	#region Main Methods
+	/// <summary> Initialize the enemy </summary>
 	void Start()
 	{
-		enemyRigidbody = GetComponent<Rigidbody2D>();
+		rb2d = GetComponent<Rigidbody2D>();
+		currentHealth = maxHealth.initialValue;
+		healPerLoop = healAmount / duration;
 	}
 
+	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	void FixedUpdate()
 	{
+		// Check if the player is close enough to aggro
 		playerPos = GameObject.FindWithTag("Player").transform.position;
 		if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
 		{
 			aggro = true;
 		}
+		// Enemies that are not aggro heal over time
 		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
 		{
 			aggro = false;
+			//StartCoroutine(HealOverTimeCoroutine(healAmount, duration));
 		}
-        if (aggro)
-        {
-            canAttack = true;
-        }
-	}
 
+		// Enemies attack the player only if aggroed
+		if (aggro)
+		{
+			canAttack = true;
+		}
+		// DEBUG CODE; REMOVE LATER
+		Debug.Log("enemy CurrentHealth = " + currentHealth);
+	}
+	#endregion
+
+	#region Utility Methods
+	///<summary> Deal damage to the enemy </summary>
 	public override void TakeDamage(int damage)
 	{
 		base.TakeDamage(damage);
+		SetHealth(currentHealth / maxHealth.initialValue);
 
-        float percentHealth = currentHealth.runTimeValue / maxHealth.initialValue;
-        SetHealth(percentHealth);
+		Debug.Log("enemy CurrentHealth = " + currentHealth);
 
-        Debug.Log("enemy CurrentHealth = " + currentHealth.initialValue);
-
-		if (currentHealth.runTimeValue <= 0)
+		// The enemy gets destroyed if it runs out of health
+		if (currentHealth <= 0)
 		{
 			Destroy(gameObject);
 		}
 	}
 
-    void SetHealth(float percentHelth)
-    {
-        healthBar.fillAmount = percentHelth;
-    }
+	///<summary> Make the health bar show the current health </summary>
+	void SetHealth(float percentHelth)
+	{
+		healthBar.fillAmount = percentHelth;
+	}
+	#endregion
+
+	#region Coroutines
+	///<summary> The enemy heals over time </summary>
+	IEnumerator HealOverTimeCoroutine(float healAmount, float duration)
+	{
+		while (amountHealed < healAmount)
+		{
+			yield return new WaitForSeconds(20.0f);
+			currentHealth += healPerLoop;
+			amountHealed               += healPerLoop;
+			SetHealth(currentHealth);
+		}
+	}
+	#endregion
 }

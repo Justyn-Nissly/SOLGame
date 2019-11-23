@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ShieldEnemy : ShieldBase
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public bool
-        hasAttack = false;
 	public float
-        maxTimeBetweenAttacks = 1.2f,
-	    minTimeBetweenAttacks = 0.7f;
+        maxTimeBetweenAttacks,
+	    minTimeBetweenAttacks;
 	#endregion
 
 	#region Private Variables
@@ -34,7 +32,6 @@ public class ShieldEnemy : ShieldBase
 		shieldIsEnabled = true;
         enemy.canAttack = false;
         shieldDownTimer = 0.0f;
-        hasAttack       = false;
     }
 
 	public void FixedUpdate()
@@ -69,6 +66,6 @@ public class ShieldEnemy : ShieldBase
 	}
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }

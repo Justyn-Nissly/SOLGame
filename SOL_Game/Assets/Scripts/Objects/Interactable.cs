@@ -4,38 +4,40 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+	#region Enums(Empty)
+	#endregion
 
-    public Signal context;
-    public bool playerInRange;
+	#region Public Variables
+	/*public bool isInteractable;*/ // This variable is here if we need to have certian things be interactable but locked to be unlocked later
+	public GameObject interactableIndicator; // The characters indicater that an item is interactable
+	#endregion
 
+	#region Private Variables(Empty)
+	#endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	// Unity Named Methods
+	#region Main Methods
+	///<summary>If the player is close enought to the interactable object, display an indicator that the object is interactable</summary>
+	public void OnTriggerEnter2D(Collider2D player)
+	{
+		if (player.CompareTag("Player"))
+		{
+			interactableIndicator.SetActive(true);
+		}
+	}
+	///<sumary>If the player moves away from the interactable object, disable the indicator that the object is interactable</sumary>
+	public void OnTriggerExit2D(Collider2D player)
+	{
+		if (player.CompareTag("Player"))
+		{
+			interactableIndicator.SetActive(false);
+		}
+	}
+	#endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	#region Utility Methods(Empty)
+	#endregion
 
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.CompareTag("Player") && !other.isTrigger)
-        {
-            context.Raise();
-            playerInRange = true;
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && !other.isTrigger)
-        {
-            context.Raise();
-            playerInRange = false;
-        }
-    }
+	#region Coroutines(Empty)
+	#endregion
 }
