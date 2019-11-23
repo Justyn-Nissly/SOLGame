@@ -9,11 +9,12 @@ public class BaseCharacter : MonoBehaviour
 
 	#region Public Variables
 	public FloatValue
-		currentHealth, // The character's current health
 		maxHealth;     // The character's highest health possible
 	public bool
 		canAttack = true,     // Toggle the character's ability to attack
 		canTakeDamage = true; // Toggle the character's ability to take damage
+	public float
+		currentHealth; // The character's current health
 	#endregion
 
 	#region Private Variables (Empty)
@@ -29,7 +30,7 @@ public class BaseCharacter : MonoBehaviour
 	{
 		if (canTakeDamage == true)
 		{
-			currentHealth.runTimeValue -= damage;
+			currentHealth -= damage;
 			StartCoroutine("StartBlinking");
 		}
 	}

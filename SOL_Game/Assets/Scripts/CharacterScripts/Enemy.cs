@@ -44,6 +44,7 @@ public class Enemy : BaseCharacter
 	void Start()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
+		currentHealth = maxHealth.initialValue;
 		healPerLoop = healAmount / duration;
 	}
 
@@ -60,7 +61,7 @@ public class Enemy : BaseCharacter
 		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
 		{
 			aggro = false;
-			StartCoroutine(HealOverTimeCoroutine(healAmount, duration));
+			//StartCoroutine(HealOverTimeCoroutine(healAmount, duration));
 		}
 
 		// Enemies attack the player only if aggroed
@@ -69,7 +70,7 @@ public class Enemy : BaseCharacter
 			canAttack = true;
 		}
 		// DEBUG CODE; REMOVE LATER
-		Debug.Log("enemy CurrentHealth = " + currentHealth.runTimeValue);
+		Debug.Log("enemy CurrentHealth = " + currentHealth);
 	}
 	#endregion
 
@@ -78,12 +79,12 @@ public class Enemy : BaseCharacter
 	public override void TakeDamage(int damage)
 	{
 		base.TakeDamage(damage);
-		SetHealth(currentHealth.runTimeValue / maxHealth.initialValue);
+		SetHealth(currentHealth / maxHealth.initialValue);
 
-		Debug.Log("enemy CurrentHealth = " + currentHealth.runTimeValue);
+		Debug.Log("enemy CurrentHealth = " + currentHealth);
 
 		// The enemy gets destroyed if it runs out of health
-		if (currentHealth.runTimeValue <= 0)
+		if (currentHealth <= 0)
 		{
 			Destroy(gameObject);
 		}
@@ -102,10 +103,10 @@ public class Enemy : BaseCharacter
 	{
 		while (amountHealed < healAmount)
 		{
-			currentHealth.runTimeValue += healPerLoop;
+			yield return new WaitForSeconds(20.0f);
+			currentHealth += healPerLoop;
 			amountHealed               += healPerLoop;
-			SetHealth(currentHealth.runTimeValue);
-			yield return new WaitForSeconds(1.0f);
+			SetHealth(currentHealth);
 		}
 	}
 	#endregion
