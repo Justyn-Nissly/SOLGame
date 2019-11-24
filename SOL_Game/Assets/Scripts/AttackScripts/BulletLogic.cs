@@ -41,14 +41,14 @@ public class BulletLogic : MonoBehaviour
 			if (collision.CompareTag("Player"))
 			{
 				Player player = collision.GetComponent<Player>();
-				player.TakeDamage(bulletDamage);
+				player.TakeDamage(bulletDamage, false);
 				// DEBUG CODE, REMOVE LATER
 				Debug.Log("players CurrentHealth = " + player.currentHealth);
 			}
 			else if (collision.CompareTag("Enemy"))
 			{
 				Enemy enemy = collision.GetComponent<Enemy>();
-				enemy.TakeDamage(bulletDamage);
+				enemy.TakeDamage(bulletDamage, false);
 				// DEBUG CODE, REMOVE LATER
 				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth);
 			}

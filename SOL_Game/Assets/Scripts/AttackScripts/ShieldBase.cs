@@ -14,6 +14,9 @@ public class ShieldBase : MonoBehaviour
 		  shieldBoxCollider; // The shield itself
 	public bool
 	  shieldIsEnabled; // For toggling the shield on/off
+	public AudioSource
+		shieldSound;
+
 	#endregion
 
 	#region Private Variables
@@ -33,10 +36,11 @@ public class ShieldBase : MonoBehaviour
 
 	}
 
-	public ShieldBase(SpriteRenderer _shieldSprite, BoxCollider2D _shieldBoxCollider)
+	public ShieldBase(SpriteRenderer _shieldSprite, BoxCollider2D _shieldBoxCollider, AudioSource _shieldSound)
 	{
 		shieldSprite = _shieldSprite;
 		shieldBoxCollider = _shieldBoxCollider;
+		shieldSound = _shieldSound;
 	}
 
 	// Turn on the shield
@@ -44,6 +48,11 @@ public class ShieldBase : MonoBehaviour
 	{
 		shieldSprite.enabled      = true;
 		shieldBoxCollider.enabled = true;
+
+		if(shieldSound != null)
+		{
+			shieldSound.Play();
+		}
 	}
 
 	// Turn off the shield
@@ -51,6 +60,11 @@ public class ShieldBase : MonoBehaviour
 	{
 		shieldSprite.enabled = false;
 		shieldBoxCollider.enabled = false;
+
+		if (shieldSound != null)
+		{
+			shieldSound.Stop();
+		}
 	}
 	#endregion
 
