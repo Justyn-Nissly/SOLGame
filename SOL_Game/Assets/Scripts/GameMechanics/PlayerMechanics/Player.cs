@@ -59,7 +59,7 @@ public class Player : BaseCharacter
 
 	// players light melee attack variables
 	private MeleeAttackBase playerLightMeleeAttack;
-	private float lightMeleeAttackRange = .7f; 
+	private float lightMeleeAttackRange = .7f;
 	private float lightStartTimeBetweenAttacks = .3f;
 
 	// heavy attack variables
@@ -160,7 +160,7 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Utility Methods
-	/// <summary> this method is for the player to take damage 
+	/// <summary> this method is for the player to take damage
 	/// and send a signal to the UI to update it with the players new health </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
@@ -216,8 +216,16 @@ public class Player : BaseCharacter
 		{
 			audioSourcePlayerMovement.volume = 0;
 		}
-		
 
+		// Check if the player is moving or is idle
+		if (playerMovementAmount.x != 0 || playerMovementAmount.y != 0)
+		{
+			playerAnimator.SetLayerWeight(1, 1);
+		}
+		else
+		{
+			playerAnimator.SetLayerWeight(1, 0);
+		}
 		// Update the values in the Animator for the players animation
 		SetPlayerAnimatorValues();
 
