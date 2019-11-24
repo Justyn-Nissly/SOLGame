@@ -9729,6 +9729,7 @@ GameObject:
   - component: {fileID: 873545200}
   - component: {fileID: 873545199}
   - component: {fileID: 873545198}
+  - component: {fileID: 873545202}
   m_Layer: 0
   m_Name: Shield_Guardian
   m_TagString: Untagged
@@ -9840,12 +9841,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873545197}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.47, y: 3.43, z: 0}
+  m_LocalPosition: {x: -6.3, y: 0.36, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &873545202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873545197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e545bab67b00f479d255cd50b6a4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeAttackRate: 9001
+  moveSpeed: 0.1
+  lockSpeed: 0.05
+  dashSpeed: 12
+  tileMapGameObject: {fileID: 1184136376}
 --- !u!1 &1117596908
 GameObject:
   m_ObjectHideFlags: 0
