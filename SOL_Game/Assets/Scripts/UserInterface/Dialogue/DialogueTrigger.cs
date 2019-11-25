@@ -14,7 +14,7 @@ public class DialogueTrigger : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	public bool isActive = true;
+	public bool canActivate = true;
 	#endregion
 	
 	// Unity Named Methods
@@ -24,15 +24,18 @@ public class DialogueTrigger : MonoBehaviour
 	{
 		if (collider.CompareTag("Player"))
 		{
-			DialogueManager.NPC = NPC;
-			if (FindObjectOfType<Player>().playerAllowedToMove == true)
+			if (canActivate == true)
 			{
-				// Pause the enemy movement
-				FindObjectOfType<Player>().playerAllowedToMove = false;
-				FindObjectOfType<Player>().playerMovementAmount = Vector2.zero;
+				DialogueManager.NPC = NPC;
+				if (FindObjectOfType<Player>().playerAllowedToMove == true)
+				{
+					// Pause the enemy movement
+					FindObjectOfType<Player>().playerAllowedToMove = false;
+					FindObjectOfType<Player>().playerMovementAmount = Vector2.zero;
+				}
+				NPC.GetComponent<Animator>().SetBool("IsActive", true);
+				FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
 			}
-			NPC.GetComponent<Animator>().SetBool("IsActive", true);
-			FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
 		}
 		
 	}

@@ -5,14 +5,23 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
 	public AudioClip enemyDeath;
-
-	public static AudioSource enemyAudioSRC;
+	public AudioSource enemyAudioSRC;
 
 	void Start()
 	{
 		enemyAudioSRC = GetComponent<AudioSource>();
+		
 		enemyAudioSRC.clip = enemyDeath;
+		
 	}
+	/*public void StartBackground()
+	{
+		backgroudSRC.Play();
+	}
+	public void StopBackground()
+	{
+		backgroudSRC.Stop();
+	}*/
 	public void PlaySound()
 	{
 		enemyAudioSRC.Play();
