@@ -54,7 +54,7 @@ public class Player : BaseCharacter
 	#region Private Variables
 	// player movement variables
 	private float playerMovementSpeed; // the speed the player can move at
-	private Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
+	public Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
 	private Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
 
 	// players light melee attack variables
@@ -101,6 +101,12 @@ public class Player : BaseCharacter
 		if (playerAllowedToMove)
 		{
 			ApplyPlayerMovement();
+		}
+		if (FindObjectOfType<DialogueManager>().animator.GetBool("IsOpen") == true)
+		{
+			playerMovementAmount = Vector2.zero;
+			playerAnimator.SetLayerWeight(1, 0);
+			audioSourcePlayerMovement.volume = 0;
 		}
 
 		// rotate the players attack object if there is input
@@ -228,9 +234,11 @@ public class Player : BaseCharacter
 		}
 		// Update the values in the Animator for the players animation
 		SetPlayerAnimatorValues();
-
 		// Update the Hero's position, taking note of colliders.
-		playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
+		if (playerAllowedToMove)
+		{
+			playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
+		}
 	}
 
 	/// <summary>

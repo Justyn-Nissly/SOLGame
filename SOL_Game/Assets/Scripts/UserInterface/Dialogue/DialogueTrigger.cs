@@ -9,8 +9,8 @@ public class DialogueTrigger : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public Dialogue dialogue; // The dialogue for the nonplayable character
-	public GameObject NPC;    // The NonPlayable Character that is currently speaking
+	public Dialogue dialogue;     // The dialogue for the nonplayable character
+	public Animator NPC; // The NonPlayable Character that is currently speaking
 	#endregion
 
 	#region Private Variables
@@ -19,14 +19,30 @@ public class DialogueTrigger : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
+	void Start()
+	{
+		
+	}
 	/// Trigger the dialogue between the player and the NPC
-	void OnTriggerEnter2D(Collider2D NPC)
+	void OnTriggerEnter2D(Collider2D collider)
 	{
 		if (NPC.CompareTag("Player"))
 		{
+			if (FindObjectOfType<Player>().playerAllowedToMove == true)
+			{
+				// Pause the enemy movement
+				FindObjectOfType<Player>().playerAllowedToMove = false;
+				FindObjectOfType<Player>().playerMovementAmount = Vector2.zero;
+			}
+			NPC.SetBool("IsActive", true);
 			FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
 		}
 		
+	}
+	void OnTriggerExit2D(Collider2D collider)
+	{
+		NPC.SetBool("IsActive", false);
+		NPC.enabled = false;
 	}
 	#endregion
 

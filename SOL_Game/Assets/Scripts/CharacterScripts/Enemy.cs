@@ -33,6 +33,7 @@ public class Enemy : BaseCharacter
         playerPos; // Track the player's position
     public Rigidbody2D
 		rb2d; // The enemy's rigidBody
+	public AudioManager audio;
 	#endregion
 
 	#region Private Variables (Empty)
@@ -86,6 +87,7 @@ public class Enemy : BaseCharacter
 		// The enemy gets destroyed if it runs out of health
 		if (currentHealth <= 0)
 		{
+			audio.PlaySound();
 			Destroy(gameObject);
 		}
 	}

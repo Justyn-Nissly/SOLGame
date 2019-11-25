@@ -17,7 +17,7 @@ public class DialogueManager : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-
+	private Player playerMovement;
 	#endregion
 
 	// Unity Named Methods
@@ -25,6 +25,7 @@ public class DialogueManager : MonoBehaviour
 	void Start()
 	{
 		sentences = new Queue<string>();
+		playerMovement = FindObjectOfType<Player>();
 	}
 
 	void Update()
@@ -70,6 +71,7 @@ public class DialogueManager : MonoBehaviour
 	public void EndDialogue()
 	{
 		animator.SetBool("IsOpen", false);
+		playerMovement.playerAllowedToMove = true;
 		Debug.Log("End of Conversation.");
 	}
 	#endregion
