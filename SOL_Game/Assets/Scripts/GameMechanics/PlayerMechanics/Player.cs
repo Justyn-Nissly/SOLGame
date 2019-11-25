@@ -16,6 +16,7 @@ public class Player : BaseCharacter
 
 	// player attack origination variables
 	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated
+	public DialogueManager dialogueManager;
 
 	// players light melee attack variables
 	public Transform lightMeleAttackPosition;
@@ -92,6 +93,8 @@ public class Player : BaseCharacter
 		playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive, swordSwingSoundEffects, audioSource);
 		playerShield           = new ShieldBase(shieldSprite, shieldBoxCollider, shieldSoundSource);
 		playerRangedAttack     = new RangedAttackBase(firePoint, gunSpawnPoint, bulletPrefab, gunPrefab, damageToGive, 0, blasterSound, audioSource);
+
+		dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 	}
 
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly</summary>
@@ -102,7 +105,7 @@ public class Player : BaseCharacter
 		{
 			ApplyPlayerMovement();
 		}
-		if (FindObjectOfType<DialogueManager>().animator.GetBool("IsOpen") == true)
+		if (dialogueManager.GetComponentInChildren<Animator>().GetBool("IsOpen") == true)
 		{
 			playerMovementAmount = Vector2.zero;
 			playerAnimator.SetLayerWeight(1, 0);
@@ -235,10 +238,7 @@ public class Player : BaseCharacter
 		// Update the values in the Animator for the players animation
 		SetPlayerAnimatorValues();
 		// Update the Hero's position, taking note of colliders.
-		if (playerAllowedToMove)
-		{
-			playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
-		}
+		playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
 	}
 
 	/// <summary>

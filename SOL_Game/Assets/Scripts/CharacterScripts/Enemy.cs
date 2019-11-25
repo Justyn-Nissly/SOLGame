@@ -33,7 +33,7 @@ public class Enemy : BaseCharacter
         playerPos; // Track the player's position
     public Rigidbody2D
 		rb2d; // The enemy's rigidBody
-	public AudioManager audio;
+	public AudioManager audio1;
 	#endregion
 
 	#region Private Variables (Empty)
@@ -47,6 +47,7 @@ public class Enemy : BaseCharacter
 		rb2d = GetComponent<Rigidbody2D>();
 		currentHealth = maxHealth.initialValue;
 		healPerLoop = healAmount / duration;
+		audio1 = GameObject.FindObjectOfType<AudioManager>();
 	}
 
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
@@ -87,7 +88,7 @@ public class Enemy : BaseCharacter
 		// The enemy gets destroyed if it runs out of health
 		if (currentHealth <= 0)
 		{
-			audio.PlaySound();
+			audio1.PlaySound();
 			Destroy(gameObject);
 		}
 	}

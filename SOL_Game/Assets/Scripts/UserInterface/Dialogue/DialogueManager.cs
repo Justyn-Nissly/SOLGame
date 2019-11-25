@@ -14,18 +14,20 @@ public class DialogueManager : MonoBehaviour
 	public Text          dialogueText; // The text that the NPC is currently speaking
 	public Text          nameText;     // The name of the NPC currently Speaking
 	public Queue<string> sentences;    // All sentences for the characters dialogue
+
 	#endregion
 
 	#region Private Variables
-	private Player playerMovement;
+	private GameObject playerMovement;
 	#endregion
-
+	public static GameObject NPC;
 	// Unity Named Methods
 	#region Main Methods
 	void Start()
 	{
 		sentences = new Queue<string>();
-		playerMovement = FindObjectOfType<Player>();
+		playerMovement = GameObject.FindGameObjectWithTag("Player");
+		animator = GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>();
 	}
 
 	void Update()
@@ -71,7 +73,8 @@ public class DialogueManager : MonoBehaviour
 	public void EndDialogue()
 	{
 		animator.SetBool("IsOpen", false);
-		playerMovement.playerAllowedToMove = true;
+		playerMovement.GetComponent<Player>().playerAllowedToMove = true;
+		StartCoroutine(TeleportLoadstar());
 		Debug.Log("End of Conversation.");
 	}
 	#endregion
@@ -86,6 +89,12 @@ public class DialogueManager : MonoBehaviour
 			dialogueText.text += letter;
 			yield return null;
 		}
+	}
+	IEnumerator TeleportLoadstar()
+	{
+		NPC.GetComponent<Animator>().SetBool("IsActive", false);
+		yield return new WaitForSeconds(1.0f);
+		NPC.SetActive(false);
 	}
 	#endregion
 }
