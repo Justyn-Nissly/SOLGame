@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// this script on start will check if there is a player and move it to the starting position if there is one
-/// if it doesn't find a player it will instantiate the player prefab in the starting position
-/// </summary>
 public class LoadPlayer : MonoBehaviour
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
@@ -18,17 +14,30 @@ public class LoadPlayer : MonoBehaviour
 	public GameObject playerPrefab; // the player prefab, it will be instantiated if there is no player in the scene already
 	#endregion
 
-	#region Private Variables
-	private Transform startingPosition;
+	#region Private/Protected Variables
+	protected Transform
+		startingPosition;
+	protected GameObject
+		playerInScene;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	///<summary> Ensure the player is at the starting position </summary>
 	private void Awake()
 	{
-		GameObject playerInScene = GameObject.FindGameObjectWithTag("Player");
+		SetStartingPostion();
+		PlacePlayer();
+	}
+	#endregion
 
-		// pick the right starting position
+	#region Utility Methods
+	///<summary> Set the starting position </summary>
+	public virtual void SetStartingPostion()
+	{
+		playerInScene = GameObject.FindGameObjectWithTag("Player");
+
+		// Assign the starting position
 		if (GlobalVarablesAndMethods.startInBeginingPosition == false && altStartingPosition != null)
 		{
 			startingPosition = altStartingPosition;
@@ -37,31 +46,24 @@ public class LoadPlayer : MonoBehaviour
 		{
 			startingPosition = defaultPlayerStartingPosition;
 		}
+	}
 
-
+	/// <summary> Instantiate the player if not already present at the starting position </summary>
+	public virtual void PlacePlayer()
+	{
+		// Place the player in the starting position
 		if (playerInScene != null)
 		{
-			// just move the player scene its in the scene
 			playerInScene.transform.position = startingPosition.position;
 		}
+		// Instantiate the player in the starting position
 		else
 		{
-			// instantiate the player prefab because there is no player in this scene
 			Instantiate(playerPrefab, startingPosition.position, playerPrefab.transform.rotation);
 		}
 	}
 	#endregion
 
-	#region Utility Methods
+	#region Coroutines (Empty)
 	#endregion
-
-	#region Coroutines
-	#endregion
-
-
-
-
-
-
-
 }

@@ -3,28 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// to use this put ONE fade black to clear on any game object in the scene
-/// and give it a reference to an image that covers all of a canvas
-/// </summary>
 public class FadeBlackToClear : MonoBehaviour
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public Image canvisFadeImage; // this is a black image that is on the canvas that covers the whole screen
+	public Image
+		canvasFadeImage; // Fade the whole screen to black
 	#endregion
 
 	#region Private Variables
-	private float fadeToClearTime = 2f;
+	private float
+		fadeToClearTime = 2f; // How long fading to black takes
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary>
-	/// fade to clear at the start of this scene
-	/// </summary>
+	/// <summary> Fade into the scene </summary>
 	private void Start()
 	{
 		StartCoroutine(FadeToClearCoroutine());
@@ -32,35 +28,31 @@ public class FadeBlackToClear : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary>
-	/// fades an image to clear over time, called from a coroutine
-	/// </summary>
+	/// <summary> Slowly fade an image to clear </summary>
 	private void FadeToClear()
 	{
-		float fadeSpeed = 1.2f;
-
-		canvisFadeImage.color = Color.Lerp(canvisFadeImage.color, Color.clear, fadeSpeed * Time.deltaTime);
+		canvasFadeImage.color = Color.Lerp(canvasFadeImage.color, Color.clear, 1.2 * Time.deltaTime);
 	}
 	#endregion
 
 	#region Coroutines
-	/// <summary>
-	/// fades an image to clear over time
-	/// </summary>
+	/// <summary> Slowly fade an image to clear </summary>
 	public IEnumerator FadeToClearCoroutine()
 	{
 		float timer = fadeToClearTime;
 
-		canvisFadeImage.color = Color.black; // make image black
+		// Set fade color to black
+		canvasFadeImage.color = Color.black;
 
-		yield return new WaitForSeconds(.1f); // add a pause before starting the fade to clear
+		// Pause before fading
+		yield return new WaitForSeconds(.1f);
 
+		// Fade the image frame by frame
 		while (timer >= 0)
 		{
 			FadeToClear();
 			timer -= Time.deltaTime;
-
-			yield return null; // wait to the next frame to continue
+			yield return null;
 		}
 	}
 	#endregion

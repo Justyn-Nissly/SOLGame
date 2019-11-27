@@ -76,9 +76,9 @@ public class Enemy : BaseCharacter
 
 	#region Utility Methods
 	///<summary> Deal damage to the enemy </summary>
-	public override void TakeDamage(int damage)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		base.TakeDamage(damage);
+		base.TakeDamage(damage, playSwordImpactSound);
 		SetHealth(currentHealth / maxHealth.initialValue);
 
 		Debug.Log("enemy CurrentHealth = " + currentHealth);

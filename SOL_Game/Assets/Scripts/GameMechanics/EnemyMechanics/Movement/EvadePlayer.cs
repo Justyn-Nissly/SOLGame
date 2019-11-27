@@ -44,13 +44,13 @@ public class EvadePlayer : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary> Try to stay a set distance from the player </summary>
+	/// <summary> Try to stay a set distance away from the player </summary>
 	public void Evade()
     {
 		// Get the angle between the enemy and the player
         angle = Mathf.Atan2(playerPos.y - enemy.transform.position.y, playerPos.x - enemy.transform.position.x);
 
-		// If the enemy is too close to the player it evades; otherwise it pursues the player
+		// If the enemy is too close to the player it evades
         if (Vector2.Distance(playerPos, transform.position) <= evasionDistance)
         {
             angle += Mathf.PI;
@@ -66,15 +66,15 @@ public class EvadePlayer : MonoBehaviour
         }
     }
 
-	/// <summary> Calculate an angle's sine; custom-made and kept local to run faster </summary>
+	/// <summary> / Calculate an angle's sine; custom-made and kept local to run faster </summary>
 	public static float Sin(float angle)
     {
         float
             sine = 0.0f, // Sine is a calculated sum
 			part;        // Track the current part being added to the sum
         int
-            counter1, // Track which part of the sum is being calculated
-            counter2; // The power and factorial functions must be done iteratively
+            counter1, // Track the current iteration
+            counter2; //
 
 		// Approximate sine by finite sum: n = 0, Σ (-1)^n * (x^(2n+1)) / ((2n+1)!)
 		for (counter1 = 1; counter1 < 100; counter1 += 2)
@@ -98,7 +98,7 @@ public class EvadePlayer : MonoBehaviour
         return sine;
     }
 
-	/// <summary> Calculate an angle's cosine; custom-made and kept local to run faster </summary>
+	/// <summary> / Calculate an angle's cosine; custom-made and kept local to run faster </summary>
 	public static float Cos(float angle)
     {
 		// cos(x) = sin(pi/2 - x)
