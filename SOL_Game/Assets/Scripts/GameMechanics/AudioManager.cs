@@ -4,16 +4,33 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-	public AudioClip enemyDeath;
-	public AudioSource enemyAudioSRC;
+	#region Enums
 
+	#endregion
+
+	#region Public Variables
+	public AudioClip
+		enemyDeath;    // The enemy death sound
+	public AudioSource
+		enemyAudioSRC; // The audio source to control enemy souds
+	#endregion
+
+	#region Private Variables
+
+	#endregion
+
+	// Unity Named Methods
+	#region Main Methods
 	void Start()
 	{
 		enemyAudioSRC = GetComponent<AudioSource>();
-		
+
 		enemyAudioSRC.clip = enemyDeath;
-		
+
 	}
+	#endregion
+
+	#region Utility Methods
 	/*public void StartBackground()
 	{
 		backgroudSRC.Play();
@@ -26,4 +43,9 @@ public class AudioManager : MonoBehaviour
 	{
 		enemyAudioSRC.Play();
 	}
+	#endregion
+
+	#region Coroutines
+
+	#endregion
 }
