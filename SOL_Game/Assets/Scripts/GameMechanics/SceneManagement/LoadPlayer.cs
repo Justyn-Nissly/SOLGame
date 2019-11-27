@@ -48,7 +48,7 @@ public class LoadPlayer : MonoBehaviour
 		}
 	}
 
-	/// <summary> Instantiate the player if not already present at the starting position </summary>
+	/// <summary> If not already present instantiate the player at the starting position </summary>
 	public virtual void PlacePlayer()
 	{
 		// Place the player in the starting position
