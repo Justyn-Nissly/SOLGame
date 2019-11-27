@@ -22,7 +22,15 @@ public class GameManager : MonoBehaviour
 		if (gameManager == null)
 		{
 			gameManager = this;
+			/*
+			-Player health
+			-Bosses defeated
+			-Doors unlocked
+			-Upgrades
+			-Weapons unlocked
 
+			(Puzzles)
+			-Player position*/
 			/// Keep items persisting across scenes
 			DontDestroyOnLoad(gameObject);
 			DontDestroyOnLoad(GameObject.Find("EventSystem"));
@@ -35,6 +43,17 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// Save the game
+	/// SaveGame()
+	/// {
+	/// 
+	/// }
+	
+	/// Save the player's current state to start a puzzle
+	/// SaveState()
+	/// {
+	/// 
+	/// }
 	#endregion
 
 	#region Coroutines

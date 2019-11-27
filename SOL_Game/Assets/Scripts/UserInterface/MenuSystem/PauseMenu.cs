@@ -25,25 +25,27 @@ public class PauseMenu : MonoBehaviour
 	#region Main Methods
 	void Update()
 	{
-
-		/// Check if the escape key was pressed and if the game was paused resume, otherwise pause the game
-		if (Input.GetKeyDown(KeyCode.Escape))
+		sceneName = SceneManager.GetActiveScene().name;
+		if (sceneName != "Menu")
 		{
-			InstantiatePauseMenu();
-			if (isPaused)
+			/// Check if the escape key was pressed and if the game was paused resume, otherwise pause the game
+			if (Input.GetKeyDown(KeyCode.Escape))
 			{
-				Resume();
+				if (isPaused)
+				{
+					Resume();
+				}
+				else
+				{
+					Pause();
+				}
 			}
-			else
-			{
-				Pause();
-			}
-		}
 
-		/// Load the development menu when 'End' is pressed
-		if (Input.GetKeyDown(KeyCode.End))
-		{
-			SceneManager.LoadScene("DevMenu");
+			/// Load the development menu when 'End' is pressed
+			if (Input.GetKeyDown(KeyCode.End))
+			{
+				SceneManager.LoadScene("DevMenu");
+			}
 		}
 	}
 	#endregion
@@ -68,7 +70,7 @@ public class PauseMenu : MonoBehaviour
 	/// Pause the game
 	void Pause()
 	{
-		
+		InstantiatePauseMenu();
 		Time.timeScale = 0.0f;
 		isPaused = true;
 	}
