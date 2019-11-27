@@ -237,14 +237,12 @@ MonoBehaviour:
   canAttack: 1
   canTakeDamage: 1
   currentHealth: 0
-  takeDamageSounds:
-  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
-  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
-  audioSource: {fileID: 5166013779851333539}
+  takeDamageSounds: []
+  audioSource: {fileID: 0}
   healthBar: {fileID: 5969699626326326305}
   enemyName: 
   aggroRange: 5
-  duration: 0
+  duration: 1000
   followRange: 8
   attackDmg: 0
   contactDmg: 0
@@ -255,6 +253,7 @@ MonoBehaviour:
   patrol: []
   playerPos: {x: 0, y: 0}
   rb2d: {fileID: 0}
+  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
 --- !u!114 &7703339030992561055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,8 +274,8 @@ MonoBehaviour:
     type: 3}
   damageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   BulletShootingDelay: 0.2
-  blasterSound: {fileID: 8300000, guid: 7374c242e1ff0834088b2534c4f9f84c, type: 3}
-  audioSource: {fileID: 5166013779851333539}
+  blasterSound: {fileID: 0}
+  audioSource: {fileID: 0}
   rangeAttackDamage: 1
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1

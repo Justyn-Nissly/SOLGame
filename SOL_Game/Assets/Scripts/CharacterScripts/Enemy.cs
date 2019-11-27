@@ -33,6 +33,8 @@ public class Enemy : BaseCharacter
         playerPos; // Track the player's position
     public Rigidbody2D
 		rb2d; // The enemy's rigidBody
+	public GameObject
+		powerUp; // Reference PowerUp prefab.
 	#endregion
 
 	#region Private Variables (Empty)
@@ -43,9 +45,9 @@ public class Enemy : BaseCharacter
 	/// <summary> Initialize the enemy </summary>
 	void Start()
 	{
-		rb2d = GetComponent<Rigidbody2D>();
+		rb2d          = GetComponent<Rigidbody2D>();
 		currentHealth = maxHealth.initialValue;
-		healPerLoop = healAmount / duration;
+		healPerLoop   = healAmount / duration;
 	}
 
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
@@ -86,6 +88,11 @@ public class Enemy : BaseCharacter
 		// The enemy gets destroyed if it runs out of health
 		if (currentHealth <= 0)
 		{
+			// The enemy might drop a power up
+			if (true)
+			{
+				Instantiate(powerUp, transform.position, Quaternion.identity);
+			}
 			Destroy(gameObject);
 		}
 	}

@@ -18,7 +18,7 @@ public class loadSceneOnTrigger : MonoBehaviour
 		canvasFadeImage; // Fades the whole screen to black
 	#endregion
 
-	#region Private Variables
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
@@ -38,9 +38,7 @@ public class loadSceneOnTrigger : MonoBehaviour
 	/// <summary> Fade slowly to black </summary>
 	private void FadeToBlack()
 	{
-		float fadeSpeed = 10f;
-
-		canvisFadeImage.color = Color.Lerp(canvisFadeImage.color, Color.black, fadeSpeed * Time.deltaTime);
+		canvasFadeImage.color = Color.Lerp(canvasFadeImage.color, Color.black, 10.0f * Time.deltaTime);
 	}
 	#endregion
 
@@ -48,9 +46,9 @@ public class loadSceneOnTrigger : MonoBehaviour
 	/// <summary> Load the scene after fading to black </summary>
 	public IEnumerator FadeToBlackCoroutine()
 	{
-		canvisFadeImage.color = Color.clear; // make image transparent
+		canvasFadeImage.color = Color.clear; // make image transparent
 
-		while (canvisFadeImage.color.a <= 0.95f)
+		while (canvasFadeImage.color.a <= 0.95f)
 		{
 			FadeToBlack();
 

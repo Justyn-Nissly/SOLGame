@@ -31,7 +31,7 @@ public class FadeBlackToClear : MonoBehaviour
 	/// <summary> Slowly fade an image to clear </summary>
 	private void FadeToClear()
 	{
-		canvasFadeImage.color = Color.Lerp(canvasFadeImage.color, Color.clear, 1.2 * Time.deltaTime);
+		canvasFadeImage.color = Color.Lerp(canvasFadeImage.color, Color.clear, 1.2f * Time.deltaTime);
 	}
 	#endregion
 

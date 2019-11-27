@@ -39,7 +39,7 @@ public class MovementPath : MonoBehaviour
 		// Draw a line between each point and the one after
 		for (var point = 1; point < pathSequence.Length; point++)
 		{
-			Gizmos.DrawLine(pathSequence[point - 1].position, pathSequence[i].position);
+			Gizmos.DrawLine(pathSequence[point - 1].position, pathSequence[point].position);
 		}
 
 		// Make the last point in a looping path return to the first point
