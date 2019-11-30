@@ -7,7 +7,7 @@ public class Player : BaseCharacter
 	// Empty
 	#region Enums
 	#endregion
-
+	public int saveItem;
 	#region Public Variables
 	// player movement variables
 	public bool playerAllowedToMove = true; // used to disable player movement like when the player is knocked back
@@ -67,7 +67,7 @@ public class Player : BaseCharacter
 	private RangedAttackBase playerRangedAttack;
 	private float RangedStartTimeBetweenAttacks = .5f;
 	#endregion
-
+	
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
@@ -89,6 +89,10 @@ public class Player : BaseCharacter
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly</summary>
 	private void FixedUpdate()
 	{
+		if (playerAllowedToMove == false)
+		{
+			saveItem += 1;
+		}
 		// If the player is allowed to move, check for player movement input and apply it to the player
 		if (playerAllowedToMove)
 		{

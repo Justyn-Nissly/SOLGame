@@ -13,14 +13,14 @@ public class PauseMenu : MonoBehaviour
 	public static bool       isPaused = false;  // The value for if the game is paused
 	public GameObject pauseMenuUI;       // The UI object for the pause menu
 	public string            sceneName;         // The name of the acctive scene
-	//public Canvas pauseMenuCanvas; // The canvas that houses the controls for the pause menu
-	//public Signal pauseSignal;
+												//public Canvas pauseMenuCanvas; // The canvas that houses the controls for the pause menu
+												//public Signal pauseSignal;
 	#endregion
 
 	#region Private Variables
 
 	#endregion
-
+	
 	// Unity Named Methods
 	#region Main Methods
 	void Update()
