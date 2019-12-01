@@ -9,13 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2708952162030986636}
-  - component: {fileID: 2708952162030986635}
   - component: {fileID: 2708952162030986634}
   - component: {fileID: 2708952162030986633}
   - component: {fileID: 2708952162030986637}
   m_Layer: 0
-  m_Name: Item
-  m_TagString: Untagged
+  m_Name: PowerUp
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,27 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &2708952162030986635
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708952162030986632}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &2708952162030986634
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -142,3 +120,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a62a449976cbf14438428958df2ceb38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  timer: 10

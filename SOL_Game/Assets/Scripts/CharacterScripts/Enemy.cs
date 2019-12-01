@@ -37,7 +37,9 @@ public class Enemy : BaseCharacter
 		powerUp; // Reference PowerUp prefab.
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
+	private Player
+		player; // Check if the player has a damage boost
 	#endregion
 
 	// Unity Named Methods
@@ -45,6 +47,7 @@ public class Enemy : BaseCharacter
 	/// <summary> Initialize the enemy </summary>
 	void Start()
 	{
+		player        = GameObject.FindObjectOfType<Player>();
 		rb2d          = GetComponent<Rigidbody2D>();
 		currentHealth = maxHealth.initialValue;
 		healPerLoop   = healAmount / duration;
@@ -80,7 +83,7 @@ public class Enemy : BaseCharacter
 	///<summary> Deal damage to the enemy </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		base.TakeDamage(damage, playSwordImpactSound);
+		base.TakeDamage(damage + player.extraDamage, playSwordImpactSound);
 		SetHealth(currentHealth / maxHealth.initialValue);
 
 		Debug.Log("enemy CurrentHealth = " + currentHealth);
