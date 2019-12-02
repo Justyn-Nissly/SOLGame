@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class shieldGuardian : MonoBehaviour
 {
-    #region Public Variables
+	#region Enums
+	#endregion
+
+	#region Public Variables
 	public int changeAttackRate;
 	public float moveSpeed;
 	public float lockSpeed;
@@ -12,12 +15,14 @@ public class shieldGuardian : MonoBehaviour
 	public GameObject tileMapGameObject;
 	public float dashWindowX;
 	public float dashWindowY;
-    #endregion
+	public int backupTime;
+	public float backupSpeed;
+	public int cooldownTime;
+	#endregion
 
-    #region Private Variables
-
-    private string patternType;
-    private int patternAlarm;
+	#region Private Variables
+	private string patternType;
+	private float patternAlarm;
 	private float xSpeed;
 	private float ySpeed;
 	private float prevXSpeed;
@@ -27,14 +32,14 @@ public class shieldGuardian : MonoBehaviour
 	private Rigidbody2D myRigidBody;
 	private Vector2 playerPosition; // current position of the Player
 	private Vector2 dashTarget; // Where to dash to
+	#endregion
 
-    #endregion
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        patternType = "MoveVertical";
-        patternAlarm = changeAttackRate;
+	// Unity Named Methods
+	#region Main Methods
+	void Start()
+	{
+		patternType = "MoveY";
+		patternAlarm = changeAttackRate;
 		xSpeed = 0f;
 		ySpeed = moveSpeed;
 		facingX = 1;
@@ -42,48 +47,82 @@ public class shieldGuardian : MonoBehaviour
 		myRigidBody = GetComponent<Rigidbody2D>();
 	}
 
-    void FixedUpdate()
-    {
+	void FixedUpdate()
+	{
 		// get the Player's position
 		playerPosition = GameObject.FindWithTag("Player").transform.position;
 
-		if (--patternAlarm == 0)
+		Debug.Log("ShieldGuardianState=" + patternType);
+
+		patternAlarm -= Time.deltaTime;
+		if (patternAlarm <= 0)
 		{
 			// Alarm rings; change pattern.
 			switch (patternType)
 			{
-				case "MoveVertical":
-					patternType = "LockOnVertical";
+				case "MoveY":
+					patternType = "LockOnY";
 					break;
 
-				case "MoveHorizontal":
-					patternType = "LockOnHorizontal";
+				case "MoveX":
+					patternType = "LockOnX";
 					break;
 
-				case "LockOnHorizontal":
-					patternType = "DashVertical";
+				case "LockOnX":
+					patternType = "DashY";
 					break;
 
-				case "LockOnVertical":
-					patternType = "DashHorzontal";
+				case "LockOnY":
+					patternType = "DashX";
+					break;
+
+				case "CooldownX":
+					patternType = "BackupX";
+					xSpeed = Mathf.Sign(prevXSpeed) * backupSpeed * -1f;
+					patternAlarm = backupTime;
+					break;
+
+				case "CooldownY":
+					patternType = "BackupY";
+					ySpeed = Mathf.Sign(prevYSpeed) * backupSpeed * -1f;
+					patternAlarm = backupTime;
+					break;
+
+				case "BackupX":
+					patternType = "MoveY";
+					facingX *= -1;
+					facingY = 0;
+					xSpeed = 0;
+					ySpeed = prevYSpeed;
+					patternAlarm = changeAttackRate;
+					break;
+
+				case "BackupY":
+					patternType = "MoveX";
+					facingX = 1;
+					facingY *= -1;
+					xSpeed = prevXSpeed;
+					ySpeed = 0;
+					patternAlarm = changeAttackRate;
 					break;
 			}
+			Debug.Log(">ShieldGuardianStateChange=" + patternType);
 		}
 
 		// Check if in line with the Player
-		if ((patternType == "LockOnVertical" && myRigidBody.position.y <= playerPosition.y + dashWindowY && myRigidBody.position.y >= playerPosition.y - dashWindowY)
-			|| (patternType == "LockOnHorizontal" && myRigidBody.position.x <= playerPosition.x + dashWindowX && myRigidBody.position.x >= playerPosition.x - dashWindowX))
+		if ((patternType == "LockOnY" && myRigidBody.position.y <= playerPosition.y + dashWindowY && myRigidBody.position.y >= playerPosition.y - dashWindowY)
+			|| (patternType == "LockOnX" && myRigidBody.position.x <= playerPosition.x + dashWindowX && myRigidBody.position.x >= playerPosition.x - dashWindowX))
 		{
-			if (patternType == "LockOnVertical")
+			if (patternType == "LockOnY")
 			{
-				patternType = "DashHorizontal";
+				patternType = "DashX";
 				facingX = (int)Mathf.Sign(playerPosition.x - myRigidBody.position.x);
 				facingY = 0;
 				prevYSpeed = ySpeed;
 			}
-			else if (patternType == "LockOnHorizontal")
+			else if (patternType == "LockOnX")
 			{
-				patternType = "DashVertical";
+				patternType = "DashY";
 				facingX = 0;
 				facingY = (int)Mathf.Sign(playerPosition.y - myRigidBody.position.y);
 				prevXSpeed = xSpeed;
@@ -91,32 +130,33 @@ public class shieldGuardian : MonoBehaviour
 		}
 
 		// Manage movement based on current pattern.
-			switch (patternType)
-        {
-			case "MoveVertical":
+		switch (patternType)
+		{
+			case "MoveY":
 				xSpeed = 0f;
 				ySpeed = Mathf.Sign(ySpeed) * moveSpeed;
 				break;
-			case "MoveHorizontal":
+			case "MoveX":
 				xSpeed = Mathf.Sign(xSpeed) * moveSpeed;
 				ySpeed = 0f;
 				break;
-			case "LockOnVertical":
+			case "LockOnY":
 				xSpeed = 0f;
 				ySpeed = Mathf.Sign(ySpeed) * lockSpeed;
 				break;
-			case "LockOnHorizontal":
+			case "LockOnX":
 				xSpeed = Mathf.Sign(xSpeed) * lockSpeed;
 				ySpeed = 0f;
 				break;
-			case "DashVertical":
+			case "DashY":
 				xSpeed = 0;
 				ySpeed = Mathf.Sign(facingY) * dashSpeed;
 				break;
-			case "DashHorizontal":
+			case "DashX":
 				xSpeed = Mathf.Sign(facingX) * dashSpeed;
 				ySpeed = 0;
 				break;
+
 			default:
 				// error case; start freaking out now
 				xSpeed = 0;
@@ -125,45 +165,43 @@ public class shieldGuardian : MonoBehaviour
 		}
 
 		// Update speed.
+		//if (!myRigidBody.SweepTest(new Vector3(movement, 0, 0), out hit, new Vector3(movement, 0, 0).magnitude))
 		myRigidBody.MovePosition(new Vector2(xSpeed, ySpeed) + myRigidBody.position);
-    }
-
+	}
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (tileMapGameObject != null && collision.gameObject == tileMapGameObject)
+		if (collision.gameObject.CompareTag("Walls"))
 		{
 			// When touching a wall, change stuff
-			if (patternType == "MoveHorizontal" || patternType == "MoveVertical")
+			if (patternType == "MoveX" || patternType == "MoveY" || patternType == "BackupX" || patternType == "BackupY")
 			{
 				xSpeed *= -1f;
 				ySpeed *= -1f;
 			}
-			else if (patternType == "LockOnHorizontal" || patternType == "LockOnVertical")
+			else if (patternType == "LockOnX" || patternType == "LockOnY")
 			{
 				patternType = "DashDiagonal";
 				dashTarget = playerPosition;
 				facingX = (int)Mathf.Sign(playerPosition.x - myRigidBody.position.x);
 				facingY = (int)Mathf.Sign(playerPosition.y - myRigidBody.position.y);
 			}
-			else if (patternType == "DashHorizontal" || patternType == "DashVertical")
+			else if (patternType == "DashX" || patternType == "DashY")
 			{
-				if (patternType == "DashHorizontal")
+				if (patternType == "DashX")
 				{
-					patternType = "MoveVertical";
-					facingX *= -1;
-					facingY = 0;
+					patternType = "CooldownX";
+					prevXSpeed = xSpeed;
 					xSpeed = 0;
-					ySpeed = prevYSpeed;
-				}
-				else if(patternType == "DashVertical")
-				{
-					patternType = "MoveHorizontal";
-					facingX = 1;
-					facingY *= -1;
-					xSpeed = prevXSpeed;
 					ySpeed = 0;
 				}
-				patternAlarm = changeAttackRate;
+				else if (patternType == "DashY")
+				{
+					patternType = "CooldownY";
+					prevYSpeed = ySpeed;
+					xSpeed = 0;
+					ySpeed = 0;
+				}
+				patternAlarm = cooldownTime;
 			}
 			else
 			{
@@ -172,4 +210,11 @@ public class shieldGuardian : MonoBehaviour
 			}
 		}
 	}
+	#endregion
+
+	#region Utility Methods
+	#endregion
+
+	#region Coroutines
+	#endregion
 }
