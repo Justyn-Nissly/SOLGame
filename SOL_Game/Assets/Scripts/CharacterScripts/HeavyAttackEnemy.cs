@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeavyAttackEneny : MeleeAttackBase
+public class HeavyAttackEnemy : Enemy
 {
 	#region Enums
 	#endregion
@@ -10,7 +10,6 @@ public class HeavyAttackEneny : MeleeAttackBase
 	#region Public Variables
 	public float maxTimeBetweenAttacks = 2f;
 	public float minTimeBetweenAttacks = 1f;
-	public BaseCharacter characterBeingAtacked;
 	#endregion
 
 	#region Private Variables
@@ -21,11 +20,11 @@ public class HeavyAttackEneny : MeleeAttackBase
 	#region Main Methods
 	private void FixedUpdate()
 	{
-		if (countDownTimer <= 0)
+		if (countDownTimer <= 0 && aggro)
 		{
 			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
 
-			Attack();
+			MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
 		}
 		else
 		{

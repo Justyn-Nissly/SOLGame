@@ -19,15 +19,15 @@ public class Player : BaseCharacter
 	public DialogueManager dialogueManager;
 
 	// players light melee attack variables
-	public Transform lightMeleAttackPosition;
-	public LayerMask willDamageLayer;
-	public GameObject lightMeleeWeapon;
-	public FloatValue lightMeleeDamageToGive;
+	//public Transform lightMeleeAttackPosition;
+	//public LayerMask willDamageLayer;
+	//public GameObject lightMeleeWeapon;
+	//public FloatValue lightMeleeDamageToGive;
 
 	// heavy attack variables
-	public Transform heavyMeleAttackPosition;
-	public FloatValue heavyMeleeDamageToGive;
-	public GameObject heavyMeleeWeapon;
+	//public Transform heavyMeleeAttackPosition;
+	//public FloatValue heavyMeleeDamageToGive;
+	//public GameObject heavyMeleeWeapon;
 
 	// player shield variables
 	public SpriteRenderer
@@ -45,7 +45,7 @@ public class Player : BaseCharacter
 
 
 	// player sound effects
-	public List<AudioClip> swordSwingSoundEffects;
+	//public List<AudioClip> swordSwingSoundEffects;
 	public AudioClip blasterSound;
 	public AudioSource audioSourcePlayerMovement;
 
@@ -59,13 +59,13 @@ public class Player : BaseCharacter
 	private Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
 
 	// players light melee attack variables
-	private MeleeAttackBase playerLightMeleeAttack;
-	private float lightMeleeAttackRange = .7f;
+	//private MeleeAttackBase playerLightMeleeAttack;
+	//private float lightMeleeAttackRange = .7f;
 	private float lightStartTimeBetweenAttacks = .3f;
 
 	// heavy attack variables
-	private MeleeAttackBase playerHeavyMeleeAttack;
-	private float heavyMeleeAttackRange = 1f;
+	//private MeleeAttackBase playerHeavyMeleeAttack;
+	//private float heavyMeleeAttackRange = 1f;
 	private float heavyStartTimeBetweenAttacks = .6f;
 	private float timeBetweenAttacks;
 
@@ -89,8 +89,8 @@ public class Player : BaseCharacter
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
 		// set up the players attacks with the right values
-		playerLightMeleeAttack = new MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive, swordSwingSoundEffects, audioSource);
-		playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive, swordSwingSoundEffects, audioSource);
+		//playerLightMeleeAttack = new MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive, swordSwingSoundEffects, audioSource);
+		//playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive, swordSwingSoundEffects, audioSource);
 		playerShield           = new ShieldBase(shieldSprite, shieldBoxCollider, shieldSoundSource);
 		playerRangedAttack     = new RangedAttackBase(firePoint, gunSpawnPoint, bulletPrefab, gunPrefab, damageToGive, 0, blasterSound, audioSource);
 
@@ -150,13 +150,13 @@ public class Player : BaseCharacter
 				else if (Input.GetButtonDown("X"))
 				{
 					timeBetweenAttacks = heavyStartTimeBetweenAttacks; // reset the time between attacks
-					playerHeavyMeleeAttack.Attack();
+					MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
 				}
 				// A is right arrow based on the SNES controller layout; attack with light weapon and reset the cooldown
 				else if (Input.GetButtonDown("A"))
 				{
 					timeBetweenAttacks = lightStartTimeBetweenAttacks; // reset the time between attacks
-					playerLightMeleeAttack.Attack();
+					MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
 				}
 			}
 		}

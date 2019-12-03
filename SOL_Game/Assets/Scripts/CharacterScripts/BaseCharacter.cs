@@ -18,10 +18,34 @@ public class BaseCharacter : MonoBehaviour
 
 	public List<AudioClip> takeDamageSounds;
 
-	public AudioSource audioSource;
+	public AudioSource audioSource; // used to player sounds from
+
+	// light melee attack variables (only need to be filled in the inspector if you use the light melee attack)
+	[Header("light melee attack variables(start)")]
+	public Transform lightMeleeAttackPosition;
+	public float lightMeleeAttackRange;
+	public GameObject lightMeleeWeapon;
+	public FloatValue lightMeleeDamageToGive;
+	[Header("light melee attack variables(end)")]
+
+	// heavy melee attack variables (only need to be filled in the inspector if you use the heavy melee attack)
+	[Header("heavy melee attack variables(start)")]
+	public Transform heavyMeleeAttackPosition;
+	public float heavyMeleeAttackRange;
+	public GameObject heavyMeleeWeapon;
+	public FloatValue heavyMeleeDamageToGive;
+	[Header("heavy melee attack variables(end)")]
+
+	// melee attack variables for both light and heavy attacks
+	public List<AudioClip> meleeSwingSoundEffects;
+	public LayerMask willDamageLayer; // the layer that the light and heavy attack will damage
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
+	protected float thrust = 7; // used for the knock back effect
+	protected float knockTime = .2f; // used for the knock back effect
+	protected bool characterHasKnockback = false; // used for the knock back effect
+	protected Player player; // not needed ?
 	#endregion
 
 	// Unity Named Methods
@@ -36,7 +60,7 @@ public class BaseCharacter : MonoBehaviour
 		{
 			if (takeDamageSounds.Count > 0 && playSwordImpactSound)
 			{
-				audioSource.clip = GetRamdomSoundEffect();
+				audioSource.clip = GetRamdomSoundEffect(takeDamageSounds);
 				audioSource.Play();
 			}
 
@@ -46,11 +70,73 @@ public class BaseCharacter : MonoBehaviour
 		}
 	}
 
-	private AudioClip GetRamdomSoundEffect()
+	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool characterHasKnockback)
 	{
-		int index = Random.Range(0, takeDamageSounds.Count - 1);
+		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
 
-		return takeDamageSounds[index];
+		foreach (Collider2D collider in enemiesToDamage)
+		{
+			BaseCharacter characterBeingAtacked = collider.GetComponent<BaseCharacter>();
+			if (characterBeingAtacked != null)
+			{
+				characterBeingAtacked.TakeDamage((int)damageToGive.initialValue, true);
+
+				if (characterHasKnockback)
+				{
+					ApplyKnockBack(collider.gameObject);
+				}
+			}
+		}
+
+		if (meleeSwingSoundEffects.Count > 0)
+		{
+			audioSource.clip = GetRamdomSoundEffect(meleeSwingSoundEffects);
+			audioSource.Play();
+		}
+
+		GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition.transform);
+		Destroy(weaponInstance, .5f);
+	}
+
+	private void ApplyKnockBack(GameObject characterBeingAtacked)
+	{
+		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
+
+		// add knock back
+		if (rigidbody2D != null)
+		{
+			Vector2 difference;
+
+			if (GetPlayer(characterBeingAtacked) != null)
+			{
+				GetPlayer(characterBeingAtacked).playerAllowedToMove = false;
+				rigidbody2D.isKinematic = true;
+				rigidbody2D.isKinematic = false;
+
+				difference = characterBeingAtacked.transform.position - GameObject.FindGameObjectWithTag("Player").transform.position;
+			}
+			else
+			{
+				difference = characterBeingAtacked.transform.position - transform.position;
+			}
+
+			difference = difference.normalized * thrust;
+
+			rigidbody2D.AddForce(difference, ForceMode2D.Impulse);
+			StartCoroutine(KnockBackCoroutine(characterBeingAtacked));
+		}
+
+	}
+
+	// gets the player script from the game object if it has one
+	private Player GetPlayer(GameObject gameObject)
+	{
+		return gameObject.GetComponent<Player>();
+	}
+
+	private AudioClip GetRamdomSoundEffect(List<AudioClip> SoundEffectList)
+	{
+		return SoundEffectList[Random.Range(0, SoundEffectList.Count - 1)];
 	}
 	#endregion
 
@@ -75,6 +161,39 @@ public class BaseCharacter : MonoBehaviour
 		// Ensure the sprite is visible and the character can take damage after blinking stops
 		spriteRenderer.enabled = true;
 		canTakeDamage = true;
+	}
+
+	private IEnumerator KnockBackCoroutine(GameObject characterBeingAtacked)
+	{
+		Enemy enemy = characterBeingAtacked.GetComponent<Enemy>();
+		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
+
+
+		if (enemy != null)
+		{
+			enemy.aggro = false;
+		}
+
+		if (rigidbody2D != null)
+		{
+			yield return new WaitForSeconds(knockTime);
+			if (rigidbody2D != null)
+			{
+				rigidbody2D.velocity = Vector2.zero;
+				rigidbody2D.isKinematic = true;
+				rigidbody2D.isKinematic = false;
+
+				if (GetPlayer(characterBeingAtacked) != null)
+				{
+					GetPlayer(characterBeingAtacked).playerAllowedToMove = true;
+				}
+
+				if (enemy != null)
+				{
+					enemy.aggro = true;
+				}
+			}
+		}
 	}
 	#endregion
 }
