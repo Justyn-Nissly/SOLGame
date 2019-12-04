@@ -12,7 +12,7 @@ public class MeleeShieldEnemy : Enemy
 
 	#region Private Variables
 	private float
-		shieldDropTime = 1, // How often the enemy disables his shield to attack
+		shieldDropTime = 3, // How often the enemy disables his shield to attack
 		shieldReEnableDelayTime = 1, // how long it takes for the enemy to re enable his shield after attacking
 		shieldDownTimer; // Track when to drop the shield
 
