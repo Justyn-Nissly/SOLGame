@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Player : BaseCharacter
 {
-	// Empty
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
@@ -16,6 +15,7 @@ public class Player : BaseCharacter
 
 	// player attack origination variables
 	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated
+	public DialogueManager dialogueManager;
 
 	// players light melee attack variables
 	public Transform lightMeleAttackPosition;
@@ -41,25 +41,31 @@ public class Player : BaseCharacter
 	public GameObject gunPrefab;
 	public FloatValue damageToGive;
 
-
-
 	// player sound effects
 	public List<AudioClip> swordSwingSoundEffects;
 	public AudioClip blasterSound;
 	public AudioSource audioSourcePlayerMovement;
 
 	public AudioSource shieldSoundSource;
+
+	public float
+		extraSpeed,   // Extra speed gained from a power up
+		powerUpTimer; // How long power ups last
+	public int
+		extraDamage; // Extra damage dealt with a power up
+	public float[]
+		powerUpTimers; // Make power ups last for a set time
 	#endregion
 
 	#region Private Variables
 	// player movement variables
 	private float playerMovementSpeed; // the speed the player can move at
-	private Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
+	public Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
 	private Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
 
 	// players light melee attack variables
 	private MeleeAttackBase playerLightMeleeAttack;
-	private float lightMeleeAttackRange = .7f; 
+	private float lightMeleeAttackRange = .7f;
 	private float lightStartTimeBetweenAttacks = .3f;
 
 	// heavy attack variables
@@ -87,20 +93,34 @@ public class Player : BaseCharacter
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
+		// Set up the power up timers
+		powerUpTimers = new float [PowerUp.SPEED + 1];
+
 		// set up the players attacks with the right values
 		playerLightMeleeAttack = new MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive, swordSwingSoundEffects, audioSource);
 		playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive, swordSwingSoundEffects, audioSource);
 		playerShield           = new ShieldBase(shieldSprite, shieldBoxCollider, shieldSoundSource);
 		playerRangedAttack     = new RangedAttackBase(firePoint, gunSpawnPoint, bulletPrefab, gunPrefab, damageToGive, 0, blasterSound, audioSource);
+
+		dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 	}
 
-	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly</summary>
+	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly </summary>
 	private void FixedUpdate()
 	{
+		// Apply power ups to the player
+		ApplyPowerUps();
+
 		// If the player is allowed to move, check for player movement input and apply it to the player
 		if (playerAllowedToMove)
 		{
 			ApplyPlayerMovement();
+		}
+		if (dialogueManager.GetComponentInChildren<Animator>().GetBool("IsOpen") == true)
+		{
+			playerMovementAmount = Vector2.zero;
+			playerAnimator.SetLayerWeight(1, 0);
+			audioSourcePlayerMovement.volume = 0;
 		}
 
 		// rotate the players attack object if there is input
@@ -157,10 +177,19 @@ public class Player : BaseCharacter
 			timeBetweenAttacks -= Time.deltaTime;
 		}
 	}
+
+	/// <summary> The player picks up a power up </summary>
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.tag == "PowerUp")
+		{
+			Debug.Log("Picked up power up.");
+		}
+	}
 	#endregion
 
 	#region Utility Methods
-	/// <summary> this method is for the player to take damage 
+	/// <summary> this method is for the player to take damage
 	/// and send a signal to the UI to update it with the players new health </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
@@ -199,9 +228,7 @@ public class Player : BaseCharacter
 		}
 	}
 
-	/// <summary>
-	/// check for player movement input and apply it to the player
-	/// </summary>
+	/// <summary> check for player movement input and apply it to the player </summary>
 	private void ApplyPlayerMovement()
 	{
 		// Get the amount of movement that the player needs to move
@@ -216,26 +243,29 @@ public class Player : BaseCharacter
 		{
 			audioSourcePlayerMovement.volume = 0;
 		}
-		
 
+		// Check if the player is moving or is idle
+		if (playerMovementAmount.x != 0 || playerMovementAmount.y != 0)
+		{
+			playerAnimator.SetLayerWeight(1, 1);
+		}
+		else
+		{
+			playerAnimator.SetLayerWeight(1, 0);
+		}
 		// Update the values in the Animator for the players animation
 		SetPlayerAnimatorValues();
-
 		// Update the Hero's position, taking note of colliders.
 		playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
 	}
 
-	/// <summary>
-	/// Get the amount of movement that the player needs to move
-	/// </summary>
+	/// <summary> Get the amount of movement that the player needs to move </summary>
 	private Vector2 GetPlayerMovementAmount()
 	{
-		return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * playerMovementSpeed;
+		return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * (playerMovementSpeed + extraSpeed);
 	}
 
-	/// <summary>
-	/// Update the values in the Animator for the players animations
-	/// </summary>
+	/// <summary> Update the values in the Animator for the players animations </summary>
 	private void SetPlayerAnimatorValues()
 	{
 		playerAnimator.SetFloat("Horizontal", playerMovementAmount.x);
@@ -243,9 +273,27 @@ public class Player : BaseCharacter
 		playerAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);
 	}
 
+	/// <summary> Apply any power ups the player has picked up </summary>
+	private void ApplyPowerUps()
+	{
+		// Not a for loop because different power ups work differently
+		// Apply heal
+		currentHealth += (powerUpTimers[PowerUp.HEAL] > 0.0f) ? 2 : 0;
+
+		// Apply damage boost
+		extraDamage = (powerUpTimers[PowerUp.POWER] > 0.0f) ? 1 : 0;
+
+		// Apply Speed boost
+		extraSpeed = (powerUpTimers[PowerUp.SPEED] > 0.0f) ? 0.05f : 0.0f;
+
+		// Decrease each power up timer
+		for (int counter = PowerUp.HEAL; counter <= PowerUp.SPEED; counter++)
+		{
+			powerUpTimers[counter] -= (powerUpTimers[counter] > 0.0f) ? Time.deltaTime : 0.0f;
+		}
+	}
 	#endregion
 
-	// Empty
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }
