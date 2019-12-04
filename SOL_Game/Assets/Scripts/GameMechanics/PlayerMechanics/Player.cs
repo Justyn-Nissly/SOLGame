@@ -18,35 +18,13 @@ public class Player : BaseCharacter
 	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated
 	public DialogueManager dialogueManager;
 
-	// players light melee attack variables
-	//public Transform lightMeleeAttackPosition;
-	//public LayerMask willDamageLayer;
-	//public GameObject lightMeleeWeapon;
-	//public FloatValue lightMeleeDamageToGive;
-
-	// heavy attack variables
-	//public Transform heavyMeleeAttackPosition;
-	//public FloatValue heavyMeleeDamageToGive;
-	//public GameObject heavyMeleeWeapon;
-
 	// player shield variables
 	public SpriteRenderer
 		  shieldSprite; // Shield graphics
 	public BoxCollider2D
 		  shieldBoxCollider; // The shield itself
 
-	// player ranged attack variables
-	public Transform firePoint;
-	public Transform gunSpawnPoint;
-	public GameObject bulletPrefab;
-	public GameObject gunPrefab;
-	public FloatValue damageToGive;
-
-
-
 	// player sound effects
-	//public List<AudioClip> swordSwingSoundEffects;
-	public AudioClip blasterSound;
 	public AudioSource audioSourcePlayerMovement;
 
 	public AudioSource shieldSoundSource;
@@ -58,23 +36,16 @@ public class Player : BaseCharacter
 	public Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
 	private Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
 
-	// players light melee attack variables
-	//private MeleeAttackBase playerLightMeleeAttack;
-	//private float lightMeleeAttackRange = .7f;
-	private float lightStartTimeBetweenAttacks = .3f;
-
-	// heavy attack variables
-	//private MeleeAttackBase playerHeavyMeleeAttack;
-	//private float heavyMeleeAttackRange = 1f;
-	private float heavyStartTimeBetweenAttacks = .6f;
-	private float timeBetweenAttacks;
+	// player attack timer variables
+	private float
+		timeBetweenAttacks, // the timer that cotrols if the player can use any of their attacks
+		lightStartTimeBetweenAttacks = .3f,
+		heavyStartTimeBetweenAttacks = .6f,
+		RangedStartTimeBetweenAttacks = .5f;
 
 	// player shield variables
 	private ShieldBase playerShield;
-
-	// player ranged attack variables
-	private RangedAttackBase playerRangedAttack;
-	private float RangedStartTimeBetweenAttacks = .5f;
+	
 	#endregion
 
 	// Unity Named Methods
@@ -88,11 +59,7 @@ public class Player : BaseCharacter
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
-		// set up the players attacks with the right values
-		//playerLightMeleeAttack = new MeleeAttackBase(lightMeleAttackPosition, lightMeleeAttackRange, willDamageLayer, lightMeleeWeapon, lightMeleeDamageToGive, swordSwingSoundEffects, audioSource);
-		//playerHeavyMeleeAttack = new MeleeAttackBase(heavyMeleAttackPosition, heavyMeleeAttackRange, willDamageLayer, heavyMeleeWeapon, heavyMeleeDamageToGive, swordSwingSoundEffects, audioSource);
-		playerShield           = new ShieldBase(shieldSprite, shieldBoxCollider, shieldSoundSource);
-		playerRangedAttack     = new RangedAttackBase(firePoint, gunSpawnPoint, bulletPrefab, gunPrefab, damageToGive, 0, blasterSound, audioSource);
+		playerShield = new ShieldBase(shieldSprite, shieldBoxCollider, shieldSoundSource);
 
 		dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 	}
@@ -144,7 +111,7 @@ public class Player : BaseCharacter
 				if (Input.GetButtonUp("Y"))
 				{
 					timeBetweenAttacks = RangedStartTimeBetweenAttacks;
-					playerRangedAttack.Shoot();
+					Shoot();
 				}
 				// X is up arrow based on the SNES controller layout; attack with heavy weapon and reset the cooldown
 				else if (Input.GetButtonDown("X"))

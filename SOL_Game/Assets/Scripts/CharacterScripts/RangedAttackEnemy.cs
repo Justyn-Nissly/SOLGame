@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedAttackEnemy : RangedAttackBase
+public class RangedAttackEnemy : Enemy
 {
 	#region Enums (Empty)
 	#endregion
@@ -27,32 +27,36 @@ public class RangedAttackEnemy : RangedAttackBase
 	///<summary> Assign the attack's damage </summary>
 	private void Awake()
 	{
-		rangeAttackDamage = (int)damageToGive.initialValue;
+		rangeAttackDamage = (int)rangedAttackDamageToGive.initialValue;
 	}
 
 	///<summary> Make the enemy ready to attack </summary>
-	public void Start()
+	public override void Start()
 	{
-        enemy          = GetComponent<Enemy>();
-        countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+		base.Start();
+
+		enemy          = GetComponent<Enemy>();
+		countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 	}
 
 	///<summary> If the enemy is aggro it fires at the player </summary>
-	public void FixedUpdate()
-    {
-        if (enemy.aggro)
-        {
-            if (countDownTimer <= 0)
-            {
-                Shoot();
-                countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
-            }
-            else
-            {
-                countDownTimer -= Time.deltaTime;
-            }
-        }
-    }
+	public override void FixedUpdate()
+	{
+		base.FixedUpdate();
+
+		if (enemy.aggro)
+		{
+			if (countDownTimer <= 0)
+			{
+					Shoot();
+					countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+			}
+			else
+			{
+					countDownTimer -= Time.deltaTime;
+			}
+		}
+	}
 	#endregion
 
 	#region Utility Methods (Empty)

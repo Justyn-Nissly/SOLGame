@@ -42,7 +42,7 @@ public class Enemy : BaseCharacter
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Initialize the enemy </summary>
-	void Start()
+	public virtual void Start()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
 		currentHealth = maxHealth.initialValue;

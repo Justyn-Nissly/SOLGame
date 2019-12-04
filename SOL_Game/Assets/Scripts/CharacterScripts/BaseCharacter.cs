@@ -16,33 +16,58 @@ public class BaseCharacter : MonoBehaviour
 	public float
 		currentHealth; // The character's current health
 
-	public List<AudioClip> takeDamageSounds;
+	public List<AudioClip>
+		takeDamageSounds,
+		meleeSwingSoundEffects;
 
-	public AudioSource audioSource; // used to player sounds from
+	public AudioSource
+		audioSource; // used to player sounds from
 
 	// light melee attack variables (only need to be filled in the inspector if you use the light melee attack)
-	public Transform lightMeleeAttackPosition;
-	public float lightMeleeAttackRange;
-	public GameObject lightMeleeWeapon;
-	public FloatValue lightMeleeDamageToGive;
+	public Transform
+		lightMeleeAttackPosition;
+	public float
+		lightMeleeAttackRange;
+	public GameObject
+		lightMeleeWeapon;
+	public FloatValue
+		lightMeleeDamageToGive;
 
 	// heavy melee attack variables (only need to be filled in the inspector if you use the heavy melee attack)
-	public Transform heavyMeleeAttackPosition;
-	public float heavyMeleeAttackRange;
-	public GameObject heavyMeleeWeapon;
-	public FloatValue heavyMeleeDamageToGive;
+	public Transform
+		heavyMeleeAttackPosition;
+	public float
+		heavyMeleeAttackRange;
+	public GameObject
+		heavyMeleeWeapon;
+	public FloatValue
+		heavyMeleeDamageToGive;
 
-	// melee attack variables for both light and heavy attacks
-	public List<AudioClip> meleeSwingSoundEffects;
-	public LayerMask willDamageLayer; // the layer that the light and heavy attack will damage
+	public LayerMask
+		willDamageLayer; // the layer that the light and heavy attack will damage
 
+	// ranged attack variables (only need to be filled in the inspector if you use the ranged attack)
+	public Transform
+		firePoint,
+		gunSpawnPoint;
+	public GameObject
+		bulletPrefab,
+		gunPrefab;
+	public FloatValue
+		rangedAttackDamageToGive;
+	public float
+		BulletShootingDelay = .2f;
+	public AudioClip
+		blasterSound;
 
 	#endregion
 
 	#region Private Variables
-	protected float thrust = 7; // used for the knock back effect
-	protected float knockTime = .2f; // used for the knock back effect
-	protected bool characterHasKnockback = false; // used for the knock back effect
+	protected float
+		thrust = 7, // used for the knock back effect
+		knockTime = .2f; // used for the knock back effect
+	protected bool
+		characterHasKnockback = false; // used for the knock back effect
 	protected Player player; // not needed ?
 	#endregion
 
@@ -58,7 +83,7 @@ public class BaseCharacter : MonoBehaviour
 		{
 			if (takeDamageSounds.Count > 0 && playSwordImpactSound)
 			{
-				audioSource.clip = GetRamdomSoundEffect(takeDamageSounds);
+				audioSource.clip = GetRandomSoundEffect(takeDamageSounds);
 				audioSource.Play();
 			}
 
@@ -68,6 +93,7 @@ public class BaseCharacter : MonoBehaviour
 		}
 	}
 
+	/// <summary> the attack method used for the enemy and the player to swing light/heavy melee weapons</summary>
 	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool characterHasKnockback)
 	{
 		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
@@ -88,7 +114,7 @@ public class BaseCharacter : MonoBehaviour
 
 		if (meleeSwingSoundEffects.Count > 0)
 		{
-			audioSource.clip = GetRamdomSoundEffect(meleeSwingSoundEffects);
+			audioSource.clip = GetRandomSoundEffect(meleeSwingSoundEffects);
 			audioSource.Play();
 		}
 
@@ -96,6 +122,7 @@ public class BaseCharacter : MonoBehaviour
 		Destroy(weaponInstance, .5f);
 	}
 
+	/// <summary> needs to be changed to always work</summary>
 	private void ApplyKnockBack(GameObject characterBeingAtacked)
 	{
 		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
@@ -126,16 +153,58 @@ public class BaseCharacter : MonoBehaviour
 
 	}
 
-	// gets the player script from the game object if it has one
+	// 
+	/// <summary> gets the player script from the game object if it has one (not needed after fixing the knock back effect)</summary>
 	private Player GetPlayer(GameObject gameObject)
 	{
 		return gameObject.GetComponent<Player>();
 	}
 
-	private AudioClip GetRamdomSoundEffect(List<AudioClip> SoundEffectList)
+	/// <summary>gets a random sound effect from a list of sound effects and returns it</summary>
+	private AudioClip GetRandomSoundEffect(List<AudioClip> SoundEffectList)
 	{
 		return SoundEffectList[Random.Range(0, SoundEffectList.Count - 1)];
 	}
+
+	/// <summary> Instantiates the gun and a bullet (both need to be assigned in the inspector to work)</summary>
+	public virtual void Shoot()
+	{
+		InstantiateAndDestroyGun();
+
+		if (audioSource != null && blasterSound != null)
+		{
+			audioSource.clip = blasterSound;
+			audioSource.Play();
+		}
+
+		if (BulletShootingDelay == 0)
+		{
+			InstantiateBullet();
+		}
+		else
+		{
+			Invoke("InstantiateBullet", BulletShootingDelay);
+		}
+	}
+
+	/// <summary> instantiates the gun game object variable then destroys it N seconds later </summary>
+	private void InstantiateAndDestroyGun()
+	{
+		GameObject gunInstance = Instantiate(gunPrefab, gunSpawnPoint.position, gunSpawnPoint.rotation);
+		gunInstance.transform.SetParent(gunSpawnPoint);
+
+		Destroy(gunInstance, .5f);
+	}
+
+	/// <summary> instantiates the bullet game object variable </summary>
+	private void InstantiateBullet()
+	{
+		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
+		bulletLogic.bulletDamage = (int)rangedAttackDamageToGive.initialValue; // is this right
+	}
+
 	#endregion
 
 	#region Coroutines
@@ -161,6 +230,7 @@ public class BaseCharacter : MonoBehaviour
 		canTakeDamage = true;
 	}
 
+	/// <summary> needs to be fixed </summary>
 	private IEnumerator KnockBackCoroutine(GameObject characterBeingAtacked)
 	{
 		Enemy enemy = characterBeingAtacked.GetComponent<Enemy>();
