@@ -32,6 +32,7 @@ public class shieldGuardian : MonoBehaviour
 	private Rigidbody2D myRigidBody;
 	private Vector2 playerPosition; // current position of the Player
 	private Vector2 dashTarget; // Where to dash to
+	private Vector2 colPoint; // Point of collision
 	#endregion
 
 	// Unity Named Methods
@@ -175,7 +176,12 @@ public class shieldGuardian : MonoBehaviour
 			// When touching a wall, change stuff
 			if (patternType == "MoveX" || patternType == "MoveY" || patternType == "BackupX" || patternType == "BackupY")
 			{
-				xSpeed *= -1f;
+				colPoint = collision.otherCollider.ClosestPoint(myRigidBody.position);
+				if (colPoint.x > myRigidBody.position.x)
+					xSpeed = Mathf.Abs(xSpeed);
+				else
+					xSpeed = -Mathf.Abs(xSpeed);
+
 				ySpeed *= -1f;
 			}
 			else if (patternType == "LockOnX" || patternType == "LockOnY")

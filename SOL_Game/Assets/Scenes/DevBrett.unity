@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03418e731bc6c1d42b0d341f416a1578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvisFadeImage: {fileID: 0}
+  canvasFadeImage: {fileID: 0}
 --- !u!114 &216196418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9755,7 +9755,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d0bc258e06dfcb14dadbe64577a26dc3, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -9769,7 +9769,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 873545197}
   m_Enabled: 0
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d0bc258e06dfcb14dadbe64577a26dc3, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -9881,7 +9881,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 873545197}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d0bc258e06dfcb14dadbe64577a26dc3, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -9900,7 +9900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5b0595d1bf11f49a1acc658f942350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: {fileID: 0}
+  maxHealth: {fileID: 11400000, guid: ac9b334a1cd26ac429991fd04d6367c4, type: 2}
   canAttack: 1
   canTakeDamage: 1
   currentHealth: 0
@@ -9920,6 +9920,8 @@ MonoBehaviour:
   patrol: []
   playerPos: {x: 0, y: 0}
   rb2d: {fileID: 0}
+  enemyAudioManager: {fileID: 0}
+  powerUp: {fileID: 0}
 --- !u!1 &1117596908
 GameObject:
   m_ObjectHideFlags: 0
@@ -10133,7 +10135,7 @@ TilemapCollider2D:
   m_GameObject: {fileID: 1184136376}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d0bc258e06dfcb14dadbe64577a26dc3, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
