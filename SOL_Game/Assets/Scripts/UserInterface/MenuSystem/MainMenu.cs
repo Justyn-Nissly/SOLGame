@@ -33,7 +33,6 @@ public class MainMenu : MonoBehaviour
 	/// Loads the game
 	public void PlayGame()
 	{
-		//FindObjectOfType<AudioManager>().StartBackground();
 		SceneManager.LoadScene("Hub");
 	}
 

@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
 			/// Keep items persisting across scenes
 			DontDestroyOnLoad(gameObject);
 			DontDestroyOnLoad(GameObject.Find("EventSystem"));
-			DontDestroyOnLoad(GameObject.Find("AudioManager"));
-			DontDestroyOnLoad(GameObject.Find("DialogueManager"));
 		}
 		else
 		{

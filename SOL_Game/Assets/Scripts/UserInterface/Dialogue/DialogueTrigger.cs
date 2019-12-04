@@ -14,28 +14,17 @@ public class DialogueTrigger : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	public bool canActivate = true;
+
 	#endregion
-	
+
 	// Unity Named Methods
 	#region Main Methods
 	/// Trigger the dialogue between the player and the NPC
-	void OnTriggerEnter2D(Collider2D collider)
+	void OnTriggerEnter2D(Collider2D NPC)
 	{
-		if (collider.CompareTag("Player"))
+		if (NPC.CompareTag("Player"))
 		{
-			if (canActivate == true)
-			{
-				DialogueManager.NPC = NPC;
-				if (FindObjectOfType<Player>().playerAllowedToMove == true)
-				{
-					// Pause the enemy movement
-					FindObjectOfType<Player>().playerAllowedToMove = false;
-					FindObjectOfType<Player>().playerMovementAmount = Vector2.zero;
-				}
-				NPC.GetComponent<Animator>().SetBool("IsActive", true);
-				FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
-			}
+			FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
 		}
 		
 	}
@@ -46,5 +35,6 @@ public class DialogueTrigger : MonoBehaviour
 	#endregion
 
 	#region Coroutines
+
 	#endregion
 }

@@ -8,7 +8,8 @@ public class Interactable : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public GameObject interactableIndicator; // Keep interactable objects locked until being unlocked
+	/*public bool isInteractable;*/ // This variable is here if we need to have certian things be interactable but locked to be unlocked later
+	public GameObject interactableIndicator; // The characters indicater that an item is interactable
 	#endregion
 
 	#region Private Variables(Empty)
@@ -16,7 +17,7 @@ public class Interactable : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-	///<summary> On player approach indicate the object is interactable </summary>
+	///<summary>If the player is close enought to the interactable object, display an indicator that the object is interactable</summary>
 	public void OnTriggerEnter2D(Collider2D player)
 	{
 		if (player.CompareTag("Player"))
@@ -24,8 +25,7 @@ public class Interactable : MonoBehaviour
 			interactableIndicator.SetActive(true);
 		}
 	}
-
-	///<summary> When the player leaves disable the interactable indicator </summary>
+	///<sumary>If the player moves away from the interactable object, disable the indicator that the object is interactable</sumary>
 	public void OnTriggerExit2D(Collider2D player)
 	{
 		if (player.CompareTag("Player"))

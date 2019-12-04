@@ -35,7 +35,7 @@ public class BulletLogic : MonoBehaviour
 	public void OnTriggerEnter2D(Collider2D collision)
 	{
 		// The bullet cannot cause friendly fire damage
-		if (collision.CompareTag(ignoreTag) == false && collision.CompareTag("PowerUp") == false)
+		if (collision.CompareTag(ignoreTag) == false)
 		{
 			// An enemy bullet hits the player
 			if (collision.CompareTag("Player"))

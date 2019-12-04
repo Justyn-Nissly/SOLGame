@@ -77,7 +77,7 @@ public class PauseMenu : MonoBehaviour
 	public void QuitGame()
 	{
 		SceneManager.LoadScene("Menu");
-		//FindObjectOfType<AudioManager>().StopBackground();
+		
 		Time.timeScale = 1.0f;
 		isPaused = false;
 		Destroy(GameObject.Find("PauseMenuCanvas(Clone)"));

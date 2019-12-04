@@ -6,49 +6,39 @@ using UnityEngine.UI;
 
 public class loadSceneOnTrigger : MonoBehaviour
 {
-	#region Enums (Empty)
-	#endregion
+	public string sceneToLoad; // the name of the scene that will be loaded when the player enters this trigger
 
-	#region Public Variables
-	public string
-		sceneToLoad; // The name of the scene to load when triggered
-	public bool
-		onTeleportStartInBeginingPosition = true;
-	public Image
-		canvasFadeImage; // Fades the whole screen to black
-	#endregion
+	public bool onTeleportStartInBeginingPosition = true;
 
-	#region Private Variables (Empty)
-	#endregion
+	public Image canvisFadeImage; // this is a black image that is on the canvas that covers the whole screen
 
-	// Unity Named Methods
-	#region Main Methods
-	/// <summary> Fade to black on collision </summary>
+	/// play fade to black coroutine when there is a collision
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// Change scenes if the player enters the trigger
+		// only change scenes if its the player that entered the trigger
 		if (collision.CompareTag("Player"))
 		{
 			StartCoroutine(FadeToBlackCoroutine());
 		}
 	}
-	#endregion
 
-	#region Utility Methods
-	/// <summary> Fade slowly to black </summary>
+	/// <summary>
+	/// fades an image to black over time, called from a coroutine
+	/// </summary>
 	private void FadeToBlack()
 	{
-		canvasFadeImage.color = Color.Lerp(canvasFadeImage.color, Color.black, 10.0f * Time.deltaTime);
-	}
-	#endregion
+		float fadeSpeed = 10f;
 
-	#region Coroutines
-	/// <summary> Load the scene after fading to black </summary>
+		canvisFadeImage.color = Color.Lerp(canvisFadeImage.color, Color.black, fadeSpeed * Time.deltaTime);
+	}
+
+	
+	/// fades an image to black over time, loads "sceneToLoad" after the image is black
 	public IEnumerator FadeToBlackCoroutine()
 	{
-		canvasFadeImage.color = Color.clear; // make image transparent
+		canvisFadeImage.color = Color.clear; // make image transparent
 
-		while (canvasFadeImage.color.a <= 0.95f)
+		while (canvisFadeImage.color.a <= 0.95f)
 		{
 			FadeToBlack();
 
@@ -58,5 +48,4 @@ public class loadSceneOnTrigger : MonoBehaviour
 		GlobalVarablesAndMethods.startInBeginingPosition = onTeleportStartInBeginingPosition;
 		SceneManager.LoadScene(sceneToLoad); // load this scene once the image is black
 	}
-	#endregion
 }
