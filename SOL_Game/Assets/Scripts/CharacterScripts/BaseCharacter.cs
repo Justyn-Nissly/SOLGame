@@ -60,6 +60,14 @@ public class BaseCharacter : MonoBehaviour
 	public AudioClip
 		blasterSound;
 
+	// shield variables
+	public SpriteRenderer
+		shieldSprite; // Shield graphics
+	public BoxCollider2D
+		shieldBoxCollider; // The shield itself
+	public AudioSource
+		shieldSound; // the sound of the shield while its active
+
 	#endregion
 
 	#region Private Variables
@@ -67,7 +75,8 @@ public class BaseCharacter : MonoBehaviour
 		thrust = 7, // used for the knock back effect
 		knockTime = .2f; // used for the knock back effect
 	protected bool
-		characterHasKnockback = false; // used for the knock back effect
+		characterHasKnockback = false, // used for the knock back effect
+		shieldIsEnabled = false; // flag for whether the shield is on/off
 	protected Player player; // not needed ?
 	#endregion
 
@@ -81,7 +90,7 @@ public class BaseCharacter : MonoBehaviour
 	{
 		if (canTakeDamage == true)
 		{
-			if (takeDamageSounds.Count > 0 && playSwordImpactSound)
+			if (takeDamageSounds.Count > 0 && playSwordImpactSound && audioSource != null)
 			{
 				audioSource.clip = GetRandomSoundEffect(takeDamageSounds);
 				audioSource.Play();
@@ -203,6 +212,30 @@ public class BaseCharacter : MonoBehaviour
 
 		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
 		bulletLogic.bulletDamage = (int)rangedAttackDamageToGive.initialValue; // is this right
+	}
+
+	/// <summary> Turn on the shield </summary>
+	public void EnableShield()
+	{
+		shieldSprite.enabled = true;
+		shieldBoxCollider.enabled = true;
+
+		if (shieldSound != null)
+		{
+			shieldSound.Play();
+		}
+	}
+
+	/// <summary> Turn off the shield </summary>
+	public void DisableShield()
+	{
+		shieldSprite.enabled = false;
+		shieldBoxCollider.enabled = false;
+
+		if (shieldSound != null)
+		{
+			shieldSound.Stop();
+		}
 	}
 
 	#endregion

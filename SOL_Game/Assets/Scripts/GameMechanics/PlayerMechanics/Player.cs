@@ -18,12 +18,6 @@ public class Player : BaseCharacter
 	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated
 	public DialogueManager dialogueManager;
 
-	// player shield variables
-	public SpriteRenderer
-		  shieldSprite; // Shield graphics
-	public BoxCollider2D
-		  shieldBoxCollider; // The shield itself
-
 	// player sound effects
 	public AudioSource audioSourcePlayerMovement;
 
@@ -41,11 +35,7 @@ public class Player : BaseCharacter
 		timeBetweenAttacks, // the timer that cotrols if the player can use any of their attacks
 		lightStartTimeBetweenAttacks = .3f,
 		heavyStartTimeBetweenAttacks = .6f,
-		RangedStartTimeBetweenAttacks = .5f;
-
-	// player shield variables
-	private ShieldBase playerShield;
-	
+		RangedStartTimeBetweenAttacks = .5f;	
 	#endregion
 
 	// Unity Named Methods
@@ -58,8 +48,6 @@ public class Player : BaseCharacter
 
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
-
-		playerShield = new ShieldBase(shieldSprite, shieldBoxCollider, shieldSoundSource);
 
 		dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 	}
@@ -87,17 +75,17 @@ public class Player : BaseCharacter
 		}
 
 		// On input activate the player's shield
-		if (Input.GetButton("B") && playerShield.shieldIsEnabled == false)
+		if (Input.GetButton("B") && shieldIsEnabled == false)
 		{
-			playerShield.EnableShield();
-			playerShield.shieldIsEnabled = true;
+			EnableShield();
+			shieldIsEnabled = true;
 			canAttack = false;
 		}
 		// On release of input deactivate the player's shield
-		else if (Input.GetButton("B") == false && playerShield.shieldIsEnabled)
+		else if (Input.GetButton("B") == false && shieldIsEnabled)
 		{
-			playerShield.DisableShield();
-			playerShield.shieldIsEnabled = false;
+			DisableShield();
+			shieldIsEnabled = false;
 			canAttack = true;
 		}
 
