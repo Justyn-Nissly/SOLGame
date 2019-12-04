@@ -51,7 +51,7 @@ public class Enemy : BaseCharacter
 	}
 
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
-	void FixedUpdate()
+	public virtual void FixedUpdate()
 	{
 		// Check if the player is close enough to aggro
 		playerPos = GameObject.FindWithTag("Player").transform.position;

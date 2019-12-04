@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class HeavyAttackEnemy : Enemy
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public float maxTimeBetweenAttacks = 2f;
-	public float minTimeBetweenAttacks = 1f;
+	public float
+		maxTimeBetweenAttacks = 2f,
+		minTimeBetweenAttacks = 1f;
 	#endregion
 
 	#region Private Variables
-	private float countDownTimer;
+	private float
+		countDownTimer;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	private void FixedUpdate()
+
+	public override void FixedUpdate()
 	{
+		// call the logic that is in the base script Enemy first
+		base.FixedUpdate();
+
+		// attack with the heavy melee weapon every couple seconds if the enemy is aggro
 		if (countDownTimer <= 0 && aggro)
 		{
 			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
@@ -32,7 +39,4 @@ public class HeavyAttackEnemy : Enemy
 		}
 	}
 	#endregion
-
-	
-
 }
