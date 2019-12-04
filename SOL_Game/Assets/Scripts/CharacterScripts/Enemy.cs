@@ -34,9 +34,13 @@ public class Enemy : BaseCharacter
     public Rigidbody2D
 		rb2d; // The enemy's rigidBody
 	public AudioManager enemyAudioManager;
+	public GameObject
+		powerUp; // Reference PowerUp prefab.
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
+	private Player
+		player; // Check if the player has a damage boost
 	#endregion
 
 	// Unity Named Methods
@@ -44,7 +48,8 @@ public class Enemy : BaseCharacter
 	/// <summary> Initialize the enemy </summary>
 	void Start()
 	{
-		rb2d = GetComponent<Rigidbody2D>();
+		player        = GameObject.FindObjectOfType<Player>();
+		rb2d          = GetComponent<Rigidbody2D>();
 		currentHealth = maxHealth.initialValue;
 		healPerLoop = healAmount / duration;
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
@@ -80,7 +85,7 @@ public class Enemy : BaseCharacter
 	///<summary> Deal damage to the enemy </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		base.TakeDamage(damage, playSwordImpactSound);
+		base.TakeDamage(damage + player.extraDamage, playSwordImpactSound);
 		SetHealth(currentHealth / maxHealth.initialValue);
 
 		Debug.Log("enemy CurrentHealth = " + currentHealth);
@@ -89,6 +94,11 @@ public class Enemy : BaseCharacter
 		if (currentHealth <= 0)
 		{
 			enemyAudioManager.PlaySound();
+			// The enemy might drop a power up
+			if (true)
+			{
+				Instantiate(powerUp, transform.position, Quaternion.identity);
+			}
 			Destroy(gameObject);
 		}
 	}
