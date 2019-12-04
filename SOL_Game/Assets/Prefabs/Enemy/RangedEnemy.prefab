@@ -262,6 +262,9 @@ MonoBehaviour:
     type: 2}
   BulletShootingDelay: 0.2
   blasterSound: {fileID: 8300000, guid: 7374c242e1ff0834088b2534c4f9f84c, type: 3}
+  shieldSprite: {fileID: 0}
+  shieldBoxCollider: {fileID: 0}
+  shieldSound: {fileID: 0}
   healthBar: {fileID: 5969699626326326305}
   enemyName: 
   aggroRange: 10
@@ -319,7 +322,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 1
-  m_AngularDrag: 0
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

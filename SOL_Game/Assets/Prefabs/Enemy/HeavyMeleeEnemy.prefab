@@ -380,6 +380,11 @@ MonoBehaviour:
   canTakeDamage: 1
   currentHealth: 0
   takeDamageSounds: []
+  meleeSwingSoundEffects:
+  - {fileID: 8300000, guid: 8f4b89ff8d31e444e814795900c017e4, type: 3}
+  - {fileID: 8300000, guid: 375cb2f4baca0454bb24ecac6fc33e6a, type: 3}
+  - {fileID: 8300000, guid: 4be1e5c8d979d8f44b578ac012d6b8cb, type: 3}
+  - {fileID: 8300000, guid: 5319c979bc4ad7d4d81cedd332813668, type: 3}
   audioSource: {fileID: -3872843509878049442}
   lightMeleeAttackPosition: {fileID: 0}
   lightMeleeAttackRange: 0
@@ -391,14 +396,19 @@ MonoBehaviour:
     type: 3}
   heavyMeleeDamageToGive: {fileID: 11400000, guid: 8a910d7db67024ca0a00932cc2b76129,
     type: 2}
-  meleeSwingSoundEffects:
-  - {fileID: 8300000, guid: 8f4b89ff8d31e444e814795900c017e4, type: 3}
-  - {fileID: 8300000, guid: 375cb2f4baca0454bb24ecac6fc33e6a, type: 3}
-  - {fileID: 8300000, guid: 4be1e5c8d979d8f44b578ac012d6b8cb, type: 3}
-  - {fileID: 8300000, guid: 5319c979bc4ad7d4d81cedd332813668, type: 3}
   willDamageLayer:
     serializedVersion: 2
     m_Bits: 256
+  firePoint: {fileID: 0}
+  gunSpawnPoint: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  gunPrefab: {fileID: 0}
+  rangedAttackDamageToGive: {fileID: 0}
+  BulletShootingDelay: 0.2
+  blasterSound: {fileID: 0}
+  shieldSprite: {fileID: 0}
+  shieldBoxCollider: {fileID: 0}
+  shieldSound: {fileID: 0}
   healthBar: {fileID: 768497864}
   enemyName: 
   aggroRange: 6
@@ -442,7 +452,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 1
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
