@@ -8,47 +8,38 @@ public class LightAttackEnemy : Enemy
 	#endregion
 
 	#region Public Variables
-	public Enemy
-        enemy;
-    public float
-	    maxTimeBetweenAttacks = 1.2f,
-	    minTimeBetweenAttacks = 0.7f,
-	    countDownTimer;
-    public bool
-        attacking;
+	public float
+		maxTimeBetweenAttacks = 1.2f,
+		minTimeBetweenAttacks = 0.7f,
+		countDownTimer;
 	#endregion
 
-	#region Private Variables
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	private void FixedUpdate()
+	public override void FixedUpdate()
 	{
-		if (enemy.aggro)
+		// call the logic that is in the base script Enemy first
+		base.FixedUpdate();
+
+		// attack with the light melee weapon every couple seconds if the enemy is aggro and the enemy can attack(used so that an enemy doesnt attack if their shield is up)
+		if (countDownTimer <= 0 && canAttack && aggro)
 		{
-			if (countDownTimer <= 0 && enemy.canAttack && Vector2.Distance(transform.position, enemy.playerPos) <= lightMeleeAttackRange + 0.6f)
-			{
-				countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
-				attacking = true;
-				MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
-			}
-			else
-			{
-				attacking = false;
-				countDownTimer -= Time.deltaTime;
-			}
+			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
+			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
 		}
-		//else
-		//{
-		//    countDownTimer = 0.0f;
-		//}
+		else
+		{
+			countDownTimer -= Time.deltaTime;
+		}
 	}
 	#endregion
 
-    #region Utility Methods
-    #endregion
+	#region Utility Methods (Empty)
+	#endregion
 
-	  #region Coroutines
-	  #endregion
+	#region Coroutines (Empty)
+	#endregion
 }

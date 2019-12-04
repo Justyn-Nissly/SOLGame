@@ -21,24 +21,22 @@ public class BaseCharacter : MonoBehaviour
 	public AudioSource audioSource; // used to player sounds from
 
 	// light melee attack variables (only need to be filled in the inspector if you use the light melee attack)
-	[Header("light melee attack variables(start)")]
 	public Transform lightMeleeAttackPosition;
 	public float lightMeleeAttackRange;
 	public GameObject lightMeleeWeapon;
 	public FloatValue lightMeleeDamageToGive;
-	[Header("light melee attack variables(end)")]
 
 	// heavy melee attack variables (only need to be filled in the inspector if you use the heavy melee attack)
-	[Header("heavy melee attack variables(start)")]
 	public Transform heavyMeleeAttackPosition;
 	public float heavyMeleeAttackRange;
 	public GameObject heavyMeleeWeapon;
 	public FloatValue heavyMeleeDamageToGive;
-	[Header("heavy melee attack variables(end)")]
 
 	// melee attack variables for both light and heavy attacks
 	public List<AudioClip> meleeSwingSoundEffects;
 	public LayerMask willDamageLayer; // the layer that the light and heavy attack will damage
+
+
 	#endregion
 
 	#region Private Variables
