@@ -53,7 +53,7 @@ public class Enemy : BaseCharacter
 		player        = GameObject.FindObjectOfType<Player>();
 		rb2d          = GetComponent<Rigidbody2D>();
 		currentHealth = maxHealth.initialValue;
-		healPerLoop = healAmount / duration;
+		
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
     countDownTimer = maxHealOverTime;
 	}
