@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class shieldGuardian : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class shieldGuardian : MonoBehaviour
 	public int backupTime;
 	public float backupSpeed;
 	public int cooldownTime;
+	public Image shield;
 	#endregion
 
 	#region Private Variables
@@ -33,6 +35,7 @@ public class shieldGuardian : MonoBehaviour
 	private Vector2 playerPosition; // current position of the Player
 	private Vector2 dashTarget; // Where to dash to
 	private Vector2 colPoint; // Point of collision
+	private bool shieldOn;
 	#endregion
 
 	// Unity Named Methods
@@ -46,6 +49,7 @@ public class shieldGuardian : MonoBehaviour
 		facingX = 1;
 		facingY = 0;
 		myRigidBody = GetComponent<Rigidbody2D>();
+		shieldOn = true;
 	}
 
 	void FixedUpdate()
@@ -96,6 +100,7 @@ public class shieldGuardian : MonoBehaviour
 					xSpeed = 0;
 					ySpeed = prevYSpeed;
 					patternAlarm = changeAttackRate;
+					shieldOn = true;
 					break;
 
 				case "BackupY":
@@ -105,6 +110,7 @@ public class shieldGuardian : MonoBehaviour
 					xSpeed = prevXSpeed;
 					ySpeed = 0;
 					patternAlarm = changeAttackRate;
+					shieldOn = true;
 					break;
 			}
 			Debug.Log(">ShieldGuardianStateChange=" + patternType);
@@ -168,6 +174,11 @@ public class shieldGuardian : MonoBehaviour
 		// Update speed.
 		//if (!myRigidBody.SweepTest(new Vector3(movement, 0, 0), out hit, new Vector3(movement, 0, 0).magnitude))
 		myRigidBody.MovePosition(new Vector2(xSpeed, ySpeed) + myRigidBody.position);
+
+		// Update drawing the Shield
+		shield.enabled = shieldOn;
+		
+		
 	}
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -199,6 +210,7 @@ public class shieldGuardian : MonoBehaviour
 					prevXSpeed = xSpeed;
 					xSpeed = 0;
 					ySpeed = 0;
+					shieldOn = false;
 				}
 				else if (patternType == "DashY")
 				{
@@ -206,6 +218,7 @@ public class shieldGuardian : MonoBehaviour
 					prevYSpeed = ySpeed;
 					xSpeed = 0;
 					ySpeed = 0;
+					shieldOn = false;
 				}
 				patternAlarm = cooldownTime;
 			}
