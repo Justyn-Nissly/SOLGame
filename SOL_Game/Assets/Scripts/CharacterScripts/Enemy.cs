@@ -46,7 +46,7 @@ public class Enemy : BaseCharacter
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Initialize the enemy </summary>
-	void Start()
+	public virtual void Start()
 	{
 		player        = GameObject.FindObjectOfType<Player>();
 		rb2d          = GetComponent<Rigidbody2D>();
@@ -56,7 +56,7 @@ public class Enemy : BaseCharacter
 	}
 
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
-	void FixedUpdate()
+	public virtual void FixedUpdate()
 	{
 		// Check if the player is close enough to aggro
 		playerPos = GameObject.FindWithTag("Player").transform.position;
