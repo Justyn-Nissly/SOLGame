@@ -18,9 +18,9 @@ public class SpeedBoost : MonoBehaviour
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> The player picks up the item </summary>
-	void OnCollisionEnter2D(Collider2D collision)
+	void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.CompareTag("Player"))
+		if (collision.gameObject.CompareTag("Player"))
 		{
 			Debug.Log("Speed Boost activated! WHEEEEEEEEEE!");
 			Destroy(gameObject);
