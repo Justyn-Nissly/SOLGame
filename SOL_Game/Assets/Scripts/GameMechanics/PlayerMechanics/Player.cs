@@ -57,6 +57,7 @@ public class Player : BaseCharacter
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
 		dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
+		powerUpTimers = new float[PowerUp.SPEED + 1];
 	}
 
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly </summary>
