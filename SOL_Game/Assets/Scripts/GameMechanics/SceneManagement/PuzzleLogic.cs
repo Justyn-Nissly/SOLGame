@@ -71,13 +71,7 @@ public class PuzzleLogic : MonoBehaviour
 	#endregion
 
 	#region Coroutines
-	/// <summary>
-	/// Moves a game object to a location over N seconds
-	/// </summary>
-	/// <param name="objectToMove"></param>
-	/// <param name="end"></param>
-	/// <param name="seconds"></param>
-	/// <returns></returns>
+	/// <summary> Moves a game object to a location over N seconds </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 end, float seconds)
 	{
 		float elapsedTime = 0;
