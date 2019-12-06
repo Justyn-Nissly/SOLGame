@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -329,8 +329,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c72e42af9d55f04b8b94c36cc3da2c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   maxHealth: {fileID: 11400000, guid: 256734c5805f748699a8fa5e76776bf4, type: 2}
   canAttack: 1
   canTakeDamage: 1
@@ -368,7 +368,7 @@ MonoBehaviour:
   shieldBoxCollider: {fileID: 0}
   shieldSound: {fileID: 0}
   healthBar: {fileID: 3515130051651478199}
-  enemyName: 
+  enemyName:
   aggroRange: 6
   duration: 2
   followRange: 1
@@ -395,8 +395,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
+--- !u!114 &8519565967622166671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519565967622166670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5b0595d1bf11f49a1acc658f942350, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  maxHealth: {fileID: 11400000, guid: 256734c5805f748699a8fa5e76776bf4, type: 2}
+  canAttack: 1
+  canTakeDamage: 1
+  currentHealth: 0
+  takeDamageSounds:
+  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
+  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
+  audioSource: {fileID: 9032792422870042038}
+  healthBar: {fileID: 3515130051651478199}
+  enemyName:
+  aggroRange: 6
+  duration: 2
+  followRange: 1
+  attackDmg: 0
+  contactDmg: 0
+  healPerLoop: 2
+  healAmount: 1
+  moveSpeed: 5
+  aggro: 0
+  patrol: []
+  playerPos: {x: 0, y: 0}
+  rb2d: {fileID: 644280149640877879}
+  audio1: {fileID: 0}
 --- !u!50 &644280149640877879
 Rigidbody2D:
   serializedVersion: 4
@@ -428,8 +463,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94496abf717a74f4cb18d249ecf1b0fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   maxTime: 6
   minTime: 2
   waitTime: 1
@@ -443,8 +478,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 372e5866b75e48e448d35f8994ea5a6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   maxChaseTime: 5
   canMoveAtPlayer: 1
 --- !u!82 &9032792422870042038
@@ -598,8 +633,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
