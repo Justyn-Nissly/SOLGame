@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -217,10 +217,10 @@ GameObject:
   - component: {fileID: 8519565967622166666}
   - component: {fileID: 8519565967622166665}
   - component: {fileID: 8519565967622166664}
-  - component: {fileID: 8519565967622166671}
   - component: {fileID: 644280149640877879}
   - component: {fileID: 7462810820298639133}
   - component: {fileID: 3155975377783033459}
+  - component: {fileID: 9032792422870042038}
   m_Layer: 9
   m_Name: LightMeleeEnemy
   m_TagString: Enemy
@@ -329,21 +329,62 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c72e42af9d55f04b8b94c36cc3da2c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPosition: {fileID: 8519565967468061580}
-  attackRange: 1
+  m_Name:
+  m_EditorClassIdentifier:
+  maxHealth: {fileID: 11400000, guid: 256734c5805f748699a8fa5e76776bf4, type: 2}
+  canAttack: 1
+  canTakeDamage: 1
+  currentHealth: 0
+  takeDamageSounds:
+  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
+  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
+  meleeSwingSoundEffects:
+  - {fileID: 8300000, guid: 8f4b89ff8d31e444e814795900c017e4, type: 3}
+  - {fileID: 8300000, guid: 375cb2f4baca0454bb24ecac6fc33e6a, type: 3}
+  - {fileID: 8300000, guid: 4be1e5c8d979d8f44b578ac012d6b8cb, type: 3}
+  - {fileID: 8300000, guid: 5319c979bc4ad7d4d81cedd332813668, type: 3}
+  audioSource: {fileID: 9032792422870042038}
+  lightMeleeAttackPosition: {fileID: 8519565967468061580}
+  lightMeleeAttackRange: 1
+  lightMeleeWeapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff,
+    type: 3}
+  lightMeleeDamageToGive: {fileID: 11400000, guid: defea4fe047dd46e899819e4de2d6168,
+    type: 2}
+  heavyMeleeAttackPosition: {fileID: 0}
+  heavyMeleeAttackRange: 0
+  heavyMeleeWeapon: {fileID: 0}
+  heavyMeleeDamageToGive: {fileID: 0}
   willDamageLayer:
     serializedVersion: 2
     m_Bits: 256
-  weapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff, type: 3}
-  damage: 2
-  damageToGive: {fileID: 11400000, guid: defea4fe047dd46e899819e4de2d6168, type: 2}
-  enemy: {fileID: 8519565967622166671}
+  firePoint: {fileID: 0}
+  gunSpawnPoint: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  gunPrefab: {fileID: 0}
+  rangedAttackDamageToGive: {fileID: 0}
+  BulletShootingDelay: 0.2
+  blasterSound: {fileID: 0}
+  shieldSprite: {fileID: 0}
+  shieldBoxCollider: {fileID: 0}
+  shieldSound: {fileID: 0}
+  healthBar: {fileID: 3515130051651478199}
+  enemyName:
+  aggroRange: 6
+  duration: 2
+  followRange: 1
+  attackDmg: 0
+  contactDmg: 0
+  healPerLoop: 0
+  healAmount: 0
+  moveSpeed: 5
+  aggro: 0
+  patrol: []
+  playerPos: {x: 0, y: 0}
+  rb2d: {fileID: 0}
+  enemyAudioManager: {fileID: 0}
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
   countDownTimer: 0
-  attacking: 0
 --- !u!114 &8519565967622166664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,8 +395,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &8519565967622166671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,16 +407,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac5b0595d1bf11f49a1acc658f942350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: {fileID: 11400000, guid: 256734c5805f748699a8fa5e76776bf4, type: 2}
+  m_Name:
+  m_EditorClassIdentifier:
   maxHealth: {fileID: 11400000, guid: 256734c5805f748699a8fa5e76776bf4, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  currentHealth: 0
+  takeDamageSounds:
+  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
+  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
+  audioSource: {fileID: 9032792422870042038}
   healthBar: {fileID: 3515130051651478199}
-  enemyName: 
+  enemyName:
   aggroRange: 6
-  duration: 0
+  duration: 2
   followRange: 1
   attackDmg: 0
   contactDmg: 0
@@ -385,7 +430,8 @@ MonoBehaviour:
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
-  sprite: {fileID: 644280149640877879}
+  rb2d: {fileID: 644280149640877879}
+  audio1: {fileID: 0}
 --- !u!50 &644280149640877879
 Rigidbody2D:
   serializedVersion: 4
@@ -399,14 +445,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &7462810820298639133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,8 +463,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94496abf717a74f4cb18d249ecf1b0fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   maxTime: 6
   minTime: 2
   waitTime: 1
@@ -432,10 +478,106 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 372e5866b75e48e448d35f8994ea5a6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   maxChaseTime: 5
   canMoveAtPlayer: 1
+--- !u!82 &9032792422870042038
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519565967622166670}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8891521907010971617
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,8 +633,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1

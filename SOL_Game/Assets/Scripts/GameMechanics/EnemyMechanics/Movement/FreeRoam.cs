@@ -52,16 +52,22 @@ public class FreeRoam : MonoBehaviour
 
 	/// <summary> Roam randomly while the player has not been detected </summary>
 	void FixedUpdate()
-    {
-        if (enemy.aggro == false)
-        {
-            Roam();
-        }
-        else
-        {
-            waiting = waitTime;
-        }
-    }
+	{
+		if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
+		{
+			Roam();
+		}
+		else
+		{
+			waiting = waitTime;
+		}
+		
+		// if the enemy is the ranged guardian roam even if aggro
+		if (enemy is RangedGuardian)
+		{
+			Roam();
+		}
+	}
 	#endregion
 
 	#region Utility Functions

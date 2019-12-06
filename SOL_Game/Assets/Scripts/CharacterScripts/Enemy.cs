@@ -10,21 +10,20 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Public Variables
-	float
-		amountHealed = 0;
 	public Image
 		healthBar;
     public string
         enemyName; // The enemy's name
 	public float
 		aggroRange,  // The max range where the enemy can detect the player
-		duration,
+		//duration,
 		followRange, // How far away the player must get for the enemy to deaggro
 		attackDmg,   // Base damage from an intentional attack
         contactDmg,  // Base damage from making contact with the player
 		healPerLoop,
-		healAmount,
-		moveSpeed;   // Base movement speed
+		MAXPOSSIBLEHEALTH,
+        maxHealOverTime,
+        moveSpeed;   // Base movement speed
     public bool
         aggro; // The enemy has detected the player
     public Vector2[]
@@ -33,23 +32,33 @@ public class Enemy : BaseCharacter
         playerPos; // Track the player's position
     public Rigidbody2D
 		rb2d; // The enemy's rigidBody
+	public AudioManager enemyAudioManager;
+	public GameObject
+		powerUp; // Reference PowerUp prefab.
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
+	private Player
+		player; // Check if the player has a damage boost
+	private float
+    amountHealed = 0,
+    countDownTimer;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Initialize the enemy </summary>
-	void Start()
+	public virtual void Start()
 	{
-		rb2d = GetComponent<Rigidbody2D>();
+		player        = GameObject.FindObjectOfType<Player>();
+		rb2d          = GetComponent<Rigidbody2D>();
 		currentHealth = maxHealth.initialValue;
-		healPerLoop = healAmount / duration;
+		
+		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
+    countDownTimer = maxHealOverTime;
 	}
-
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
-	void FixedUpdate()
+	public virtual void FixedUpdate()
 	{
 		// Check if the player is close enough to aggro
 		playerPos = GameObject.FindWithTag("Player").transform.position;
@@ -61,8 +70,22 @@ public class Enemy : BaseCharacter
 		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
 		{
 			aggro = false;
-			//StartCoroutine(HealOverTimeCoroutine(healAmount, duration));
-		}
+            if (countDownTimer <= 0)
+            {
+                countDownTimer = maxHealOverTime; // reset the time after going to 0
+
+                if (currentHealth < maxHealth.initialValue) // only heal if health less than full
+                {
+                    currentHealth += healPerLoop;
+                    SetHealth(currentHealth / maxHealth.initialValue);
+                    Debug.Log("enemy CurrentHealth = " + currentHealth);
+                }
+            }
+            else
+            {
+                countDownTimer -= Time.deltaTime;
+            }
+        }
 
 		// Enemies attack the player only if aggroed
 		if (aggro)
@@ -76,9 +99,9 @@ public class Enemy : BaseCharacter
 
 	#region Utility Methods
 	///<summary> Deal damage to the enemy </summary>
-	public override void TakeDamage(int damage)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		base.TakeDamage(damage);
+		base.TakeDamage(damage + player.extraDamage, playSwordImpactSound);
 		SetHealth(currentHealth / maxHealth.initialValue);
 
 		Debug.Log("enemy CurrentHealth = " + currentHealth);
@@ -86,6 +109,12 @@ public class Enemy : BaseCharacter
 		// The enemy gets destroyed if it runs out of health
 		if (currentHealth <= 0)
 		{
+			enemyAudioManager.PlaySound();
+			// The enemy might drop a power up
+			if (true && powerUp != null)
+			{
+				Instantiate(powerUp, transform.position, Quaternion.identity);
+			}
 			Destroy(gameObject);
 		}
 	}
@@ -95,19 +124,10 @@ public class Enemy : BaseCharacter
 	{
 		healthBar.fillAmount = percentHelth;
 	}
-	#endregion
+    #endregion
 
-	#region Coroutines
-	///<summary> The enemy heals over time </summary>
-	IEnumerator HealOverTimeCoroutine(float healAmount, float duration)
-	{
-		while (amountHealed < healAmount)
-		{
-			yield return new WaitForSeconds(20.0f);
-			currentHealth += healPerLoop;
-			amountHealed               += healPerLoop;
-			SetHealth(currentHealth);
-		}
-	}
-	#endregion
+
+    #region Coroutines
+
+    #endregion
 }

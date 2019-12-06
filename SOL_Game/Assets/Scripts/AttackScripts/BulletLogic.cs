@@ -35,20 +35,20 @@ public class BulletLogic : MonoBehaviour
 	public void OnTriggerEnter2D(Collider2D collision)
 	{
 		// The bullet cannot cause friendly fire damage
-		if (collision.CompareTag(ignoreTag) == false)
+		if (collision.CompareTag(ignoreTag) == false && collision.CompareTag("PowerUp") == false)
 		{
 			// An enemy bullet hits the player
 			if (collision.CompareTag("Player"))
 			{
 				Player player = collision.GetComponent<Player>();
-				player.TakeDamage(bulletDamage);
+				player.TakeDamage(bulletDamage, false);
 				// DEBUG CODE, REMOVE LATER
 				Debug.Log("players CurrentHealth = " + player.currentHealth);
 			}
 			else if (collision.CompareTag("Enemy"))
 			{
 				Enemy enemy = collision.GetComponent<Enemy>();
-				enemy.TakeDamage(bulletDamage);
+				enemy.TakeDamage(bulletDamage, false);
 				// DEBUG CODE, REMOVE LATER
 				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth);
 			}

@@ -74,7 +74,7 @@ public class EvadePlayer : MonoBehaviour
 			part;        // Track the current part being added to the sum
         int
             counter1, // Track the current iteration
-            counter2; // 
+            counter2; //
 
 		// Approximate sine by finite sum: n = 0, Σ (-1)^n * (x^(2n+1)) / ((2n+1)!)
 		for (counter1 = 1; counter1 < 100; counter1 += 2)

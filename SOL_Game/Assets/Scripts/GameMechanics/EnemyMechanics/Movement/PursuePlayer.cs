@@ -10,10 +10,12 @@ public class PursuePlayer : MonoBehaviour
     #region Public Variables
     public float
         maxChaseTime; // Time left before the enemy might deaggro
-    #endregion
+	public bool
+		canMoveAtPlayer = true; // for stopping the enemy from moving at the player if he is colliding with the player
+	#endregion
 
-    #region Private Variables
-    private float
+	#region Private Variables
+	private float
         chaseTime; // Time left before the enemy might deaggro
     private Vector2
         playerPos; // The player's position
@@ -39,8 +41,6 @@ public class PursuePlayer : MonoBehaviour
             Pursue();
         }
     }
-
-	public bool canMoveAtPlayer = true;
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
