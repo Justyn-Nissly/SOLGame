@@ -116,12 +116,11 @@ GameObject:
   - component: {fileID: 7703339030992561040}
   - component: {fileID: 7703339030992561041}
   - component: {fileID: 7703339030992561054}
-  - component: {fileID: 7703339030992561053}
   - component: {fileID: 7703339030992561055}
   - component: {fileID: 7703339030992561052}
-  - component: {fileID: 5913705651091652437}
   - component: {fileID: 1775283602783030044}
   - component: {fileID: 5166013779851333539}
+  - component: {fileID: 773718417}
   m_Layer: 9
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -221,40 +220,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
---- !u!114 &7703339030992561053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7703339030992561050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5b0595d1bf11f49a1acc658f942350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: {fileID: 11400000, guid: 6cc77bf4377a749aba194b4ed4b9d852, type: 2}
-  canAttack: 1
-  canTakeDamage: 1
-  currentHealth: 0
-  takeDamageSounds:
-  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
-  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
-  audioSource: {fileID: 5166013779851333539}
-  healthBar: {fileID: 5969699626326326305}
-  enemyName: 
-  aggroRange: 5
-  duration: 0
-  followRange: 8
-  attackDmg: 0
-  contactDmg: 0
-  healPerLoop: 0
-  healAmount: 0
-  moveSpeed: 2
-  aggro: 0
-  patrol: []
-  playerPos: {x: 0, y: 0}
-  rb2d: {fileID: 0}
 --- !u!114 &7703339030992561055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,16 +232,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442998a65d5ccf44a89bf410f6550cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: {fileID: 11400000, guid: 6cc77bf4377a749aba194b4ed4b9d852, type: 2}
+  canAttack: 1
+  canTakeDamage: 1
+  currentHealth: 0
+  takeDamageSounds: []
+  meleeSwingSoundEffects: []
+  audioSource: {fileID: 5166013779851333539}
+  lightMeleeAttackPosition: {fileID: 0}
+  lightMeleeAttackRange: 0
+  lightMeleeWeapon: {fileID: 0}
+  lightMeleeDamageToGive: {fileID: 0}
+  heavyMeleeAttackPosition: {fileID: 0}
+  heavyMeleeAttackRange: 0
+  heavyMeleeWeapon: {fileID: 0}
+  heavyMeleeDamageToGive: {fileID: 0}
+  willDamageLayer:
+    serializedVersion: 2
+    m_Bits: 0
   firePoint: {fileID: 7703339031401645893}
   gunSpawnPoint: {fileID: 7703339030343377252}
   bulletPrefab: {fileID: 7549428206187076222, guid: d4509fd34558c224ab7965e97917a0ad,
     type: 3}
   gunPrefab: {fileID: 6786904834482269849, guid: e7c8fa182463cd3479b64f3dd4bcd14c,
     type: 3}
-  damageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
+  rangedAttackDamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df,
+    type: 2}
   BulletShootingDelay: 0.2
   blasterSound: {fileID: 8300000, guid: 7374c242e1ff0834088b2534c4f9f84c, type: 3}
-  audioSource: {fileID: 5166013779851333539}
+  shieldSprite: {fileID: 0}
+  shieldBoxCollider: {fileID: 0}
+  shieldSound: {fileID: 0}
+  healthBar: {fileID: 5969699626326326305}
+  enemyName: 
+  aggroRange: 0
+  duration: 1.5
+  followRange: 0
+  attackDmg: 0
+  contactDmg: 0
+  healPerLoop: 0
+  healAmount: 0
+  moveSpeed: 0
+  aggro: 0
+  patrol: []
+  playerPos: {x: 0, y: 0}
+  rb2d: {fileID: 0}
+  enemyAudioManager: {fileID: 0}
+  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
   rangeAttackDamage: 1
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
@@ -292,19 +294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5913705651091652437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7703339030992561050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b435622a55d1a54ca2250ef84a63d27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clockwise: 0
 --- !u!50 &1775283602783030044
 Rigidbody2D:
   serializedVersion: 4
@@ -318,14 +307,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 4
 --- !u!82 &5166013779851333539
 AudioSource:
   m_ObjectHideFlags: 0
@@ -422,6 +411,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &773718417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703339030992561050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b435622a55d1a54ca2250ef84a63d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 0
 --- !u!1 &7703339031401645890
 GameObject:
   m_ObjectHideFlags: 0
