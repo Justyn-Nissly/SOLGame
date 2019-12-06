@@ -111,7 +111,7 @@ public class Enemy : BaseCharacter
 		{
 			enemyAudioManager.PlaySound();
 			// The enemy might drop a power up
-			if (true)
+			if (true && powerUp != null)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}

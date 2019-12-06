@@ -236,7 +236,9 @@ MonoBehaviour:
   canAttack: 1
   canTakeDamage: 1
   currentHealth: 0
-  takeDamageSounds: []
+  takeDamageSounds:
+  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
+  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
   meleeSwingSoundEffects: []
   audioSource: {fileID: 5166013779851333539}
   lightMeleeAttackPosition: {fileID: 0}
@@ -265,14 +267,14 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   healthBar: {fileID: 5969699626326326305}
   enemyName: 
-  aggroRange: 0
-  duration: 1.5
-  followRange: 0
+  aggroRange: 10
+  followRange: 10
   attackDmg: 0
   contactDmg: 0
   healPerLoop: 0
-  healAmount: 0
-  moveSpeed: 0
+  MAXPOSSIBLEHEALTH: 0
+  maxHealOverTime: 0
+  moveSpeed: 2
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
