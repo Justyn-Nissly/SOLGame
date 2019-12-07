@@ -101,6 +101,8 @@ public class Enemy : BaseCharacter
     {
         base.TakeDamage(damage + player.extraDamage, playSwordImpactSound);
         SetHealth(currentHealth / maxHealth.initialValue);
+
+        // Make health appear after taking damage
         StartCoroutine(ShowHealth());
 
         Debug.Log("enemy CurrentHealth = " + currentHealth);
@@ -127,21 +129,21 @@ public class Enemy : BaseCharacter
 
 
     #region Coroutines
-    /// <summary> Make a character blink for a short time after taking damage </summary>
+    /// <summary> Make an enemies health bar appear for a few seconds </summary>
 	IEnumerator ShowHealth()
     {
         float
-            timer = 5.0f;  // The character blinks for a short time after taking damage
+            timer = 5.0f;  // The enemy health bar appears after taking damage
 
-        // make the character blink
+        // make the enemy healht bar appear
         while (timer >= 0.0f)
         {
-            healthBarsObj.SetActive(true); // Toggle the sprite's visibility to make it blink
+            healthBarsObj.SetActive(true); // Toggle the sprite's visibility to make it appear
             timer -= Time.deltaTime + 0.1f;
             yield return new WaitForSeconds(0.1f);
         }
 
-        // Ensure the sprite is visible and the character can take damage after blinking stops
+        // Set the health bar back to invisable after the timer has counted down
         healthBarsObj.SetActive(false);
     }
     #endregion
