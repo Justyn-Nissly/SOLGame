@@ -20,7 +20,7 @@ public class FreeRoam : MonoBehaviour
     #endregion
 
     #region Private Variables
-    private float
+    protected float
         moveTime, // How long the enemy will move before choosing a new direction
         waiting,  // The amount of time left for enemy to wait
         x = 0.0f, // Horizontal movement
@@ -34,8 +34,8 @@ public class FreeRoam : MonoBehaviour
         path,    // The enemy's path: up, down, left, or right (for actually moving)
         lastPos; // The enemy's previous position
 
-    private bool
-        stopped; // An obstacle is hindering the enemy
+	private bool
+	stopped; // An obstacle is hindering the enemy
 	#endregion
 
 	// Unity Named Methods
@@ -60,12 +60,6 @@ public class FreeRoam : MonoBehaviour
 		else
 		{
 			waiting = waitTime;
-		}
-		
-		// if the enemy is the ranged guardian roam even if aggro
-		if (enemy is RangedGuardian)
-		{
-			Roam();
 		}
 	}
 	#endregion

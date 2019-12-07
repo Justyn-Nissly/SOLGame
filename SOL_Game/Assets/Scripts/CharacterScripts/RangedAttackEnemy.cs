@@ -17,7 +17,7 @@ public class RangedAttackEnemy : Enemy
 
 	#region Private Variables
 	private float
-		countDownTimer; // Track how long before the next attack
+		attackCountDownTimer; // Track how long before the next attack
 	private Enemy
 		enemy;
 	#endregion
@@ -36,7 +36,7 @@ public class RangedAttackEnemy : Enemy
 		base.Start();
 
 		enemy          = GetComponent<Enemy>();
-		countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+		attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 	}
 
 	///<summary> If the enemy is aggro it fires at the player </summary>
@@ -46,14 +46,14 @@ public class RangedAttackEnemy : Enemy
 
 		if (enemy.aggro)
 		{
-			if (countDownTimer <= 0)
+			if (attackCountDownTimer <= 0)
 			{
 					Shoot();
-					countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+					attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 			}
 			else
 			{
-					countDownTimer -= Time.deltaTime;
+					attackCountDownTimer -= Time.deltaTime;
 			}
 		}
 	}
