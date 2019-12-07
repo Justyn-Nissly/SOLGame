@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2487359592208184970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -271,15 +271,15 @@ MonoBehaviour:
   followRange: 10
   attackDmg: 0
   contactDmg: 0
-  healPerLoop: 0
-  MAXPOSSIBLEHEALTH: 0
-  maxHealOverTime: 0
   moveSpeed: 2
+  healPerLoop: {fileID: 11400000, guid: 82d945536c26e4d6c8d264cf54e3bc9b, type: 2}
+  healInterval: {fileID: 11400000, guid: e37749ad011e44cc496dfce3f80f3f6b, type: 2}
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
+  healthBarsObj: {fileID: 4820773160278524920}
   powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
   rangeAttackDamage: 1
   maxTimeBetweenAttacks: 2

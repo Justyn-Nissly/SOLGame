@@ -190,7 +190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1625374689
 RectTransform:
   m_ObjectHideFlags: 0
@@ -412,18 +412,19 @@ MonoBehaviour:
   healthBar: {fileID: 768497864}
   enemyName: 
   aggroRange: 6
-  duration: 0
   followRange: 1
   attackDmg: 0
   contactDmg: 0
-  healPerLoop: 0
-  healAmount: 0
   moveSpeed: 5
+  healPerLoop: {fileID: 11400000, guid: 82d945536c26e4d6c8d264cf54e3bc9b, type: 2}
+  healInterval: {fileID: 11400000, guid: e37749ad011e44cc496dfce3f80f3f6b, type: 2}
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
+  healthBarsObj: {fileID: 1625374688}
+  powerUp: {fileID: 0}
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
 --- !u!114 &302527603158291442
