@@ -92,7 +92,7 @@ public class Enemy : BaseCharacter
 		if (currentHealth <= 0)
 		{
 			// The enemy might drop a power up
-			if (true)
+			if (Random.Range(0.0f, 5.0f) > 4.0f)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}
