@@ -38,11 +38,11 @@ public class CircularPatrol : MonoBehaviour
     #endregion
 
     #region Utility Functions
-    // Patrol  in a circular pattern
+    // Patrol in a circular pattern
     public void CirclePatrol(ref float angle)
     {
-        enemy.rb2d.MovePosition(enemy.rb2d.position + new Vector2(Cos(angle), Sin(angle))
-                                    * Time.deltaTime * enemy.moveSpeed * 2.0f);
+        enemy.rb2d.MovePosition(enemy.rb2d.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle))
+                                * Time.deltaTime * enemy.moveSpeed * 2.0f);
 
         // Update the movement angle
         if (clockwise)
@@ -61,39 +61,6 @@ public class CircularPatrol : MonoBehaviour
         {
             angle += 2.0f * Mathf.PI;
         }
-    }
-
-    // Sine helps determine the drone's y-location
-    public static float Sin(float angle)
-    {
-        float
-            sine = 0.0f,
-            part;
-        int
-            counter1,
-            counter2;
-
-        for (counter1 = 1; counter1 < 100; counter1 += 2)
-        {
-            part = 1.0f;
-            for (counter2 = 1; counter2 <= counter1; counter2++)
-            {
-                part *= angle;
-                part /= counter2;
-            }
-            if (counter1 % 4 == 1)
-                sine += part;
-            else
-                sine -= part;
-        }
-
-        return sine;
-    }
-
-    // Cosine helps determine the drone's x-location
-    public static float Cos(float angle)
-    {
-        return Sin(Mathf.PI / 2.0f - angle);
     }
     #endregion
 

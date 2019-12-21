@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 5913705651091652437}
   - component: {fileID: 1775283602783030044}
   - component: {fileID: 5166013779851333539}
+  - component: {fileID: 5935703709126605384}
   m_Layer: 9
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -324,7 +325,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 4
 --- !u!82 &5166013779851333539
 AudioSource:
   m_ObjectHideFlags: 0
@@ -421,6 +422,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5935703709126605384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703339030992561050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e048834a6517e9449bbcfdd3e4d35986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evasionDistance: 6
 --- !u!1 &7703339031401645890
 GameObject:
   m_ObjectHideFlags: 0
