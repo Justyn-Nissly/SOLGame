@@ -7,6 +7,7 @@ public class SaveManager : MonoBehaviour
 	public void SavePlayer()
 	{
 		SaveSystem.SaveGame(FindObjectOfType<Player>());
+		Debug.Log("Saved Game");
 	}
 
 	public void LoadPlayer()
@@ -14,5 +15,6 @@ public class SaveManager : MonoBehaviour
 		GameData data = SaveSystem.LoadGame();
 
 		FindObjectOfType<Player>().saveItem = data.saveItem;
+		Debug.Log("Loaded Game");
 	}
 }
