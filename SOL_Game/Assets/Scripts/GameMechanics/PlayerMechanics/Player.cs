@@ -52,7 +52,7 @@ public class Player : BaseCharacter
 	{
 		// Set the players movement speed
 		playerMovementSpeed = .1f;
-
+		currentHealth = base.maxHealth.initialValue;
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
@@ -157,9 +157,9 @@ public class Player : BaseCharacter
 
 		// send a signal saying that the player has taken damage so update his health UI
 		playerHealthSignal.Raise();
-
+		Debug.Log("Signal Raised");
 		// print the players current heath to the console for debugging
-		Debug.Log("player CurrentHealth = " + currentHealth);
+		Debug.Log("player CurrentHealth ...= " + currentHealth);
 	}
 
 	/// <summary> Rotates the players attack game object so that the players weapons are "fired" in the right direction </summary>

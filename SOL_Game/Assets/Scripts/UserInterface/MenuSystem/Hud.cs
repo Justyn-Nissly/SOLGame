@@ -15,7 +15,7 @@ public class Hud : MonoBehaviour
 	public Sprite halfHeart;
 	public Sprite emptyHeart;
 	public FloatValue heartContainers;
-	public FloatValue playerCurrentHealth;
+	public float playerCurrentHealth;
 	#endregion
 
 	#region Private Variables
@@ -37,7 +37,8 @@ public class Hud : MonoBehaviour
 	#region Utility Methods
 	public void UpdateHearts()
 	{
-		float tempHealth = playerCurrentHealth.runTimeValue / 2;
+		playerCurrentHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().currentHealth;
+		float tempHealth = playerCurrentHealth / 2;
 		for (int i = 0; i < heartContainers.initialValue; i++)
 		{
 			if (i <= tempHealth - 1)
