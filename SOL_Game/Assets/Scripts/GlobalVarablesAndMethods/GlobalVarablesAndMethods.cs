@@ -21,9 +21,10 @@ public class GlobalVarablesAndMethods
 		blasterUnlocked         = false, // Track if the blaster is unlocked
 		shieldUnlocked          = false; // Track if the shield is unlocked
 	public static int 
-		currentPlayerHealth, // The player's current health
 		maxPlayerHealth = 8, // The maximum health the player has
 	    bossesDefeated  = 0; // Which bosses have been defeated
+	public static float
+		currentPlayerHealth; // The player's current health
 	#endregion
 
 	#region Private Variables

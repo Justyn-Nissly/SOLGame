@@ -15,7 +15,7 @@ public class SaveManager : MonoBehaviour
 		GameData data = SaveSystem.LoadGame();
 
 		FindObjectOfType<Player>().saveItem = data.saveItem;
-		FindObjectOfType<Player>().currentHealth = data.health;
+		GlobalVarablesAndMethods.currentPlayerHealth = data.health;
 		FindObjectOfType<Hud>().UpdateHearts();
 		Debug.Log(Application.persistentDataPath);
 		Debug.Log("Loaded Game");
