@@ -13,7 +13,7 @@ public class loadSceneOnTrigger : MonoBehaviour
 	public string
 		sceneToLoad; // The name of the scene to load when triggered
 	public bool
-		onTeleportStartInBeginingPosition = true;
+		onTeleportStartInBeginingPosition = true; // Rename "teleportToStart"?
 	public Image
 		canvasFadeImage; // Fades the whole screen to black
 	#endregion
@@ -26,7 +26,7 @@ public class loadSceneOnTrigger : MonoBehaviour
 	/// <summary> Fade to black on collision </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// Change scenes if the player enters the trigger
+		// Change scenes if the player enters a scene-change trigger
 		if (collision.CompareTag("Player"))
 		{
 			StartCoroutine(FadeToBlackCoroutine());
@@ -55,8 +55,11 @@ public class loadSceneOnTrigger : MonoBehaviour
 			yield return null; // wait to the next frame to continue
 		}
 
+		// Set the player's starting position
 		GlobalVarablesAndMethods.startInBeginingPosition = onTeleportStartInBeginingPosition;
-		SceneManager.LoadScene(sceneToLoad); // load this scene once the image is black
+
+		// Load the new scene after the screen fades to black
+		SceneManager.LoadScene(sceneToLoad);
 	}
 	#endregion
 }

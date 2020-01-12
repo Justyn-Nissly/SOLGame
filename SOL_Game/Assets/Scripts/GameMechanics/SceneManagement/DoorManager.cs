@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class DoorManager : MonoBehaviour
 {
-	// Empty
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public List<DoorLogic> doors = new List<DoorLogic>();
+	public List<DoorLogic> doors = new List<DoorLogic>(); // A list of doors in the scene
 	#endregion
 
 	// Unity Named Methods
-	// Empty
-	#region Main Methods
+	#region Main Methods (Empty)
 	#endregion
 
 	#region Utility Methods
@@ -42,7 +40,6 @@ public class DoorManager : MonoBehaviour
 	}
 	#endregion
 
-	// Empty
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }
