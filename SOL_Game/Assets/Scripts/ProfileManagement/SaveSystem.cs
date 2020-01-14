@@ -11,9 +11,17 @@ public static class SaveSystem
 
 		FileStream stream = new FileStream(path, FileMode.Create);
 
-		GameData data = new GameData(player);
 
-		formatter.Serialize(stream, data);
+
+		//Write some text to the test.txt file
+		StreamWriter writer = new StreamWriter(path, true);
+		writer.WriteLine("Test");
+		writer.Close();
+
+
+
+		GameData data = new GameData(player);
+		//formatter.Serialize(stream, data);
 		stream.Close();
 	}
 

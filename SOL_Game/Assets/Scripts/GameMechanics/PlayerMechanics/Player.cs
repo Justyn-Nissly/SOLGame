@@ -9,9 +9,9 @@ public class Player : BaseCharacter
 	public int saveItem;
 	#region Public Variables
 	// player movement variables
-	public bool playerAllowedToMove = true; // used to disable player movement like when the player is knocked back
-	public Animator playerAnimator; // used to animate the players movement
-	public Signal playerHealthSignal; // used to signal the health UI system that the player has taken damage
+	public bool     playerAllowedToMove = true; // used to disable player movement like when the player is knocked back
+	public Animator playerAnimator;             // used to animate the players movement
+	public Signal   playerHealthSignal;         // used to signal the health UI system that the player has taken damage
 
 	// player attack origination variables
 	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated
@@ -33,9 +33,9 @@ public class Player : BaseCharacter
 
 	#region Private Variables
 	// player movement variables
-	private float playerMovementSpeed; // the speed the player can move at
-	public Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
-	private Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
+	private float       playerMovementSpeed;  // the speed the player can move at
+	public Vector2      playerMovementAmount; // used to store the amount that the player will move this frame
+	private Rigidbody2D playerRigidbody;      // the players rigid body 2d, used to apply physics to the player like movement
 
 	// player attack timer variables
 	private float
