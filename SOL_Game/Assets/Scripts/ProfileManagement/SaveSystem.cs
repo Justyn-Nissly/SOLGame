@@ -7,21 +7,12 @@ public static class SaveSystem
 	public static void SaveGame(Player player)
 	{
 		BinaryFormatter formatter = new BinaryFormatter();
-		string path = Application.persistentDataPath + "/player.savestuff";
+		string path = Application.persistentDataPath + "/savedata.xml";
 
-		FileStream stream = new FileStream(path, FileMode.Create);
-
-
-
-		//Write some text to the test.txt file
-		StreamWriter writer = new StreamWriter(path, true);
-		writer.WriteLine("Test");
-		writer.Close();
-
-
+		FileStream stream = new FileStream(path, FileMode.Truncate);
 
 		GameData data = new GameData(player);
-		//formatter.Serialize(stream, data);
+		formatter.Serialize(stream, data);
 		stream.Close();
 	}
 

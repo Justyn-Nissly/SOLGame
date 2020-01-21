@@ -55,7 +55,7 @@ public class loadSceneOnTrigger : MonoBehaviour
 			yield return null; // wait to the next frame to continue
 		}
 
-		GlobalVarablesAndMethods.startInBeginingPosition = onTeleportStartInBeginingPosition;
+		Globals.startInBeginingPosition = onTeleportStartInBeginingPosition;
 		SceneManager.LoadScene(sceneToLoad); // load this scene once the image is black
 	}
 	#endregion

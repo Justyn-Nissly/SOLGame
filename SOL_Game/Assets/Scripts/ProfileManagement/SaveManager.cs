@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
+	public void CreateGame()
+	{
+		// Add save code here
+		//SaveSystem.SaveGame();
+	}
 	public void SavePlayer()
 	{
 		SaveSystem.SaveGame(FindObjectOfType<Player>());
@@ -13,10 +18,10 @@ public class SaveManager : MonoBehaviour
 	public void LoadPlayer()
 	{
 		GameData data = SaveSystem.LoadGame();
-
 		FindObjectOfType<Player>().saveItem = data.saveItem;
-		GlobalVarablesAndMethods.currentPlayerHealth = data.health;
+		Globals.currentPlayerHealth = data.health;
 		FindObjectOfType<Hud>().UpdateHearts();
+
 		Debug.Log(Application.persistentDataPath);
 		Debug.Log("Loaded Game");
 	}

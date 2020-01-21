@@ -11,23 +11,27 @@ public class MainMenu : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public Dropdown nameField1,
-					nameField2,
-					nameField3;
+	public Dropdown firstNameField,
+					middleNameField,
+					lastNameField;
+	List<string> names = new List<string> { "option1", "option2", "option3" };
 	#endregion
 
 	#region Private Variables
 	private GameObject pauseMenu;
 	private PasswordGenerator password;
+	private int firstNameIndex,
+				middleNameIndex,
+				lastNameIndex;
+	public static string passwordString;
+	public string m_Path;//////////////////
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	void Start()
 	{
-		nameField1.value = Random.Range(0,6);
-		nameField2.value = Random.Range(0,4);
-		nameField3.value = Random.Range(0,4);
+		firstNameField.AddOptions(names);
 	}
 	/// Check every frame if the user has hit the "end" key to open the developer menu
 	void Update()
@@ -41,11 +45,37 @@ public class MainMenu : MonoBehaviour
 
 	#region Utility Methods
 	/// Create a new Game
-	public void NewGame()
+	public void CreateNewGame()
 	{
+		int index = 2;
 		//FindObjectOfType<AudioManager>().StartBackground();
+		m_Path = Application.dataPath;
 
-		SceneManager.LoadScene("Hub");
+		//Output the Game data path to the console
+		Debug.Log(Globals.firstName);
+		/*Debug.Log("dataPath : " + m_Path);
+		GameData.middleName = names[index];
+		GameData.lastName   = names[index];
+		GameData.password   = password.GetComponent<PasswordGenerator>().GetRandomPassword();
+		SceneManager.LoadScene("Hub");*/
+	}
+	
+	/// Create a random name for the user
+	public void CreateRandomName()
+	{
+		// Get a random option from the list of names
+		firstNameIndex  = Random.Range(0, 3);
+		Debug.Log(firstNameIndex);
+		middleNameIndex = Random.Range(0, 4);
+		lastNameIndex   = Random.Range(0, 4);
+
+		// Set the dropdown boxes to the new random index
+		firstNameField.value  = firstNameIndex;
+		Debug.Log(firstNameField.value);
+		Debug.Log(names[firstNameIndex]);
+		Globals.firstName = names[firstNameIndex];
+		middleNameField.value = middleNameIndex;
+		lastNameField.value   = lastNameIndex;
 	}
 
 	/// Load a game save

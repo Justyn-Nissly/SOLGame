@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 public class PasswordGenerator : MonoBehaviour
@@ -15,7 +16,7 @@ public class PasswordGenerator : MonoBehaviour
 		Debug.Log(GetRandomPassword());
 		text.GetComponent<TMPro.TextMeshProUGUI>().text = GetRandomPassword();
 	}
-	public static String GetRandomPassword()
+	public String GetRandomPassword()
 	{
 		Random
 			random = new Random(); // Random numbers

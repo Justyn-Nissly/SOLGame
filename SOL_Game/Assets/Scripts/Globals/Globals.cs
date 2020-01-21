@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalVarablesAndMethods
+public class Globals
 {
 	#region Enums
 	#endregion
@@ -25,6 +25,7 @@ public class GlobalVarablesAndMethods
 	    bossesDefeated  = 0; // Which bosses have been defeated
 	public static float
 		currentPlayerHealth; // The player's current health
+	public static string firstName;
 	#endregion
 
 	#region Private Variables

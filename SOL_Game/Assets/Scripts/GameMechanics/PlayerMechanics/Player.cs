@@ -53,7 +53,7 @@ public class Player : BaseCharacter
 		// Set the players movement speed
 		playerMovementSpeed = .1f;
 		// Set the player health
-		currentHealth = GlobalVarablesAndMethods.currentPlayerHealth;
+		currentHealth = Globals.currentPlayerHealth;
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
