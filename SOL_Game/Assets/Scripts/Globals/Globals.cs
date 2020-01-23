@@ -20,12 +20,17 @@ public class Globals
 		hammerUnlocked          = false, // Track if the hammer is unlocked
 		blasterUnlocked         = false, // Track if the blaster is unlocked
 		shieldUnlocked          = false; // Track if the shield is unlocked
+
 	public static int 
 		maxPlayerHealth = 8, // The maximum health the player has
 	    bossesDefeated  = 0; // Which bosses have been defeated
+
 	public static float
-		currentPlayerHealth; // The player's current health
-	public static string firstName;
+		currentPlayerHealth = 8; // The player's current health
+
+	public static string firstName,  // The profile's first name
+						 middlename, // The profile's middle name
+						 lastname;   // The profile's last name
 	#endregion
 
 	#region Private Variables

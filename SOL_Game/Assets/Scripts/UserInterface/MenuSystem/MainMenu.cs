@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
 	#region Private Variables
 	private GameObject pauseMenu;
-	private PasswordGenerator password;
+	private string password;
 	private int firstNameIndex,
 				middleNameIndex,
 				lastNameIndex;
@@ -52,7 +52,10 @@ public class MainMenu : MonoBehaviour
 		m_Path = Application.dataPath;
 
 		//Output the Game data path to the console
-		Debug.Log(Globals.firstName);
+		
+		//Debug.Log(Globals.firstName);
+		//GameData.password = GameObject.FindGameObjectWithTag("PasswordText").GetComponent<TMPro.TextMeshProUGUI>().text;
+		Debug.Log(GameData.password);
 		/*Debug.Log("dataPath : " + m_Path);
 		GameData.middleName = names[index];
 		GameData.lastName   = names[index];
@@ -73,7 +76,9 @@ public class MainMenu : MonoBehaviour
 		firstNameField.value  = firstNameIndex;
 		Debug.Log(firstNameField.value);
 		Debug.Log(names[firstNameIndex]);
+		Debug.Log("yay");
 		Globals.firstName = names[firstNameIndex];
+		//Globals.firstName = names[firstNameIndex];
 		middleNameField.value = middleNameIndex;
 		lastNameField.value   = lastNameIndex;
 	}

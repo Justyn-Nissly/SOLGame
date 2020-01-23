@@ -8,16 +8,14 @@ public class GameData
 	public int saveItem;
 	public float health;
 	public float[] position; // This is used to replace Vector3 variabls because Vector3 variabls are not serializable
-	public static string password, firstName, middleName, lastName;
-
-	public GameData(Player player)
+	public string firstName, middleName, lastName;
+	public static string password;
+	public GameData()
 	{
 		/*level = player.level;
 		helath = player.health;*/
-		saveItem = player.saveItem;
 		health = Globals.currentPlayerHealth;
+		password = GameObject.FindGameObjectWithTag("PasswordText").GetComponent<TMPro.TextMeshProUGUI>().text;
 		firstName = Globals.firstName;
-		
-		
 	}
 }

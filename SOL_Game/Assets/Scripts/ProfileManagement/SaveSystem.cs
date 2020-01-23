@@ -6,14 +6,37 @@ public static class SaveSystem
 {
 	public static void SaveGame(Player player)
 	{
-		BinaryFormatter formatter = new BinaryFormatter();
-		string path = Application.persistentDataPath + "/savedata.xml";
+
+		GameData data = new GameData();
+		
+		//Debug.Log(data.firstName);
+		string path = Application.dataPath + "/" + Globals.firstName + "-" + "Profile" + ".data";
+		if(!File.Exists(path))
+		{
+			File.WriteAllText(path, "Profile Information:\n\n");
+		}
+		else
+		{
+			File.AppendAllText(path, data.firstName + "\n");
+			
+		}
+		//File.AppendAllText(path, data.password); // does not work for some reason. need to be able to access all the data and print it to a file so we can see it.
+
+
+
+
+
+
+
+		/*BinaryFormatter formatter = new BinaryFormatter();
+		string path = Application.persistentDataPath + "/" + Globals.firstName + "-" + 
+			          Globals.middlename + "-" + Globals.lastname + ".data";
 
 		FileStream stream = new FileStream(path, FileMode.Truncate);
 
 		GameData data = new GameData(player);
 		formatter.Serialize(stream, data);
-		stream.Close();
+		stream.Close();*/
 	}
 
 	public static GameData LoadGame()
