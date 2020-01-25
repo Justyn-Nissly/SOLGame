@@ -38,8 +38,6 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Private Variables
-	private Player
-		player; // Check if the player has a damage boost
 	private float
     amountHealed = 0,
     countDownTimer;
@@ -87,11 +85,11 @@ public class Enemy : BaseCharacter
             }
         }
 
-		// Enemies attack the player only if aggroed
-		if (aggro)
-		{
-			canAttack = true;
-		}
+		//// Enemies attack the player only if aggroed
+		//if (aggro)
+		//{
+		//	canAttack = true;
+		//}
 		// DEBUG CODE; REMOVE LATER
 		Debug.Log("enemy CurrentHealth = " + currentHealth);
 	}
