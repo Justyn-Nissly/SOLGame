@@ -31,7 +31,6 @@ public class DestructibleObject : MonoBehaviour
 	{
 		// add all doors to the door manager and lock all the doors because they should be locked
 		doorManager.doors.AddRange(doorsUnlocked);
-		doorManager.LockAllDoors();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
