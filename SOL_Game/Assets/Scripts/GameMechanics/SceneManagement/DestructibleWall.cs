@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class DestructibleWall : MonoBehaviour
 {
-	// Empty
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
-	// Empty
-	#region Public Variables
+	#region Public Variables (Empty)
+	public int
+		health; // The destructible wall's health
+	#endregion
+
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
@@ -19,16 +22,18 @@ public class DestructibleWall : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("PlayerHeavyWeapon"))
 		{
-			Destroy(gameObject);
+			health--;
+			if (health <= 0)
+			{
+				Destroy(gameObject);
+			}
 		}
 	}
 	#endregion
 
-	// Empty
-	#region Utility Methods
+	#region Utility Methods (Empty)
 	#endregion
 
-	// Empty
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }
