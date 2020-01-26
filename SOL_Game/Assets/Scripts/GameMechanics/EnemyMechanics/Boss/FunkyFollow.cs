@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RevolveAroundObject : MonoBehaviour
+public class FunkyFollow : MonoBehaviour
 {
 	#region Enums (Empty)
 	#endregion
@@ -42,9 +42,9 @@ public class RevolveAroundObject : MonoBehaviour
 	// Patrol  in a circular pattern
 	public void Revolve(ref float angle)
 	{
-		body.MovePosition((Vector2)revolutionObject.transform.position +
-						  new Vector2(Mathf.Cos(revolutionDistance * angle * Mathf.Deg2Rad),
-									  Mathf.Sin(revolutionDistance * angle * Mathf.Deg2Rad)) * Time.deltaTime);
+		transform.position = ((Vector2)revolutionObject.transform.position +
+						  new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad) * revolutionDistance,
+									  Mathf.Sin(revolutionDistance * angle * Mathf.Deg2Rad)));
 
 		// Update the angle
 		if (clockwise)
