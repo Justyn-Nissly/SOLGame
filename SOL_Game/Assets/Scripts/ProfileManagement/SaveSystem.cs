@@ -14,20 +14,15 @@ public static class SaveSystem
 		if(!File.Exists(path))
 		{
 			File.WriteAllText(path, "Profile Information:\n\n");
+			File.AppendAllText(path, "Username: " + data.firstName + "\n");
+			File.AppendAllText(path, "Password: " + data.password + "\n");
+			File.AppendAllText(path, data.ToString());
 		}
 		else
 		{
 			File.AppendAllText(path, data.firstName + "\n");
 			
 		}
-		//File.AppendAllText(path, data.password); // does not work for some reason. need to be able to access all the data and print it to a file so we can see it.
-
-
-
-
-
-
-
 		/*BinaryFormatter formatter = new BinaryFormatter();
 		string path = Application.persistentDataPath + "/" + Globals.firstName + "-" + 
 			          Globals.middlename + "-" + Globals.lastname + ".data";

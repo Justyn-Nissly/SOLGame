@@ -17,7 +17,8 @@ public class MovementPath : MonoBehaviour
 	public PathTypes
 		pathType; // The path is either linear or looping
 	public int
-		movingTo = 0; // Point to move to
+		movingTo = 0, // Point to move to
+		movementDirection = 1; // 1 for clockwise/forward on the path, -1 for counterclockwise/backward through the path
 	public Transform[]
 		pathSequence; // All points in the path
 	#endregion
@@ -79,9 +80,18 @@ public class MovementPath : MonoBehaviour
 			if (pathType == PathTypes.linear)
 			{
 				// At path beginning move forward and at end path move backward
-				movingTo += (movingTo > 0 || movingTo < pathSequence.Length - 1) ? 1 : -1;
+				//movementDirection += (movingTo <= 0 || movingTo >= pathSequence.Length - 1) ? 1 : -1;
+				if (movingTo <= 0)
+				{
+					movementDirection = 1;
+				}
+				else if (movingTo >= pathSequence.Length - 1)
+				{
+					movementDirection = -1;
+				}
+				
 			}
-
+			movingTo = movingTo + movementDirection;
 			// A looping returns from the last point directly to the first point
 			if (pathType == PathTypes.loop)
 			{

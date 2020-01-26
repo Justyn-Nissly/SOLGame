@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
 	#endregion
 
 	#region Public Variables
+	public GameObject passwordText;
 	public Dropdown firstNameField,
 					middleNameField,
 					lastNameField;
@@ -25,6 +26,7 @@ public class MainMenu : MonoBehaviour
 				lastNameIndex;
 	public static string passwordString;
 	public string m_Path;//////////////////
+	private PasswordGenerator passwordGenerator;
 	#endregion
 
 	// Unity Named Methods
@@ -32,6 +34,9 @@ public class MainMenu : MonoBehaviour
 	void Start()
 	{
 		firstNameField.AddOptions(names);
+		middleNameField.AddOptions(names);
+		lastNameField.AddOptions(names);
+		CreateRandomName();
 	}
 	/// Check every frame if the user has hit the "end" key to open the developer menu
 	void Update()
@@ -50,12 +55,15 @@ public class MainMenu : MonoBehaviour
 		int index = 2;
 		//FindObjectOfType<AudioManager>().StartBackground();
 		m_Path = Application.dataPath;
-
+		Globals.password = passwordText.GetComponent<TMPro.TextMeshProUGUI>().text;
+		Globals.firstName  = names[firstNameIndex];
+		Globals.middleName = names[middleNameIndex];
+		Globals.lastName   = names[lastNameIndex];
+		Debug.Log(names[firstNameIndex] + " " + names[middleNameIndex] + " " + names[lastNameIndex]);
 		//Output the Game data path to the console
-		
+
 		//Debug.Log(Globals.firstName);
 		//GameData.password = GameObject.FindGameObjectWithTag("PasswordText").GetComponent<TMPro.TextMeshProUGUI>().text;
-		Debug.Log(GameData.password);
 		/*Debug.Log("dataPath : " + m_Path);
 		GameData.middleName = names[index];
 		GameData.lastName   = names[index];
@@ -67,20 +75,25 @@ public class MainMenu : MonoBehaviour
 	public void CreateRandomName()
 	{
 		// Get a random option from the list of names
-		firstNameIndex  = Random.Range(0, 3);
-		Debug.Log(firstNameIndex);
-		middleNameIndex = Random.Range(0, 4);
-		lastNameIndex   = Random.Range(0, 4);
+		firstNameIndex	= Random.Range(0, 3);
+		middleNameIndex = Random.Range(0, 3);
+		lastNameIndex   = Random.Range(0, 3);
 
 		// Set the dropdown boxes to the new random index
 		firstNameField.value  = firstNameIndex;
-		Debug.Log(firstNameField.value);
-		Debug.Log(names[firstNameIndex]);
+		Debug.Log(names[firstNameIndex] + " " + names[middleNameIndex] + " " + names[lastNameIndex]);
 		Debug.Log("yay");
-		Globals.firstName = names[firstNameIndex];
 		//Globals.firstName = names[firstNameIndex];
 		middleNameField.value = middleNameIndex;
 		lastNameField.value   = lastNameIndex;
+	}
+
+	/// Set the profile name to the option the user has chosen
+	public void SetProfileName()
+	{
+		firstNameIndex	= firstNameField.value;
+		middleNameIndex = middleNameField.value;
+		lastNameIndex	= lastNameField.value;
 	}
 
 	/// Load a game save

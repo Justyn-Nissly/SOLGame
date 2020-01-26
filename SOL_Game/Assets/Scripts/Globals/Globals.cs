@@ -29,8 +29,9 @@ public class Globals
 		currentPlayerHealth = 8; // The player's current health
 
 	public static string firstName,  // The profile's first name
-						 middlename, // The profile's middle name
-						 lastname;   // The profile's last name
+						 middleName, // The profile's middle name
+						 lastName,   // The profile's last name
+						 password;   // The profile's password
 	#endregion
 
 	#region Private Variables
