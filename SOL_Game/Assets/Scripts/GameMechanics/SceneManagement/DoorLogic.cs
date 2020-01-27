@@ -59,7 +59,10 @@ public class DoorLogic : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		CloseDoor();
+		if (collision.gameObject.CompareTag("Player"))
+		{
+			CloseDoor();
+		}
 	}
 	#endregion
 

@@ -90,8 +90,6 @@ public class Enemy : BaseCharacter
 		//{
 		//	canAttack = true;
 		//}
-		// DEBUG CODE; REMOVE LATER
-		Debug.Log("enemy CurrentHealth = " + currentHealth);
 	}
 	#endregion
 
