@@ -18,6 +18,7 @@ public class DestructibleObject : MonoBehaviour
 	#region Public Variables
 	public WeaponTag weaponDestroysObject;
 	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all door that will be unlocked when this destructible object is destroyed (this list can be empty)
+	public Sprite destroyedSprite; // the sprite that is changed to when this destructible object is destroyed 
 	#endregion
 
 	#region Private Variables
@@ -40,8 +41,17 @@ public class DestructibleObject : MonoBehaviour
 			// unlock any doors that need to be unlocked
 			doorManager.UnlockAllDoors();
 
-			// destroy this gameobject
-			Destroy(gameObject);
+			// change to the destroyed sprite if there is one else destroy this gameobject
+			if(destroyedSprite != null)
+			{
+				gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
+				gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			}
+			else
+			{
+				Destroy(gameObject);
+			}
+
 		}
 	}
 	#endregion
