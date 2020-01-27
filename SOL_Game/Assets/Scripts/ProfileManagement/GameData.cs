@@ -34,5 +34,6 @@ public class GameData
 		password		= Globals.password;
 		shieldUnlocked	= Globals.shieldUnlocked;
 		swordUnlocked	= Globals.swordUnlocked;
+		// possition to spawn in on load
 	}
 }
