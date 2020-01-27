@@ -32,7 +32,5 @@ public class PuzzleItemRestraints : MonoBehaviour
 	// Empty
 	#region Coroutines
 	#endregion
-
-
 }
 
