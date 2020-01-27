@@ -13,14 +13,17 @@ public class RevolveAroundObject : MonoBehaviour
 	public GameObject
 		revolutionObject; // The object to revolve around
 	public float
-		revolutionDistance, // How far this object revolves around its host
-		revolutionSpeed,    // How fast this object revolves around its host
-		startAngle;         // Where to begin revolving from
+		maxRevolutionDistance, // Maximum distance this object revolves around its host
+		minRevolutionDistance, // Minimum distance this object revolves around its host
+		revolutionSpeed,       // How fast this object revolves around its host
+		startAngle;            // Where to begin revolving from
 	#endregion
 
 	#region Private Variables
-	private float
-		angle; // Current angle of rotation
+	public float
+		angle,              // Current angle of rotation
+		oscillation,        // Direction of oscillation
+		revolutionDistance; // How far this object revolves around its host
 	private Rigidbody2D
 		body;
 	#endregion
@@ -29,22 +32,29 @@ public class RevolveAroundObject : MonoBehaviour
 	#region Unity Main Methods
 	void Start()
 	{
-		angle = startAngle;
+		angle              = startAngle;
+		oscillation        = 1.0f;
+		revolutionDistance = minRevolutionDistance + 0.1f;
 	}
 
 	void FixedUpdate()
 	{
+		if (revolutionDistance >= maxRevolutionDistance || revolutionDistance <= minRevolutionDistance)
+		{
+			oscillation *= -1.0f;
+		}
+		revolutionDistance += minRevolutionDistance * oscillation * Time.deltaTime;
 		Revolve(ref angle);
 	}
 	#endregion
 
 	#region Utility Functions
-	// Patrol  in a circular pattern
+	// Patrol in a circular pattern
 	public void Revolve(ref float angle)
 	{
-		transform.position = ((Vector2)revolutionObject.transform.position +
-						  new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad) * revolutionDistance,
-									  Mathf.Sin(revolutionDistance * angle * Mathf.Deg2Rad)));
+		transform.position = ((Vector2)revolutionObject.transform.position  +
+		                      new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad),
+		                                  Mathf.Sin(angle * Mathf.Deg2Rad)) * revolutionDistance);
 
 		// Update the angle
 		if (clockwise)
@@ -55,7 +65,7 @@ public class RevolveAroundObject : MonoBehaviour
 		{
 			angle += revolutionSpeed;
 		}
-		if (angle > 360.0f)
+		if (angle >= 360.0f)
 		{
 			angle -= 360.0f;
 		}
