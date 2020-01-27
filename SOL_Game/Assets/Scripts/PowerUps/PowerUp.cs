@@ -29,7 +29,7 @@ public class PowerUp : MonoBehaviour
 	void Awake()
 	{
 		player = GameObject.FindObjectOfType<Player>();
-		/*new Random();*/
+		new Random();
 		type = (int) Random.Range((float) HEAL, (float) SPEED + 1.0f);type=SPEED;
 	}
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RevolveAroundObject : MonoBehaviour
 {
@@ -24,12 +22,11 @@ public class RevolveAroundObject : MonoBehaviour
 		angle,              // Current angle of rotation
 		oscillation,        // Direction of oscillation
 		revolutionDistance; // How far this object revolves around its host
-	private Rigidbody2D
-		body;
 	#endregion
 
 	// Unity Named Methods
 	#region Unity Main Methods
+	/// <summary> Get the object ready to start revolving </summary>
 	void Start()
 	{
 		angle              = startAngle;
@@ -37,26 +34,31 @@ public class RevolveAroundObject : MonoBehaviour
 		revolutionDistance = minRevolutionDistance + 0.1f;
 	}
 
+	/// <summary> Make the object revolve around its host within a distance range </summary>
 	void FixedUpdate()
 	{
+		// Keep this object a certain range away from its host
 		if (revolutionDistance >= maxRevolutionDistance || revolutionDistance <= minRevolutionDistance)
 		{
 			oscillation *= -1.0f;
 		}
+
+		// Update the revolution distance
 		revolutionDistance += minRevolutionDistance * oscillation * Time.deltaTime;
 		Revolve(ref angle);
 	}
 	#endregion
 
 	#region Utility Functions
-	// Patrol in a circular pattern
+	/// <summary> Make an object revolve around another object </summary>
 	public void Revolve(ref float angle)
 	{
+		// Move this object around its host object
 		transform.position = ((Vector2)revolutionObject.transform.position  +
 		                      new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad),
 		                                  Mathf.Sin(angle * Mathf.Deg2Rad)) * revolutionDistance);
 
-		// Update the angle
+		// Update the revolution angle by its direction
 		if (clockwise)
 		{
 			angle -= revolutionSpeed;
@@ -65,6 +67,8 @@ public class RevolveAroundObject : MonoBehaviour
 		{
 			angle += revolutionSpeed;
 		}
+
+		// Keep it 0 <= angle < 360
 		if (angle >= 360.0f)
 		{
 			angle -= 360.0f;
