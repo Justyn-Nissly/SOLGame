@@ -20,10 +20,10 @@ public class DoorKey : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			Debug.Log("the player has picked up the key to unlock a door");
-
+			// update that the player has this key
 			PlayerHasKey();
 
+			// destroy this key from the facility
 			Destroy(gameObject);
 		}
 	}
