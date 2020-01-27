@@ -7,11 +7,11 @@ public class SaveManager : MonoBehaviour
 	public void CreateGame()
 	{
 		// Add save code here
-		//SaveSystem.SaveGame();
+		SaveSystem.SaveGame();
 	}
 	public void SavePlayer()
 	{
-		SaveSystem.SaveGame(FindObjectOfType<Player>());
+		SaveSystem.SaveGame();
 		Debug.Log("Saved Game");
 	}
 

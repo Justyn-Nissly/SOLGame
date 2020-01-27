@@ -10,11 +10,9 @@ public class PauseMenu : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public static bool       isPaused = false;  // The value for if the game is paused
-	public GameObject pauseMenuUI;       // The UI object for the pause menu
-	public string            sceneName;         // The name of the acctive scene
-												//public Canvas pauseMenuCanvas; // The canvas that houses the controls for the pause menu
-												//public Signal pauseSignal;
+	public static bool isPaused = false;  // The value for if the game is paused
+	public GameObject  pauseMenuUI;       // The UI object for the pause menu
+	public string      sceneName;         // The name of the acctive scene
 	#endregion
 
 	#region Private Variables

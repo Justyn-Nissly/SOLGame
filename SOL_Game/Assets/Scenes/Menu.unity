@@ -853,7 +853,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1659281591}
+      - m_Target: {fileID: 1482377552}
         m_MethodName: SetProfileName
         m_Mode: 1
         m_Arguments:
@@ -1379,19 +1379,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 309354758}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1659281591}
-        m_MethodName: CreateNewGame
+      - m_Target: {fileID: 1482377552}
+        m_MethodName: CreateProfile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2100,12 +2089,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1482377549}
-        m_MethodName: 
+      - m_Target: {fileID: 1482377552}
+        m_MethodName: GenerateNewProfile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2239,7 +2228,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1659281591}
+      - m_Target: {fileID: 1482377552}
         m_MethodName: SetProfileName
         m_Mode: 1
         m_Arguments:
@@ -3158,7 +3147,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1659281591}
+      - m_Target: {fileID: 1482377552}
         m_MethodName: SetProfileName
         m_Mode: 1
         m_Arguments:
@@ -4904,17 +4893,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1659281591}
-        m_MethodName: CreateRandomName
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1300121016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4961,6 +4939,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482377550}
   - component: {fileID: 1482377551}
+  - component: {fileID: 1482377552}
   m_Layer: 5
   m_Name: ProfileManager
   m_TagString: Untagged
@@ -5000,6 +4979,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 190102976}
+--- !u!114 &1482377552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482377549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366c903fa2164d84aa97bda24e3a909d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passwordText: {fileID: 190102976}
+  firstNameField: {fileID: 151961866}
+  middleNameField: {fileID: 934942770}
+  lastNameField: {fileID: 403139265}
+  m_Path: 
 --- !u!1 &1494743969
 GameObject:
   m_ObjectHideFlags: 0
@@ -5644,11 +5640,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e13819c172485ba439f49d2430efaaed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passwordText: {fileID: 190102976}
-  firstNameField: {fileID: 151961866}
-  middleNameField: {fileID: 934942770}
-  lastNameField: {fileID: 403139265}
-  m_Path: 
 --- !u!1 &1700049257
 GameObject:
   m_ObjectHideFlags: 0

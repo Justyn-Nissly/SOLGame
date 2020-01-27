@@ -4,19 +4,28 @@ using System.Runtime.Serialization.Formatters.Binary; // This allows you to acce
 
 public static class SaveSystem
 {
-	public static void SaveGame(Player player)
+	/// <summary> Save all game data to a file </summary>
+	public static void SaveGame()
 	{
 
-		GameData data = new GameData();
+		GameData data = new GameData(); // The game data to save
 		
 		//Debug.Log(data.firstName);
 		string path = Application.dataPath + "/" + Globals.firstName + "-" + "Profile" + ".data";
 		if(!File.Exists(path))
 		{
-			File.WriteAllText(path, "Profile Information:\n\n");
-			File.AppendAllText(path, "Username: " + data.firstName + "\n");
-			File.AppendAllText(path, "Password: " + data.password + "\n");
-			File.AppendAllText(path, data.ToString());
+			File.WriteAllText (path, "Profile Information:\n\n");
+			File.AppendAllText(path, "Username: "         + data.firstName + " " 
+				                                          + data.middleName + " " + data.lastName + " string string string" + "\n");
+			File.AppendAllText(path, "Password: "         + data.password + " string" + "\n");
+			File.AppendAllText(path, "Sword Unlocked: "   + data.swordUnlocked + " bool" + "\n");
+			File.AppendAllText(path, "Shield Unlocked: "  + data.shieldUnlocked + " bool" + "\n");
+			File.AppendAllText(path, "Blaster Unlocked: " + data.blasterUnlocked + " bool" + "\n");
+			File.AppendAllText(path, "Hammer Unlocked: "  + data.hammerUnlocked + " bool" + "\n");
+			File.AppendAllText(path, "Player Health: "    + data.health + " float"+ "\n");
+			File.AppendAllText(path, "Bosses Defeated: "  + data.bossesDefeated + " int");
+
+			///<summary> The file needs to be formatted into a table so that we can read in all the data and correctly</summary>
 		}
 		else
 		{
@@ -34,6 +43,7 @@ public static class SaveSystem
 		stream.Close();*/
 	}
 
+	/// <summary> Load all game data for the player's profile </summary>
 	public static GameData LoadGame()
 	{
 		string path = Application.persistentDataPath + "/player.savestuff";
