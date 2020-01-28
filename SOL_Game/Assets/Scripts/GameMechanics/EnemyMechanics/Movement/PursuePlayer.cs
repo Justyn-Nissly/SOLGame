@@ -11,7 +11,7 @@ public class PursuePlayer : MonoBehaviour
     public float
         maxChaseTime; // Time left before the enemy might deaggro
 	public bool
-		canMoveAtPlayer = true; // for stopping the enemy from moving at the player if he is colliding with the player
+		canMoveAtPlayer = true; // Stop enemy when it collides with the player
 	#endregion
 
 	#region Private Variables
