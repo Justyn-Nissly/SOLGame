@@ -15095,13 +15095,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 157793897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcad2b353c9c10744a7c90427a46f35e, type: 3}
+  m_Script: {fileID: 11500000, guid: 07d72eaf6393d064c87ba8f23d3bd366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
-  MyPath: {fileID: 1947127174}
-  Speed: 1
-  MaxDistanceToGoal: 0.1
+  Type: 1
+  evasionDistance: 3
+  angle: 0
+  waitTime: 3
+  x: 0
+  y: 0
+  maxChaseTime: 5
+  canMoveAtPlayer: 1
+  maxTime: 8
+  minTime: 3
+  minEvadeTime: 4
+  maxEvadeTime: 9
+  chargeSpeed: 2
+  charging: 0
+--- !u!95 &157793899
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157793897}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6e8344f3dcbca224b9a0241b286ee0bb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &356939390
 GameObject:
   m_ObjectHideFlags: 0
@@ -15222,12 +15251,12 @@ PrefabInstance:
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.2462635
+      value: -11.42
       objectReference: {fileID: 0}
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4890331
+      value: -2.21
       objectReference: {fileID: 0}
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
@@ -15237,22 +15266,22 @@ PrefabInstance:
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.99998856
       objectReference: {fileID: 0}
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.004802604
       objectReference: {fileID: 0}
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
@@ -15272,7 +15301,7 @@ PrefabInstance:
     - target: {fileID: 8519565967622166660, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 180.54999
       objectReference: {fileID: 0}
     - target: {fileID: 7462810820298639133, guid: f1eca1112838fe24cb66670739160314,
         type: 3}
@@ -15284,8 +15313,47 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8519565967622166667, guid: f1eca1112838fe24cb66670739160314,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7149550832040427140, guid: 5113f251b87174948974e9e34527b641,
+        type: 3}
+    - target: {fileID: 8519565967622166667, guid: f1eca1112838fe24cb66670739160314,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519565967622166667, guid: f1eca1112838fe24cb66670739160314,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519565967622166667, guid: f1eca1112838fe24cb66670739160314,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032792422870042038, guid: f1eca1112838fe24cb66670739160314,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519565967622166666, guid: f1eca1112838fe24cb66670739160314,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519565967622166666, guid: f1eca1112838fe24cb66670739160314,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8519565967622166671, guid: f1eca1112838fe24cb66670739160314, type: 3}
+    - {fileID: 9032792422870042038, guid: f1eca1112838fe24cb66670739160314, type: 3}
+    - {fileID: 3155975377783033459, guid: f1eca1112838fe24cb66670739160314, type: 3}
+    - {fileID: 7462810820298639133, guid: f1eca1112838fe24cb66670739160314, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f1eca1112838fe24cb66670739160314, type: 3}
 --- !u!1 &1098937535
 GameObject:
@@ -19021,7 +19089,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1947127175}
-  - component: {fileID: 1947127174}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -19029,26 +19096,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1947127174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1947127173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d53afc6effb7f024c8570a2ad8ccd367, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathType: 0
-  movingTo: 0
-  pathSequence:
-  - {fileID: 1947127175}
-  - {fileID: 1227653467}
-  - {fileID: 1974672839}
-  - {fileID: 504239865}
-  - {fileID: 356939391}
 --- !u!4 &1947127175
 Transform:
   m_ObjectHideFlags: 0
