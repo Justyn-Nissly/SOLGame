@@ -381,9 +381,7 @@ public class EnemyMovement : MonoBehaviour
 	public void ChargeAtPlayer()
 	{
 		// Make the enemy move directly towards the player
-		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
-													playerPos,
-													chargeSpeed * Time.deltaTime);
+		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position, playerPos, chargeSpeed * Time.deltaTime);
 
 		// If the enemy stops moving or hits an obstacle it stops trying to charge
 		if (Vector2.Distance(enemy.rb2d.position, lastPos) < 0.000000001f * enemy.moveSpeed * Time.deltaTime)
