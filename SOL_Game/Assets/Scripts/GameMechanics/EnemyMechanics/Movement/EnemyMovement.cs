@@ -27,10 +27,7 @@ public class EnemyMovement : MonoBehaviour
 		Type; // The movement pattern that the enemy uses
 	public float
 		evasionDistance, // How far the enemy tries to stay from the player
-		angle,           // The angle from the enemy to the player
-		waitTime,        // Waiting time before moving in new direction and how long the enemy waits to move again after charging
-		x = 0.0f,        // Horizontal movement
-		y = 0.0f;        // Vertical movement
+		waitTime;        // Waiting time before moving in new direction and how long the enemy waits to move again after charging
 	#endregion
 
 	#region Evade Player Variables
@@ -69,6 +66,10 @@ public class EnemyMovement : MonoBehaviour
 		playerPos; // The player's position
 	private Enemy
 		enemy; // Access the enemy's members
+	private float
+		angle,    // The angle from the enemy to the player
+		x = 0.0f, // Horizontal movement
+		y = 0.0f; // Vertical movement
 	#endregion
 
 	#region Evade Player Variables
@@ -110,17 +111,17 @@ public class EnemyMovement : MonoBehaviour
 	{
 		enemy = GetComponent<Enemy>();
 		new Random();
-		if (Type == MovementType.EvasiveStrike)
-		{
-			evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
-			charging = false;
-			isWaiting = false;
-		}
 		if(Type == MovementType.FreeRoam)
 		{
 			stopped = false;
 			ChooseNewPath();
 			moveTime = Random.Range(minTime, maxTime);
+		}
+		else if (Type == MovementType.EvasiveStrike)
+		{
+			evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
+			charging  = false;
+			isWaiting = false;
 		}
 	}
 
@@ -187,12 +188,12 @@ public class EnemyMovement : MonoBehaviour
 						Evade();
 						evadeTime -= Time.deltaTime;
 
-						// Check if the enemy will charge
+						// Check if the enemy will charge at the player
 						if (evadeTime <= 0.0f)
 						{
-							isWaiting = true;
-							waitTime = 0.4f;
-							charging = true;
+							isWaiting  = true;
+							waitTime   = 0.4f;
+							charging   = true;
 							chargeTime = Vector2.Distance(enemy.rb2d.position, playerPos);
 						}
 					}
@@ -202,10 +203,10 @@ public class EnemyMovement : MonoBehaviour
 						Wait();
 					}
 
-					// The enemy is charging
+					// The enemy is charging at the player
 					else
 					{
-						ChargePlayer();
+						ChargeAtPlayer();
 						evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
 					}
 				}
@@ -220,6 +221,7 @@ public class EnemyMovement : MonoBehaviour
 		};
 	}
 	#region Persue Player Unity Methods
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (Type == MovementType.PersuePlayer)
@@ -358,9 +360,9 @@ public class EnemyMovement : MonoBehaviour
 			// If the enemy hits an obstacle it stops and chooses a different direction
 			if (Vector2.Distance(transform.position, lastPos) < 0.01f * enemy.moveSpeed * Time.deltaTime)
 			{
-				moveTime = -0.1f;
-				waiting = waitTime * 0.4f;
-				stopped = true;
+				moveTime      = -0.1f;
+				waiting       = waitTime * 0.4f;
+				stopped       = true;
 				lastDirection = direction;
 			}
 
@@ -376,7 +378,7 @@ public class EnemyMovement : MonoBehaviour
 
 	#region EvasiveStrike Methods
 	/// <summary> Charge at the player when aggro </summary>
-	public void ChargePlayer()
+	public void ChargeAtPlayer()
 	{
 		// Make the enemy move directly towards the player
 		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
@@ -393,9 +395,9 @@ public class EnemyMovement : MonoBehaviour
 		chargeTime -= Time.deltaTime;
 		if (chargeTime <= 0.0f)
 		{
-			charging = false;
-			isWaiting = true;
-			waitTime = 1.0f;
+			charging    = false;
+			isWaiting   = true;
+			waitTime    = 1.0f;
 			enemy.aggro = false;
 		}
 		// Set the enemy's previous position to see if it has stopped moving
