@@ -9,9 +9,11 @@ public class PuzzleLogic : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public Sprite completeSprite; // the sprite that will be changed to when you complete the puzzle
-	public Sprite incompleteSprite;
+	public Sprite completeSprite, // the sprite that will be changed to when you complete the puzzle
+					  incompleteSprite;
 	public DoorManager doorManager; // used to unlock the door(s) that the puzzle unlocks
+	public SpriteRenderer LazerSprite; // this sprite is enabled when the puzzle is completed (if this sprite renderer is NULL nothing will happen it will not cause an error)
+	public bool playerCanTriggerPressurePlate = true; // a flag for if the player can trigger the pressure plate
 	#endregion
 
 	#region Private Variables
@@ -32,7 +34,7 @@ public class PuzzleLogic : MonoBehaviour
 			// this puzzle is complete so call a method that completes this puzzle
 			OnPuzzleComplete(collision.gameObject);
 		}
-		else if (collision.CompareTag("Player"))
+		else if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
 		{
 			spriteRenderer.sprite = completeSprite;
 			doorManager.UnlockAllDoors(); // not using the signal system yet
@@ -41,7 +43,7 @@ public class PuzzleLogic : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (collision.CompareTag("Player"))
+		if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
 		{
 			spriteRenderer.sprite = incompleteSprite;
 			doorManager.LockAllDoors(); // not using the signal system yet
@@ -52,6 +54,15 @@ public class PuzzleLogic : MonoBehaviour
 	#region Utility Methods
 	private void OnPuzzleComplete(GameObject puzzleItem)
 	{
+		// set flag so that the player cant trigger the pressure plate any more
+		playerCanTriggerPressurePlate = false;
+
+		// enable the lazer sprite if it is not null
+		if(LazerSprite != null)
+		{
+			Invoke("EnableLazerSprite", .5f); // using invoke to add a timed delay
+		}
+
 		// change sprite to the complete sprite
 		spriteRenderer.sprite = completeSprite;
 
@@ -67,6 +78,12 @@ public class PuzzleLogic : MonoBehaviour
 
 		// send signal to unlock doors
 		doorManager.UnlockAllDoors(); // not using the signal system yet
+	}
+
+	/// <summary> method to enable the lazer sprite when the puzzle is completed </summary>
+	private void EnableLazerSprite()
+	{
+		LazerSprite.enabled = true;
 	}
 	#endregion
 

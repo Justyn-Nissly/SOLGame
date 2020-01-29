@@ -31,36 +31,41 @@ public class BulletLogic : MonoBehaviour
 		bulletRigidbody.velocity = transform.up * bulletSpeed;
 	}
 
-	/// <summary> The bullet makes contact with an object </summary>
-	public void OnTriggerEnter2D(Collider2D collision)
+
+
+	public void OnCollisionEnter2D(Collision2D collision)
 	{
-		// The bullet cannot cause friendly fire damage
-		if (collision.CompareTag(ignoreTag) == false && collision.CompareTag("PowerUp") == false)
+		if (collision.gameObject.CompareTag(ignoreTag) == false)
 		{
 			// An enemy bullet hits the player
-			if (collision.CompareTag("Player"))
+			if (collision.gameObject.CompareTag("Player"))
 			{
-				Player player = collision.GetComponent<Player>();
+				Player player = collision.gameObject.GetComponent<Player>();
 				player.TakeDamage(bulletDamage, false);
 				// DEBUG CODE, REMOVE LATER
 				Debug.Log("players CurrentHealth = " + player.currentHealth);
 			}
-			else if (collision.CompareTag("Enemy"))
+			// An player bullet hits the enemy
+			else if (collision.gameObject.CompareTag("Enemy"))
 			{
-				Enemy enemy = collision.GetComponent<Enemy>();
+				Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 				enemy.TakeDamage(bulletDamage, false);
 				// DEBUG CODE, REMOVE LATER
 				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth);
 			}
 
 			// The bullet impacts then gets destroyed
-			Destroy(Instantiate(impactEffect, transform.position, transform.rotation), 1.0f);
-			Destroy(gameObject);
+			DestroyBullet();
 		}
 	}
 	#endregion
 
-	#region Utility Methods (Empty)
+	#region Utility Methods
+	private void DestroyBullet()
+	{
+		Destroy(Instantiate(impactEffect, transform.position, transform.rotation), 1.0f);
+		Destroy(gameObject);
+	}
 	#endregion
 
 	#region Coroutines (Empty)

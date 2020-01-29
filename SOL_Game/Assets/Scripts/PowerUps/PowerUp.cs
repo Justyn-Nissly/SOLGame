@@ -54,8 +54,9 @@ public class PowerUp : MonoBehaviour
 		{
 			// Effects have timers but healing is instantaneous
 			player.powerUpTimers[type] = (type == HEAL) ? 0.0001f : player.powerUpTimer;
+			Destroy(gameObject);
 		}
-		Destroy(gameObject);
+
 	}
 	#endregion
 

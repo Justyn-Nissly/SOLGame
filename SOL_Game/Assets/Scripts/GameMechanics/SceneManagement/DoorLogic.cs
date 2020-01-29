@@ -15,7 +15,10 @@ public class DoorLogic : MonoBehaviour
 
 	public BoxCollider2D doorBoxCollider; // the box collider so the player cant walk through the door
 
-	public bool doorIsLocked = true;
+	public bool doorIsLocked = true,
+					doorHasKey = false,
+					playerHasDoorKey = false;
+
 	#endregion
 
 	#region Private Variables
@@ -39,6 +42,15 @@ public class DoorLogic : MonoBehaviour
 		{
 			OpenDoor();
 		}
+		else if(doorHasKey && playerHasDoorKey) // check if this door has a key and if the player has that key to unlock this door
+		{
+			// unlock the door and update the doors sprite
+			doorIsLocked = false;
+			UpdateSprite();
+
+			// open the door after a delay
+			Invoke("OpenDoor", .5f);
+		}
 		else
 		{
 			Debug.Log("This door is locked solve a puzzle to unlock it");
@@ -47,7 +59,10 @@ public class DoorLogic : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		CloseDoor();
+		if (collision.gameObject.CompareTag("Player"))
+		{
+			CloseDoor();
+		}
 	}
 	#endregion
 
