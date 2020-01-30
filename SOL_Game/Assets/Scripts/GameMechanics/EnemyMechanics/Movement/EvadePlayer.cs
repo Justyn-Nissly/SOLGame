@@ -17,9 +17,9 @@ public class EvadePlayer : MonoBehaviour
         angle, // The angle from the enemy to the player
         x,     // The enmy's x-axis movement
         y;     // The enmy's y-axis movement
-    private Vector2
-        playerPos, // The player's position
-        direction; // The enemy's movement direction
+	private Vector2
+		playerPos; // The player's position
+        
     private Enemy
         enemy; // Access the enemy's members
 	#endregion
