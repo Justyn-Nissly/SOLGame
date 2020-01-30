@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 1775283602783030044}
   - component: {fileID: 5166013779851333539}
   - component: {fileID: 773718417}
+  - component: {fileID: 1280947954}
   m_Layer: 9
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -183,8 +184,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: ba75c9b520b528346a4ac6b81dcf0382, type: 3}
-  m_Color: {r: 1, g: 0.031170346, b: 0, a: 1}
+  m_Sprite: {fileID: 3553128107612425223, guid: 5ba6e90fca4d54ca9a5bc5e5ac13d3bd,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -211,7 +213,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 0.24, y: 0.35}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -426,6 +428,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clockwise: 0
+--- !u!95 &1280947954
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703339030992561050}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eeaf2da1112ff447d9d2319c72ae16d2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7703339031401645890
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.03}
   m_SizeDelta: {x: 2.3661, y: 1.9858}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8020586639062353928
