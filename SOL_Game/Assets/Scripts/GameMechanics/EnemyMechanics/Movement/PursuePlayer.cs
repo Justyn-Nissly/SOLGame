@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PursuePlayer : MonoBehaviour
 {
-    #region Enums and Defined Constants
+    #region Enums and Defined Constants (Empty)
     #endregion
 
     #region Public Variables

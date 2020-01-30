@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RandomBlasts : MonoBehaviour
+public class BossBlastAttack : MonoBehaviour
 {
 	#region Enums (Empty)
 	#endregion
