@@ -28,8 +28,9 @@ public class Enemy : BaseCharacter
         aggro; // The enemy has detected the player
     public Vector2[]
         patrol; // Enemy patrol points
-    public Vector2
-        playerPos; // Track the player's position
+	public Vector2
+		playerPos,   // Track the player's position
+		enemyVector; // Track the enemy's vector
     public Rigidbody2D
 		rb2d; // The enemy's rigidBody
 	public AudioManager enemyAudioManager;

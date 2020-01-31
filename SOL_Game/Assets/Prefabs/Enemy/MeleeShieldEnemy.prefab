@@ -411,18 +411,20 @@ MonoBehaviour:
   healthBar: {fileID: 1573786678706509589}
   enemyName: 
   aggroRange: 5
-  duration: 0
   followRange: 8
   attackDmg: 0
   contactDmg: 2
   healPerLoop: 0
-  healAmount: 0
+  MAXPOSSIBLEHEALTH: 0
+  maxHealOverTime: 0
   moveSpeed: 2
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
+  enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
+  powerUp: {fileID: 0}
 --- !u!114 &8317361776883795861
 MonoBehaviour:
   m_ObjectHideFlags: 0

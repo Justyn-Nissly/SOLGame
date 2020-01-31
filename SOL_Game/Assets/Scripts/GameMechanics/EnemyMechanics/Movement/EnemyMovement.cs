@@ -25,6 +25,8 @@ public class EnemyMovement : MonoBehaviour
 	#region Shared Variables
 	public MovementType
 		Type; // The movement pattern that the enemy uses
+	public Animator 
+		enemyAnimator; // The animator controler for the enemy
 	public float
 		evasionDistance, // How far the enemy tries to stay from the player
 		waitTime;        // Waiting time before moving in new direction and how long the enemy waits to move again after charging
@@ -62,10 +64,13 @@ public class EnemyMovement : MonoBehaviour
 
 	#region Shared Variables
 	private Vector2
-		lastPos,   // The enemy's previous position
-		playerPos; // The player's position
+		enemyMovementAmount, // The distance the enemy will move
+		lastPos,             // The enemy's previous position
+		playerPos;           // The player's position
 	private Enemy
 		enemy; // Access the enemy's members
+	private Rigidbody2D
+		enemyRidgedBody; // The ridged body of the enemy
 	private float
 		angle,    // The angle from the enemy to the player
 		x = 0.0f, // Horizontal movement
@@ -101,7 +106,6 @@ public class EnemyMovement : MonoBehaviour
 	private bool
 		isWaiting; // The enemy is briefly waiting to start moving again
 	#endregion
-
 	#endregion
 
 	// Unity Named Methods
@@ -109,9 +113,10 @@ public class EnemyMovement : MonoBehaviour
 	/// <summary> Initialize the enemy </summary>
 	void Start()
 	{
-		enemy = GetComponent<Enemy>();
+		enemy           = GetComponent<Enemy>();
+		enemyRidgedBody = GetComponent<Rigidbody2D>();
 		new Random();
-		if(Type == MovementType.FreeRoam)
+		if (Type == MovementType.FreeRoam)
 		{
 			stopped = false;
 			ChooseNewPath();
@@ -120,7 +125,7 @@ public class EnemyMovement : MonoBehaviour
 		else if (Type == MovementType.EvasiveStrike)
 		{
 			evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
-			charging  = false;
+			charging = false;
 			isWaiting = false;
 		}
 	}
@@ -128,6 +133,10 @@ public class EnemyMovement : MonoBehaviour
 	/// <summary> Evade the player if aggroed </summary>
 	void FixedUpdate()
 	{
+		// Update the values in the Animator for the players animation
+		SetEnemyAnimatorValues();
+
+		// Check which movement type is being used
 		switch (Type)
 		{
 			case MovementType.EvadePlayer:
@@ -191,9 +200,9 @@ public class EnemyMovement : MonoBehaviour
 						// Check if the enemy will charge at the player
 						if (evadeTime <= 0.0f)
 						{
-							isWaiting  = true;
-							waitTime   = 0.4f;
-							charging   = true;
+							isWaiting = true;
+							waitTime = 0.4f;
+							charging = true;
 							chargeTime = Vector2.Distance(enemy.rb2d.position, playerPos);
 						}
 					}
@@ -266,6 +275,24 @@ public class EnemyMovement : MonoBehaviour
 													   enemy.moveSpeed * Time.deltaTime);
 		}
 	}
+
+	/// <summary> Update the values in the Animator for the enemy animations </summary>
+	private void SetEnemyAnimatorValues()
+	{
+		// Check if the player is moving or is idle
+		if (enemy.enemyVector.x != 0 || enemy.enemyVector.y != 0)
+		{
+			enemyAnimator.SetLayerWeight(1, 1);
+		}
+		else
+		{
+			enemyAnimator.SetLayerWeight(1, 0);
+		}
+		enemyAnimator.SetFloat("Horizontal", enemyMovementAmount.x);
+		enemyAnimator.SetFloat("Vertical",   enemyMovementAmount.y);
+		enemyAnimator.SetFloat("Magnitude",  enemyMovementAmount.magnitude);
+
+	}
 	#endregion
 
 	#region EvadePlayer Methods
@@ -276,6 +303,7 @@ public class EnemyMovement : MonoBehaviour
 	/// <summary> Find the player and persue </summary>
 	public void Pursue()
 	{
+		//enemyMovementAmount = GetNextVector();
 		if (chaseTime <= 0.0f)
 		{
 			chaseTime = maxChaseTime;
@@ -284,12 +312,34 @@ public class EnemyMovement : MonoBehaviour
 				enemy.aggro = false;
 			}
 		}
-		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
+		if (enemyRidgedBody.position.x != 0 || enemy.enemyVector.y != 0)
+		{
+			enemyAnimator.SetLayerWeight(1, 1);
+		}
+		else
+		{
+			enemyAnimator.SetLayerWeight(1, 0);
+		}
+		// Update the values in the Animator for the players animation
+		SetEnemyAnimatorValues();
+
+		enemy.rb2d.position = enemyMovementAmount = Vector2.MoveTowards(enemy.rb2d.position,
 													playerPos,
 													enemy.moveSpeed * Time.deltaTime);
+		//enemyRidgedBody.MovePosition(GetNextVector() + enemyRidgedBody.position);
 		chaseTime -= Time.deltaTime;
 	}
 	#endregion
+
+
+
+	/*private Vector2 GetNextVector()
+	{
+		return Vector2.Distance(playerPos, enemyRidgedBody.position) * enemy.moveSpeed;
+	}*/
+
+
+
 
 	#region FreeRoam Methods
 	/// <summary> Move in a new direction </summary>
@@ -360,9 +410,9 @@ public class EnemyMovement : MonoBehaviour
 			// If the enemy hits an obstacle it stops and chooses a different direction
 			if (Vector2.Distance(transform.position, lastPos) < 0.01f * enemy.moveSpeed * Time.deltaTime)
 			{
-				moveTime      = -0.1f;
-				waiting       = waitTime * 0.4f;
-				stopped       = true;
+				moveTime = -0.1f;
+				waiting = waitTime * 0.4f;
+				stopped = true;
 				lastDirection = direction;
 			}
 
@@ -395,9 +445,9 @@ public class EnemyMovement : MonoBehaviour
 		chargeTime -= Time.deltaTime;
 		if (chargeTime <= 0.0f)
 		{
-			charging    = false;
-			isWaiting   = true;
-			waitTime    = 1.0f;
+			charging = false;
+			isWaiting = true;
+			waitTime = 1.0f;
 			enemy.aggro = false;
 		}
 		// Set the enemy's previous position to see if it has stopped moving
