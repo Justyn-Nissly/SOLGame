@@ -280,7 +280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8317361776883795863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.72342, y: -2.7213304, z: -0.7954795}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 8317361777743222048}
@@ -411,18 +411,19 @@ MonoBehaviour:
   healthBar: {fileID: 1573786678706509589}
   enemyName: 
   aggroRange: 5
-  duration: 0
   followRange: 8
   attackDmg: 0
   contactDmg: 2
   healPerLoop: 0
-  healAmount: 0
+  MAXPOSSIBLEHEALTH: 0
+  maxHealOverTime: 0
   moveSpeed: 2
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
+  powerUp: {fileID: 0}
 --- !u!114 &8317361776883795861
 MonoBehaviour:
   m_ObjectHideFlags: 0
