@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DestructibleObject : MonoBehaviour
 {
-	#region Enums (Empty)
+	#region Enums
 	[System.Serializable]
 	public enum WeaponTag
 	{
@@ -19,6 +19,7 @@ public class DestructibleObject : MonoBehaviour
 	public WeaponTag weaponDestroysObject;
 	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all door that will be unlocked when this destructible object is destroyed (this list can be empty)
 	public Sprite destroyedSprite; // the sprite that is changed to when this destructible object is destroyed 
+	public int health;
 	#endregion
 
 	#region Private Variables
@@ -63,7 +64,7 @@ public class DestructibleObject : MonoBehaviour
 
 		if (weaponTag == WeaponTag.Ranged)
 		{
-			weaponTagString = "PlayerRangedWeapon";
+			weaponTagString = "Projectile";
 		}
 		else if (weaponTag == WeaponTag.LightMelee)
 		{
