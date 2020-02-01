@@ -10,8 +10,7 @@ public class RangedGuardian : Enemy
 	#region Public Variables
 	public GameObject
 	enemyToSpawn, // the enemy type that gets spawned in when the ranged guardian gets to half health
-	teleportAnimaiton,
-		smallTeleportAnimaiton;
+	teleportAnimaiton;
 
 	public List<GameObject>
 		teleporterPositions;
