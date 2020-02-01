@@ -46,14 +46,15 @@ public class FreeRoam : MonoBehaviour
         new Random();
         stopped  = false;
         enemy    = GetComponent<Enemy>();
-        path     = new Vector2(0.0f, -1.0f);
+        path     = new Vector2(0.0f, enemy.moveSpeed);
         moveTime = Random.Range(minTime, maxTime);
     }
 
 	/// <summary> Roam randomly while the player has not been detected </summary>
 	void FixedUpdate()
 	{
-		if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
+		if (enemy.aggro == false &&
+		    GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
 		{
 			Roam();
 		}

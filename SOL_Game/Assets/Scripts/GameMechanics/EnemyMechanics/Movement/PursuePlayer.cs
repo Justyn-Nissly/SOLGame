@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PursuePlayer : MonoBehaviour
 {
-    #region Enums and Defined Constants
+    #region Enums and Defined Constants (Empty)
     #endregion
 
     #region Public Variables
     public float
+		attackReach,  // How far the enemy attack can reach
         maxChaseTime; // Time left before the enemy might deaggro
 	public bool
 		canMoveAtPlayer = true; // Stop enemy when it collides with the player
@@ -35,24 +36,12 @@ public class PursuePlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (enemy.aggro && canMoveAtPlayer)
+		playerPos = GameObject.FindWithTag("Player").transform.position;
+		if (enemy.aggro && Vector2.Distance(enemy.transform.position, playerPos) >= attackReach)
         {
-            playerPos = GameObject.FindWithTag("Player").transform.position;
             Pursue();
         }
     }
-
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.gameObject.CompareTag("Player"))
-			canMoveAtPlayer = false;
-	}
-
-	private void OnTriggerExit2D(Collider2D collision)
-	{
-		if (collision.gameObject.CompareTag("Player"))
-			canMoveAtPlayer = true;
-	}
 	#endregion
 
 	#region Utility Methods

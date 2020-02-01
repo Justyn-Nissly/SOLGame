@@ -32,7 +32,8 @@ public class Enemy : BaseCharacter
         playerPos; // Track the player's position
     public Rigidbody2D
 		rb2d; // The enemy's rigidBody
-	public AudioManager enemyAudioManager;
+	public AudioManager
+		enemyAudioManager;
 	public GameObject
 		powerUp; // Reference PowerUp prefab.
 	#endregion
