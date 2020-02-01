@@ -15,7 +15,6 @@ public class EnemySpawner : MonoBehaviour
 
 	public GameObject
 		spawnInAnimation; // the animation that is played where the enemy spawns in
-
 	#endregion
 
 	#region Private Variables (Empty)
@@ -39,6 +38,7 @@ public class EnemySpawner : MonoBehaviour
 	#region Utility Methods
 	private void SpawnInEnemies()
 	{
+		// plan the camera to the newly spawned in enemies
 		GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(enemySpawnPoints[0], 1, 1, 1f);
 
 		foreach (GameObject enemy in enemiesToSpawn)

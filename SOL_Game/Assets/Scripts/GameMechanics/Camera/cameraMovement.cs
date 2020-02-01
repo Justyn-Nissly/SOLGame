@@ -55,6 +55,9 @@ public class cameraMovement : MonoBehaviour
 		float elapsedTime = 0;
 		Vector3 startingPos = objectToMove.transform.position;
 
+		// freeze player movement
+		FindObjectOfType<Player>().playerAllowedToMove = false;
+
 		while (elapsedTime < timeToLocation)
 		{
 			objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / timeToLocation));
@@ -78,6 +81,9 @@ public class cameraMovement : MonoBehaviour
 		}
 
 		objectToMove.transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+
+		// unfreeze player movement
+		FindObjectOfType<Player>().playerAllowedToMove = true;
 
 		cameraIsPanning = false;
 	}

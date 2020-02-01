@@ -215,7 +215,7 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> Turn on the shield </summary>
-	public void EnableShield()
+	public virtual void EnableShield()
 	{
 		shieldSprite.enabled = true;
 		shieldBoxCollider.enabled = true;
@@ -227,7 +227,7 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> Turn off the shield </summary>
-	public void DisableShield()
+	public virtual void DisableShield()
 	{
 		shieldSprite.enabled = false;
 		shieldBoxCollider.enabled = false;

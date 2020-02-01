@@ -148,14 +148,18 @@ public class Player : BaseCharacter
 	/// and send a signal to the UI to update it with the players new health </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		// call the parents TakeDamage()
-		base.TakeDamage(damage, playSwordImpactSound);
+		// only take damage if the player is allowed to take damage at the moment
+		if (canTakeDamage)
+		{
+			// call the parents TakeDamage()
+			base.TakeDamage(damage, playSwordImpactSound);
 
-		// send a signal saying that the player has taken damage so update his health UI
-		playerHealthSignal.Raise();
+			// send a signal saying that the player has taken damage so update his health UI
+			playerHealthSignal.Raise();
 
-		// print the players current heath to the console for debugging
-		Debug.Log("player CurrentHealth = " + currentHealth);
+			// print the players current heath to the console for debugging
+			Debug.Log("player CurrentHealth = " + currentHealth);
+		}
 	}
 
 	/// <summary> Rotates the players attack game object so that the players weapons are "fired" in the right direction </summary>
@@ -246,6 +250,20 @@ public class Player : BaseCharacter
 		{
 			powerUpTimers[counter] -= (powerUpTimers[counter] > 0.0f) ? Time.deltaTime : 0.0f;
 		}
+	}
+
+	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
+	public override void EnableShield()
+	{
+		base.EnableShield();
+		canTakeDamage = false;
+	}
+
+	/// <summary> override the disable shield method to re able the player to take damage because the shield is down </summary>
+	public override void DisableShield()
+	{
+		base.DisableShield();
+		canTakeDamage = true;
 	}
 	#endregion
 
