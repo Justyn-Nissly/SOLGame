@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PuzzleLogic : MonoBehaviour
 {
-	// Empty
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
@@ -17,36 +16,44 @@ public class PuzzleLogic : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private SpriteRenderer spriteRenderer;
+	private SpriteRenderer
+		spriteRenderer;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	/// <summary> Set up the sprite renderer </summary>
 	private void Start()
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
+	/// <summary> Complete a solved puzzle </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+		// If the puzzle is solved call a method that completes it
 		if (collision.CompareTag("PuzzleItem"))
 		{
-			// this puzzle is complete so call a method that completes this puzzle
 			OnPuzzleComplete(collision.gameObject);
 		}
 		else if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
 		{
 			spriteRenderer.sprite = completeSprite;
-			doorManager.UnlockAllDoors(); // not using the signal system yet
+
+			// Unlock the doors
+			doorManager.UnlockAllDoors();
 		}
 	}
 
+	/// <summary> Prevent the player from passing an unsolved puzzle </summary>
 	private void OnTriggerExit2D(Collider2D collision)
 	{
 		if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
 		{
 			spriteRenderer.sprite = incompleteSprite;
-			doorManager.LockAllDoors(); // not using the signal system yet
+
+			// Lock the doors
+			doorManager.LockAllDoors();
 		}
 	}
 	#endregion
@@ -66,18 +73,18 @@ public class PuzzleLogic : MonoBehaviour
 		// change sprite to the complete sprite
 		spriteRenderer.sprite = completeSprite;
 
-		// freeze the items movement
-		puzzleItem.GetComponent<Rigidbody2D>().velocity = Vector2.zero; // set velocity to zero
-		puzzleItem.GetComponent<Rigidbody2D>().isKinematic = true; // stop this item from moving
+		// Prevent the puzzle item from moving
+		puzzleItem.GetComponent<Rigidbody2D>().velocity    = Vector2.zero;
+		puzzleItem.GetComponent<Rigidbody2D>().isKinematic = true;
 
 		// Move the puzzle item to the end location
-		StartCoroutine(MoveOverSeconds(puzzleItem, transform.position, 2f));
+		StartCoroutine(MoveOverSeconds(puzzleItem, transform.position, 2.0f));
 
-		// play sound complete puzzle sound
+		// Play the puzzle solved sound
 		GetComponent<AudioSource>().Play();
 
-		// send signal to unlock doors
-		doorManager.UnlockAllDoors(); // not using the signal system yet
+		// Unlock the doors
+		doorManager.UnlockAllDoors();
 	}
 
 	/// <summary> method to enable the lazer sprite when the puzzle is completed </summary>
@@ -91,16 +98,20 @@ public class PuzzleLogic : MonoBehaviour
 	/// <summary> Moves a game object to a location over N seconds </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 end, float seconds)
 	{
-		float elapsedTime = 0;
-		Vector3 startingPos = objectToMove.transform.position;
+		float
+			elapsedTime = 0;
+		Vector3
+			startingPos = objectToMove.transform.position;
 
+		// Gradually move the object to its destination
 		while (elapsedTime < seconds)
 		{
-			objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
-			elapsedTime += Time.deltaTime;
+			objectToMove.transform.position  = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
+			elapsedTime                     += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
 
+		// Make sure the object ends movement at its destination
 		objectToMove.transform.position = end;
 	}
 	#endregion

@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class DoorLogic : MonoBehaviour
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public Sprite doorOpenSprite;
-	public Sprite doorLockedClosedSprite;
-	public Sprite doorUnlockedClosedSprite;
+	public Sprite
+		doorOpenSprite,
+		doorLockedClosedSprite,
+		doorUnlockedClosedSprite;
 
-	public BoxCollider2D doorBoxCollider; // the box collider so the player cant walk through the door
+	public BoxCollider2D
+		doorBoxCollider; // Prevent the player from walking through the door
 
 	public bool doorIsLocked = true,
 					doorHasKey = false,
@@ -22,23 +24,26 @@ public class DoorLogic : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private bool doorIsOpen = false;
-	private SpriteRenderer doorSpriteRenderer;
+	private bool
+		doorIsOpen = false;
+	private SpriteRenderer
+		doorSpriteRenderer;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-
+	/// <summary> Set up the door sprites </summary>
 	private void Start()
 	{
-		doorSpriteRenderer = GetComponent<SpriteRenderer>();
-
+		doorSpriteRenderer        = GetComponent<SpriteRenderer>();
 		doorSpriteRenderer.sprite = GetDoorClosedSprite();
 	}
 
+	/// <summary> Open an unlocked door </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(doorIsLocked == false && collision.gameObject.CompareTag("Player"))
+		// Unlocked doors open automatically when the player approaches
+		if (doorIsLocked == false && collision.gameObject.CompareTag("Player"))
 		{
 			OpenDoor();
 		}
@@ -57,6 +62,7 @@ public class DoorLogic : MonoBehaviour
 		}
 	}
 
+	/// <summary> Close a door </summary>
 	private void OnTriggerExit2D(Collider2D collision)
 	{
 		if (collision.gameObject.CompareTag("Player"))
@@ -67,56 +73,56 @@ public class DoorLogic : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-
-	// get the sprite of the closed door locked or unlocked
+	/// <summary> Get the locked or unlocked door sprite </summary>
 	private Sprite GetDoorClosedSprite()
 	{
 		return (doorIsLocked) ? doorLockedClosedSprite : doorUnlockedClosedSprite;
 	}
 
+	/// <summary> Update the closed door's sprite </summary>
 	public void UpdateSprite()
 	{
+		// If the door is closed show that
 		if(doorIsOpen == false)
 		{
 			doorSpriteRenderer.sprite = GetDoorClosedSprite();
 		}
 	}
 
-	/// <summary>
-	/// Toggles the door to be open or closed
-	/// </summary>
+	/// <summary> Toggle the door open or closed </summary>
 	private void ToggleDoor()
 	{
 		if (doorIsOpen)
 		{
-			// close the door
 			CloseDoor();
 		}
 		else
 		{
-			// open the door
 			OpenDoor();
 		}
 	}
 
-
+	/// <summary> Close the door </summary>
 	public void CloseDoor()
 	{
-		// close the door
 		doorSpriteRenderer.sprite = GetDoorClosedSprite();
-		doorBoxCollider.enabled = true; // enable the doors box collider so the player cant walk through the door
-		doorIsOpen = false; // set bool flag
+
+		// Prevent the player from walking through the door
+		doorBoxCollider.enabled = true;
+		doorIsOpen = false;
 	}
 
+	/// <summary> Open the door </summary>
 	public void OpenDoor()
 	{
-		// open the door
 		doorSpriteRenderer.sprite = doorOpenSprite;
-		doorBoxCollider.enabled = false;  // disable the doors box collider so the player can walk through the door
-		doorIsOpen = true; // set bool flag
+
+		// Allow the player to walk through the door
+		doorBoxCollider.enabled = false;
+		doorIsOpen = true;
 	}
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }

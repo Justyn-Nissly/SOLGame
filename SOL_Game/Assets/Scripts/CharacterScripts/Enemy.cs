@@ -51,7 +51,7 @@ public class Enemy : BaseCharacter
 		player        = GameObject.FindObjectOfType<Player>();
 		rb2d          = GetComponent<Rigidbody2D>();
 		currentHealth = maxHealth.initialValue;
-		
+
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
     countDownTimer = maxHealOverTime;
 	}
@@ -107,7 +107,7 @@ public class Enemy : BaseCharacter
 		{
 			enemyAudioManager.PlaySound();
 			// The enemy might drop a power up
-			if (true && powerUp != null)
+			if (Random.Range(0.0f, 5.0f) > 4.0f)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}

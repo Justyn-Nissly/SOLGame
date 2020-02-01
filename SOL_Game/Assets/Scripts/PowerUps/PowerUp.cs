@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerUp : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class PowerUp : MonoBehaviour
 		type; // The type of the power up itself
 	public float
 		timer; // Time until the power up disappears
+	public Sprite
+		powerUp; // Power up graphic
+	public Sprite []
+		powerUps; // Possible power up graphics
 	#endregion
 
 	#region Private Variables
@@ -25,15 +30,16 @@ public class PowerUp : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary> The player picks up the power up </summary>
+	/// <summary> Called when the power up spawns </summary>
 	void Awake()
 	{
-		player = GameObject.FindObjectOfType<Player>();
-		/*new Random();*/
-		type = (int) Random.Range((float) HEAL, (float) SPEED + 1.0f);type=SPEED;
+		new Random();
+		player  = GameObject.FindObjectOfType<Player>();
+		type    = (int)Random.Range((float)HEAL, (float)SPEED + 0.5f);
+		this.GetComponent<SpriteRenderer>().sprite = powerUps[type];
 	}
 
-	/// <summary> Power ups eventually disappear after being dropped </summary>
+	/// <summary> Power ups eventually disappear after dropping </summary>
 	void FixedUpdate()
 	{
 		if (timer > 0.0f)

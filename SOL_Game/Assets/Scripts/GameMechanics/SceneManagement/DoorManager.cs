@@ -4,45 +4,47 @@ using UnityEngine;
 
 public class DoorManager : MonoBehaviour
 {
-	// Empty
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public List<DoorLogic> doors = new List<DoorLogic>();
+	public List<DoorLogic> doors = new List<DoorLogic>(); // A list of doors in the scene
+	#endregion
+
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
-	// Empty
-	#region Main Methods
+	#region Main Methods (Empty)
 	#endregion
 
 	#region Utility Methods
-	/// <summary> unlocks all doors in the doors list </summary>
+	/// <summary> Unlocks all doors in a list </summary>
 	public void UnlockAllDoors()
 	{
 		foreach (DoorLogic door in doors)
 		{
 			door.doorIsLocked = false;
-			door.UpdateSprite(); // this changes the door sprite to the unlocked sprite
+
+			// Change the door sprite to unlocked
+			door.UpdateSprite();
 		}
 	}
 
-	/// <summary>
-	/// locks all doors in the doors list
-	/// </summary>
+	/// <summary> Locks all doors in a list </summary>
 	public void LockAllDoors()
 	{
 		foreach (DoorLogic door in doors)
 		{
 			door.doorIsLocked = true;
 			door.CloseDoor();
-			door.UpdateSprite(); // this changes the door sprite to the unlocked sprite
+
+			// Change the door sprite to locked
+			door.UpdateSprite();
 		}
 	}
 	#endregion
 
-	// Empty
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }
