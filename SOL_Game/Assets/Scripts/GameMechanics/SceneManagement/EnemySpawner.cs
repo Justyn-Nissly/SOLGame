@@ -20,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
 	#region Private Variables (Empty)
 	private bool 
 		enemiesHaveSpawned = false;
+	private float
+		enemySpawnRate = .5f; // the amount of time before the next enemy (from the list if enemies to spawn) will spawn in
 	#endregion
 
 	// Unity Named Methods
@@ -29,14 +31,25 @@ public class EnemySpawner : MonoBehaviour
 		// if the player collides with this trigger spawn in enemies
 		if (collision.gameObject.CompareTag("Player") && enemiesHaveSpawned == false)
 		{
-			SpawnInEnemies();
+			StartCoroutine(SpawnInEnemies());
 			enemiesHaveSpawned = true; // set flag so no more enemies will spawn in
 		}
 	}
 	#endregion
 
 	#region Utility Methods
-	private void SpawnInEnemies()
+	private void SpawnInEnemy(GameObject enemy)
+	{
+		// instantiate the current enemy in the loop at a spawn point and remove that spawn point from the list of spawn points
+		Instantiate(enemy, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0));
+		Destroy(Instantiate(spawnInAnimation, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0)), 1);
+
+		enemySpawnPoints.Remove(enemySpawnPoints[0]);
+	}
+	#endregion
+
+	#region Coroutines
+	private IEnumerator SpawnInEnemies()
 	{
 		// plan the camera to the newly spawned in enemies
 		GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(enemySpawnPoints[0], 1, 1, 1f);
@@ -46,16 +59,10 @@ public class EnemySpawner : MonoBehaviour
 			// make sure there are spawn points left in the spawn points list
 			if (enemySpawnPoints.Count > 0)
 			{
-				// instantiate the current enemy in the loop at a spawn point and remove that spawn point from the list of spawn points
-				Instantiate(enemy, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0));
-				Destroy(Instantiate(spawnInAnimation, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0)), 1);
-
-				enemySpawnPoints.Remove(enemySpawnPoints[0]);
+				SpawnInEnemy(enemy);
+				yield return new WaitForSeconds(enemySpawnRate); // spawn in an enemy every N seconds
 			}
 		}
 	}
-	#endregion
-
-	#region Coroutines (Empty)
 	#endregion
 }

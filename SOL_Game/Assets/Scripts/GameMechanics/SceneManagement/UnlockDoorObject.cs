@@ -83,6 +83,13 @@ public class UnlockDoorObject : MonoBehaviour
 		// unlock connected door
 		doorManager.UnlockAllDoors();
 
+		// play sound effect (it will play whatever sound is in the audio source on this game object no sound will play if there is no audio source)
+		AudioSource audioSource = GetComponent<AudioSource>();
+		if(audioSource != null)
+		{
+			audioSource.Play();
+		}
+
 		// update the sprite being used on this object
 		objectRenderer.sprite = usedSprite;
 

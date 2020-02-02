@@ -53,10 +53,11 @@ public class BulletLogic : MonoBehaviour
 				// DEBUG CODE, REMOVE LATER
 				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth);
 			}
-
-			// The bullet impacts then gets destroyed
-			DestroyBullet();
 		}
+			
+		// The bullet impacts then gets destroyed
+		DestroyBullet();
+
 	}
 	#endregion
 

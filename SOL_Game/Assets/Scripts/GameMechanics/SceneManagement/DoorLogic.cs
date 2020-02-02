@@ -47,7 +47,7 @@ public class DoorLogic : MonoBehaviour
 		{
 			OpenDoor();
 		}
-		else if(doorHasKey && playerHasDoorKey) // check if this door has a key and if the player has that key to unlock this door
+		else if(doorHasKey && playerHasDoorKey && collision.gameObject.CompareTag("Player")) // check if this door has a key and if the player has that key to unlock this door
 		{
 			// unlock the door and update the doors sprite
 			doorIsLocked = false;
