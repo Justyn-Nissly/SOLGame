@@ -23,7 +23,7 @@ public class FollowPath : MonoBehaviour
     private IEnumerator<Transform> pointInPath; //Used to reference points returned from MyPath.GetNextPathPoint
     #endregion //Private Variables
 
-    // (Unity Named Methods)
+    // Unity Named Methods
     #region Main Methods
     public void Start()
     {
@@ -95,15 +95,13 @@ public class FollowPath : MonoBehaviour
         }
         */
     }
-    #endregion //Main Methods
+    #endregion
 
-    //(Custom Named Methods)
     #region Utility Methods 
 
-    #endregion //Utility Methods
+    #endregion
 
-    //Coroutines run parallel to other fucntions
     #region Coroutines
 
-    #endregion //Coroutines
+    #endregion
 }

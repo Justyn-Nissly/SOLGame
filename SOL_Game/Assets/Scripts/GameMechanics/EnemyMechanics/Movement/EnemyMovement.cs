@@ -279,18 +279,52 @@ public class EnemyMovement : MonoBehaviour
 	/// <summary> Update the values in the Animator for the enemy animations </summary>
 	private void SetEnemyAnimatorValues()
 	{
-		// Check if the player is moving or is idle
-		if (enemy.enemyVector.x != 0 || enemy.enemyVector.y != 0)
+		enemyMovementAmount = playerPos - enemy.rb2d.position;
+
+		if (Type == MovementType.FreeRoam && enemy.aggro == false)
 		{
-			enemyAnimator.SetLayerWeight(1, 1);
+			switch (direction)
+			{
+				case UP:
+				{
+					enemyAnimator.SetFloat("Vertical", 0.1f);
+					enemyAnimator.SetFloat("Horizontal", 0.0f);
+					break;
+				}
+				case LEFT:
+				{
+					enemyAnimator.SetFloat("Vertical", 0.0f);
+					enemyAnimator.SetFloat("Horizontal", -0.1f);
+					break;
+				}
+		        case DOWN:
+				{
+					enemyAnimator.SetFloat("Vertical", -0.1f);
+					enemyAnimator.SetFloat("Horizontal", 0.0f);
+					break;
+				}
+				case RIGHT:
+				{
+					enemyAnimator.SetFloat("Vertical", 0.0f);
+					enemyAnimator.SetFloat("Horizontal", 0.1f);
+					break;
+				}
+			}
 		}
 		else
 		{
 			enemyAnimator.SetLayerWeight(1, 0);
+			if (Mathf.Abs(enemyMovementAmount.y) > Mathf.Abs(enemyMovementAmount.x))
+			{
+				enemyAnimator.SetFloat("Vertical", (enemyMovementAmount.y > 0) ? 0.1f : -0.1f);
+				enemyAnimator.SetFloat("Horizontal", 0.0f);
+			}
+			else
+			{
+				enemyAnimator.SetFloat("Vertical", 0.0f);
+				enemyAnimator.SetFloat("Horizontal", (enemyMovementAmount.x > 0) ? 0.1f : -0.1f);
+			}
 		}
-		enemyAnimator.SetFloat("Horizontal", enemyMovementAmount.x);
-		enemyAnimator.SetFloat("Vertical",   enemyMovementAmount.y);
-		enemyAnimator.SetFloat("Magnitude",  enemyMovementAmount.magnitude);
 
 	}
 	#endregion
@@ -303,6 +337,7 @@ public class EnemyMovement : MonoBehaviour
 	/// <summary> Find the player and persue </summary>
 	public void Pursue()
 	{
+		
 		//enemyMovementAmount = GetNextVector();
 		if (chaseTime <= 0.0f)
 		{
@@ -310,20 +345,13 @@ public class EnemyMovement : MonoBehaviour
 			if (Vector2.Distance((Vector2)transform.position, playerPos) > enemy.aggroRange)
 			{
 				enemy.aggro = false;
+				enemyAnimator.SetLayerWeight(1, 1);
 			}
-		}
-		if (enemyRidgedBody.position.x != 0 || enemy.enemyVector.y != 0)
-		{
-			enemyAnimator.SetLayerWeight(1, 1);
-		}
-		else
-		{
-			enemyAnimator.SetLayerWeight(1, 0);
 		}
 		// Update the values in the Animator for the players animation
 		SetEnemyAnimatorValues();
 
-		enemy.rb2d.position = enemyMovementAmount = Vector2.MoveTowards(enemy.rb2d.position,
+		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
 													playerPos,
 													enemy.moveSpeed * Time.deltaTime);
 		//enemyRidgedBody.MovePosition(GetNextVector() + enemyRidgedBody.position);
@@ -391,6 +419,7 @@ public class EnemyMovement : MonoBehaviour
 		// If the enemy stops moving it chooses a new direction
 		if (moveTime <= 0.0f)
 		{
+			enemyAnimator.SetLayerWeight(1, 1);
 			waiting = waitTime;
 			ChooseNewPath();
 			stopped = false;
@@ -399,12 +428,14 @@ public class EnemyMovement : MonoBehaviour
 		// The enemy delays before moving in a new direction
 		else if (waiting > 0.0f)
 		{
+			enemyAnimator.SetLayerWeight(1, 1);
 			waiting -= Time.deltaTime;
 		}
 
 		// The enemy is moving
 		else
 		{
+			enemyAnimator.SetLayerWeight(1, 0);
 			enemy.rb2d.MovePosition((Vector2)transform.position + path * Time.deltaTime);
 			moveTime -= Time.deltaTime;
 			// If the enemy hits an obstacle it stops and chooses a different direction
@@ -415,7 +446,6 @@ public class EnemyMovement : MonoBehaviour
 				stopped = true;
 				lastDirection = direction;
 			}
-
 			// The enemy keeps moving
 			else
 			{
@@ -423,6 +453,7 @@ public class EnemyMovement : MonoBehaviour
 				lastDirection = -1;
 			}
 		}
+		SetEnemyAnimatorValues();
 	}
 	#endregion
 
