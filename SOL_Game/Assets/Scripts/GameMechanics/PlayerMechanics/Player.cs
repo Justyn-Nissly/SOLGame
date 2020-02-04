@@ -50,6 +50,9 @@ public class Player : BaseCharacter
 	/// <summary> Start is called before the first frame update </summary>
 	void Start()
 	{
+		// The player starts with max health
+		currentHealth = maxHealth.initialValue;
+
 		// Set the players movement speed
 		playerMovementSpeed = .1f;
 
@@ -227,6 +230,8 @@ public class Player : BaseCharacter
 	/// <summary> Update the values in the Animator for the players animations </summary>
 	private void SetPlayerAnimatorValues()
 	{
+		Debug.Log(playerMovementAmount.x);
+		Debug.Log(playerMovementAmount.y);
 		playerAnimator.SetFloat("Horizontal", playerMovementAmount.x);
 		playerAnimator.SetFloat("Vertical", playerMovementAmount.y);
 		playerAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);

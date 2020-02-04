@@ -25,7 +25,7 @@ public class MovementPath : MonoBehaviour
 	#region Private Variables (Empty)
 	#endregion
 
-	// (Unity Named Methods)
+	// Unity Named Methods
 	#region Main Methods
 	/// <summary>  Draw the path the enemy follows </summary>
 	public void OnDrawGizmos()

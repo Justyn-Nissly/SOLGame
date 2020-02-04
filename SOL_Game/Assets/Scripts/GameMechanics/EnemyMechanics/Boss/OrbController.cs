@@ -3,19 +3,18 @@
 public class OrbController : MonoBehaviour
 {
 	#region Enums and Defined Constants
-	private const int
-		ATTACK_HP = 2; // The orb attacks when its health drops to this
+	private const float
+		ATTACK_SPEED_MULTIPLIER = 4.0f; // Match attack speed to revolution speed
 	#endregion
 
 	#region Public Variables
 	public float
-		a1,
-		a2;
+		attackHP; // The orb starts attacking when its health drops to this value
 	#endregion
 
 	#region Private Variables
-	private LockOnProjectile
-		projectileScript; // Control the lock on projectile script
+	private LockOnMissile
+		missileScript; // Control the lock on missile script
 	private RevolveAroundObject
 		revolveScript; // Control the revolve around object script
 	private DestructibleObject
@@ -26,41 +25,60 @@ public class OrbController : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-	// Set up access to the object's scripts to control its behavior
+	/// <summary> Make the orb passive and set up access to its scripts to control its behavior </summary>
 	void Start()
 	{
-		projectileScript = GetComponent<LockOnProjectile>();
-		revolveScript    = GetComponent<RevolveAroundObject>();
-		destructible     = GetComponent<DestructibleObject>();
-		isAttacking      = false;
+		missileScript = GetComponent<LockOnMissile>();
+		revolveScript = GetComponent<RevolveAroundObject>();
+		destructible  = GetComponent<DestructibleObject>();
+		isAttacking   = false;
 	}
 
-	/// <summary> Lock on to the target and arc towards it </summary>
+	/// <summary> Revolve until the orb has taken enough damage </summary>
 	void FixedUpdate()
 	{
-		// The orb will attack when its health gets low enough
-		if (destructible.health <= ATTACK_HP)
+		// Prevent the orb from trying to revolve and attack simultaneously
+		ControlMovement();
+
+		// The orb will be ready to attack when its health gets low enough
+		if (destructible.health <= attackHP && isAttacking == false)
 		{
-			isAttacking = true;
-		}
-		if (/*isAttacking && */checkAngle())
-		{
-			Debug.Log("Ha! Goteem!");
+			// The orb waits to attack the player until its trajectory matches the player's direction
+			if (checkAngle())
+			{
+				isAttacking = true;
+				missileScript.moveSpeed = revolveScript.revolutionSpeed * ATTACK_SPEED_MULTIPLIER;
+			}
 		}
 	}
 	#endregion
 
 	#region Utility Methods
+	/// <summary> Check if the orb's trajectory is in the player's direction </summary>
 	bool checkAngle()
 	{
-		return (true);
-/*		a1 = Vector2.Angle(projectileScript.targetPos - (Vector2)projectileScript.transform.position, Vector2.up);
-		a2 = Vector2.Angle(new Vector2(Mathf.Cos(revolveScript.angle * Mathf.Deg2Rad),
-		                               Mathf.Sin(revolveScript.angle * Mathf.Deg2Rad)), Vector2.up);
-Debug.Log("a1 = " + a1 + "           a2 = " + a2);
-		return (a1 == a2);*/
+		return (Mathf.Abs(((revolveScript.angle - ((revolveScript.clockwise) ? 90.0f : -90.0f)) % 360.0f) -
+		                   (Mathf.Atan2(missileScript.targetPos.y - transform.position.y,
+		                                missileScript.targetPos.x - transform.position.x) * Mathf.Rad2Deg)) <= 3.0f);
 	}
 
+	/// <summary> Prevent the orb from trying to revolve and attack simultaneously </summary>
+	void ControlMovement()
+	{
+		// If the orb is passive it does not act like a missile
+		if (missileScript.enabled == true && isAttacking == false)
+		{
+			missileScript.enabled = false;
+		}
+
+		// If the orb is ready to attack disable revolving
+		if (revolveScript.enabled == true && isAttacking)
+		{
+			missileScript.enabled       = true;
+			revolveScript.enabled       = false;
+			revolveScript.contactDamage = 0;
+		}
+	}
 	#endregion
 
 	#region Coroutines (Empty)
