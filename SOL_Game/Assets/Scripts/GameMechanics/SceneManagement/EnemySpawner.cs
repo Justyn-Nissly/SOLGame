@@ -41,10 +41,11 @@ public class EnemySpawner : MonoBehaviour
 		GameObject tempEnemy = Instantiate(enemy, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0));
 
 		// play the teleport shader effect if there is one on the enemy
+		//(it will find all effects on the enemy because some enemies have more than one like the shield enemy)
 		List<_2dxFX_NewTeleportation2> enemyTeleportScripts = new List<_2dxFX_NewTeleportation2>();
 		enemyTeleportScripts.AddRange(tempEnemy.GetComponentsInChildren<_2dxFX_NewTeleportation2>());
 
-		if (enemyTeleportScripts.Count != 0)
+		if (enemyTeleportScripts.Count != 0) // check for empty list
 		{
 			foreach(_2dxFX_NewTeleportation2 enemyTeleportScript in enemyTeleportScripts)
 			{
