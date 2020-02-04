@@ -12,9 +12,6 @@ public class EnemySpawner : MonoBehaviour
 		enemiesToSpawn = new List<GameObject>(), // a list of all enemies that will be spawned in
 		enemySpawnPoints = new List<GameObject>(); // a list of all points that the enemies will be spawned at 
 																 //(these lists should be the same length but the code will still work if they are not)
-
-	public GameObject
-		spawnInAnimation; // the animation that is played where the enemy spawns in
 	#endregion
 
 	#region Private Variables (Empty)
@@ -41,8 +38,19 @@ public class EnemySpawner : MonoBehaviour
 	private void SpawnInEnemy(GameObject enemy)
 	{
 		// instantiate the current enemy in the loop at a spawn point and remove that spawn point from the list of spawn points
-		Instantiate(enemy, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0));
-		Destroy(Instantiate(spawnInAnimation, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0)), 1);
+		GameObject tempEnemy = Instantiate(enemy, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0));
+
+		// play the teleport shader effect if there is one on the enemy
+		List<_2dxFX_NewTeleportation2> enemyTeleportScripts = new List<_2dxFX_NewTeleportation2>();
+		enemyTeleportScripts.AddRange(tempEnemy.GetComponentsInChildren<_2dxFX_NewTeleportation2>());
+
+		if (enemyTeleportScripts.Count != 0)
+		{
+			foreach(_2dxFX_NewTeleportation2 enemyTeleportScript in enemyTeleportScripts)
+			{
+				StartCoroutine(TeleportInEnemy(enemyTeleportScript));
+			}
+		}
 
 		enemySpawnPoints.Remove(enemySpawnPoints[0]);
 	}
@@ -63,6 +71,25 @@ public class EnemySpawner : MonoBehaviour
 				yield return new WaitForSeconds(enemySpawnRate); // spawn in an enemy every N seconds
 			}
 		}
+	}
+
+	private IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
+	{
+		float percentageComplete = 0;
+
+		// make the enemy invisible, this is not set by default in the prefab because
+		// then the enemy would be invisible in Dev rooms because they don't have this script running in them
+		teleportScript._Fade = 1;
+
+		// teleport the player in, it does this by "sliding" a float from 0 to 1 over time
+		while (percentageComplete < 1)
+		{
+			teleportScript._Fade = Mathf.Lerp(1f, 0f, percentageComplete);
+			percentageComplete += Time.deltaTime;
+			yield return null;
+		}
+
+		teleportScript._Fade = 0;
 	}
 	#endregion
 }

@@ -8,11 +8,13 @@ public class LoadPlayer : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public Transform defaultPlayerStartingPosition;
-	public Transform altStartingPosition;
+	public Transform 
+		defaultPlayerStartingPosition,
+		altStartingPosition;
 
-	public GameObject playerPrefab; // the player prefab, it will be instantiated if there is no player in the scene already
-	public _2dxFX_NewTeleportation2 teleportScript;
+	public GameObject
+		playerPrefab; // the player prefab, it will be instantiated if there is no player in the scene already
+	
 	#endregion
 
 	#region Private/Protected Variables
@@ -20,6 +22,8 @@ public class LoadPlayer : MonoBehaviour
 		startingPosition;
 	protected GameObject
 		playerInScene;
+	private _2dxFX_NewTeleportation2
+		teleportScript;
 	#endregion
 
 	// Unity Named Methods
@@ -79,7 +83,7 @@ public class LoadPlayer : MonoBehaviour
 		// then the player would be invisible in Dev rooms because they don't have this script running in them
 		teleportScript._Fade = 1;
 
-		// Pause before fading
+		// Pause before playing teleport effect
 		yield return new WaitForSeconds(1f);
 
 		// teleport the player in, it does this by "sliding" a float from 0 to 1 over time
@@ -89,6 +93,8 @@ public class LoadPlayer : MonoBehaviour
 			percentageComplete += Time.deltaTime;
 			yield return null;
 		}
+
+		teleportScript._Fade = 0;
 	}
 	#endregion
 }

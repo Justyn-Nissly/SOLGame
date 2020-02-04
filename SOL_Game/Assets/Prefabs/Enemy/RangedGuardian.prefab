@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 7684790495410840951}
   - component: {fileID: 4255507307742249802}
   - component: {fileID: 8831441691504646685}
+  - component: {fileID: 2359227356052906426}
   m_Layer: 9
   m_Name: RangedGuardian
   m_TagString: Enemy
@@ -431,6 +432,33 @@ MonoBehaviour:
   minTime: 1
   waitTime: 1
   rangedGuardianCanFreeRoam: 1
+--- !u!114 &2359227356052906426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184558088362625358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  __MainTex2: {fileID: 0}
+  _Fade: 0
+  _HDR_Intensity: 1
+  TeleportationColor: {r: 0, g: 0.5, b: 1, a: 1}
+  _Distortion: 1
+  _Value4: 0
+  _AutoScrollX: 0
+  _AutoScrollSpeedX: 0
+  _AutoScrollY: 0
+  _AutoScrollSpeedY: 0
+  ShaderChange: 0
+  ActiveUpdate: 1
 --- !u!1 &5184558089056415126
 GameObject:
   m_ObjectHideFlags: 0
