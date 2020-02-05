@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 1341360516613873996}
   - component: {fileID: -3915480526752072787}
   - component: {fileID: 8065668250605309325}
+  - component: {fileID: 1673063009}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -168,7 +169,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -258,8 +259,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f80b6fb47ed75d045b825214ac97ff67, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 11400000, guid: f14b1a1b671224a198bad7265575b949, type: 2}
   canAttack: 1
   canTakeDamage: 1
@@ -298,15 +299,20 @@ MonoBehaviour:
     type: 2}
   BulletShootingDelay: 0.2
   blasterSound: {fileID: 8300000, guid: 7374c242e1ff0834088b2534c4f9f84c, type: 3}
+  shieldSprite: {fileID: 6841405128981744527}
+  shieldBoxCollider: {fileID: 6841405128981744513}
+  shieldSound: {fileID: 0}
   playerAllowedToMove: 1
   playerAnimator: {fileID: 6958614015349643136}
   playerHealthSignal: {fileID: 11400000, guid: ac92ac62b06a941faa2337f33d033a24, type: 2}
   playerAttackGameObject: {fileID: 6841405128845876855}
   dialogueManager: {fileID: 0}
-  shieldSprite: {fileID: 6841405128981744527}
-  shieldBoxCollider: {fileID: 6841405128981744513}
   audioSourcePlayerMovement: {fileID: -3915480526752072787}
   shieldSoundSource: {fileID: 8065668250605309325}
+  extraSpeed: 0
+  powerUpTimer: 0
+  extraDamage: 0
+  powerUpTimers: []
   playerMovementAmount: {x: 0, y: 0}
 --- !u!95 &6958614015349643136
 Animator:
@@ -323,7 +329,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -615,6 +621,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1673063009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6841405128326533482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
+  _Fade: 0
+  _HDR_Intensity: 1
+  TeleportationColor: {r: 0, g: 0.5, b: 1, a: 1}
+  _Distortion: 1
+  _Value4: 0
+  _AutoScrollX: 0
+  _AutoScrollSpeedX: 0
+  _AutoScrollY: 0
+  _AutoScrollSpeedY: 0
+  ShaderChange: 0
+  ActiveUpdate: 1
 --- !u!1 &6841405128640148714
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,7 +897,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

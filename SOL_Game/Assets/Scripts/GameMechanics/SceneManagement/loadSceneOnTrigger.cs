@@ -18,7 +18,9 @@ public class loadSceneOnTrigger : MonoBehaviour
 		canvasFadeImage; // Fades the whole screen to black
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
+	private _2dxFX_NewTeleportation2
+		teleportScript;
 	#endregion
 
 	// Unity Named Methods
@@ -29,7 +31,8 @@ public class loadSceneOnTrigger : MonoBehaviour
 		// Change scenes if the player enters a scene-change trigger
 		if (collision.CompareTag("Player"))
 		{
-			StartCoroutine(FadeToBlackCoroutine());
+			teleportScript = collision.gameObject.GetComponent<_2dxFX_NewTeleportation2>();
+			StartCoroutine(TeleportOutPlayer());
 		}
 	}
 	#endregion
@@ -60,6 +63,30 @@ public class loadSceneOnTrigger : MonoBehaviour
 
 		// Load the new scene after the screen fades to black
 		SceneManager.LoadScene(sceneToLoad);
+	}
+
+	/// <summary> plays the teleport out shader effect </summary>
+	private IEnumerator TeleportOutPlayer()
+	{
+		float percentageComplete = 0;
+
+		// make the player invisible, this is not set by default in the prefab because
+		// then the player would be invisible in Dev rooms because they don't have this script running in them
+		teleportScript._Fade = 0;
+
+		// teleport the player in, it does this by "sliding" a float from 0 to 1 over time
+		while (percentageComplete < 1)
+		{
+			teleportScript._Fade = Mathf.Lerp(0f, 1f, percentageComplete);
+			percentageComplete += Time.deltaTime;
+			yield return null;
+		}
+
+		// set the player to be invisible because the float value might not be exactly 1
+		teleportScript._Fade = 1;
+
+		// start fading the screen to black
+		StartCoroutine(FadeToBlackCoroutine());
 	}
 	#endregion
 }

@@ -37,27 +37,23 @@ public class DestructibleObject : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+		// check if the right weapon is whats hitting this object
 		if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)))
 		{
-			// unlock any doors that need to be unlocked
-			doorManager.UnlockAllDoors();
-
-			// change to the destroyed sprite if there is one else destroy this gameobject
-			if(destroyedSprite != null)
+			if(health > 0)
 			{
-				gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
-				gameObject.GetComponent<BoxCollider2D>().enabled = false;
+				health--;
 			}
 			else
 			{
-				Destroy(gameObject);
+				DestroyObject();
 			}
-
 		}
 	}
 	#endregion
 
 	#region Utility Methods (Empty)
+	/// <summary> converts a tag to its string value for string comparing</summary>
 	private string ConvertTagToString(WeaponTag weaponTag)
 	{
 		string weaponTagString;
@@ -77,6 +73,24 @@ public class DestructibleObject : MonoBehaviour
 
 
 		return weaponTagString;
+	}
+
+	/// <summary> call this method to destroy the destructible object </summary>
+	private void DestroyObject()
+	{
+		// unlock any doors that need to be unlocked
+		doorManager.UnlockAllDoors();
+
+		// change to the destroyed sprite if there is one else destroy this gameobject
+		if (destroyedSprite != null)
+		{
+			gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
+			gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 	#endregion
 

@@ -55,8 +55,16 @@ public class cameraMovement : MonoBehaviour
 		float elapsedTime = 0;
 		Vector3 startingPos = objectToMove.transform.position;
 
-		// freeze player movement
-		FindObjectOfType<Player>().playerAllowedToMove = false;
+		// freeze player movement, this does freeze player movement bit freezes in the running animation NEED TO FIX
+		Player player = FindObjectOfType<Player>();
+		if(player != null)
+		{
+			player.playerMovementAmount = Vector2.zero;
+			player.playerAnimator.SetLayerWeight(1, 0);
+			player.audioSourcePlayerMovement.volume = 0;
+			player.playerAllowedToMove = false;
+			player.canAttack = false;
+		}
 
 		while (elapsedTime < timeToLocation)
 		{
@@ -83,7 +91,8 @@ public class cameraMovement : MonoBehaviour
 		objectToMove.transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
 		// unfreeze player movement
-		FindObjectOfType<Player>().playerAllowedToMove = true;
+		player.playerAllowedToMove = true;
+		player.canAttack = true;
 
 		cameraIsPanning = false;
 	}
