@@ -75,6 +75,7 @@ public class LoadPlayer : MonoBehaviour
 	#endregion
 
 	#region Coroutines
+	/// <summary> plays the teleport in shader effect </summary>
 	private IEnumerator TeleportInPlayer()
 	{
 		float percentageComplete = 0;
