@@ -82,7 +82,7 @@ public class EnemySpawner : MonoBehaviour
 		// then the enemy would be invisible in Dev rooms because they don't have this script running in them
 		teleportScript._Fade = 1;
 
-		// teleport the player in, it does this by "sliding" a float from 0 to 1 over time
+		// teleport the enemy in, it does this by "sliding" a float from 0 to 1 over time
 		while (percentageComplete < 1)
 		{
 			teleportScript._Fade = Mathf.Lerp(1f, 0f, percentageComplete);
