@@ -81,7 +81,7 @@ public class UnlockDoorObject : MonoBehaviour
 		Debug.Log("you unlocked the door connected to this obj");
 
 		// unlock connected door
-		doorManager.UnlockAllDoors();
+		doorManager.UnlockDoors();
 
 		// play sound effect (it will play whatever sound is in the audio source on this game object no sound will play if there is no audio source)
 		AudioSource audioSource = GetComponent<AudioSource>();
