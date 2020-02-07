@@ -270,6 +270,23 @@ public class Player : BaseCharacter
 		base.DisableShield();
 		canTakeDamage = true;
 	}
+
+	/// <summary> this freezes the player so that he can't move or attack</summary>
+	public void FreezePlayer()
+	{
+		playerMovementAmount = Vector2.zero;
+		playerAnimator.SetLayerWeight(1, 0);
+		audioSourcePlayerMovement.volume = 0;
+		playerAllowedToMove = false;
+		canAttack = false;
+	}
+
+	/// <summary> this unfreezes the player so that he can move and attack</summary>
+	public void UnFreezePlayer()
+	{
+		playerAllowedToMove = true;
+		canAttack = true;
+	}
 	#endregion
 
 	#region Coroutines (Empty)

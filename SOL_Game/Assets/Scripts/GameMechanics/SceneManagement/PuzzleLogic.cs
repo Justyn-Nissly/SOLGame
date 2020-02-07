@@ -41,7 +41,7 @@ public class PuzzleLogic : MonoBehaviour
 			spriteRenderer.sprite = completeSprite;
 
 			// Unlock the doors
-			doorManager.UnlockAllDoors();
+			doorManager.UnlockDoors();
 		}
 	}
 
@@ -53,7 +53,7 @@ public class PuzzleLogic : MonoBehaviour
 			spriteRenderer.sprite = incompleteSprite;
 
 			// Lock the doors
-			doorManager.LockAllDoors();
+			doorManager.LockDoors();
 		}
 	}
 	#endregion
@@ -84,7 +84,7 @@ public class PuzzleLogic : MonoBehaviour
 		GetComponent<AudioSource>().Play();
 
 		// Unlock the doors
-		doorManager.UnlockAllDoors();
+		doorManager.UnlockDoors();
 	}
 
 	/// <summary> method to enable the lazer sprite when the puzzle is completed </summary>

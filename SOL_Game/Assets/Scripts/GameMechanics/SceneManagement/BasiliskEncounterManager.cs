@@ -28,7 +28,7 @@ public class BasiliskEncounterManager : MonoBehaviour
 			firstTimeTriggerEntered = false;
 
 			// lock all doors so the player cant leave this boss fight
-			GetComponent<DoorManager>().LockAllDoors(); 
+			GetComponent<DoorManager>().LockDoors(); 
 
 			// start paning the camera to the bosses spawn point
 			GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(basiliskSpawnPoint, 2, 1, 1f);
@@ -43,7 +43,7 @@ public class BasiliskEncounterManager : MonoBehaviour
 	// this ends the encounter by unlocking all the doors that are locking the player in that room
 	public void EndEncounter()
 	{
-		GetComponent<DoorManager>().UnlockAllDoors();
+		GetComponent<DoorManager>().UnlockDoors();
 	}
 	#endregion
 

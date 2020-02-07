@@ -513,7 +513,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnPoint (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -660,6 +660,18 @@ Transform:
   m_Father: {fileID: 539350889}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &79283540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1116729400}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &99851757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,7 +1357,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnPoint (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1676,7 +1688,7 @@ GameObject:
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1792,6 +1804,8 @@ MonoBehaviour:
   enemySpawnPoints:
   - {fileID: 250363858}
   - {fileID: 1034169985}
+  doors: []
+  panCamera: 1
 --- !u!1001 &410313449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2146,7 +2160,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnPoint (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -9931,7 +9945,7 @@ GameObject:
   m_Layer: 0
   m_Name: EnemySpawner (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -10044,6 +10058,10 @@ MonoBehaviour:
   - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
   enemySpawnPoints:
   - {fileID: 1879219103}
+  doors:
+  - {fileID: 1147046827}
+  - {fileID: 79283540}
+  panCamera: 0
 --- !u!1 &1034169985
 GameObject:
   m_ObjectHideFlags: 0
@@ -10496,6 +10514,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 7.31}
   m_EdgeRadius: 0
+--- !u!114 &1147046827 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 57740010}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1160755448
 GameObject:
   m_ObjectHideFlags: 0
@@ -10588,7 +10618,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnPoint (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -11968,7 +11998,7 @@ GameObject:
   m_Layer: 0
   m_Name: EnemySpawner (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -12081,6 +12111,10 @@ MonoBehaviour:
   - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
   enemySpawnPoints:
   - {fileID: 67615973}
+  doors:
+  - {fileID: 2048429877}
+  - {fileID: 992143200}
+  panCamera: 1
 --- !u!1 &1694185885
 GameObject:
   m_ObjectHideFlags: 0
@@ -27289,7 +27323,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnPoint (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -27663,6 +27697,18 @@ Transform:
   m_Father: {fileID: 1474695904}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2048429877 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1668832516}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2089566822
 GameObject:
   m_ObjectHideFlags: 0
@@ -27679,7 +27725,7 @@ GameObject:
   m_Layer: 0
   m_Name: EnemySpawner (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -27798,6 +27844,8 @@ MonoBehaviour:
   - {fileID: 276572516}
   - {fileID: 589448751}
   - {fileID: 1177537870}
+  doors: []
+  panCamera: 1
 --- !u!1 &2109476839
 GameObject:
   m_ObjectHideFlags: 0

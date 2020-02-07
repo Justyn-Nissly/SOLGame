@@ -19,8 +19,8 @@ public class DoorManager : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary> Unlocks all doors in a list </summary>
-	public void UnlockAllDoors()
+	/// <summary> Unlocks all doors in this door managers list </summary>
+	public void UnlockDoors()
 	{
 		foreach (DoorLogic door in doors)
 		{
@@ -31,8 +31,8 @@ public class DoorManager : MonoBehaviour
 		}
 	}
 
-	/// <summary> Locks all doors in a list </summary>
-	public void LockAllDoors()
+	/// <summary> Locks all doors in this door managers list </summary>
+	public void LockDoors()
 	{
 		foreach (DoorLogic door in doors)
 		{
