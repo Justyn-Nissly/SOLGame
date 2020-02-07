@@ -9,10 +9,15 @@ public class PuzzleLogic : MonoBehaviour
 
 	#region Public Variables
 	public Sprite completeSprite, // the sprite that will be changed to when you complete the puzzle
-					  incompleteSprite;
+				  incompleteSprite,
+				  lockedSprite,
+				  unpoweredSprite,
+				  unlockedSprite;
 	public DoorManager doorManager; // used to unlock the door(s) that the puzzle unlocks
 	public SpriteRenderer LazerSprite; // this sprite is enabled when the puzzle is completed (if this sprite renderer is NULL nothing will happen it will not cause an error)
-	public bool playerCanTriggerPressurePlate = true; // a flag for if the player can trigger the pressure plate
+	public bool playerCanTriggerPressurePlate = true, // a flag for if the player can trigger the pressure plate
+				isPowered, // A flag checking if the preasure plate is powered
+				isLocked;  // A flag checking if the preasuer plate is locked
 	#endregion
 
 	#region Private Variables
@@ -31,6 +36,24 @@ public class PuzzleLogic : MonoBehaviour
 	/// <summary> Complete a solved puzzle </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+
+		if (isPowered == false && collision.gameObject.CompareTag("Player"))
+		{
+			spriteRenderer.sprite = unlockedSprite;
+		}
+		else if (doorHasKey && playerHasDoorKey && collision.gameObject.CompareTag("Player")) // check if this door has a key and if the player has that key to unlock this door
+		{
+			// unlock the door and update the doors sprite
+			doorIsLocked = false;
+			UpdateSprite();
+
+			// open the door after a delay
+			Invoke("OpenDoor", .5f);
+		}
+		else
+		{
+			Debug.Log("This door is locked solve a puzzle to unlock it");
+		}
 		// If the puzzle is solved call a method that completes it
 		if (collision.CompareTag("PuzzleItem"))
 		{
@@ -43,6 +66,27 @@ public class PuzzleLogic : MonoBehaviour
 			// Unlock the doors
 			doorManager.UnlockAllDoors();
 		}
+		/*private void OnTriggerEnter2D(Collider2D collision)
+	{
+		// Unlocked doors open automatically when the player approaches
+		if (doorIsLocked == false && collision.gameObject.CompareTag("Player"))
+		{
+			OpenDoor();
+		}
+		else if(doorHasKey && playerHasDoorKey && collision.gameObject.CompareTag("Player")) // check if this door has a key and if the player has that key to unlock this door
+		{
+			// unlock the door and update the doors sprite
+			doorIsLocked = false;
+			UpdateSprite();
+
+			// open the door after a delay
+			Invoke("OpenDoor", .5f);
+		}
+		else
+		{
+			Debug.Log("This door is locked solve a puzzle to unlock it");
+		}
+	}*/
 	}
 
 	/// <summary> Prevent the player from passing an unsolved puzzle </summary>

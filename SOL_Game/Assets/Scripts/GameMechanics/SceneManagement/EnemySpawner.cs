@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
 		spawnInAnimation; // the animation that is played where the enemy spawns in
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
 	private bool 
 		enemiesHaveSpawned = false;
 	private float
