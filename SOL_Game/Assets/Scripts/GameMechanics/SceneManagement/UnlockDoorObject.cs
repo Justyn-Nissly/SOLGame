@@ -4,14 +4,31 @@ using UnityEngine;
 
 public class UnlockDoorObject : MonoBehaviour
 {
-	#region Enums (Empty)
+	#region Enums
+	public enum DoorType
+	{
+		door,         // A door
+		preasurePlate // A hatch over a preasure plate
+	}
 	#endregion
 
 	#region Public Variables
-	public Sprite unusedSprite, // the default sprite
-					  usedSprite; // the sprite that is changed to when the player interacts with this object
-	public DoorLogic connectedDoor; // the door connected to this object that is unlocked when this object is used
-	public SpriteRenderer intractableSpriteRenderer; // this is the ! that is signals an intractable object
+	public DoorType
+		doorType; // The type of door that is being unlocked
+	public Sprite
+		unusedSprite, // the default sprite
+		usedSprite;   // the sprite that is changed to when the player interacts with this object
+	public DoorLogic
+		connectedDoor; // the door connected to this object that is unlocked when this object is used
+	public PuzzleLogic
+		preasurePlate; // The preasure plate connected to this object that is unlocked when this object is used
+	public SpriteRenderer
+		intractableSpriteRenderer; // this is the ! that is signals an intractable object
+	public bool
+		isDoor,         // A flag checking if the the item being activated is a door or a preasure plate
+		isPowerSwitch,  // Check to see if the switch is for enabling power
+		isUnlockSwitch; // Check to see if the switch if for unlocking a door
+
 	#endregion
 
 	#region Private Variables
@@ -36,34 +53,42 @@ public class UnlockDoorObject : MonoBehaviour
 
 	private void Update()
 	{
+		// Check to see if the switch has been flipped
 		if(playerHasUsedObject == false && canUseObject && (Input.GetKey(KeyCode.E) || CheckForAttackInput()))
 		{
-			UseObject();
+			if (doorType == DoorType.door)
+			{
+				UseObject();
+			}
+			else
+			{
+				OpenPreasurePlate();
+			}
 		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// check if its the player next to this object
+		// Check if its the player next to this object
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			// enable the ability to use this object
+			// Enable the ability to use this object
 			canUseObject = true;
 
-			// enable the ! above this object
+			// Enable the ! above this object
 			intractableSpriteRenderer.enabled = true;
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		// check if its the player next to this object
+		// Check if its the player next to this object
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			// disable the ability to use this object
+			// Disable the ability to use this object
 			canUseObject = false;
 
-			// disable the ! above this object
+			// Disable the ! above this object
 			intractableSpriteRenderer.enabled = false;
 		}
 	}
@@ -71,35 +96,52 @@ public class UnlockDoorObject : MonoBehaviour
 
 	#region Utility Methods
 
-	/// use this object to unlock connected door
+	/// <summary> Unlock connected door </summary>
 	private void UseObject()
 	{
-		// set bool so that you cant use this any more
+		// Set bool so that you cant use this any more
 		playerHasUsedObject = true;
 
-		// print debug message
+		// Print debug message
 		Debug.Log("you unlocked the door connected to this obj");
 
-		// unlock connected door
+		// Unlock connected door
 		doorManager.UnlockAllDoors();
 
-		// play sound effect (it will play whatever sound is in the audio source on this game object no sound will play if there is no audio source)
+		// Play sound effect (it will play whatever sound is in the audio source on this game object no sound will play if there is no audio source)
 		AudioSource audioSource = GetComponent<AudioSource>();
 		if(audioSource != null)
 		{
 			audioSource.Play();
 		}
 
-		// update the sprite being used on this object
+		// Update the sprite being used on this object
 		objectRenderer.sprite = usedSprite;
 
-		// disable the ! above this object
+		// Disable the ! above this object
 		intractableSpriteRenderer.enabled = false;
 	}
 
+	/// <summary> Check if the player has pressed an attack button to flip the switch </summary>
 	private bool CheckForAttackInput()
 	{
 		return Input.GetButton("B") || Input.GetButton("X") || Input.GetButton("A") || Input.GetButton("Y");
+	}
+
+
+	private void OpenPreasurePlate()
+	{
+
+		if (isPowerSwitch)
+		{
+			preasurePlate.UpdateDoorState();
+			preasurePlate.isPowered = true;
+		}
+		else if (isUnlockSwitch)
+		{
+			preasurePlate.UpdateDoorState();
+			preasurePlate.isLocked = false;
+		}
 	}
 	#endregion
 
