@@ -10536,7 +10536,6 @@ GameObject:
   - component: {fileID: 1748450251}
   - component: {fileID: 1748450253}
   - component: {fileID: 1748450252}
-  - component: {fileID: 1748450254}
   m_Layer: 0
   m_Name: Spawner2
   m_TagString: Untagged
@@ -10613,22 +10612,11 @@ MonoBehaviour:
   - {fileID: 1148588304}
   - {fileID: 13585404}
   - {fileID: 1844979741}
---- !u!114 &1748450254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1748450250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ec8c28ce18dfa64c9c5b06dd883d81e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   doors:
+  - {fileID: 1994272895}
   - {fileID: 509629862}
   - {fileID: 227081659}
-  - {fileID: 1994272895}
+  panCamera: 0
 --- !u!1001 &1792819590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11496,7 +11484,6 @@ GameObject:
   - component: {fileID: 1958361244}
   - component: {fileID: 1958361245}
   - component: {fileID: 1958361246}
-  - component: {fileID: 1958361247}
   m_Layer: 0
   m_Name: Spawner1
   m_TagString: Untagged
@@ -11544,6 +11531,9 @@ MonoBehaviour:
   - {fileID: 371676619}
   - {fileID: 701934086}
   - {fileID: 523465320}
+  doors:
+  - {fileID: 235797717}
+  panCamera: 0
 --- !u!61 &1958361246
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11570,20 +11560,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8, y: 4}
   m_EdgeRadius: 0
---- !u!114 &1958361247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958361243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ec8c28ce18dfa64c9c5b06dd883d81e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doors:
-  - {fileID: 235797717}
 --- !u!1 &1983112193
 GameObject:
   m_ObjectHideFlags: 0
