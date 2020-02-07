@@ -112,7 +112,9 @@ public class Enemy : BaseCharacter
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}
-			Destroy(gameObject);
+
+			StartCoroutine("Die");
+			
 		}
 	}
 
@@ -121,10 +123,41 @@ public class Enemy : BaseCharacter
 	{
 		healthBar.fillAmount = percentHelth;
 	}
-    #endregion
+	#endregion
 
+	public Material pixelDesolveMaterial;
 
-    #region Coroutines
+	#region Coroutines
+	private IEnumerator Die()
+	{
+		float percentageComplete = 0;
 
-    #endregion
+		// freeze the enemy because they are dead...
+		canAttack = false;
+		moveSpeed = 0;
+
+		if(pixelDesolveMaterial != null)
+		{
+			foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>()	)
+			{
+				renderer.material = pixelDesolveMaterial;
+			}
+
+			pixelDesolveMaterial.SetFloat("Disolve_Value", 0); // set starting value
+
+			// play the pixel die effect from start(0) to finish(1)
+			while (percentageComplete < 1)
+			{
+				pixelDesolveMaterial.SetFloat("Disolve_Value", Mathf.Lerp(0f, 1f, percentageComplete));
+				percentageComplete += Time.deltaTime /2;
+				yield return null;
+			}
+
+			pixelDesolveMaterial.SetFloat("Disolve_Value", 1); // set ending value
+		}
+
+		// destroy the enemy
+		Destroy(gameObject);
+	}
+	#endregion
 }
