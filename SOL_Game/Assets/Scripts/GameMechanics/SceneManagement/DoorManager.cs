@@ -8,7 +8,8 @@ public class DoorManager : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public List<DoorLogic> doors = new List<DoorLogic>(); // A list of doors in the scene
+	public List<DoorLogic> doors = new List<DoorLogic>();              // A list of doors to unlock
+	public List<PuzzleLogic> pressurePlates = new List<PuzzleLogic>(); // A list of pressure plates to unlock
 	#endregion
 
 	#region Private Variables (Empty)
@@ -41,6 +42,18 @@ public class DoorManager : MonoBehaviour
 
 			// Change the door sprite to locked
 			door.UpdateSprite();
+		}
+	}
+
+	///<summary> Unlock doors if all pressure plates are active </summary>
+	public void CheckPressurePlatesPressed()
+	{
+		foreach (PuzzleLogic pressurePlate in pressurePlates)
+		{
+			if (pressurePlate.isComplete)
+			{
+				UnlockAllDoors();
+			}
 		}
 	}
 	#endregion

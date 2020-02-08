@@ -9,19 +9,22 @@ public class PuzzleLogic : MonoBehaviour
 
 	#region Public Variables
 	public BoxCollider2D
-		preasurePlateCollider; // The collider for the preasure plate that keeps the it locked
-	public Sprite completeSprite, // the sprite that will be changed to when you complete the puzzle
-				  incompleteSprite,
-				  lockedSprite,
-				  openSprite,
-				  unpoweredSprite,
-				  unlockedSprite;
-	public DoorManager doorManager; // used to unlock the door(s) that the puzzle unlocks
-	public SpriteRenderer LazerSprite; // this sprite is enabled when the puzzle is completed (if this sprite renderer is NULL nothing will happen it will not cause an error)
-	public bool playerCanTriggerPressurePlate = true, // a flag for if the player can trigger the pressure plate
-				isComplete, // A flag checking if the puzzle is complete
-				isPowered,  // A flag checking if the preasure plate is powered
-				isLocked;   // A flag checking if the preasuer plate is locked
+		pressurePlateCollider; // The collider for the pressure plate that keeps the it locked
+	public Sprite completeSprite,   // The sprite that will be changed to when you complete the puzzle
+				  incompleteSprite, // The sprite to show the pressure plate is not being pressed
+				  lockedSprite,     // The sprite to show the pressure plate is locked
+				  openSprite,       // The sprite to show the pressure plate is open
+				  unpoweredSprite,  // The sprite to show the pressure plate is unpowered
+				  unlockedSprite;   // The sprite to show the pressure plate is unlocked
+	public DoorManager 
+		doorManager; // Used to unlock the door(s) that the puzzle unlocks
+	public SpriteRenderer 
+		LazerSprite; // This sprite is enabled when the puzzle is completed (if this sprite renderer is NULL nothing will happen it will not cause an error)
+	public bool 
+		playerCanTriggerPressurePlate = true, // A flag for if the player can trigger the pressure plate
+		isComplete, // A flag checking if the puzzle is complete
+		isPowered,  // A flag checking if the pressure plate is powered
+		isLocked;   // A flag checking if the preasuer plate is locked
 	#endregion
 
 	#region Private Variables
@@ -60,27 +63,6 @@ public class PuzzleLogic : MonoBehaviour
 				doorManager.UnlockAllDoors();
 			}
 		}
-		/*private void OnTriggerEnter2D(Collider2D collision)
-	{
-		// Unlocked doors open automatically when the player approaches
-		if (doorIsLocked == false && collision.gameObject.CompareTag("Player"))
-		{
-			OpenDoor();
-		}
-		else if(doorHasKey && playerHasDoorKey && collision.gameObject.CompareTag("Player")) // check if this door has a key and if the player has that key to unlock this door
-		{
-			// unlock the door and update the doors sprite
-			doorIsLocked = false;
-			UpdateSprite();
-
-			// open the door after a delay
-			Invoke("OpenDoor", .5f);
-		}
-		else
-		{
-			Debug.Log("This door is locked solve a puzzle to unlock it");
-		}
-	}*/
 	}
 
 	/// <summary> Prevent the player from passing an unsolved puzzle </summary>
@@ -148,7 +130,7 @@ public class PuzzleLogic : MonoBehaviour
 		else if (isLocked == false && isPowered)
 		{
 			spriteRenderer.sprite         = unlockedSprite;
-			preasurePlateCollider.enabled = false;
+			pressurePlateCollider.enabled = false;
 		}
 	}
 	#endregion

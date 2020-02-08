@@ -8,7 +8,7 @@ public class UnlockDoorObject : MonoBehaviour
 	public enum DoorType
 	{
 		door,         // A door
-		preasurePlate // A hatch over a preasure plate
+		pressurePlate // A hatch over a pressure plate
 	}
 	#endregion
 
@@ -16,26 +16,29 @@ public class UnlockDoorObject : MonoBehaviour
 	public DoorType
 		doorType; // The type of door that is being unlocked
 	public Sprite
-		unusedSprite, // the default sprite
-		usedSprite;   // the sprite that is changed to when the player interacts with this object
+		unusedSprite, // The default sprite
+		usedSprite;   // The sprite that is changed to when the player interacts with this object
 	public DoorLogic
-		connectedDoor; // the door connected to this object that is unlocked when this object is used
+		connectedDoor; // The door connected to this object that is unlocked when this object is used
 	public PuzzleLogic
-		preasurePlate; // The preasure plate connected to this object that is unlocked when this object is used
+		pressurePlate; // The pressure plate connected to this object that is unlocked when this object is used
 	public SpriteRenderer
-		intractableSpriteRenderer; // this is the ! that is signals an intractable object
+		intractableSpriteRenderer; // This is the ! that is signals an intractable object
 	public bool
-		isDoor,         // A flag checking if the the item being activated is a door or a preasure plate
+		isDoor,         // A flag checking if the the item being activated is a door or a pressure plate
 		isPowerSwitch,  // Check to see if the switch is for enabling power
 		isUnlockSwitch; // Check to see if the switch if for unlocking a door
 
 	#endregion
 
 	#region Private Variables
-	private SpriteRenderer objectRenderer; // a reference to this objects sprite renderer for changing the sprite later
-	private DoorManager doorManager = new DoorManager();
-	bool canUseObject = false, // for knowing if you are allowed to use this object at this time
-		  playerHasUsedObject = false; // used to make sure the player cant use this object more than once
+	private SpriteRenderer
+		objectRenderer; // A reference to this objects sprite renderer for changing the sprite later
+	private DoorManager
+		doorManager = new DoorManager();
+	private bool 
+		canUseObject        = false, // For knowing if you are allowed to use this object at this time
+		playerHasUsedObject = false; // Used to make sure the player cant use this object more than once
 	#endregion
 
 	// Unity Named Methods
@@ -43,11 +46,11 @@ public class UnlockDoorObject : MonoBehaviour
 
 	private void Start()
 	{
-		// assign the right sprite to this object
+		// Assign the right sprite to this object
 		objectRenderer = GetComponent<SpriteRenderer>();
 		objectRenderer.sprite = unusedSprite;
 
-		// add the connected door to the door manager
+		// Add the connected door to the door manager
 		doorManager.doors.Add(connectedDoor);
 	}
 
@@ -62,7 +65,7 @@ public class UnlockDoorObject : MonoBehaviour
 			}
 			else
 			{
-				OpenPreasurePlate();
+				OpenPressurePlate();
 			}
 		}
 	}
@@ -128,19 +131,19 @@ public class UnlockDoorObject : MonoBehaviour
 		return Input.GetButton("B") || Input.GetButton("X") || Input.GetButton("A") || Input.GetButton("Y");
 	}
 
-
-	private void OpenPreasurePlate()
+	///<summary> Open or power the pressure plate when the lever is flipped </summary>
+	private void OpenPressurePlate()
 	{
 
 		if (isPowerSwitch)
 		{
-			preasurePlate.UpdateDoorState();
-			preasurePlate.isPowered = true;
+			pressurePlate.UpdateDoorState();
+			pressurePlate.isPowered = true;
 		}
 		else if (isUnlockSwitch)
 		{
-			preasurePlate.UpdateDoorState();
-			preasurePlate.isLocked = false;
+			pressurePlate.UpdateDoorState();
+			pressurePlate.isLocked = false;
 		}
 	}
 	#endregion
