@@ -4,7 +4,7 @@ public class LockOnMissile : MonoBehaviour
 {
 	#region Enums and Defined Constants
 	private const float
-		DEFAULT_RANGE = 10.0f; // The default effective range
+		DEFAULT_RANGE = 10.0f; // Default effective range
 	#endregion
 
 	#region Public Variables
@@ -19,29 +19,32 @@ public class LockOnMissile : MonoBehaviour
 	public Vector2
 		direction, // The missile's actual direction of movement (not necessarily directly towards the target)
 		targetPos; // The target's position
+	public GameObject
+		target; // The missile locks on to this
 	#endregion
 
 	#region Private Variables
 	private float
 		moveAngle; // Angle the missile will move at
-	private GameObject
-		target; // The missile locks on to this
 	private Player
 		player; // Reference the player
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	// Initalize the missile
+	/// <summary> Initialize the missile </summary>
 	void Start()
 	{
-		// Target defaults to player
-		target = GameObject.FindWithTag("Player");
+		// If no target is set it defaults to player
+		if (target == null)
+		{
+			target = GameObject.FindWithTag("Player");
+		}
 
 		// Initial lock on
         targetPos = target.transform.position;
 
-		// The effective range cannot be 0; assign it a default range if 0
+		// Assign default range if it is 0
 		if (effectiveRange == 0.0f)
 		{
 			effectiveRange = DEFAULT_RANGE;

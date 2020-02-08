@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class ConveryorBeltControl : MonoBehaviour
 {
@@ -11,9 +10,9 @@ public class ConveryorBeltControl : MonoBehaviour
 
 	#region Private Variables
 	private bool
-		reversed;
+		reversed; // The conveyor belts have been reversed
 	private ConveyorBelt[]
-		belts;
+		belts; // Keep track of all conveyor belts in the scene
 	private SpriteRenderer
 		sprite; // The belt control lever
 	private float
@@ -25,35 +24,36 @@ public class ConveryorBeltControl : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-	// Initalize the missile
+	/// <summary> Initialize belt control members </summary>
 	void Start()
 	{
 		reversed      = false;
 		belts         = FindObjectsOfType<ConveyorBelt>();
 		sprite        = GetComponent<SpriteRenderer>();
 		soundEffect   = GetComponent<AudioSource>();
-		coolDownTime  = 0.0f;
-		coolDownTimer = 1.0f;
+		coolDownTime  = 1.0f;
+		coolDownTimer = 0.0f;
 	}
 
-	/// <summary> Lock on to the target and arc towards it </summary>
+	/// <summary> Reverse the conveyor belts' direction when the lever is thrown </summary>
 	void FixedUpdate()
 	{
-		if (reversed && coolDownTime <= 0.0f)
+		// Check if the lever has been thrown
+		if (reversed && coolDownTimer <= 0.0f)
 		{
 			SwitchBeltDirection();
-			coolDownTime = coolDownTimer;
-			reversed     = !reversed;
-			sprite.flipX = !sprite.flipX;
+			coolDownTimer = coolDownTime;
+			reversed      = !reversed;
+			sprite.flipX  = !sprite.flipX;
 			soundEffect.Play();
 		}
 		else
 		{
-			coolDownTime -= Time.deltaTime;
+			coolDownTimer -= Time.deltaTime;
 		}
 	}
 
-	/// <summary> Damage the player on contact and destroy the missile </summary>
+	/// <summary> The lever is thrown when the player touches it </summary>
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
@@ -64,6 +64,7 @@ public class ConveryorBeltControl : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// <summary> Reverse the direction of each conveyor belt in the scene </summary>
 	void SwitchBeltDirection()
 	{
 		foreach (ConveyorBelt conveyorBelt in belts)
