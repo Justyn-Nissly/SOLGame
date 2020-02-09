@@ -67,10 +67,10 @@ public class EnemySpawner : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	private void SpawnInEnemy(GameObject enemy)
+	private void SpawnInEnemy(GameObject enemy, int spawnPoint)
 	{
 		// instantiate the current enemy in the loop at a spawn point and remove that spawn point from the list of spawn points
-		GameObject tempEnemy = Instantiate(enemy, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0));
+		GameObject tempEnemy = Instantiate(enemy, enemySpawnPoints[spawnPoint].transform.position, new Quaternion(0, 0, 0, 0));
 
 		// saves this enemy's ID number
 		enemyIDs.Add(tempEnemy.GetInstanceID());
@@ -78,16 +78,11 @@ public class EnemySpawner : MonoBehaviour
 		// play the teleport shader effect if there is one on the enemy
 		//(it will find all effects on the enemy because some enemies have more than one like the shield enemy)
 		tempEnemy.GetComponent<Enemy>().PlayTeleportEffect();
-
-		// remove this enemies spawn point from the list because its been used
-		enemySpawnPoints.Remove(enemySpawnPoints[0]);
 	}
 
 	/// <summary> this method unlocks any locked doors linked to this spawner if all this spawer's enemies have been defeated</summary>
 	private void CheckEnemies()
 	{
-		print("check");
-
 		if (CheckIfEnemiesDefeated())
 		{
 			// unlock any doors
@@ -124,8 +119,12 @@ public class EnemySpawner : MonoBehaviour
 
 	#region Coroutines
 	/// <summary> method to spawn in this spawner's enemies </summary>
-	public IEnumerator SpawnInEnemies()
+	/// <param name="numberOfEnemiesToSpawn">only fill in if you want to limit the number of spawned in enemies 
+	/// (the reason the default value is 100 is because that is a limit that we will never reach)</param>
+	public IEnumerator SpawnInEnemies(int numberOfEnemiesToSpawn = 100)
 	{
+		int spawnPointIndex = 0;
+
 		// pan the camera to the newly spawned in enemies
 		if (panCamera)
 		{
@@ -139,9 +138,17 @@ public class EnemySpawner : MonoBehaviour
 		foreach (GameObject enemy in enemiesToSpawn)
 		{
 			// make sure there are spawn points left in the spawn points list
-			if (enemySpawnPoints.Count > 0)
+			if (enemySpawnPoints.Count > 0 && numberOfEnemiesToSpawn >= 1)
 			{
-				SpawnInEnemy(enemy);
+				SpawnInEnemy(enemy, spawnPointIndex); // spawn in the enemy
+
+				// change counters
+				numberOfEnemiesToSpawn--; // decrement the counter
+				if(spawnPointIndex < enemySpawnPoints.Count - 1)
+				{
+					spawnPointIndex++;
+				}
+
 				yield return new WaitForSeconds(enemySpawnRate); // spawn in an enemy every N seconds
 			}
 		}

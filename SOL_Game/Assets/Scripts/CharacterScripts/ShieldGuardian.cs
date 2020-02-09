@@ -9,7 +9,7 @@ public class ShieldGuardian : Enemy
 
 	#region Public Variables
 	public FloatValue
-		basiliskDamageToGive;
+		damageToGive;
 	public EncounterManager
 		encounterManager; // this reference is used to send a signal when the basilisk dies
 	public Transform
@@ -25,9 +25,16 @@ public class ShieldGuardian : Enemy
 		Charging = false,
 		stunned = false,
 		hittingPlayer = false,
-		canSpawnEnemies = true;
+		canDoHalfHealthEvent = true,
+		canDoQuarterHealthEvent = true,
+		canDoThreeQuarterHealthEvent = true,
+		enemyIsShacking = false; // for making the enemy look "mad"
+		
 	private float
 		enemyChargeSpeed = 15;
+
+	private float speed = 50.0f; //how fast it shakes
+	private float amount = .01f; //how much it shakes
 	#endregion
 
 	// Unity Named Methods
@@ -39,6 +46,11 @@ public class ShieldGuardian : Enemy
 		if (Charging == false && stunned == false && canAttack) // the basilisk is constantly moving
 		{
 			ChargePlayer();
+		}
+
+		if (enemyIsShacking)
+		{
+			transform.position = new Vector2(transform.position.x + (Mathf.Sin(Time.time * speed) * amount), transform.position.y + (Mathf.Sin(Time.time * speed) * amount));
 		}
 	}
 
@@ -54,7 +66,8 @@ public class ShieldGuardian : Enemy
 			{
 				Charging = false;
 				canAttack = false;
-				StartCoroutine(MoveToCenter());
+				Invoke("StartMovingToCenter", 1f);
+				
 			}
 			else
 			{
@@ -72,6 +85,7 @@ public class ShieldGuardian : Enemy
 			hittingPlayer = true;
 		}
 	}
+
 	private void OnCollisionExit2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("Player"))
@@ -82,11 +96,29 @@ public class ShieldGuardian : Enemy
 	#endregion
 
 	#region Utility Methods
+	/// <summary> this method is here so that we can unstun the enemy after a N second delay with Invoke</summary>
 	private void UnstunEnemy()
 	{
 		stunned = false;
 	}
 
+	/// <summary> for enabling the shield, and disabling attacking</summary>
+	private void StartSpawningEnemiesActions()
+	{
+		canAttack = false;
+		bossShieldSprite.enabled = true;
+		enemyIsShacking = true;
+	}
+
+	/// <summary> for disabling the shield, and enabling attacking</summary>
+	private void StopSpawningEnemiesActions()
+	{
+		canAttack = true;
+		bossShieldSprite.enabled = false;
+		enemyIsShacking = false;
+	}
+
+	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
@@ -97,12 +129,39 @@ public class ShieldGuardian : Enemy
 			canAttack = false;
 			Charging = false;
 		}
-		else if (currentHealth <= maxHealth.initialValue / 2 && canSpawnEnemies)
+
+		// check if the enemy should start a health event
+		if (currentHealth <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
 		{
-			// spawn enemies
-			canSpawnEnemies = false;
-			StartCoroutine(ShieldGuardianEnemySpawner.SpawnInEnemies());
+			canDoThreeQuarterHealthEvent = false; // this flag is here so this only can happen once
+			StartCoroutine(StartHealthEvent(1)); // start health event
 		}
+		else if (currentHealth <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
+		{
+			canDoHalfHealthEvent = false; // this flag is here so this only can happen once
+			StartCoroutine(StartHealthEvent(2)); // start health event
+		}
+		else if (currentHealth <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
+		{
+			canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
+			StartCoroutine(StartHealthEvent(3)); // start health event
+		}
+	}
+
+	/// <summary> this is every thing that happens a Health event point </summary>
+	private void HealthEvent(int numOfEnemiesToSpawn)
+	{
+		print(numOfEnemiesToSpawn + " heath event"); // debug print statement
+
+		// start doing boss spawning logic
+		StartSpawningEnemiesActions();
+		Invoke("StopSpawningEnemiesActions", numOfEnemiesToSpawn + 2);
+
+		// increase enemy charge speed
+		enemyChargeSpeed += 2.5f;
+
+		// spawn in enemies
+		StartCoroutine(ShieldGuardianEnemySpawner.SpawnInEnemies(numOfEnemiesToSpawn)); 
 	}
 
 	/// <summary> the method deals damage to the passed in player</summary>
@@ -110,18 +169,25 @@ public class ShieldGuardian : Enemy
 	{
 		if (player != null)
 		{
-			player.TakeDamage((int)basiliskDamageToGive.initialValue, false);
+			player.TakeDamage((int)damageToGive.initialValue, false);
 
 			// DEBUG CODE, REMOVE LATER
 			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
 
+	/// <summary> this method is for making the enemy charge in the players direction </summary>
 	private void ChargePlayer()
 	{
 		// Move the ranged guardian to the closest teleporter location
 		Charging = true;
 		StartCoroutine(MoveInPlayersDirection());
+	}
+
+	/// <summary> This method is here because this is the best way to start a coroutine after a N second delay using Invoke</summary>
+	private void StartMovingToCenter()
+	{
+		StartCoroutine(MoveToCenter());
 	}
 	#endregion
 
@@ -145,14 +211,14 @@ public class ShieldGuardian : Enemy
 		bossShieldSprite.enabled = false;
 	}
 
-	/// <summary> Moves a game object to a location over N seconds </summary>
+	/// <summary> Moves a game object to a center of the room position over N seconds </summary>
 	public IEnumerator MoveToCenter()
 	{
 		float seconds = 1;
 		float elapsedTime = 0;
 		Vector3 startingPosition = transform.position; // save the starting position
 
-		// move the basilisk a little each frame based on how many seconds it should take to get the ending position
+		// move the enemy a little each frame based on how many seconds it should take to get the ending position
 		while (elapsedTime < seconds)
 		{
 			transform.position = Vector3.Lerp(startingPosition, roomCenterTransform.position, (elapsedTime / seconds));
@@ -160,10 +226,29 @@ public class ShieldGuardian : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
-		// wait for N seconds
-		yield return new WaitForSeconds(2f);
 
+		yield return new WaitForSeconds(2f);
 		canAttack = true;
+
+	}
+
+	/// <summary> Moves a game object to a center of the room position over N seconds </summary>
+	public IEnumerator StartHealthEvent(int numberOfEnemiesToSpawn)
+	{
+		float seconds = 1;
+		float elapsedTime = 0;
+		Vector3 startingPosition = transform.position; // save the starting position
+
+		// move the enemy to the center
+		while (elapsedTime < seconds)
+		{
+			transform.position = Vector3.Lerp(startingPosition, roomCenterTransform.position, (elapsedTime / seconds));
+			elapsedTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+		// start the health event
+		HealthEvent(numberOfEnemiesToSpawn);
 	}
 	#endregion
 
