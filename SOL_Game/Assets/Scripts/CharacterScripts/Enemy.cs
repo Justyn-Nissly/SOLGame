@@ -123,6 +123,24 @@ public class Enemy : BaseCharacter
 	{
 		healthBar.fillAmount = percentHelth;
 	}
+
+	/// <summary>
+	/// play the teleport shader effect if there is one on the enemy
+	/// (it will find all effects on the enemy because some enemies have more than one like the shield enemy)
+	/// </summary>
+	public void PlayTeleportEffect()
+	{
+		List<_2dxFX_NewTeleportation2> enemyTeleportScripts = new List<_2dxFX_NewTeleportation2>();
+		enemyTeleportScripts.AddRange(GetComponentsInChildren<_2dxFX_NewTeleportation2>());
+
+		if (enemyTeleportScripts.Count != 0) // check for empty list
+		{
+			foreach (_2dxFX_NewTeleportation2 enemyTeleportScript in enemyTeleportScripts)
+			{
+				StartCoroutine(TeleportInEnemy(enemyTeleportScript));
+			}
+		}
+	}
 	#endregion
 
 	public Material pixelDesolveMaterial;
@@ -158,6 +176,25 @@ public class Enemy : BaseCharacter
 
 		// destroy the enemy
 		Destroy(gameObject);
+	}
+
+	private IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
+	{
+		float percentageComplete = 0;
+
+		// make the enemy invisible, this is not set by default in the prefab because
+		// then the enemy would be invisible in Dev rooms because they don't have this script running in them
+		teleportScript._Fade = 1;
+
+		// teleport the enemy in, it does this by "sliding" a float from 0 to 1 over time
+		while (percentageComplete < 1)
+		{
+			teleportScript._Fade = Mathf.Lerp(1f, 0f, percentageComplete);
+			percentageComplete += Time.deltaTime;
+			yield return null;
+		}
+
+		teleportScript._Fade = 0;
 	}
 	#endregion
 }

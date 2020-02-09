@@ -45,11 +45,6 @@ public class EnemySpawner : MonoBehaviour
 		timer = CheckInterval;
 	}
 
-	private void Update()
-	{
-
-	}
-
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// if the player collides with this trigger spawn in enemies
@@ -82,24 +77,10 @@ public class EnemySpawner : MonoBehaviour
 
 		// play the teleport shader effect if there is one on the enemy
 		//(it will find all effects on the enemy because some enemies have more than one like the shield enemy)
-		PlayTeleportEffect(tempEnemy);
+		tempEnemy.GetComponent<Enemy>().PlayTeleportEffect();
 
 		// remove this enemies spawn point from the list because its been used
 		enemySpawnPoints.Remove(enemySpawnPoints[0]);
-	}
-
-	private void PlayTeleportEffect(GameObject enemy)
-	{
-		List<_2dxFX_NewTeleportation2> enemyTeleportScripts = new List<_2dxFX_NewTeleportation2>();
-		enemyTeleportScripts.AddRange(enemy.GetComponentsInChildren<_2dxFX_NewTeleportation2>());
-
-		if (enemyTeleportScripts.Count != 0) // check for empty list
-		{
-			foreach (_2dxFX_NewTeleportation2 enemyTeleportScript in enemyTeleportScripts)
-			{
-				StartCoroutine(TeleportInEnemy(enemyTeleportScript));
-			}
-		}
 	}
 
 	/// <summary> this method unlocks any locked doors linked to this spawner if all this spawer's enemies have been defeated</summary>
@@ -143,7 +124,7 @@ public class EnemySpawner : MonoBehaviour
 
 	#region Coroutines
 	/// <summary> method to spawn in this spawner's enemies </summary>
-	private IEnumerator SpawnInEnemies()
+	public IEnumerator SpawnInEnemies()
 	{
 		// pan the camera to the newly spawned in enemies
 		if (panCamera)
@@ -167,25 +148,6 @@ public class EnemySpawner : MonoBehaviour
 
 		// unfreeze the player
 		FindObjectOfType<Player>().UnFreezePlayer();
-	}
-
-	private IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
-	{
-		float percentageComplete = 0;
-
-		// make the enemy invisible, this is not set by default in the prefab because
-		// then the enemy would be invisible in Dev rooms because they don't have this script running in them
-		teleportScript._Fade = 1;
-
-		// teleport the enemy in, it does this by "sliding" a float from 0 to 1 over time
-		while (percentageComplete < 1)
-		{
-			teleportScript._Fade = Mathf.Lerp(1f, 0f, percentageComplete);
-			percentageComplete += Time.deltaTime;
-			yield return null;
-		}
-
-		teleportScript._Fade = 0;
 	}
 	#endregion
 }
