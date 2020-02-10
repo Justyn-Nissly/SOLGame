@@ -3,8 +3,6 @@
 public class ShockwaveAttack : MonoBehaviour
 {
 	#region Enums (Empty)
-	public const float
-		ROTATION_SPEED = 1.0f; // How many degrees at a time the enemy turns towards the player
 	#endregion
 
 	#region Public Variables
@@ -15,18 +13,18 @@ public class ShockwaveAttack : MonoBehaviour
 
 	#region Private Variables
 	private Player
-		player;
-	private float
-		direction; // Angle to the player
+		player; // Reference the player
 	private AudioSource
 		source; // Make the sound
+	private float
+		direction; // The shockwave knocks the player back
 	private Vector2
-		knockBack;
+		knockBack; // Amount of force applied to the player on knockback
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	// Initalize the enemy path
+	/// <summary> Initialize the shockwave </summary>
 	void Start()
 	{
 		player = FindObjectOfType<Player>();
@@ -34,13 +32,14 @@ public class ShockwaveAttack : MonoBehaviour
 		source.Play();
 	}
 
-	// Update is called once per frame
+	/// <summary> Get the angle to the player and spread the shockwave </summary>
 	void FixedUpdate()
 	{
 		direction = Mathf.Atan2(player.transform.position.y - transform.position.y,
 								player.transform.position.x - transform.position.x);
-		knockBack = new Vector2(Mathf.Cos(direction), Mathf.Sin(direction));
+		knockBack = new Vector2(Mathf.Cos(direction), Mathf.Sin(direction)).normalized;
 
+		// The shockwave disappears after reaching its max size
 		if (transform.localScale.x < maxSpread)
 		{
 			transform.localScale += new Vector3(spreadRate, spreadRate, 0.0f);
@@ -51,14 +50,15 @@ public class ShockwaveAttack : MonoBehaviour
 		}
 	}
 
+	/// <summary> Knock back and damage the player </summary>
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (this.enabled)
 		{
 			if (collision.gameObject.tag == "Player")
 			{
-				player.TakeDamage(1, false);
 				collision.attachedRigidbody.AddRelativeForce(knockBack * 1000.0f, ForceMode2D.Force);
+				player.TakeDamage(1, false);
 			}
 		}
 	}
