@@ -20,6 +20,8 @@ public class UnlockDoorObject : MonoBehaviour
 		usedSprite;   // The sprite that is changed to when the player interacts with this object
 	public DoorLogic
 		connectedDoor; // The door connected to this object that is unlocked when this object is used
+	public DoorManager
+		allDoors = new DoorManager(); // The door manager to unlock several doors at once
 	public PuzzleLogic
 		pressurePlate; // The pressure plate connected to this object that is unlocked when this object is used
 	public SpriteRenderer
@@ -108,8 +110,16 @@ public class UnlockDoorObject : MonoBehaviour
 		// Print debug message
 		Debug.Log("you unlocked the door connected to this obj");
 
-		// Unlock connected door
-		doorManager.UnlockAllDoors();
+		// Unlock all doors
+		if(allDoors != null)
+		{
+			allDoors.UnlockAllDoors();
+		}
+		else
+		{
+			// Unlock connected door
+			doorManager.UnlockAllDoors();
+		}
 
 		// Play sound effect (it will play whatever sound is in the audio source on this game object no sound will play if there is no audio source)
 		AudioSource audioSource = GetComponent<AudioSource>();
