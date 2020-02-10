@@ -9,32 +9,31 @@ public class ShieldGuardian : Enemy
 
 	#region Public Variables
 	public FloatValue
-		damageToGive;
+		damageToGive; // the bosses damage that is dealed to the player
 	public EncounterManager
 		encounterManager; // this reference is used to send a signal when the basilisk dies
 	public Transform
-		roomCenterTransform;
+		roomCenterTransform; // a transform at the center of the room used for some of the bosses movement calculation
 	public EnemySpawner
-		ShieldGuardianEnemySpawner;
+		ShieldGuardianEnemySpawner; // a reference to the bosses enemy spawner
 	public SpriteRenderer
-		bossShieldSprite;
+		bossShieldSprite; // a reference to the bosses shield sprite renderer
 	#endregion
 
 	#region Private Variables
 	private bool
-		Charging = false,
-		stunned = false,
-		hittingPlayer = false,
-		canDoHalfHealthEvent = true,
-		canDoQuarterHealthEvent = true,
-		canDoThreeQuarterHealthEvent = true,
+		Charging = false, // flag for if the enemy is charging at the player
+		stunned = false, // flag for if the enemy is stunned
+		hittingPlayer = false, // flag fir is the enemy is colliding with the player right now
+		canDoHalfHealthEvent = true, // flag so that this health event only happens once
+		canDoQuarterHealthEvent = true, // flag so that this health event only happens once
+		canDoThreeQuarterHealthEvent = true, // flag so that this health event only happens once
 		enemyIsShacking = false; // for making the enemy look "mad"
 		
 	private float
-		enemyChargeSpeed = 15;
-
-	private float speed = 50.0f; //how fast it shakes
-	private float amount = .01f; //how much it shakes
+		enemyChargeSpeed = 15, // how fast the enemy charges at the player
+		shackSpeed = 50.0f, //how fast it shakes
+		shackAmount = .01f; //how much it shakes
 	#endregion
 
 	// Unity Named Methods
@@ -43,43 +42,49 @@ public class ShieldGuardian : Enemy
 	{
 		base.FixedUpdate();
 
-		if (Charging == false && stunned == false && canAttack) // the basilisk is constantly moving
+		// check if the boss should start charging at the player
+		if (Charging == false && stunned == false && canAttack)
 		{
-			ChargePlayer();
+			// make the boss charge at the player
+			StartCoroutine(MoveInPlayersDirection());
 		}
 
+		// if the enemy should be shacking start shacking the enemy
 		if (enemyIsShacking)
 		{
-			transform.position = new Vector2(transform.position.x + (Mathf.Sin(Time.time * speed) * amount), transform.position.y + (Mathf.Sin(Time.time * speed) * amount));
+			transform.position = new Vector2(transform.position.x + (Mathf.Sin(Time.time * shackSpeed) * shackAmount), transform.position.y + (Mathf.Sin(Time.time * shackSpeed) * shackAmount));
 		}
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
+		// if the boss collided with the player damage the player
 		if (collision.gameObject.CompareTag("Player") && Charging) // only damage the player when charging
 		{
 			DamagePlayer(collision.gameObject.GetComponent<Player>());
 		}
+		// check if the enemy hit a wall
 		else if (collision.gameObject.CompareTag("Wall"))
 		{
+			// check if the enemy is hitting the wall and the player is so move to the center (so that the player doen't get stuck between the wall and the enemy)
 			if (hittingPlayer)
 			{
 				Charging = false;
 				canAttack = false;
-				Invoke("StartMovingToCenter", 1f);
-				
+				StartCoroutine(MoveToCenter(1f));
 			}
+			// "stun" the enemy because he ran into a wall
 			else
 			{
 				Charging = false;
-				stunned = true;
-				Invoke("UnstunEnemy", 3f);
+				StartCoroutine(StunEnemy(3));
 			}
 		}
 	}
 
 	private void OnCollisionStay2D(Collision2D collision)
 	{
+		// set flag for if the player is being collided with
 		if (collision.gameObject.CompareTag("Player"))
 		{
 			hittingPlayer = true;
@@ -88,6 +93,7 @@ public class ShieldGuardian : Enemy
 
 	private void OnCollisionExit2D(Collision2D collision)
 	{
+		// set flag that the player is not being collided with
 		if (collision.gameObject.CompareTag("Player"))
 		{
 			hittingPlayer = false;
@@ -96,28 +102,6 @@ public class ShieldGuardian : Enemy
 	#endregion
 
 	#region Utility Methods
-	/// <summary> this method is here so that we can unstun the enemy after a N second delay with Invoke</summary>
-	private void UnstunEnemy()
-	{
-		stunned = false;
-	}
-
-	/// <summary> for enabling the shield, and disabling attacking</summary>
-	private void StartSpawningEnemiesActions()
-	{
-		canAttack = false;
-		bossShieldSprite.enabled = true;
-		enemyIsShacking = true;
-	}
-
-	/// <summary> for disabling the shield, and enabling attacking</summary>
-	private void StopSpawningEnemiesActions()
-	{
-		canAttack = true;
-		bossShieldSprite.enabled = false;
-		enemyIsShacking = false;
-	}
-
 	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
@@ -154,17 +138,16 @@ public class ShieldGuardian : Enemy
 		print(numOfEnemiesToSpawn + " heath event"); // debug print statement
 
 		// start doing boss spawning logic
-		StartSpawningEnemiesActions();
-		Invoke("StopSpawningEnemiesActions", numOfEnemiesToSpawn + 2);
+		StartCoroutine(SpawningEnemiesActions(numOfEnemiesToSpawn + 2));
 
 		// increase enemy charge speed
 		enemyChargeSpeed += 2.5f;
 
 		// spawn in enemies
-		StartCoroutine(ShieldGuardianEnemySpawner.SpawnInEnemies(numOfEnemiesToSpawn)); 
+		StartCoroutine(ShieldGuardianEnemySpawner.SpawnInEnemies(false, numOfEnemiesToSpawn)); 
 	}
 
-	/// <summary> the method deals damage to the passed in player</summary>
+	/// <summary> deal damage to the passed in player</summary>
 	private void DamagePlayer(Player player)
 	{
 		if (player != null)
@@ -175,30 +158,19 @@ public class ShieldGuardian : Enemy
 			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
-
-	/// <summary> this method is for making the enemy charge in the players direction </summary>
-	private void ChargePlayer()
-	{
-		// Move the ranged guardian to the closest teleporter location
-		Charging = true;
-		StartCoroutine(MoveInPlayersDirection());
-	}
-
-	/// <summary> This method is here because this is the best way to start a coroutine after a N second delay using Invoke</summary>
-	private void StartMovingToCenter()
-	{
-		StartCoroutine(MoveToCenter());
-	}
 	#endregion
 
 	#region Coroutines
-	/// <summary> Moves a game object to a location over N seconds </summary>
+	/// <summary> Moves a game object in the player direction (at the time this method is called) over N seconds </summary>
 	public IEnumerator MoveInPlayersDirection()
 	{
-		Vector3 targetDirection = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).normalized;
-
+		// set flags
+		Charging = true;
 		canTakeDamage = false;
 		bossShieldSprite.enabled = true;
+
+		// get the direction the player is in
+		Vector3 targetDirection = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).normalized;
 
 		// charge at the player
 		while (Charging == true)
@@ -207,15 +179,20 @@ public class ShieldGuardian : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
+		// set flags
 		canTakeDamage = true;
 		bossShieldSprite.enabled = false;
 	}
 
 	/// <summary> Moves a game object to a center of the room position over N seconds </summary>
-	public IEnumerator MoveToCenter()
+	public IEnumerator MoveToCenter(float delayTime = 0)
 	{
-		float seconds = 1;
-		float elapsedTime = 0;
+		float seconds = 1; // the time in second that it will take to move to the center
+		float elapsedTime = 0; // timer variable
+
+		// wait for the optional delay time before moving the boss to the center
+		yield return new WaitForSeconds(delayTime);
+
 		Vector3 startingPosition = transform.position; // save the starting position
 
 		// move the enemy a little each frame based on how many seconds it should take to get the ending position
@@ -226,7 +203,7 @@ public class ShieldGuardian : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
-
+		// add a delay before letting the boss attack again
 		yield return new WaitForSeconds(2f);
 		canAttack = true;
 
@@ -249,6 +226,30 @@ public class ShieldGuardian : Enemy
 
 		// start the health event
 		HealthEvent(numberOfEnemiesToSpawn);
+	}
+
+	/// <summary> for enabling the shield, and disabling attacking then after a delay disabling the shield, and enabling attacking again</summary>
+	private IEnumerator SpawningEnemiesActions(float delayTime)
+	{
+		canAttack = false;
+		bossShieldSprite.enabled = true;
+		enemyIsShacking = true;
+
+		yield return new WaitForSeconds(delayTime);
+
+		canAttack = true;
+		bossShieldSprite.enabled = false;
+		enemyIsShacking = false;
+	}
+
+	/// <summary> this method stuns the enemy and after a N second delay unstuns that enemy</summary>
+	private IEnumerator StunEnemy(float delayTime)
+	{
+		stunned = true;
+
+		yield return new WaitForSeconds(delayTime);
+
+		stunned = false;
 	}
 	#endregion
 

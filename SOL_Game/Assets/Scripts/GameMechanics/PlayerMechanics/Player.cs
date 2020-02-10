@@ -50,6 +50,8 @@ public class Player : BaseCharacter
 	/// <summary> Start is called before the first frame update </summary>
 	void Start()
 	{
+		BulletShootingDelay = 0;
+
 		// Set the players movement speed
 		playerMovementSpeed = .1f;
 

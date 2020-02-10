@@ -121,7 +121,7 @@ public class EnemySpawner : MonoBehaviour
 	/// <summary> method to spawn in this spawner's enemies </summary>
 	/// <param name="numberOfEnemiesToSpawn">only fill in if you want to limit the number of spawned in enemies 
 	/// (the reason the default value is 100 is because that is a limit that we will never reach)</param>
-	public IEnumerator SpawnInEnemies(int numberOfEnemiesToSpawn = 100)
+	public IEnumerator SpawnInEnemies(bool freezePlayer = true, int numberOfEnemiesToSpawn = 100)
 	{
 		int spawnPointIndex = 0;
 
@@ -131,8 +131,11 @@ public class EnemySpawner : MonoBehaviour
 			GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(enemySpawnPoints[0], 1, 1, 1f);
 		}
 
-		// freeze the player
-		FindObjectOfType<Player>().FreezePlayer();
+		// freeze the player, there is a bool check because we don't want to freeze movement in the middle of a boss fight
+		if (freezePlayer)
+		{
+			FindObjectOfType<Player>().FreezePlayer();
+		}
 
 		// spawn in each enemy in the enemies to spawn list
 		foreach (GameObject enemy in enemiesToSpawn)
@@ -144,7 +147,7 @@ public class EnemySpawner : MonoBehaviour
 
 				// change counters
 				numberOfEnemiesToSpawn--; // decrement the counter
-				if(spawnPointIndex < enemySpawnPoints.Count - 1)
+				if (spawnPointIndex < enemySpawnPoints.Count - 1)
 				{
 					spawnPointIndex++;
 				}
@@ -154,7 +157,10 @@ public class EnemySpawner : MonoBehaviour
 		}
 
 		// unfreeze the player
-		FindObjectOfType<Player>().UnFreezePlayer();
+		if (freezePlayer)
+		{
+			FindObjectOfType<Player>().UnFreezePlayer();
+		}
 	}
 	#endregion
 }
