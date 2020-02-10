@@ -53,6 +53,7 @@ public class PuzzleLogic : MonoBehaviour
 			// If the puzzle is solved call a method that completes it
 			if (collision.CompareTag("PuzzleItem"))
 			{
+				isComplete = true;
 				OnPuzzleComplete(collision.gameObject);
 			}
 			else if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
@@ -107,8 +108,13 @@ public class PuzzleLogic : MonoBehaviour
 		// Play the puzzle solved sound
 		GetComponent<AudioSource>().Play();
 
-		// Unlock the doors
-		doorManager.UnlockAllDoors();
+
+		// Check if all the pressure plates are pressed
+		if(doorManager.pressurePlates.Count == doorManager.CheckPressurePlatesPressed())
+		{
+			// Unlock the doors
+			doorManager.UnlockAllDoors();
+		}
 	}
 
 	/// <summary> method to enable the lazer sprite when the puzzle is completed </summary>
