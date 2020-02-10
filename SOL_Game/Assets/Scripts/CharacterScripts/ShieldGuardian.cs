@@ -10,8 +10,6 @@ public class ShieldGuardian : Enemy
 	#region Public Variables
 	public FloatValue
 		damageToGive; // the bosses damage that is dealed to the player
-	public EncounterManager
-		encounterManager; // this reference is used to send a signal when the basilisk dies
 	public Transform
 		roomCenterTransform; // a transform at the center of the room used for some of the bosses movement calculation
 	public EnemySpawner
@@ -117,7 +115,6 @@ public class ShieldGuardian : Enemy
 
 		if (currentHealth <= 0)
 		{
-			//encounterManager.EndEncounter();
 			canAttack = false;
 			Charging = false;
 		}
