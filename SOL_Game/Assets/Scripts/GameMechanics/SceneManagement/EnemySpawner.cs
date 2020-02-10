@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
 			// start checking if the enemies have been defeated(for unlocking doors so dont check this if there are no doors)
 			if(doorManager.doors.Count > 0)
 			{
-				InvokeRepeating("CheckEnemies", 1f, .5f);  //1s delay, repeat every .5s
+				StartCheckingIfEnemiesDefeated();  //1s delay, repeat every .5s
 			}
 		}
 	}
@@ -78,6 +78,12 @@ public class EnemySpawner : MonoBehaviour
 		// play the teleport shader effect if there is one on the enemy
 		//(it will find all effects on the enemy because some enemies have more than one like the shield enemy)
 		tempEnemy.GetComponent<Enemy>().PlayTeleportEffect();
+	}
+
+	/// <summary> this starts the logic to check if all this spawners enemies are defeated (this is a separate method so that other scripts can call this)</summary>
+	public void StartCheckingIfEnemiesDefeated()
+	{
+		InvokeRepeating("CheckEnemies", 1f, .5f);  //1s delay, repeat every .5s
 	}
 
 	/// <summary> this method unlocks any locked doors linked to this spawner if all this spawer's enemies have been defeated</summary>
@@ -114,6 +120,12 @@ public class EnemySpawner : MonoBehaviour
 		}
 
 		return true;
+	}
+
+	/// <summary> for adding a new enemy that needs to die before the doors unlock (mainly used for boss battles)</summary>
+	public void AddNewEnemyID(int enemyID)
+	{
+		enemyIDs.Add(enemyID);
 	}
 	#endregion
 

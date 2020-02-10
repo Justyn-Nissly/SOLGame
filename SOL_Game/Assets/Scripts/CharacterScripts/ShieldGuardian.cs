@@ -38,6 +38,14 @@ public class ShieldGuardian : Enemy
 
 	// Unity Named Methods
 	#region Main Methods
+	public override void Start()
+	{
+		base.Start();
+
+		ShieldGuardianEnemySpawner.AddNewEnemyID(gameObject.GetInstanceID());
+		ShieldGuardianEnemySpawner.StartCheckingIfEnemiesDefeated();
+	}
+
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
@@ -109,7 +117,7 @@ public class ShieldGuardian : Enemy
 
 		if (currentHealth <= 0)
 		{
-			encounterManager.EndEncounter();
+			//encounterManager.EndEncounter();
 			canAttack = false;
 			Charging = false;
 		}
