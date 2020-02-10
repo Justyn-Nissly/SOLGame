@@ -10,6 +10,8 @@ public class HammerGuardianMovement : MonoBehaviour
 	#region Public Variables
 	public float
 		moveSpeed; // How fast the guardian moves
+	public bool
+		canMove; // Check if the guardian is able to move
 	#endregion
 
 	#region Private Variables
@@ -35,26 +37,6 @@ public class HammerGuardianMovement : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
 	{
-		direction = GetDirection();
-
-/*		// Remove after debugging
-		if (direction == Vector2.up)
-		{
-				Debug.Log("Direction = UP");
-		}
-		else if (direction == Vector2.down)
-		{
-			Debug.Log("Direction = DOWN");
-		}
-		else if (direction == Vector2.right)
-		{
-			Debug.Log("Direction = RIGHT");
-		}
-		else
-		{
-			Debug.Log("Direction = LEFT");
-		}*/
-
 		if (Vector2.Distance(transform.position, player.transform.position) > 4.2f)
 		{
 			Pursue();
@@ -87,26 +69,13 @@ public class HammerGuardianMovement : MonoBehaviour
 		currentAngle = (currentAngle + 360.0f) % 360.0f;
 
 		// Prevent the 360-degree max on an angle from messing up the calculation
-		if (Mathf.Abs(currentAngle - targetAngle) >= 180.0f)
-		{
-			if (targetAngle > currentAngle)
-			{
-				currentAngle += 360.0f;
-			}
-			else
-			{
-				targetAngle += 360.0f;
-			}
-		}
+		currentAngle += ((targetAngle - currentAngle <= 180.0f) ? 0.0f : 360.0f);
+		targetAngle  += ((currentAngle - targetAngle <= 180.0f) ? 0.0f : 360.0f);
 
 		// Set the angle to rotate to
-		if (currentAngle < targetAngle - ROTATION_SPEED)
+		if (Mathf.Abs(currentAngle - targetAngle) > ROTATION_SPEED)
 		{
-			currentAngle += ROTATION_SPEED;
-		}
-		else if (currentAngle > targetAngle + ROTATION_SPEED)
-		{
-			currentAngle -= ROTATION_SPEED;
+			currentAngle += ROTATION_SPEED * ((targetAngle > currentAngle) ? 1.0f : -1.0f);
 		}
 		else
 		{
@@ -117,17 +86,17 @@ public class HammerGuardianMovement : MonoBehaviour
 		transform.rotation = Quaternion.AngleAxis(currentAngle + 90.0f, Vector3.forward);
 	}
 
-	private Vector2 GetDirection()
+	private Vector2 GetDirection() // Tested and working
 	{
-		if ((currentAngle - 45.0f) % 360 >= 45.0f && (currentAngle - 45.0f) % 360 <= 135.0f)
+		if (currentAngle % 360 >= 45.0f && currentAngle % 360 <= 135.0f)
 		{
 			return Vector2.up;
 		}
-		else if (((currentAngle - 45.0f) - 45.0f) % 360 >= 225.0f && (currentAngle - 45.0f) % 360 <= 315.0f)
+		else if (currentAngle % 360 >= 225.0f && currentAngle % 360 <= 315.0f)
 		{
 			return Vector2.down;
 		}
-		else if ((currentAngle - 45.0f) % 360 > 135.0f && (currentAngle - 45.0f) % 360 < 315.0f)
+		else if (currentAngle % 360 > 135.0f && currentAngle % 360 < 315.0f)
 		{
 			return Vector2.left;
 		}
