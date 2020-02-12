@@ -9,7 +9,10 @@ public class HammerGuardianMovement : MonoBehaviour
 
 	#region Public Variables
 	public float
-		moveSpeed; // How fast the guardian moves
+		moveSpeed,   // How fast the guardian moves
+		targetAngle; // Angle the guardian will turn towards
+	public Vector2
+		direction; // The direction the guardian will go
 	public bool
 		canMove; // Check if the guardian is able to move
 	#endregion
@@ -17,11 +20,10 @@ public class HammerGuardianMovement : MonoBehaviour
 	#region Private Variables
 	private Player
 		player; // Reference the player
-	private Vector2
-		direction; // The direction the guardian will go
 	private float
-		currentAngle, // Angle the guardian is currently turned
-		targetAngle;  // Angle the guardian will turn towards
+		currentAngle; // Angle the guardian is currently turned
+	private Vector2
+		facing; // Used to return the direction of the guardian
 	#endregion
 
 	// Unity Named Methods
@@ -36,23 +38,26 @@ public class HammerGuardianMovement : MonoBehaviour
 	/// <summary> Turn towards and chase down the player </summary>
 	void FixedUpdate()
 	{
-		// Follow the player but not closely enough to trap him
-		if (Vector2.Distance(transform.position, player.transform.position) > 4.2f)
+		if (canMove)
 		{
-			Pursue();
-		}
+			// Follow the player but not closely enough to trap him
+			if (Vector2.Distance(transform.position, player.transform.position) > 4.2f)
+			{
+				Pursue();
+			}
 
-		// Turn towards the player if not right up on him
-		if (Vector2.Distance(transform.position, player.transform.position) > 0.2f)
-		{
-			TurnTowardsTarget();
+			// Turn towards the player if not right up on him
+			if (Vector2.Distance(transform.position, player.transform.position) > 0.2f)
+			{
+				TurnTowardsTarget();
+			}
 		}
 	}
 	#endregion
 
 	/// <summary> Chase the player </summary>
 	#region Utility Methods
-	public void Pursue()
+	private void Pursue()
 	{
 		// Move from the current position towards the player
 		transform.position =
@@ -64,7 +69,7 @@ public class HammerGuardianMovement : MonoBehaviour
 	}
 
 	/// <summary> Turn towards the player instead of snapping to facing him </summary>
-	public void TurnTowardsTarget()
+	private void TurnTowardsTarget()
 	{
 		// Get the angle between the enemy and player
 		direction   = player.transform.position - transform.position;
@@ -87,30 +92,28 @@ public class HammerGuardianMovement : MonoBehaviour
 		{
 			currentAngle = targetAngle;
 		}
-
-		// Apply the rotation
-		transform.rotation = Quaternion.AngleAxis(currentAngle + 90.0f, Vector3.forward);
 	}
 
-	/// <summary> Get the general direction towards the player </summary>
-	private Vector2 GetDirection()
+	/// <summary> Get the general direction the guardian is facing </summary>
+	public Vector2 GetDirection()
 	{
 		if (currentAngle % 360 >= 45.0f && currentAngle % 360 <= 135.0f)
 		{
-			return Vector2.up;
+			facing = Vector2.up;
 		}
 		else if (currentAngle % 360 >= 225.0f && currentAngle % 360 <= 315.0f)
 		{
-			return Vector2.down;
+			facing = Vector2.down;
 		}
 		else if (currentAngle % 360 > 135.0f && currentAngle % 360 < 315.0f)
 		{
-			return Vector2.left;
+			facing = Vector2.left;
 		}
 		else
 		{
-			return Vector2.right;
+			facing = Vector2.right;
 		}
+		return facing;
 	}
 	#endregion
 
