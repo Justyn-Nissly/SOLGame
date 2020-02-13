@@ -13,7 +13,7 @@ public class ConveyorBelt : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	[Header("Keep at least 300.")]
+	[Header("250 stops the male player.")]
 	public float
 		speed; // How fast the conveyor belt pushes things
 	public Direction
@@ -45,7 +45,7 @@ public class ConveyorBelt : MonoBehaviour
 	private void OnTriggerStay2D(Collider2D collider)
 	{
 		// if the player collides with this trigger spawn in enemies
-		if (isMoving)
+		if (isMoving && (collider.tag == "Player" || collider.tag == "Enemy"))
 		{
 			collider.attachedRigidbody.AddRelativeForce(movement * speed, ForceMode2D.Force);
 		}

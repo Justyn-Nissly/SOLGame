@@ -20,6 +20,8 @@ public class HammerGuardianController : Enemy
 	public int
 		phase,       // The guardian's battle phase
 		phaseHealth; // The guardian's starting health at each phase
+	public SpriteRenderer
+		sprite; // The guardian's sprite
 	#endregion
 
 	#region Private Variables
@@ -56,6 +58,9 @@ public class HammerGuardianController : Enemy
 	/// <summary> Turn towards and chase down the player </summary>
 	override public void FixedUpdate()
 	{
+		// Make the character lower down overlap the character higher up
+		Overlap();
+
 		// The weak point rotates with the guardian
 		RotateWeakness();
 
@@ -66,6 +71,7 @@ public class HammerGuardianController : Enemy
 		Targeting();
 
 		// Check if the guardian should take damage
+		canTakeDamage = isAttacking;
 		weakness.health = ((isAttacking) ? (int) currentHealth : HEALTH_GUARD);
 	}
 	#endregion
@@ -162,6 +168,10 @@ public class HammerGuardianController : Enemy
 	{
 		if (isAttacking)
 		{
+			// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
+			sprite.color = Color.red;
+			// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
+
 			// The guardian takes damage only when it is ready to attack
 			currentHealth = weakness.health;
 
@@ -184,6 +194,9 @@ public class HammerGuardianController : Enemy
 			if (restTimer > 0.0f)
 			{
 				restTimer -= Time.deltaTime;
+				// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
+				sprite.color = Color.green;
+				// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
 			}
 
 			// The guardian can pursue the player
@@ -194,6 +207,10 @@ public class HammerGuardianController : Enemy
 				// If the player is in position to be attacked long enough the guardian attacks
 				if (AttackCheck())
 				{
+					// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
+					sprite.color = new Vector4(1.0f - (attackTimer / attackTime), 0.0f, attackTimer / attackTime, 1.0f);
+					// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
+
 					attackTimer -= Time.deltaTime;
 					if (attackTimer <= 0.0f)
 					{
@@ -226,6 +243,11 @@ public class HammerGuardianController : Enemy
 				Destroy(gameObject);
 			}
 		}
+	}
+
+	private void Overlap()
+	{
+		sprite.sortingOrder = ((player.transform.position.y < this.transform.position.y) ? 0 : 2);
 	}
 	#endregion
 
