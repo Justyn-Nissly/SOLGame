@@ -38,7 +38,7 @@ public class UnlockDoorObject : MonoBehaviour
 		objectRenderer; // A reference to this objects sprite renderer for changing the sprite later
 	private DoorManager
 		doorManager = new DoorManager();
-	private bool 
+	private bool
 		canUseObject        = false, // For knowing if you are allowed to use this object at this time
 		playerHasUsedObject = false; // Used to make sure the player cant use this object more than once
 	#endregion

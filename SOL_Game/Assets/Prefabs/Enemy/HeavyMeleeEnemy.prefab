@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 7347723363600433070}
   - component: {fileID: 8385601126491959586}
   - component: {fileID: -3872843509878049442}
+  - component: {fileID: -6790644518131648715}
   m_Layer: 9
   m_Name: HeavyMeleeEnemy
   m_TagString: Enemy
@@ -425,6 +426,8 @@ MonoBehaviour:
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
   powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
+  pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
+    type: 2}
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
 --- !u!114 &302527603158291442
@@ -586,6 +589,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-6790644518131648715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  __MainTex2: {fileID: 0}
+  _Fade: 0
+  _HDR_Intensity: 1
+  TeleportationColor: {r: 1, g: 0.0902453, b: 0, a: 1}
+  _Distortion: 1
+  _Value4: 0
+  _AutoScrollX: 0
+  _AutoScrollSpeedX: 0
+  _AutoScrollY: 0
+  _AutoScrollSpeedY: 0
+  ShaderChange: 0
+  ActiveUpdate: 1
 --- !u!1 &8293376743106351247
 GameObject:
   m_ObjectHideFlags: 0

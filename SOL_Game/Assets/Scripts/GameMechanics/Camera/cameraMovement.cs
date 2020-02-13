@@ -55,9 +55,14 @@ public class cameraMovement : MonoBehaviour
 		float elapsedTime = 0;
 		Vector3 startingPos = objectToMove.transform.position;
 
-		// freeze player movement
-		FindObjectOfType<Player>().playerAllowedToMove = false;
+		// freeze player movement, this does freeze player movement bit freezes in the running animation NEED TO FIX
+		Player player = FindObjectOfType<Player>();
+		if(player != null)
+		{
+			player.FreezePlayer();
+		}
 
+		// move the camera to the location
 		while (elapsedTime < timeToLocation)
 		{
 			objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / timeToLocation));
@@ -67,12 +72,13 @@ public class cameraMovement : MonoBehaviour
 
 		objectToMove.transform.position = end;
 
+		// pause the camera at the end location for N seconds
 		yield return new WaitForSeconds(pauseTime);
-
 
 		elapsedTime = 0;
 		startingPos = objectToMove.transform.position;
 
+		// move the camera back to the player
 		while (elapsedTime < timeBackToPlayer)
 		{
 			objectToMove.transform.position = Vector3.Lerp(startingPos, new Vector3(target.position.x, target.position.y, transform.position.z), (elapsedTime / timeBackToPlayer));
@@ -83,7 +89,10 @@ public class cameraMovement : MonoBehaviour
 		objectToMove.transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
 		// unfreeze player movement
-		FindObjectOfType<Player>().playerAllowedToMove = true;
+		if (player != null)
+		{
+			player.UnFreezePlayer();
+		}
 
 		cameraIsPanning = false;
 	}

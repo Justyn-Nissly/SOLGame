@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 8628603387885392272}
   - component: {fileID: -7943860403318789106}
   - component: {fileID: 1294742619549527254}
+  - component: {fileID: 954745316147881309}
   m_Layer: 9
   m_Name: MeleeShieldEnemy
   m_TagString: Enemy
@@ -280,7 +281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8317361776883795863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.72342, y: -2.7213304, z: -0.7954795}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 8317361777743222048}
@@ -306,7 +307,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -421,10 +422,11 @@ MonoBehaviour:
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
-  enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
-  powerUp: {fileID: 0}
+  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
+  pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
+    type: 2}
 --- !u!114 &8317361776883795861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,6 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372e5866b75e48e448d35f8994ea5a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackReach: 0
   maxChaseTime: 6
   canMoveAtPlayer: 1
 --- !u!82 &1294742619549527254
@@ -583,6 +586,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &954745316147881309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8317361776883795863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
+  _Fade: 0
+  _HDR_Intensity: 1
+  TeleportationColor: {r: 1, g: 0.09019608, b: 0, a: 1}
+  _Distortion: 1
+  _Value4: 0
+  _AutoScrollX: 0
+  _AutoScrollSpeedX: 0
+  _AutoScrollY: 0
+  _AutoScrollSpeedY: 0
+  ShaderChange: 0
+  ActiveUpdate: 1
 --- !u!1 &8317361777743222051
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +654,7 @@ GameObject:
   - component: {fileID: 8317361777845739317}
   - component: {fileID: 8317361777845739306}
   - component: {fileID: 8317361777845739316}
+  - component: {fileID: 6800886027172460897}
   m_Layer: 9
   m_Name: EnemyShield
   m_TagString: Untagged
@@ -662,7 +693,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -721,3 +752,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.49, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &6800886027172460897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8317361777845739319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
+  _Fade: 0
+  _HDR_Intensity: 1
+  TeleportationColor: {r: 1, g: 0.09019608, b: 0, a: 1}
+  _Distortion: 1
+  _Value4: 0
+  _AutoScrollX: 0
+  _AutoScrollSpeedX: 0
+  _AutoScrollY: 0
+  _AutoScrollSpeedY: 0
+  ShaderChange: 0
+  ActiveUpdate: 1

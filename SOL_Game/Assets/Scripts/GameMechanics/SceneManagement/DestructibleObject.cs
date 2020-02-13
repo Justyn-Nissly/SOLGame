@@ -17,7 +17,7 @@ public class DestructibleObject : MonoBehaviour
 
 	#region Public Variables
 	public WeaponTag weaponDestroysObject;
-	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all door that will be unlocked when this destructible object is destroyed (this list can be empty)
+	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all doors that will be unlocked when this destructible object is destroyed (this list can be empty)
 	public Sprite destroyedSprite; // the sprite that is changed to when this destructible object is destroyed 
 	public int health;
 	#endregion
@@ -31,7 +31,7 @@ public class DestructibleObject : MonoBehaviour
 
 	private void Start()
 	{
-		// add all doors to the door manager and lock all the doors because they should be locked
+		// add all doors to the door manager
 		doorManager.doors.AddRange(doorsUnlocked);
 	}
 
@@ -79,7 +79,7 @@ public class DestructibleObject : MonoBehaviour
 	private void DestroyObject()
 	{
 		// unlock any doors that need to be unlocked
-		doorManager.UnlockAllDoors();
+		doorManager.UnlockDoors();
 
 		// change to the destroyed sprite if there is one else destroy this gameobject
 		if (destroyedSprite != null)

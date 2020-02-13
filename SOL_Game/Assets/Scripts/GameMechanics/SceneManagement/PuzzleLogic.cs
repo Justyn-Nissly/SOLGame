@@ -16,11 +16,11 @@ public class PuzzleLogic : MonoBehaviour
 				  openSprite,       // The sprite to show the pressure plate is open
 				  unpoweredSprite,  // The sprite to show the pressure plate is unpowered
 				  unlockedSprite;   // The sprite to show the pressure plate is unlocked
-	public DoorManager 
+	public DoorManager
 		doorManager; // Used to unlock the door(s) that the puzzle unlocks
-	public SpriteRenderer 
+	public SpriteRenderer
 		LazerSprite; // This sprite is enabled when the puzzle is completed (if this sprite renderer is NULL nothing will happen it will not cause an error)
-	public bool 
+	public bool
 		playerCanTriggerPressurePlate = true, // A flag for if the player can trigger the pressure plate
 		isComplete, // A flag checking if the puzzle is complete
 		isPowered,  // A flag checking if the pressure plate is powered
@@ -78,7 +78,7 @@ public class PuzzleLogic : MonoBehaviour
 			spriteRenderer.sprite = unlockedSprite;
 
 			// Lock the doors
-			doorManager.LockAllDoors();
+			doorManager.LockDoors();
 		}
 	}
 	#endregion
