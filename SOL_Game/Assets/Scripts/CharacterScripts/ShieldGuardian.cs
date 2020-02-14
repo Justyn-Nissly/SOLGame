@@ -239,12 +239,14 @@ public class ShieldGuardian : Enemy
 		canAttack = false;
 		bossShieldSprite.enabled = true;
 		enemyIsShacking = true;
+		canTakeDamage = false;
 
 		yield return new WaitForSeconds(delayTime);
 
 		canAttack = true;
 		bossShieldSprite.enabled = false;
 		enemyIsShacking = false;
+		canTakeDamage = true;
 	}
 
 	/// <summary> this method stuns the enemy and after a N second delay unstuns that enemy</summary>
