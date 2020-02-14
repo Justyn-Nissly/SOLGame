@@ -61,7 +61,7 @@ public class PuzzleLogic : MonoBehaviour
 				spriteRenderer.sprite = completeSprite;
 
 				// Unlock the doors
-				doorManager.UnlockAllDoors();
+				doorManager.UnlockDoors();
 			}
 		}
 	}
@@ -113,7 +113,7 @@ public class PuzzleLogic : MonoBehaviour
 		if(doorManager.pressurePlates.Count == doorManager.CheckPressurePlatesPressed())
 		{
 			// Unlock the doors
-			doorManager.UnlockAllDoors();
+			doorManager.UnlockDoors();
 		}
 	}
 

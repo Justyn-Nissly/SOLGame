@@ -5,31 +5,33 @@ using UnityEngine;
 public class UnlockDoorObject : MonoBehaviour
 {
 	#region Enums
-	public enum DoorType
+	public enum SwitchType
 	{
-		door,         // A door
-		pressurePlate // A hatch over a pressure plate
+		doorSwitch,         // A switch for opening a door
+		spawnerSwitch,      // A switch is for spawning enemies
+		pressurePlateSwitch // A switch for opening a hatch over a pressure plate
 	}
 	#endregion
 
 	#region Public Variables
-	public DoorType
-		doorType; // The type of door that is being unlocked
+	public SwitchType
+		switchType; // The type of switch that is being used
 	public Sprite
 		unusedSprite, // The default sprite
 		usedSprite;   // The sprite that is changed to when the player interacts with this object
-	public DoorLogic
-		connectedDoor; // The door connected to this object that is unlocked when this object is used
+	//public DoorLogic
+	//	connectedDoor; // The door connected to this object that is unlocked when this object is used
 	public DoorManager
 		allDoors = new DoorManager(); // The door manager to unlock several doors at once
+	public EnemySpawner
+		spawner; // The enemies to spawn
 	public PuzzleLogic
 		pressurePlate; // The pressure plate connected to this object that is unlocked when this object is used
 	public SpriteRenderer
 		intractableSpriteRenderer; // This is the ! that is signals an intractable object
 	public bool
-		isDoor,         // A flag checking if the the item being activated is a door or a pressure plate
-		isPowerSwitch,  // Check to see if the switch is for enabling power
-		isUnlockSwitch; // Check to see if the switch if for unlocking a door
+		isPowerSwitch,   // Check to see if the switch is for enabling power
+		isUnlockSwitch;  // Check to see if the switch if for unlocking a door
 
 	#endregion
 
@@ -40,7 +42,8 @@ public class UnlockDoorObject : MonoBehaviour
 		doorManager = new DoorManager();
 	private bool
 		canUseObject        = false, // For knowing if you are allowed to use this object at this time
-		playerHasUsedObject = false; // Used to make sure the player cant use this object more than once
+		playerHasUsedObject = false, // Used to make sure the player cant use this object more than once
+		isSwitchFlipped     = false; // The state of the switch
 	#endregion
 
 	// Unity Named Methods
@@ -53,17 +56,21 @@ public class UnlockDoorObject : MonoBehaviour
 		objectRenderer.sprite = unusedSprite;
 
 		// Add the connected door to the door manager
-		doorManager.doors.Add(connectedDoor);
+		//doorManager.doors.Add(connectedDoor);
 	}
 
 	private void Update()
 	{
 		// Check to see if the switch has been flipped
-		if(playerHasUsedObject == false && canUseObject && (Input.GetKey(KeyCode.E) || CheckForAttackInput()))
+		if(playerHasUsedObject == false && canUseObject && (Input.GetKeyDown(KeyCode.E) || CheckForAttackInput()))
 		{
-			if (doorType == DoorType.door)
+			if (switchType == SwitchType.doorSwitch)
 			{
 				UseObject();
+			}
+			else if (switchType == SwitchType.spawnerSwitch && isSwitchFlipped == false)
+			{
+				SpawnEnemies();
 			}
 			else
 			{
@@ -113,12 +120,12 @@ public class UnlockDoorObject : MonoBehaviour
 		// Unlock all doors
 		if(allDoors != null)
 		{
-			allDoors.UnlockAllDoors();
+			allDoors.UnlockDoors();
 		}
 		else
 		{
 			// Unlock connected door
-			doorManager.UnlockAllDoors();
+			doorManager.UnlockDoors();
 		}
 
 		// Play sound effect (it will play whatever sound is in the audio source on this game object no sound will play if there is no audio source)
@@ -139,6 +146,25 @@ public class UnlockDoorObject : MonoBehaviour
 	private bool CheckForAttackInput()
 	{
 		return Input.GetButton("B") || Input.GetButton("X") || Input.GetButton("A") || Input.GetButton("Y");
+	}
+
+	///<summary> Spawn in enemies if the switch is flipped </summary>
+	private void SpawnEnemies()
+	{
+		// Set the switch's state to on
+		isSwitchFlipped = true;
+
+		// Start spawning in enemies
+		spawner.StartCoroutine(spawner.SpawnInEnemies());
+
+		// Lock any doors
+		doorManager.LockDoors();
+
+		// Start checking if the enemies have been defeated(for unlocking doors so dont check this if there are no doors)
+		if (doorManager.doors.Count > 0)
+		{
+			spawner.StartCheckingIfEnemiesDefeated();  //1s delay, repeat every .5s
+		}
 	}
 
 	///<summary> Open or power the pressure plate when the lever is flipped </summary>
