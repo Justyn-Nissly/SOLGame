@@ -81,7 +81,7 @@ public class Enemy : BaseCharacter
                 {
                     currentHealth += healPerLoop;
                     SetHealth(currentHealth / maxHealth.initialValue);
-                    Debug.Log("enemy CurrentHealth = " + currentHealth);
+                    //Debug.Log("enemy CurrentHealth = " + currentHealth);
                 }
             }
             else

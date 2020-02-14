@@ -15,6 +15,8 @@ public class SplitLeviathan : Enemy
 		leviathan;
 	public LockOnProjectile
 		lockOnProjectile;
+	public GameObject
+		poison;
 	#endregion
 
 	#region Private Variables
@@ -22,7 +24,9 @@ public class SplitLeviathan : Enemy
 		Moving = false;
 
 	private float
-		enemyChargeSpeed = 5; // how fast the enemy charges at the player
+		enemyChargeSpeed = 5, // how fast the enemy charges at the player
+		poisonTimer = .25f,
+		poisonMaxTimer = .25f;
 
 	#endregion
 
@@ -30,15 +34,16 @@ public class SplitLeviathan : Enemy
 	#region Main Methods
 	private void Awake()
 	{
-		lockOnProjectile.target = GameObject.FindGameObjectWithTag("Player");
+		lockOnProjectile.target = CreateTarget();
 	}
 
-	//public override void Start()
-	//{
-	//	base.Start();
+	public override void FixedUpdate()
+	{
+		base.FixedUpdate();
 
-	//	//StartCoroutine(MoveInPlayersDirection());
-	//}
+		// creates a poison spot every N seconds
+		PoisonLogic();
+	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -50,6 +55,8 @@ public class SplitLeviathan : Enemy
 		if(collision.gameObject.CompareTag("Enemy") && collision.gameObject.GetComponent<SplitLeviathan>() != null)
 		{
 			leviathan.Merge(transform.position);
+
+			Destroy(lockOnProjectile.target);
 			Destroy(collision.gameObject);
 			Destroy(gameObject);
 		}
@@ -57,16 +64,33 @@ public class SplitLeviathan : Enemy
 	#endregion
 
 	#region Utility Methods
+	private void PoisonLogic()
+	{
+		if (poisonTimer < 0)
+		{
+			Destroy(Instantiate(poison, transform.position, new Quaternion(0, 0, 0, 0)), 5f);
+
+			poisonTimer = poisonMaxTimer;
+		}
+		else
+		{
+			poisonTimer -= Time.deltaTime;
+		}
+	}
+
+	private GameObject CreateTarget()
+	{
+		GameObject targetGameObject = new GameObject("target game object");
+		targetGameObject.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+		return targetGameObject;
+	}
+
 	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		base.TakeDamage(damage, playSwordImpactSound);
-
-		if (currentHealth <= 0)
-		{
-			canAttack = false;
-			Moving = false;
-		}
+		//base.TakeDamage(damage, playSwordImpactSound);
+		leviathan.TakeDamage(damage, playSwordImpactSound);
 	}
 
 	/// <summary> deal damage to the passed in player</summary>

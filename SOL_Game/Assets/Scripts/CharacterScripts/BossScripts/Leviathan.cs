@@ -15,28 +15,33 @@ public class Leviathan : Enemy
 		roomCenterTransform, // a transform at the center of the room used for some of the bosses movement calculation
 		offScreenLocation,
 		splitLeviathanSpawnPointOne,
-		splitLeviathanSpawnPointTwo;
+		splitLeviathanSpawnPointTwo,
+		missileSpawnPoint;
 	public EnemySpawner
 		LeviathanEnemySpawner; // a reference to the bosses enemy spawner
 	public GameObject
-		splitLeviathan;
+		homingMissile,
+		splitLeviathan,
+		staticArmLeft,
+		staticArmRight,
+		spinningArmLeft,
+		spinningArmRight,
+		poison,
+		healthCanvas;
 
 	#endregion
 
 	#region Private Variables
 	private bool
-		Moving = false, // flag for if the enemy is charging at the player
-		stunned = false, // flag for if the enemy is stunned
-		hittingPlayer = false, // flag fir is the enemy is colliding with the player right now
-		canDoHalfHealthEvent = true, // flag so that this health event only happens once
-		canDoQuarterHealthEvent = true, // flag so that this health event only happens once
-		canDoThreeQuarterHealthEvent = true, // flag so that this health event only happens once
-		enemyIsShacking = false; // for making the enemy look "mad"
+		Moving = false; // flag for if the enemy is charging at the player
+
 
 	private float
-		enemyChargeSpeed = 15, // how fast the enemy charges at the player
-		shackSpeed = 50.0f, //how fast it shakes
-		shackAmount = .01f; //how much it shakes
+		enemyMoveSpeed = 15,
+		timer = 5,
+		maxTimer = 5,
+		poisonTimer = .25f,
+		poisonMaxTimer = .25f;
 	#endregion
 
 	// Unity Named Methods
@@ -49,10 +54,34 @@ public class Leviathan : Enemy
 		//LeviathanEnemySpawner.StartCheckingIfEnemiesDefeated();
 	}
 
+	private void OnEnable()
+	{
+		healthCanvas.SetActive(true);
+	}
+
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 
+		if(canAttack)
+			PoisonLogic();
+
+		if (timer < 0 && canAttack)
+		{
+			// shoot a missile if the player is a certain distance away
+			if(Vector2.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, gameObject.transform.position) >= 12)
+				HomingMissileAttack();
+			else
+				SplitIntoTwoAttack();
+
+			timer = maxTimer;
+		}
+		else
+		{
+			timer -= Time.deltaTime;
+		}
+
+		
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -66,7 +95,53 @@ public class Leviathan : Enemy
 	#endregion
 
 	#region Utility Methods
-	private void SplitIntoTwo()
+	private void PoisonLogic()
+	{
+		if (poisonTimer < 0)
+		{
+			Destroy(Instantiate(poison, transform.position, new Quaternion(0, 0, 0, 0)), 5f);
+
+			poisonTimer = poisonMaxTimer;
+		}
+		else
+		{
+			poisonTimer -= Time.deltaTime;
+		}
+	}
+
+	private GameObject CreateTarget()
+	{
+		GameObject targetGameObject = new GameObject("target game object");
+		targetGameObject.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+		return targetGameObject;
+	}
+
+	private void HomingMissileAttack()
+	{
+		GameObject missile = Instantiate(homingMissile, missileSpawnPoint.position, missileSpawnPoint.rotation);
+
+		LockOnProjectile lockOnProjectile = missile.GetComponent<LockOnProjectile>();
+		if(lockOnProjectile != null)
+		{
+			//lockOnProjectile.target = CreateTarget();
+
+			// make the projectile veer in a random direction
+			if(Random.Range(0, 1) == 0)
+			{
+				lockOnProjectile.veerLeft = true;
+			}
+			else
+			{
+				lockOnProjectile.veerLeft = false;
+			}
+
+			// get the projectiles target
+			lockOnProjectile.target = GameObject.FindGameObjectWithTag("Player");
+		}
+	}
+
+	private void SplitIntoTwoAttack()
 	{
 		// create the first split leviathan
 		GameObject splitLeviathanGO = Instantiate(splitLeviathan, splitLeviathanSpawnPointOne.position, new Quaternion(0, 0, 0, 0));
@@ -98,12 +173,17 @@ public class Leviathan : Enemy
 
 
 		// move the main leviathan off screen
+		//aggro = true; // this disables the enemies movement
+		canAttack = false;
 		transform.position = offScreenLocation.position;
 	}
 
 	public void Merge(Vector3 mergePosition)
 	{
+		//aggro = false; // this re-enables the enemies movement
 		transform.position = mergePosition;
+
+		StartCoroutine(DoSpinAttack());
 	}
 
 	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
@@ -116,8 +196,6 @@ public class Leviathan : Enemy
 			canAttack = false;
 			Moving = false;
 		}
-
-		SplitIntoTwo();
 	}
 
 	/// <summary> deal damage to the passed in player</summary>
@@ -134,6 +212,28 @@ public class Leviathan : Enemy
 	#endregion
 
 	#region Coroutines
+	/// <summary> this does a spinning the arms type attack</summary>
+	private IEnumerator DoSpinAttack()
+	{
+		spinningArmLeft.SetActive(true);
+		spinningArmRight.SetActive(true);
+
+		staticArmLeft.SetActive(false);
+		staticArmRight.SetActive(false);
+
+		yield return new WaitForSeconds(2);
+
+		spinningArmLeft.SetActive(false);
+		spinningArmRight.SetActive(false);
+
+		staticArmLeft.SetActive(true);
+		staticArmRight.SetActive(true);
+
+		yield return new WaitForSeconds(1);
+
+		canAttack = true;
+	}
+
 	/// <summary> Moves a game object in the player direction (at the time this method is called) over N seconds </summary>
 	public IEnumerator MoveInPlayersDirection()
 	{
@@ -147,7 +247,7 @@ public class Leviathan : Enemy
 		// charge at the player
 		while (Moving == true)
 		{
-			transform.position += targetDirection * enemyChargeSpeed * Time.deltaTime;
+			transform.position += targetDirection * enemyMoveSpeed * Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
 
