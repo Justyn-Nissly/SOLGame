@@ -56,8 +56,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -130,8 +130,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -219,8 +219,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -241,8 +241,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 5073558192703537280}
   - component: {fileID: 5073558192703537287}
   - component: {fileID: 5073558192703537281}
-  - component: {fileID: 7250951395655243714}
   m_Layer: 9
   m_Name: EnemyShield
   m_TagString: Untagged
@@ -298,7 +297,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -357,33 +356,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.49, y: 0.4}
   m_EdgeRadius: 0
---- !u!114 &7250951395655243714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5073558192703537282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  ForceMaterial: {fileID: 0}
-  ActiveChange: 1
-  _Alpha: 1
-  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
-  _Fade: 0
-  _HDR_Intensity: 1
-  TeleportationColor: {r: 1, g: 0.09019608, b: 0, a: 1}
-  _Distortion: 1
-  _Value4: 0
-  _AutoScrollX: 0
-  _AutoScrollSpeedX: 0
-  _AutoScrollY: 0
-  _AutoScrollSpeedY: 0
-  ShaderChange: 0
-  ActiveUpdate: 1
 --- !u!1 &5073558193283732431
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +373,7 @@ GameObject:
   - component: {fileID: 4925452052291255808}
   - component: {fileID: -1494527648047725511}
   - component: {fileID: 3222643362638217863}
-  - component: {fileID: 4091898412903359097}
+  - component: {fileID: 1518059970}
   m_Layer: 9
   m_Name: ShieldEnemy
   m_TagString: Enemy
@@ -442,7 +414,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -510,8 +482,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9c74b3adfbd38f4091eb02fc2a48358, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   maxHealth: {fileID: 11400000, guid: 256734c5805f748699a8fa5e76776bf4, type: 2}
   canAttack: 1
   canTakeDamage: 1
@@ -543,7 +515,7 @@ MonoBehaviour:
   shieldBoxCollider: {fileID: 5073558192703537281}
   shieldSound: {fileID: 0}
   healthBar: {fileID: 845050603}
-  enemyName: 
+  enemyName:
   aggroRange: 5
   followRange: 8
   attackDmg: 0
@@ -572,8 +544,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &4308309794557253121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,8 +556,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94496abf717a74f4cb18d249ecf1b0fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   maxTime: 6
   minTime: 3
   waitTime: 1
@@ -599,8 +571,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f0aeeb8b9cec2b46ba45875c0ba6069, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   evasionDistance: 6
   minEvadeTime: 4
   maxEvadeTime: 8
@@ -724,30 +696,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4091898412903359097
-MonoBehaviour:
+--- !u!95 &1518059970
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5073558193283732431}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  ForceMaterial: {fileID: 0}
-  ActiveChange: 1
-  _Alpha: 1
-  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
-  _Fade: 0
-  _HDR_Intensity: 1
-  TeleportationColor: {r: 1, g: 0.09019608, b: 0, a: 1}
-  _Distortion: 1
-  _Value4: 0
-  _AutoScrollX: 0
-  _AutoScrollSpeedX: 0
-  _AutoScrollY: 0
-  _AutoScrollSpeedY: 0
-  ShaderChange: 0
-  ActiveUpdate: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 32ee2450b6b914902a01363c3806eecd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage:
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
