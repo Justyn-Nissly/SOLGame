@@ -118,7 +118,6 @@ public class EnemySpawner : MonoBehaviour
 				}
 			}
 		}
-
 		return true;
 	}
 
@@ -141,6 +140,10 @@ public class EnemySpawner : MonoBehaviour
 		if (panCamera)
 		{
 			GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(enemySpawnPoints[0], 1, 1, 1f);
+		}
+		else
+		{
+			freezePlayer = false;
 		}
 
 		// freeze the player, there is a bool check because we don't want to freeze movement in the middle of a boss fight

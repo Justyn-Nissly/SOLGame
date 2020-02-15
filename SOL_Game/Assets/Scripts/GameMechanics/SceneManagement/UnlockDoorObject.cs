@@ -19,8 +19,8 @@ public class UnlockDoorObject : MonoBehaviour
 	public Sprite
 		unusedSprite, // The default sprite
 		usedSprite;   // The sprite that is changed to when the player interacts with this object
-	//public DoorLogic
-	//	connectedDoor; // The door connected to this object that is unlocked when this object is used
+	public DoorLogic
+		connectedDoor; // The door connected to this object that is unlocked when this object is used
 	public DoorManager
 		allDoors = new DoorManager(); // The door manager to unlock several doors at once
 	public EnemySpawner
@@ -29,9 +29,13 @@ public class UnlockDoorObject : MonoBehaviour
 		pressurePlate; // The pressure plate connected to this object that is unlocked when this object is used
 	public SpriteRenderer
 		intractableSpriteRenderer; // This is the ! that is signals an intractable object
-	public bool
-		isPowerSwitch,   // Check to see if the switch is for enabling power
-		isUnlockSwitch;  // Check to see if the switch if for unlocking a door
+
+	[Header("For use with pressure plates")]
+	[Tooltip("Set the lever to power the pressure plate")]
+	public bool isPowerSwitch;   // Check to see if the switch is for enabling power
+
+	[Tooltip("Set the lever to unlock the pressure plate")]
+	public bool isUnlockSwitch;  // Check to see if the switch if for unlocking a door
 
 	#endregion
 
@@ -56,7 +60,10 @@ public class UnlockDoorObject : MonoBehaviour
 		objectRenderer.sprite = unusedSprite;
 
 		// Add the connected door to the door manager
-		//doorManager.doors.Add(connectedDoor);
+		if(connectedDoor != null)
+		{
+			doorManager.doors.Add(connectedDoor);
+		}
 	}
 
 	private void Update()
