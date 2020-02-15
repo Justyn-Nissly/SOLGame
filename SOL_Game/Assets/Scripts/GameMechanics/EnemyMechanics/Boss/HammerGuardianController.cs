@@ -4,8 +4,7 @@ public class HammerGuardianController : Enemy
 {
 	#region Enums and Defined Constants
 	public const int
-		START_PHASE  = 1,   // The guardian starts at phase 1
-		HEALTH_GUARD = 100; // Prevent the guardians health from dropping while it is invincible
+		START_PHASE = 1; // The guardian starts at phase 1
 	#endregion
 
 	#region Public Variables
@@ -18,6 +17,7 @@ public class HammerGuardianController : Enemy
 		shockWave, // Used to create shockwaves
 		spikes;    // Used to create spikes
 	public int
+		maxSpikes,   // Spike lines spawned by end phase shockwaves
 		phase,       // The guardian's battle phase
 		phaseHealth; // The guardian's starting health at each phase
 	public SpriteRenderer
@@ -42,7 +42,7 @@ public class HammerGuardianController : Enemy
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary> Locate the player and start the guardian facing down and moving </summary>
+	/// <summary> Locate the player and initialize the guardian </summary>
 	override public void Start()
 	{
 		isAttacking   = false;
@@ -64,15 +64,15 @@ public class HammerGuardianController : Enemy
 		// The weak point rotates with the guardian
 		RotateWeakness();
 
-		// Check if the guardian has taken enough damage to end the phase
-		PhaseCheck();
+		// Check if the guardian has taken enough damage to advance the phase
+		AdvancePhase();
 
 		// When attacking the player the guardian stops
 		Targeting();
 
 		// Check if the guardian should take damage
-		canTakeDamage = isAttacking;
-		weakness.health = ((isAttacking) ? (int) currentHealth : HEALTH_GUARD);
+		canTakeDamage   = isAttacking;
+		weakness.health = (int) currentHealth;
 	}
 	#endregion
 
@@ -96,7 +96,7 @@ public class HammerGuardianController : Enemy
 	/// <summary> Attack the player </summary>
 	private void Attack()
 	{
-		// Stop moving and reset rest and attack timers
+		// Stop moving and reset the rest and attack timers
 		guardianMove.canMove = false;
 		restTimer            = restDelay;
 		attackTimer          = attackTime;
@@ -107,16 +107,19 @@ public class HammerGuardianController : Enemy
 			Instantiate(shockWave, (Vector2)transform.position + guardianMove.GetDirection() * range * 0.65f,
 						Quaternion.identity);
 		}
-		// Phase 2 emits 2 shockwaves with spikes
+		// Phase 2 emits 2 shockwaves with lines of spikes
 		else
 		{
+			// The guardian attacks on the left and right if it is facing up or down
 			if (guardianMove.GetDirection() == Vector2.up || guardianMove.GetDirection() == Vector2.down)
 			{
 				Instantiate(shockWave, (Vector2)transform.position + Vector2.left * range * 0.65f,
 				            Quaternion.identity);
 				Instantiate(shockWave, (Vector2)transform.position + Vector2.right * range * 0.65f,
 				            Quaternion.identity);
-				for (int spike = 1; spike <= 3; spike++)
+
+				// Send out spikes from the shockwaves
+				for (int spike = 1; spike <= maxSpikes; spike++)
 				{
 					Instantiate(spikes, (Vector2)transform.position + Vector2.left * range * 0.65f,
 					            Quaternion.identity);
@@ -124,13 +127,16 @@ public class HammerGuardianController : Enemy
 					            Quaternion.identity);
 				}
 			}
+			// The guardian attacks on the top and bottom if it is facing left or right
 			else
 			{
 				Instantiate(shockWave, (Vector2)transform.position + Vector2.up * range * 0.65f,
 				            Quaternion.identity);
 				Instantiate(shockWave, (Vector2)transform.position + Vector2.down * range * 0.65f,
 				            Quaternion.identity);
-				for (int spike = 1; spike <= 3; spike++)
+
+				// Send out spikes from the shockwaves
+				for (int spike = 1; spike <= maxSpikes; spike++)
 				{
 					Instantiate(spikes, (Vector2)transform.position + Vector2.up * range * 0.65f,
 					            Quaternion.identity);
@@ -141,8 +147,10 @@ public class HammerGuardianController : Enemy
 		}
 	}
 
+	/// <summary> Rotate the guardian's weak point to its front </summary>
 	private void RotateWeakness()
 	{
+		// Find what direction the guardian is facing
 		facing = guardianMove.GetDirection();
 		if (facing == Vector2.up)
 		{
@@ -161,9 +169,11 @@ public class HammerGuardianController : Enemy
 			weaknessRotation = 0.0f;
 		}
 
+		// Rotate the weakness in the direction the guardian is facing
 		weakness.transform.localRotation = Quaternion.AngleAxis(weaknessRotation + 90.0f, Vector3.forward);
 	}
 
+	/// <summary> Attack if the player is in position and then rest </summary>
 	private void Targeting()
 	{
 		if (isAttacking)
@@ -199,7 +209,7 @@ public class HammerGuardianController : Enemy
 				// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
 			}
 
-			// The guardian can pursue the player
+			// The guardian pursues the player
 			else
 			{
 				guardianMove.canMove = true;
@@ -226,10 +236,12 @@ public class HammerGuardianController : Enemy
 		}
 	}
 
-	private void PhaseCheck()
+	/// <summary> Advance the fight to the next phase </summary>
+	private void AdvancePhase()
 	{
 		if (weakness.health <= 0)
 		{
+			// Advance to the next phase or destroy if already at the last phase
 			if (phase == START_PHASE)
 			{
 				phase++;
@@ -245,6 +257,7 @@ public class HammerGuardianController : Enemy
 		}
 	}
 
+	/// <summary> Make the character lower down appear in front of the other character </summary>
 	private void Overlap()
 	{
 		sprite.sortingOrder = ((player.transform.position.y < this.transform.position.y) ? 0 : 2);

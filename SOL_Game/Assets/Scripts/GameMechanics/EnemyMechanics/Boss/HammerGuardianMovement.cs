@@ -55,7 +55,7 @@ public class HammerGuardianMovement : MonoBehaviour
 	}
 	#endregion
 
-	/// <summary> Chase the player </summary>
+	/// <summary> The guardian always follows the player </summary>
 	#region Utility Methods
 	private void Pursue()
 	{
@@ -68,7 +68,7 @@ public class HammerGuardianMovement : MonoBehaviour
 		                                     moveSpeed * Time.deltaTime);
 	}
 
-	/// <summary> Turn towards the player instead of snapping to facing him </summary>
+	/// <summary> Turn slowly towards the player instead of snapping to facing him </summary>
 	private void TurnTowardsTarget()
 	{
 		// Get the angle between the enemy and player
@@ -79,7 +79,7 @@ public class HammerGuardianMovement : MonoBehaviour
 		targetAngle  = (targetAngle + 360.0f) % 360.0f;
 		currentAngle = (currentAngle + 360.0f) % 360.0f;
 
-		// Loop the 360 degree max angle to 0 if needed
+		// Loop the 0 degree angle around to 360 if needed
 		currentAngle += ((targetAngle - currentAngle <= 180.0f) ? 0.0f : 360.0f);
 		targetAngle  += ((currentAngle - targetAngle <= 180.0f) ? 0.0f : 360.0f);
 

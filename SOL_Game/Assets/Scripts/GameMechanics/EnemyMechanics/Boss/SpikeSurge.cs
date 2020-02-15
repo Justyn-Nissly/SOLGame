@@ -7,7 +7,7 @@ public class SpikeSurge : MonoBehaviour
 
 	#region Public Variables
 	public float
-		speed,
+		speed,          // How fast the spike trail moves
 		activationTime, // Starting time before the arc launches
 		spikeTime,      // How long it takes a blast to appear
 		maxX,           // Maximum x-coordinate of the direction
@@ -34,7 +34,7 @@ public class SpikeSurge : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary> Set up the blasts to appear </summary>
+	/// <summary> Set up the spikes to appear </summary>
 	void Start()
 	{
 		// Seed the RNG and assign the proper starting values to various members
@@ -43,7 +43,7 @@ public class SpikeSurge : MonoBehaviour
 		arcLaunching    = false;
 		spikeTimer      = spikeTime;
 
-		// If no follow object is set the blasts arc from the same permanent location
+		// If no follow object is set the spikes arc from the same permanent location
 		if(source == null)
 		{
 			this.tag = "Enemy";
@@ -54,15 +54,15 @@ public class SpikeSurge : MonoBehaviour
 		AssignDirection();
 	}
 
-	/// <summary> Count down to when the arc launches then launch it </summary>
+	/// <summary> Count down to when the spikes launch then launch them </summary>
 	void FixedUpdate()
 	{
-		// Keep the arc from rotating with its source
+		// Keep the spikes from rotating with their source
 		this.transform.Rotate(0.0f, 0.0f, 0.0f);
 
-		ArcTimer();
+		SpikesTimer();
 
-		// The arc will launch once
+		// The spikes will launch once
 		if (arcLaunching)
 		{
 			LaunchSpikes();
@@ -71,8 +71,8 @@ public class SpikeSurge : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary> Make a new blast appear along the arc </summary>
-	void CreateBlast()
+	/// <summary> Make a new spike appear along the trail </summary>
+	void CreateSpike()
 	{
 		Instantiate(spike, transform.position, Quaternion.identity);
 	}
@@ -85,41 +85,41 @@ public class SpikeSurge : MonoBehaviour
 		transform.position = Vector2.MoveTowards(transform.position, target,
 		                                         speed * Time.deltaTime);
 
-		// Check if a new blast should appear
+		// Check if a new spike should appear
 		spikeTimer -= Time.deltaTime;
 		if (spikeTimer <= 0)
 		{
 			spikeTimer = spikeTime;
-			CreateBlast();
+			CreateSpike();
 		}
 
-		// Check when to stop the arc
+		// Check when to stop the spikes
 		if (Vector2.Distance(target, transform.position) <= 0.4f)
 		{
 			Destroy(gameObject);
 		}
 	}
 
-	/// <summary> Set the arc angle </summary>
+	/// <summary> Set the movement angle </summary>
 	void SetAngle()
 	{
-		// The missile angles towards a distance from and perpendicular to the target
+		// The spikes move in a line
 		angle = Mathf.Atan2(target.y - target.y, target.x - target.x) + 90 * Mathf.Deg2Rad;
 
-		// The missile angles closer to the target as it approaches
+		// Set the spike trail's direction
 		direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) *
 		                                          Vector2.Distance(target, transform.position);
 	}
 
-	/// <summary> Count down to the arc launch </summary>
-	void ArcTimer()
+	/// <summary> Count down to the spike launch </summary>
+	void SpikesTimer()
 	{
-		// Count down to the arc launching
+		// Count down to the spikes launching
 		if (activationTimer > 0 && arcLaunching == false)
 		{
 			activationTimer -= Time.deltaTime;
 
-			// When time is up launch the arc
+			// When time is up launch the spikes
 			if (activationTimer <= 0)
 			{
 				arcLaunching = true;
@@ -128,6 +128,7 @@ public class SpikeSurge : MonoBehaviour
 		}
 	}
 
+	/// <summary> Assign random coordinates for the spike trail to move towards </summary>
 	void AssignDirection()
 	{
 		target.x = Random.Range(minX, maxX);
