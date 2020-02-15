@@ -186,14 +186,7 @@ public class BaseCharacter : MonoBehaviour
 			audioSource.Play();
 		}
 
-		if (BulletShootingDelay == 0)
-		{
-			InstantiateBullet();
-		}
-		else
-		{
-			Invoke("InstantiateBullet", BulletShootingDelay);
-		}
+		StartCoroutine(InstantiateBullet());
 	}
 
 	/// <summary> instantiates the gun game object variable then destroys it N seconds later </summary>
@@ -203,15 +196,6 @@ public class BaseCharacter : MonoBehaviour
 		gunInstance.transform.SetParent(gunSpawnPoint);
 
 		Destroy(gunInstance, .5f);
-	}
-
-	/// <summary> instantiates the bullet game object variable </summary>
-	private void InstantiateBullet()
-	{
-		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-
-		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = (int)rangedAttackDamageToGive.initialValue; // is this right
 	}
 
 	/// <summary> Turn on the shield </summary>
@@ -295,6 +279,17 @@ public class BaseCharacter : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	/// <summary> instantiates the bullet game object variable </summary>
+	private IEnumerator InstantiateBullet()
+	{
+		yield return new WaitForSeconds(BulletShootingDelay);
+
+		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
+		bulletLogic.bulletDamage = (int)rangedAttackDamageToGive.initialValue; // is this right
 	}
 	#endregion
 }

@@ -1,39 +1,35 @@
 ﻿using UnityEngine;
 
-public class ArcBlast : MonoBehaviour
+public class SpikeSurge : MonoBehaviour
 {
 	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	[Header("Keep arc offset between 0 and 0.6.")]
 	public float
-		arcOffset;      // Curve of the blast arc
-	[Header("Keep speed around 80.")]
-	public float
-		speed;
-	public float
+		speed,
 		activationTime, // Starting time before the arc launches
-		blastTime;      // How long it takes a blast to appear
+		spikeTime,      // How long it takes a blast to appear
+		maxX,           // Maximum x-coordinate of the direction
+		minX,           // Minimum x-coordinate of the direction
+		maxY,           // Maximum y-coordinate of the direction
+		minY;           // Minimum y-coordinate of the direction
 	public GameObject
-		blast,  // Used to instantiate the blast objects
+		spike,  // Used to instantiate the blast objects
 		source; // Where the blast launches from
-	public bool
-		veerLeft; // The arc will curve left
 	#endregion
 
 	#region Private Variables
-	private Player
-		player; // Reference the player
 	private float
 		activationTimer, // Time before the arc launches
 		angle,           // Angle at which the arc travels
-		blastTimer;      // Time until another blast appears
+		spikeTimer;      // Time until another blast appears
 	private bool
 		arcLaunching; // The arc is being launched
 	private Vector2
 		direction, // Where the arc is moving
-		origin;    // The starting location of the first arc
+		origin,    // The starting location of the first arc
+		target;    // Position the arc will move towards
 	#endregion
 
 	// Unity Named Methods
@@ -43,10 +39,9 @@ public class ArcBlast : MonoBehaviour
 	{
 		// Seed the RNG and assign the proper starting values to various members
 		new Random();
-		player          = FindObjectOfType<Player>();
 		activationTimer = activationTime;
 		arcLaunching    = false;
-		blastTimer      = blastTime;
+		spikeTimer      = spikeTime;
 
 		// If no follow object is set the blasts arc from the same permanent location
 		if(source == null)
@@ -55,17 +50,13 @@ public class ArcBlast : MonoBehaviour
 			source   = GameObject.FindGameObjectWithTag(this.tag);
 			origin   = transform.position;
 		}
+
+		AssignDirection();
 	}
 
 	/// <summary> Count down to when the arc launches then launch it </summary>
 	void FixedUpdate()
 	{
-		// Independent arcs always launch from the original position
-		if (arcLaunching == false && source.transform.position == this.transform.position)
-		{
-			transform.position = origin;
-		}
-
 		// Keep the arc from rotating with its source
 		this.transform.Rotate(0.0f, 0.0f, 0.0f);
 
@@ -74,7 +65,7 @@ public class ArcBlast : MonoBehaviour
 		// The arc will launch once
 		if (arcLaunching)
 		{
-			LaunchArc();
+			LaunchSpikes();
 		}
 	}
 	#endregion
@@ -83,30 +74,29 @@ public class ArcBlast : MonoBehaviour
 	/// <summary> Make a new blast appear along the arc </summary>
 	void CreateBlast()
 	{
-		Instantiate(blast, transform.position, Quaternion.identity);
+		Instantiate(spike, transform.position, Quaternion.identity);
 	}
 
 	/// <summary> Launch the arc </summary>
-	void LaunchArc()
+	void LaunchSpikes()
 	{
 		// Find the launch angle and move in that direction
 		SetAngle();
-		transform.position = Vector2.MoveTowards(transform.position, (Vector2) (player.transform.position) + direction,
+		transform.position = Vector2.MoveTowards(transform.position, target,
 		                                         speed * Time.deltaTime);
 
 		// Check if a new blast should appear
-		blastTimer -= Time.deltaTime;
-		if (blastTimer <= 0)
+		spikeTimer -= Time.deltaTime;
+		if (spikeTimer <= 0)
 		{
-			blastTimer = blastTime;
+			spikeTimer = spikeTime;
 			CreateBlast();
 		}
 
 		// Check when to stop the arc
-		if (Vector2.Distance(player.transform.position, transform.position) <= 0.4f)
+		if (Vector2.Distance(target, transform.position) <= 0.4f)
 		{
-			transform.position = source.transform.position;
-			arcLaunching = false;
+			Destroy(gameObject);
 		}
 	}
 
@@ -114,14 +104,11 @@ public class ArcBlast : MonoBehaviour
 	void SetAngle()
 	{
 		// The missile angles towards a distance from and perpendicular to the target
-		angle = Mathf.Atan2(player.transform.position.y - transform.position.y,
-		                    player.transform.position.x - transform.position.x) +
-		                  ((veerLeft) ? 90 : -90) * Mathf.Deg2Rad;
+		angle = Mathf.Atan2(target.y - target.y, target.x - target.x) + 90 * Mathf.Deg2Rad;
 
 		// The missile angles closer to the target as it approaches
-		// Offset affects arc width and effective range determines how easily the missile follows the target
-		direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * arcOffset *
-		                                          Vector2.Distance(player.transform.position, transform.position);
+		direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) *
+		                                          Vector2.Distance(target, transform.position);
 	}
 
 	/// <summary> Count down to the arc launch </summary>
@@ -137,11 +124,14 @@ public class ArcBlast : MonoBehaviour
 			{
 				arcLaunching = true;
 				activationTimer = activationTime;
-
-				// There is a chance the arc will curve the other way
-				veerLeft = (Random.Range(0, 10) >= 7) ? !veerLeft : veerLeft;
 			}
 		}
+	}
+
+	void AssignDirection()
+	{
+		target.x = Random.Range(minX, maxX);
+		target.y = Random.Range(minY, maxY);
 	}
 	#endregion
 

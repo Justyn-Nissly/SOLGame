@@ -18,11 +18,15 @@ public class RangedGuardian : Enemy
 	public float
 		maxTimeBetweenAttacks = 2f,
 		minTimeBetweenAttacks = 1f;
+
+	public EncounterManager
+		encounterManager;
 	#endregion
 
 	#region Private Variables
 	private bool
-	running = false;
+	running = false,
+	canSpawnEnemies = true;
 
 	private float
 		attackCountDownTimer;
@@ -56,12 +60,13 @@ public class RangedGuardian : Enemy
 
 		if(currentHealth <= 0)
 		{
-			GameObject.Find("rangedGuardianEncounterManager").gameObject.GetComponent<RangedGuardianEncounterManager>().EndRangedGuardianEncounter();
+			encounterManager.EndEncounter();
 		}
 
-		if (currentHealth == maxHealth.initialValue / 2)
+		if (currentHealth <= maxHealth.initialValue / 2 && canSpawnEnemies)
 		{
 			// spawn enemies
+			canSpawnEnemies = false;
 			StartCoroutine(SpawnRangedEnemies());
 		}
 		else
