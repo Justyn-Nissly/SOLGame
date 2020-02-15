@@ -873,6 +873,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2259566401528189602, guid: 204e36eb2d958144b888173b4d3536dc,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: de322549a9e217a4390eb59781623b70, type: 3}
+    - target: {fileID: 2259566401528189602, guid: 204e36eb2d958144b888173b4d3536dc,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2259566401528189603, guid: 204e36eb2d958144b888173b4d3536dc,
         type: 3}
       propertyPath: enemyAudioSRC
@@ -23172,14 +23182,16 @@ GameObject:
   m_Component:
   - component: {fileID: 1171485425}
   - component: {fileID: 1171485418}
+  - component: {fileID: 1171485419}
+  - component: {fileID: 1171485427}
+  - component: {fileID: 1171485422}
   - component: {fileID: 1171485421}
   - component: {fileID: 1171485420}
-  - component: {fileID: 1171485422}
-  - component: {fileID: 1171485419}
   - component: {fileID: 1171485423}
   - component: {fileID: 1171485424}
   - component: {fileID: 1171485417}
   - component: {fileID: 1171485426}
+  - component: {fileID: 1171485428}
   m_Layer: 0
   m_Name: Behemoth
   m_TagString: Enemy
@@ -23314,8 +23326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d72eaf6393d064c87ba8f23d3bd366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 3
-  enemyAnimator: {fileID: 0}
+  Type: 2
+  enemyAnimator: {fileID: 1171485428}
   evasionDistance: 8
   waitTime: 2
   maxChaseTime: 10000
@@ -23344,7 +23356,7 @@ MonoBehaviour:
   currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
-  audioSource: {fileID: 1171485423}
+  audioSource: {fileID: 362516656}
   lightMeleeAttackPosition: {fileID: 0}
   lightMeleeAttackRange: 0
   lightMeleeWeapon: {fileID: 0}
@@ -23368,14 +23380,14 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   healthBar: {fileID: 1171485417}
   enemyName: 
-  aggroRange: 0
-  followRange: 0
+  aggroRange: 100
+  followRange: 100
   attackDmg: 0
   contactDmg: 0
   healPerLoop: 0
   MAXPOSSIBLEHEALTH: 0
   maxHealOverTime: 0
-  moveSpeed: 0
+  moveSpeed: 1.6
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
@@ -23383,7 +23395,7 @@ MonoBehaviour:
   rb2d: {fileID: 1171485420}
   enemyAudioManager: {fileID: 2259566401528189603, guid: 204e36eb2d958144b888173b4d3536dc,
     type: 3}
-  powerUp: {fileID: 0}
+  powerUp: {fileID: 5583976521140673498, guid: ec4f96be2928bc141a97e89d8b1779f5, type: 3}
   phaseChangeDelay: 3
   phaseHealth: 20
 --- !u!82 &1171485423
@@ -23522,7 +23534,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDeath: {fileID: 8300000, guid: fadc74e08c9e19e4e9f0e41027ce857c, type: 3}
-  enemyAudioSRC: {fileID: 1171485423}
+  enemyAudioSRC: {fileID: 362516656}
+--- !u!58 &1171485427
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171485416}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.6
+--- !u!95 &1171485428
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171485416}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1209309078
 PrefabInstance:
   m_ObjectHideFlags: 0
