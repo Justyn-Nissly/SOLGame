@@ -17,7 +17,7 @@ public class DestructibleObject : MonoBehaviour
 
 	#region Public Variables
 	public WeaponTag weaponDestroysObject;
-	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all door that will be unlocked when this destructible object is destroyed (this list can be empty)
+	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all doors that will be unlocked when this destructible object is destroyed (this list can be empty)
 	public Sprite destroyedSprite; // the sprite that is changed to when this destructible object is destroyed 
 	public int health;
 	#endregion
@@ -31,33 +31,29 @@ public class DestructibleObject : MonoBehaviour
 
 	private void Start()
 	{
-		// add all doors to the door manager and lock all the doors because they should be locked
+		// add all doors to the door manager
 		doorManager.doors.AddRange(doorsUnlocked);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+		// check if the right weapon is whats hitting this object
 		if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)))
 		{
-			// unlock any doors that need to be unlocked
-			doorManager.UnlockAllDoors();
-
-			// change to the destroyed sprite if there is one else destroy this gameobject
-			if(destroyedSprite != null)
+			if(health > 0)
 			{
-				gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
-				gameObject.GetComponent<BoxCollider2D>().enabled = false;
+				health--;
 			}
 			else
 			{
-				Destroy(gameObject);
+				DestroyObject();
 			}
-
 		}
 	}
 	#endregion
 
 	#region Utility Methods (Empty)
+	/// <summary> converts a tag to its string value for string comparing</summary>
 	private string ConvertTagToString(WeaponTag weaponTag)
 	{
 		string weaponTagString;
@@ -77,6 +73,24 @@ public class DestructibleObject : MonoBehaviour
 
 
 		return weaponTagString;
+	}
+
+	/// <summary> call this method to destroy the destructible object </summary>
+	private void DestroyObject()
+	{
+		// unlock any doors that need to be unlocked
+		doorManager.UnlockDoors();
+
+		// change to the destroyed sprite if there is one else destroy this gameobject
+		if (destroyedSprite != null)
+		{
+			gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
+			gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 	#endregion
 
