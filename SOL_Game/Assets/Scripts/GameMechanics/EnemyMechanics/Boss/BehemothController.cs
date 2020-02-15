@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class BehemothController : Enemy
 {
@@ -29,9 +30,8 @@ public class BehemothController : Enemy
 		defeatTimer,      // Time left between fatal damage and being destroyed
 		phaseChangeTimer; // Count down to start the next phase
 	private int
-		playerDamage, // Damage from the player
-		phase;        // Current phase of the boss fight
-	private OrbController[]
+		phase; // Current phase of the boss fight
+	public List<OrbController>
 		outerOrbs, // Track the outer orbs
 		innerOrbs; // Track the inner orbs
 	private EnemyMovement
@@ -45,13 +45,12 @@ public class BehemothController : Enemy
 	{
 		enemyMovement    = FindObjectOfType<EnemyMovement>();
 		player           = FindObjectOfType<Player>();
-		outerOrbs        = new OrbController [OUTER_ORBS];
-		innerOrbs        = new OrbController [INNER_ORBS];
+		outerOrbs        = new List<OrbController>();
+		innerOrbs        = new List<OrbController>();
 		phase            = 0;
 		tractorBeamReady = false;
 		defeated         = false;
 		defeatTimer      = 3.0f;
-		playerDamage     = 0;
 		aggro            = true;
 		AdvancePhase();
 		phaseChangeTimer = phaseChangeDelay * 4.0f;
@@ -112,45 +111,52 @@ public class BehemothController : Enemy
 	{
 		if (phase++ > END_PHASE)
 		{
-			defeated = true;
+			defeated         = true;
+			// disable movement
+			tractorBeamReady = false;
 		}
 		else
 		{
 			currentHealth = phaseHealth;
-		}
 
-		// Spawn outer orbs (oscillating with for-each)
-		// Spawn inner orbs
+			SpawnOuterOrbs();
+			// Spawn inner orbs
 
-		if (phase >= END_PHASE - 1)
-		{
-			// PHASE 2 
-			// (lock-on outer orbs with for-each)
-		}
+			if (phase >= END_PHASE - 1)
+			{
+				// PHASE 2 
+				// (lock-on outer orbs with for-each)
+			}
 
-		if (phase >= END_PHASE)
-		{
-			// Phase 3
-			tractorBeamReady = true;
+			if (phase >= END_PHASE)
+			{
+				// Phase 3
+				tractorBeamReady = true;
+			}
 		}
-		canTakeDamage = true;
 	}
 
 	private void SpawnOuterOrbs()
 	{
-		outerOrbs = new OrbController[OUTER_ORBS];
-
 		// Instantiate outer orbs
 		for (int i = 0; i < OUTER_ORBS; i++)
 		{
-			Instantiate(orb, transform.position, Quaternion.identity);
+			Instantiate(orb, (Vector2) transform.position +
+			                 new Vector2 (Mathf.Cos(360.0f * 0.125f * i * Mathf.Deg2Rad),
+			                              Mathf.Sin(360.0f * 0.125f * i * Mathf.Deg2Rad)).normalized *
+			                 5.0f, Quaternion.identity);
 		}
 
+		outerOrbs.AddRange(FindObjectsOfType<OrbController>());
+//		enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+
 		// Initialize the outer orbs
-		outerOrbs = FindObjectsOfType<OrbController>();
 		foreach (OrbController orb in outerOrbs)
 		{
-			;
+			orb.attackHP                = (phase - 1) * 2;
+			orb.destructible.health     = phase * 2 + 1;
+			orb.destructible.tag        = "Projectile";
+			orb.revolveScript.clockwise = true;
 		}
 	}
 	#endregion
