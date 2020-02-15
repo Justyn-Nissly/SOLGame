@@ -4,21 +4,50 @@ using UnityEngine;
 
 public class UnlockDoorObject : MonoBehaviour
 {
-	#region Enums (Empty)
+	#region Enums
+	public enum SwitchType
+	{
+		doorSwitch,         // A switch for opening a door
+		spawnerSwitch,      // A switch is for spawning enemies
+		pressurePlateSwitch // A switch for opening a hatch over a pressure plate
+	}
 	#endregion
 
 	#region Public Variables
-	public Sprite unusedSprite, // the default sprite
-					  usedSprite; // the sprite that is changed to when the player interacts with this object
-	public DoorLogic connectedDoor; // the door connected to this object that is unlocked when this object is used
-	public SpriteRenderer intractableSpriteRenderer; // this is the ! that is signals an intractable object
+	public SwitchType
+		switchType; // The type of switch that is being used
+	public Sprite
+		unusedSprite, // The default sprite
+		usedSprite;   // The sprite that is changed to when the player interacts with this object
+	public DoorLogic
+		connectedDoor; // The door connected to this object that is unlocked when this object is used
+	public DoorManager
+		allDoors = new DoorManager(); // The door manager to unlock several doors at once
+	public EnemySpawner
+		spawner; // The enemies to spawn
+	public PuzzleLogic
+		pressurePlate; // The pressure plate connected to this object that is unlocked when this object is used
+	public SpriteRenderer
+		intractableSpriteRenderer; // This is the ! that is signals an intractable object
+
+	[Header("For use with pressure plates")]
+	[Tooltip("Set the lever to power the pressure plate")]
+	public bool isPowerSwitch;   // Check to see if the switch is for enabling power
+
+	[Tooltip("Set the lever to unlock the pressure plate")]
+	public bool isUnlockSwitch;  // Check to see if the switch if for unlocking a door
+
 	#endregion
 
 	#region Private Variables
-	private SpriteRenderer objectRenderer; // a reference to this objects sprite renderer for changing the sprite later
-	private DoorManager doorManager = new DoorManager();
-	bool canUseObject = false, // for knowing if you are allowed to use this object at this time
-		  playerHasUsedObject = false; // used to make sure the player cant use this object more than once
+	private SpriteRenderer
+		objectRenderer; // A reference to this objects sprite renderer for changing the sprite later
+	private DoorManager
+		doorManager = new DoorManager();
+	private bool
+		canUseObject        = false, // For knowing if you are allowed to use this object at this time
+		playerHasUsedObject = false, // Used to make sure the player cant use this object more than once
+		isSwitchFlipped     = false; // The state of the switch
 	#endregion
 
 	// Unity Named Methods
@@ -26,44 +55,59 @@ public class UnlockDoorObject : MonoBehaviour
 
 	private void Start()
 	{
-		// assign the right sprite to this object
+		// Assign the right sprite to this object
 		objectRenderer = GetComponent<SpriteRenderer>();
 		objectRenderer.sprite = unusedSprite;
 
-		// add the connected door to the door manager
-		doorManager.doors.Add(connectedDoor);
+		// Add the connected door to the door manager
+		if(connectedDoor != null)
+		{
+			doorManager.doors.Add(connectedDoor);
+		}
 	}
 
 	private void Update()
 	{
-		if(playerHasUsedObject == false && canUseObject && (Input.GetKey(KeyCode.E) || CheckForAttackInput()))
+		// Check to see if the switch has been flipped
+		if(playerHasUsedObject == false && canUseObject && (Input.GetKeyDown(KeyCode.E) || CheckForAttackInput()))
 		{
-			UseObject();
+			if (switchType == SwitchType.doorSwitch)
+			{
+				UseObject();
+			}
+			else if (switchType == SwitchType.spawnerSwitch && isSwitchFlipped == false)
+			{
+				SpawnEnemies();
+			}
+			else
+			{
+				OpenPressurePlate();
+			}
 		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// check if its the player next to this object
+		// Check if its the player next to this object
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			// enable the ability to use this object
+			// Enable the ability to use this object
 			canUseObject = true;
 
-			// enable the ! above this object
+			// Enable the ! above this object
 			intractableSpriteRenderer.enabled = true;
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		// check if its the player next to this object
+		// Check if its the player next to this object
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			// disable the ability to use this object
+			// Disable the ability to use this object
 			canUseObject = false;
 
-			// disable the ! above this object
+			// Disable the ! above this object
 			intractableSpriteRenderer.enabled = false;
 		}
 	}
@@ -71,35 +115,79 @@ public class UnlockDoorObject : MonoBehaviour
 
 	#region Utility Methods
 
-	/// use this object to unlock connected door
+	/// <summary> Unlock connected door </summary>
 	private void UseObject()
 	{
-		// set bool so that you cant use this any more
+		// Set bool so that you cant use this any more
 		playerHasUsedObject = true;
 
-		// print debug message
+		// Print debug message
 		Debug.Log("you unlocked the door connected to this obj");
 
-		// unlock connected door
-		doorManager.UnlockDoors();
+		// Unlock all doors
+		if(allDoors != null)
+		{
+			allDoors.UnlockDoors();
+		}
+		else
+		{
+			// Unlock connected door
+			doorManager.UnlockDoors();
+		}
 
-		// play sound effect (it will play whatever sound is in the audio source on this game object no sound will play if there is no audio source)
+		// Play sound effect (it will play whatever sound is in the audio source on this game object no sound will play if there is no audio source)
 		AudioSource audioSource = GetComponent<AudioSource>();
 		if(audioSource != null)
 		{
 			audioSource.Play();
 		}
 
-		// update the sprite being used on this object
+		// Update the sprite being used on this object
 		objectRenderer.sprite = usedSprite;
 
-		// disable the ! above this object
+		// Disable the ! above this object
 		intractableSpriteRenderer.enabled = false;
 	}
 
+	/// <summary> Check if the player has pressed an attack button to flip the switch </summary>
 	private bool CheckForAttackInput()
 	{
 		return Input.GetButton("B") || Input.GetButton("X") || Input.GetButton("A") || Input.GetButton("Y");
+	}
+
+	///<summary> Spawn in enemies if the switch is flipped </summary>
+	private void SpawnEnemies()
+	{
+		// Set the switch's state to on
+		isSwitchFlipped = true;
+
+		// Start spawning in enemies
+		spawner.StartCoroutine(spawner.SpawnInEnemies());
+
+		// Lock any doors
+		doorManager.LockDoors();
+
+		// Start checking if the enemies have been defeated(for unlocking doors so dont check this if there are no doors)
+		if (doorManager.doors.Count > 0)
+		{
+			spawner.StartCheckingIfEnemiesDefeated();  //1s delay, repeat every .5s
+		}
+	}
+
+	///<summary> Open or power the pressure plate when the lever is flipped </summary>
+	private void OpenPressurePlate()
+	{
+
+		if (isPowerSwitch)
+		{
+			pressurePlate.UpdateDoorState();
+			pressurePlate.isPowered = true;
+		}
+		else if (isUnlockSwitch)
+		{
+			pressurePlate.UpdateDoorState();
+			pressurePlate.isLocked = false;
+		}
 	}
 	#endregion
 

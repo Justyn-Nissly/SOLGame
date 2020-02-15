@@ -31,7 +31,8 @@ public class Basilisk : Enemy
 	public float
 		secondsAboveGround = 2f; // the number of second the basilisk stays above ground for
 
-	public BasiliskEncounterManager basiliskEncounterManager; // this reference is used to send a signal when the basilisk dies
+	public EncounterManager
+		basiliskEncounterManager; // this reference is used to send a signal when the basilisk dies
 	#endregion
 
 	#region Private Variables
