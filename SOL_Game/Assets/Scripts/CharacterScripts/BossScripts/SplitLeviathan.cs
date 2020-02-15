@@ -25,8 +25,8 @@ public class SplitLeviathan : Enemy
 
 	private float
 		enemyChargeSpeed = 5, // how fast the enemy charges at the player
-		poisonTimer = .25f,
-		poisonMaxTimer = .25f;
+		poisonTimer = .10f,
+		poisonMaxTimer = .10f;
 
 	#endregion
 

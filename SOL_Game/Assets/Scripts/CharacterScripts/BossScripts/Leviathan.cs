@@ -16,7 +16,9 @@ public class Leviathan : Enemy
 		offScreenLocation,
 		splitLeviathanSpawnPointOne,
 		splitLeviathanSpawnPointTwo,
-		missileSpawnPoint;
+		missileSpawnPoint,
+		upperLeftSpawnPointLimit, // used to get a random position between these two limits
+		lowerRightSpawnPointLimit;
 	public EnemySpawner
 		LeviathanEnemySpawner; // a reference to the bosses enemy spawner
 	public GameObject
@@ -69,12 +71,17 @@ public class Leviathan : Enemy
 		if (timer < 0 && canAttack)
 		{
 			// shoot a missile if the player is a certain distance away
-			if(Vector2.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, gameObject.transform.position) >= 12)
+			if (Vector2.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, gameObject.transform.position) >= 12)
+			{
 				HomingMissileAttack();
-			else
+				timer = maxTimer;
+			}
+			else if (CheckIfInRange(splitLeviathanSpawnPointOne) && CheckIfInRange(splitLeviathanSpawnPointTwo))
+			{
 				SplitIntoTwoAttack();
 
-			timer = maxTimer;
+				timer = maxTimer;
+			}
 		}
 		else
 		{
@@ -95,6 +102,20 @@ public class Leviathan : Enemy
 	#endregion
 
 	#region Utility Methods
+	private bool CheckIfInRange(Transform objectPosition)
+	{
+		bool laskdfjlsakf = false;
+
+		if (objectPosition.position.x >= upperLeftSpawnPointLimit.position.x && objectPosition.position.x < lowerRightSpawnPointLimit.position.x &&
+					objectPosition.position.y >= lowerRightSpawnPointLimit.position.y && objectPosition.position.y < upperLeftSpawnPointLimit.position.y)
+		{
+			laskdfjlsakf = true;
+		}
+
+		return laskdfjlsakf;
+	}
+
+
 	private void PoisonLogic()
 	{
 		if (poisonTimer < 0)
