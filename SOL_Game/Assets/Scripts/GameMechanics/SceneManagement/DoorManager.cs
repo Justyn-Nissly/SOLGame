@@ -20,7 +20,7 @@ public class DoorManager : MonoBehaviour
 
 	#region Utility Methods
 	/// <summary> Unlocks all doors in a list </summary>
-	public void UnlockAllDoors()
+	public void UnlockDoors()
 	{
 		foreach (DoorLogic door in doors)
 		{
@@ -32,7 +32,7 @@ public class DoorManager : MonoBehaviour
 	}
 
 	/// <summary> Locks all doors in a list </summary>
-	public void LockAllDoors()
+	public void LockDoors()
 	{
 		foreach (DoorLogic door in doors)
 		{
