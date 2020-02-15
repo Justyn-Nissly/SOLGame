@@ -6,15 +6,11 @@ public class ArcBlast : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	[Header("Keep arc offset between 0 and 0.6.")]
-	public float
-		arcOffset;      // Curve of the blast arc
-	[Header("Keep speed around 80.")]
-	public float
-		speed;
 	public float
 		activationTime, // Starting time before the arc launches
-		blastTime;      // How long it takes a blast to appear
+		blastTime,      // How long it takes a blast to appear
+		arcOffset,      // Curve of the blast arc
+		speed;
 	public GameObject
 		blast,  // Used to instantiate the blast objects
 		source; // Where the blast launches from

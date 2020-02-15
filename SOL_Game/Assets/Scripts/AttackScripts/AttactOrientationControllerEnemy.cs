@@ -29,16 +29,9 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 	///<summary> Make aggroed enemies face the player </summary>
 	private void FixedUpdate()
 	{
-		if(target != null) // make sure a target is assigned
+		if (target != null && enemy.aggro)
 		{
-			if (enemy != null && enemy.aggro) // if there is an enemy check if aggro
-			{
-				LookInEightDirectionOfGameObject();
-			}
-			else if (enemy == null) // if there is no enemy just rotate
-			{
-				LookInEightDirectionOfGameObject();
-			}
+			LookInEightDirectionOfGameObject();
 		}
 	}
 	#endregion

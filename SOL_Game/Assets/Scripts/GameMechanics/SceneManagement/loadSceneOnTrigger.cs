@@ -74,8 +74,6 @@ public class loadSceneOnTrigger : MonoBehaviour
 		// then the player would be invisible in Dev rooms because they don't have this script running in them
 		teleportScript._Fade = 0;
 
-		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().FreezePlayer();
-
 		// teleport the player in, it does this by "sliding" a float from 0 to 1 over time
 		while (percentageComplete < 1)
 		{

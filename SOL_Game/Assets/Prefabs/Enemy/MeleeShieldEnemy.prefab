@@ -281,7 +281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8317361776883795863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.72342, y: -2.7213304, z: -0.7954795}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 8317361777743222048}
@@ -422,11 +422,10 @@ MonoBehaviour:
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
+  enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
-  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
-  pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
-    type: 2}
+  powerUp: {fileID: 0}
 --- !u!114 &8317361776883795861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,7 +486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372e5866b75e48e448d35f8994ea5a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackReach: 0
   maxChaseTime: 6
   canMoveAtPlayer: 1
 --- !u!82 &1294742619549527254

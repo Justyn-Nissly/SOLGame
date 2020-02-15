@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
 	#region Public Variables
 	public List<GameObject>
 		enemiesToSpawn = new List<GameObject>(), // a list of all enemies that will be spawned in
-		enemySpawnPoints = new List<GameObject>(); // a list of all points that the enemies will be spawned at
+		enemySpawnPoints = new List<GameObject>(); // a list of all points that the enemies will be spawned at 
 																 //(these lists should be the same length but the code will still work if they are not)
 
 	public List<DoorLogic>
@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
 		panCamera = true; // flag for if you want the camera to pan to the first spawn point when the enemies spawn in
 	#endregion
 
-	#region Private Variables
+	#region Private Variables (Empty)
 	private bool
 		enemiesHaveSpawned = false,
 		doorsHaveBeenUnlocked = false;
@@ -98,7 +98,7 @@ public class EnemySpawner : MonoBehaviour
 			// stop checking if enemies have been defeated
 			CancelInvoke();
 		}
-
+		
 	}
 
 	/// <summary> this method returns true if all this spawner's enemies have been defeated</summary>
@@ -118,6 +118,7 @@ public class EnemySpawner : MonoBehaviour
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -130,7 +131,7 @@ public class EnemySpawner : MonoBehaviour
 
 	#region Coroutines
 	/// <summary> method to spawn in this spawner's enemies </summary>
-	/// <param name="numberOfEnemiesToSpawn">only fill in if you want to limit the number of spawned in enemies
+	/// <param name="numberOfEnemiesToSpawn">only fill in if you want to limit the number of spawned in enemies 
 	/// (the reason the default value is 100 is because that is a limit that we will never reach)</param>
 	public IEnumerator SpawnInEnemies(bool freezePlayer = true, int numberOfEnemiesToSpawn = 100)
 	{
@@ -140,10 +141,6 @@ public class EnemySpawner : MonoBehaviour
 		if (panCamera)
 		{
 			GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(enemySpawnPoints[0], 1, 1, 1f);
-		}
-		else
-		{
-			freezePlayer = false;
 		}
 
 		// freeze the player, there is a bool check because we don't want to freeze movement in the middle of a boss fight

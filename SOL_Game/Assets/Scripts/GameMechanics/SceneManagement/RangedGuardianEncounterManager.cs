@@ -25,7 +25,7 @@ public class RangedGuardianEncounterManager : MonoBehaviour
 		if (firstTimeTriggerEntered)
 		{
 			firstTimeTriggerEntered = false;
-			GetComponent<DoorManager>().LockDoors();
+			GetComponent<DoorManager>().LockAllDoors();
 
 			GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(rangedGuardianSpawnPoint, 2, 1, 1f);
 
@@ -37,7 +37,7 @@ public class RangedGuardianEncounterManager : MonoBehaviour
 	#region Utility Methods
 	public void EndRangedGuardianEncounter()
 	{
-		GetComponent<DoorManager>().UnlockDoors();
+		GetComponent<DoorManager>().UnlockAllDoors();
 	}
 	#endregion
 

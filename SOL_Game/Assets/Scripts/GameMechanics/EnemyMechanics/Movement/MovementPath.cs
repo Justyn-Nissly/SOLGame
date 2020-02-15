@@ -66,8 +66,6 @@ public class MovementPath : MonoBehaviour
 		// Make the enemy continually follow its set path
 		while (true)
 		{
-			// Get current path point and wait for next enumerator call
-			yield return pathSequence[movingTo];
 
 			// If there is only one point exit the coroutine
 			if (pathSequence.Length == 1)
@@ -86,16 +84,24 @@ public class MovementPath : MonoBehaviour
 			if (pathType == PathTypes.loop)
 			{
 				// Moving forward past path end (to path beginning)
-				if (movingTo >= pathSequence.Length)
+				if (movingTo > pathSequence.Length)
 				{
 					movingTo = 0;
 				}
+                else
+                {
+					movingTo += 1;
+                }
+
 				// Moving backward past path beginning (to path end)
 				if (movingTo < 0)
 				{
 					movingTo = pathSequence.Length - 1;
 				}
 			}
+
+			// Get current path point and wait for next enumerator call
+			yield return pathSequence[movingTo];
 		}
 	}
 	#endregion

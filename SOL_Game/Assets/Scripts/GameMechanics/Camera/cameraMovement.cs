@@ -59,10 +59,13 @@ public class cameraMovement : MonoBehaviour
 		Player player = FindObjectOfType<Player>();
 		if(player != null)
 		{
-			player.FreezePlayer();
+			player.playerMovementAmount = Vector2.zero;
+			player.playerAnimator.SetLayerWeight(1, 0);
+			player.audioSourcePlayerMovement.volume = 0;
+			player.playerAllowedToMove = false;
+			player.canAttack = false;
 		}
 
-		// move the camera to the location
 		while (elapsedTime < timeToLocation)
 		{
 			objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / timeToLocation));
@@ -72,13 +75,12 @@ public class cameraMovement : MonoBehaviour
 
 		objectToMove.transform.position = end;
 
-		// pause the camera at the end location for N seconds
 		yield return new WaitForSeconds(pauseTime);
+
 
 		elapsedTime = 0;
 		startingPos = objectToMove.transform.position;
 
-		// move the camera back to the player
 		while (elapsedTime < timeBackToPlayer)
 		{
 			objectToMove.transform.position = Vector3.Lerp(startingPos, new Vector3(target.position.x, target.position.y, transform.position.z), (elapsedTime / timeBackToPlayer));
@@ -89,10 +91,8 @@ public class cameraMovement : MonoBehaviour
 		objectToMove.transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
 		// unfreeze player movement
-		if (player != null)
-		{
-			player.UnFreezePlayer();
-		}
+		player.playerAllowedToMove = true;
+		player.canAttack = true;
 
 		cameraIsPanning = false;
 	}
