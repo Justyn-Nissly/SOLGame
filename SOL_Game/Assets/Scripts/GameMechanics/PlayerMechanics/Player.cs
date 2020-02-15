@@ -50,6 +50,8 @@ public class Player : BaseCharacter
 	/// <summary> Start is called before the first frame update </summary>
 	void Start()
 	{
+		// The player starts with max health
+		currentHealth = maxHealth.initialValue;
 		BulletShootingDelay = 0;
 
 		// Set the players movement speed

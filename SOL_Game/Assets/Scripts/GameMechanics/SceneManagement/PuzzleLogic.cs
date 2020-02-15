@@ -8,11 +8,23 @@ public class PuzzleLogic : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public Sprite completeSprite, // the sprite that will be changed to when you complete the puzzle
-					  incompleteSprite;
-	public DoorManager doorManager; // used to unlock the door(s) that the puzzle unlocks
-	public SpriteRenderer LazerSprite; // this sprite is enabled when the puzzle is completed (if this sprite renderer is NULL nothing will happen it will not cause an error)
-	public bool playerCanTriggerPressurePlate = true; // a flag for if the player can trigger the pressure plate
+	public BoxCollider2D
+		pressurePlateCollider; // The collider for the pressure plate that keeps the it locked
+	public Sprite completeSprite,   // The sprite that will be changed to when you complete the puzzle
+				  incompleteSprite, // The sprite to show the pressure plate is not being pressed
+				  lockedSprite,     // The sprite to show the pressure plate is locked
+				  openSprite,       // The sprite to show the pressure plate is open
+				  unpoweredSprite,  // The sprite to show the pressure plate is unpowered
+				  unlockedSprite;   // The sprite to show the pressure plate is unlocked
+	public DoorManager
+		doorManager; // Used to unlock the door(s) that the puzzle unlocks
+	public SpriteRenderer
+		LazerSprite; // This sprite is enabled when the puzzle is completed (if this sprite renderer is NULL nothing will happen it will not cause an error)
+	public bool
+		playerCanTriggerPressurePlate = true, // A flag for if the player can trigger the pressure plate
+		isComplete, // A flag checking if the puzzle is complete
+		isPowered,  // A flag checking if the pressure plate is powered
+		isLocked;   // A flag checking if the preasuer plate is locked
 	#endregion
 
 	#region Private Variables
@@ -26,31 +38,44 @@ public class PuzzleLogic : MonoBehaviour
 	private void Start()
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		UpdateDoorState();
 	}
 
 	/// <summary> Complete a solved puzzle </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// If the puzzle is solved call a method that completes it
-		if (collision.CompareTag("PuzzleItem"))
+		if (isLocked == false)
 		{
-			OnPuzzleComplete(collision.gameObject);
-		}
-		else if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
-		{
-			spriteRenderer.sprite = completeSprite;
+			if (isComplete == false)
+			{
+				spriteRenderer.sprite = incompleteSprite;
+			}
+			// If the puzzle is solved call a method that completes it
+			if (collision.CompareTag("PuzzleItem"))
+			{
+				isComplete = true;
+				OnPuzzleComplete(collision.gameObject);
+			}
+			else if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
+			{
+				spriteRenderer.sprite = completeSprite;
 
-			// Unlock the doors
-			doorManager.UnlockDoors();
+				// Unlock the doors
+				doorManager.UnlockDoors();
+			}
 		}
 	}
 
 	/// <summary> Prevent the player from passing an unsolved puzzle </summary>
 	private void OnTriggerExit2D(Collider2D collision)
 	{
+		if(isComplete == false)
+		{
+			spriteRenderer.sprite = unlockedSprite;
+		}
 		if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
 		{
-			spriteRenderer.sprite = incompleteSprite;
+			spriteRenderer.sprite = unlockedSprite;
 
 			// Lock the doors
 			doorManager.LockDoors();
@@ -83,14 +108,36 @@ public class PuzzleLogic : MonoBehaviour
 		// Play the puzzle solved sound
 		GetComponent<AudioSource>().Play();
 
-		// Unlock the doors
-		doorManager.UnlockDoors();
+
+		// Check if all the pressure plates are pressed
+		if(doorManager.pressurePlates.Count == doorManager.CheckPressurePlatesPressed())
+		{
+			// Unlock the doors
+			doorManager.UnlockDoors();
+		}
 	}
 
 	/// <summary> method to enable the lazer sprite when the puzzle is completed </summary>
 	private void EnableLazerSprite()
 	{
 		LazerSprite.enabled = true;
+	}
+
+	public void UpdateDoorState()
+	{
+		if (isPowered == false)
+		{
+			spriteRenderer.sprite = unpoweredSprite;
+		}
+		else if (isLocked == true && isPowered == true)
+		{
+			spriteRenderer.sprite = lockedSprite;
+		}
+		else if (isLocked == false && isPowered)
+		{
+			spriteRenderer.sprite         = unlockedSprite;
+			pressurePlateCollider.enabled = false;
+		}
 	}
 	#endregion
 

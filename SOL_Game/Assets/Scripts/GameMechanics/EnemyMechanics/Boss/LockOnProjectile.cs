@@ -12,25 +12,32 @@ public class LockOnProjectile : MonoBehaviour
 		effectiveRange, // How far the projectile can effectively track the target from
 		moveSpeed,      // Projectile speed
 		offset;         // How far the projectile veers to the side
+	public int
+		impactDamage; // The missile deals damage when it hits the player
 	public bool
 		veerLeft; // Determines whether the projectile veers left or right
-	public GameObject
-		target; // The projectile locks on to this
 	public Vector2
 		direction, // The projectile's actual direction of movement (not necessarily directly towards the target)
 		targetPos; // The target's position
 	#endregion
 
-	#region Private/Protected Variables
+	#region Private Variables
 	private float
 		moveAngle; // Angle the projectile will move at
-    #endregion
+	private GameObject
+		target; // The projectile locks on to this
+	private Player
+		player; // Reference the player
+	#endregion
 
-    // Unity Named Methods
-    #region Main Methods
-    // Initalize the projectile
-    void Start()
+	// Unity Named Methods
+	#region Main Methods
+	// Initalize the projectile
+	void Start()
 	{
+		// Target defaults to player
+		target = GameObject.FindWithTag("Player");
+
 		// Initial lock on
         targetPos = target.transform.position;
 
@@ -39,6 +46,9 @@ public class LockOnProjectile : MonoBehaviour
 		{
 			effectiveRange = DEFAULT_RANGE;
 		}
+
+		// The player can take damage from projectiles
+		player = FindObjectOfType<Player>();
 	}
 
 	/// <summary> Lock on to the target and arc towards it </summary>
@@ -47,6 +57,22 @@ public class LockOnProjectile : MonoBehaviour
 		targetPos = target.transform.position;
 		SetAngle();
 		Arc();
+	}
+
+	/// <summary> Damage the player on contact and destroy the missile </summary>
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+		// Damage the player
+		if (collision.gameObject.tag == "Player")
+		{
+			player.TakeDamage(impactDamage, false);
+		}
+
+		// The missile gets destroyed no matter what it hits
+		if (this.enabled)
+		{
+			Destroy(gameObject);
+		}
 	}
 	#endregion
 

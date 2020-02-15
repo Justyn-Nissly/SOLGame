@@ -19,28 +19,45 @@ public class DialogueManager : MonoBehaviour
 	    nameText;     // The name of the NPC currently Speaking
 	public Queue<string> 
 		sentences;    // All sentences for the characters dialogue
-	public float 
-		timer;        // The timer to remove the NPC from the scene           
+	public float
+		textSpeed,    // The speed at which the text will be typed on the screen
+		timer;        // The timer to remove the NPC from the scene
 	#endregion
 
 	#region Private Variables
 	private GameObject playerMovement; // A reference to the player
 	#endregion
+	public int
+		currentSentence; // The sentence that is currently being typed
 	// Unity Named Methods
 	#region Main Methods
 	///<summary> Initialize the sentence queue for the NPC, find the player, and get the animator for the NPC</summary>
 	void Start()
 	{
-		sentences = new Queue<string>();
+		sentences      = new Queue<string>();
 		playerMovement = GameObject.FindGameObjectWithTag("Player");
-		animator = GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>();
+		animator       = GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>();
+		currentSentence = 0;
 	}
 
+	///<summary> Check if the player has pressed the return key to move to the next sentence </summary>
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Return))
 		{
-			DisplayNextSentence();
+			if (dialogueText.text.Length < FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence].Length)
+			{
+				StopAllCoroutines();
+				dialogueText.text = FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence];
+				if (currentSentence < sentences.Count)
+				{
+					currentSentence += 1;
+				}
+			}
+			else
+			{
+				DisplayNextSentence();
+			}
 		}
 	}
 	#endregion
@@ -94,6 +111,7 @@ public class DialogueManager : MonoBehaviour
 		dialogueText.text = "";
 		foreach (char letter in sentence.ToCharArray())
 		{
+			yield return new WaitForSeconds(textSpeed);
 			dialogueText.text += letter;
 			yield return null;
 		}
