@@ -36,8 +36,4 @@ public class RangedGuardianMovement : FreeRoam
 
 	#region Coroutines (Empty)
 	#endregion
-
-
-
-
 }
