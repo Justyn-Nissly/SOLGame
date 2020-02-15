@@ -121,7 +121,7 @@ public class Leviathan : Enemy
 	{
 		GameObject missile = Instantiate(homingMissile, missileSpawnPoint.position, missileSpawnPoint.rotation);
 
-		LockOnProjectile lockOnProjectile = missile.GetComponent<LockOnProjectile>();
+		LockOnMissile lockOnProjectile = missile.GetComponent<LockOnMissile>();
 		if(lockOnProjectile != null)
 		{
 			//lockOnProjectile.target = CreateTarget();

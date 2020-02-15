@@ -22,6 +22,7 @@ public class PuzzleLogic : MonoBehaviour
 		LazerSprite; // This sprite is enabled when the puzzle is completed (if this sprite renderer is NULL nothing will happen it will not cause an error)
 	public bool
 		playerCanTriggerPressurePlate = true, // A flag for if the player can trigger the pressure plate
+		enemyCanTriggerPressurePlate,
 		isComplete, // A flag checking if the puzzle is complete
 		isPowered,  // A flag checking if the pressure plate is powered
 		isLocked;   // A flag checking if the preasuer plate is locked
@@ -62,6 +63,13 @@ public class PuzzleLogic : MonoBehaviour
 
 				// Unlock the doors
 				doorManager.UnlockDoors();
+			}
+
+			if (collision.CompareTag("Enemy") && enemyCanTriggerPressurePlate)
+			{
+				// Move the puzzle item to the end location
+				GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyMovement>().canMove = false;
+				StartCoroutine(MoveOverSeconds(GameObject.FindGameObjectWithTag("Enemy"), transform.position, 2.0f));
 			}
 		}
 	}

@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour
 	///<summary> Initialize the sentence queue for the NPC, find the player, and get the animator for the NPC</summary>
 	void Start()
 	{
+		NPC = GameObject.FindGameObjectWithTag("LoadStar");
 		sentences      = new Queue<string>();
 		playerMovement = GameObject.FindGameObjectWithTag("Player");
 		animator       = GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>();
@@ -43,19 +44,24 @@ public class DialogueManager : MonoBehaviour
 	///<summary> Check if the player has pressed the return key to move to the next sentence </summary>
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
+		if (Input.GetKeyDown(KeyCode.Return) && animator.GetBool("IsOpen") == true)
 		{
+			Debug.Log(sentences.Count);
 			if (dialogueText.text.Length < FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence].Length)
 			{
 				StopAllCoroutines();
-				dialogueText.text = FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence];
-				if (currentSentence < sentences.Count)
+				if (currentSentence < FindObjectOfType<DialogueTrigger>().dialogue.sentences.Length)
 				{
-					currentSentence += 1;
+					dialogueText.text = FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence];
 				}
 			}
 			else
 			{
+				if (currentSentence < FindObjectOfType<DialogueTrigger>().dialogue.sentences.Length)
+				{
+					currentSentence += 1;
+					Debug.Log(currentSentence);
+				}
 				DisplayNextSentence();
 			}
 		}

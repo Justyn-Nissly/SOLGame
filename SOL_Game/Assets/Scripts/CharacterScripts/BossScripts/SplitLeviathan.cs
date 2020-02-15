@@ -13,7 +13,7 @@ public class SplitLeviathan : Enemy
 		damageToGive; // the bosses damage that is dealed to the player
 	public Leviathan
 		leviathan;
-	public LockOnProjectile
+	public LockOnMissile
 		lockOnProjectile;
 	public GameObject
 		poison;
