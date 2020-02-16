@@ -134,7 +134,10 @@ public class EnemyMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Update the values in the Animator for the players animation
-		SetEnemyAnimatorValues();
+		if (enemyAnimator != null)
+		{
+			SetEnemyAnimatorValues();
+		}
 
 		// Check which movement type is being used
 		switch (Type)
@@ -349,7 +352,10 @@ public class EnemyMovement : MonoBehaviour
 			}
 		}
 		// Update the values in the Animator for the players animation
-		SetEnemyAnimatorValues();
+		if (enemyAnimator != null)
+		{
+			SetEnemyAnimatorValues();
+		}
 
 		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
 													playerPos,
@@ -453,7 +459,10 @@ public class EnemyMovement : MonoBehaviour
 				lastDirection = -1;
 			}
 		}
-		SetEnemyAnimatorValues();
+		if(enemyAnimator != null)
+		{
+			SetEnemyAnimatorValues();
+		}
 	}
 	#endregion
 

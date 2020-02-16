@@ -153,6 +153,7 @@ MonoBehaviour:
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
+  enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
   powerUp: {fileID: 0}
@@ -198,7 +199,9 @@ MonoBehaviour:
   effectiveRange: 15
   moveSpeed: 7.5
   offset: 12
+  impactDamage: 0
   veerLeft: 0
-  target: {fileID: 0}
+  DestroyOnImpact: 0
   direction: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
+  target: {fileID: 0}

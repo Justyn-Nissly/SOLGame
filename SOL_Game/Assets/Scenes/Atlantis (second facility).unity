@@ -402,13 +402,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clockwise: 0
   revolutionObject: {fileID: 1694185885}
+  angle: 0
   maxRevolutionDistance: 3
   minRevolutionDistance: 3
   revolutionSpeed: 7.5
   startAngle: 270
-  angle: 0
-  oscillation: 0
-  revolutionDistance: 0
+  contactDamage: 0
 --- !u!212 &42941895
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2692,6 +2691,7 @@ MonoBehaviour:
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
+  enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
   powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
@@ -10951,6 +10951,7 @@ MonoBehaviour:
   doors:
   - {fileID: 352510514}
   - {fileID: 30702567}
+  pressurePlates: []
 --- !u!61 &1145039528
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11751,13 +11752,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clockwise: 0
   revolutionObject: {fileID: 1694185885}
+  angle: 0
   maxRevolutionDistance: 3
   minRevolutionDistance: 3
   revolutionSpeed: 7.5
   startAngle: 90
-  angle: 0
-  oscillation: 0
-  revolutionDistance: 0
+  contactDamage: 0
 --- !u!212 &1326016027
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12662,29 +12662,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorIsLocked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorOpenSprite
-      value: 
-      objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
-        type: 3}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorLockedClosedSprite
-      value: 
-      objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
-        type: 3}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorUnlockedClosedSprite
-      value: 
-      objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
-        type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
@@ -13004,6 +12981,7 @@ MonoBehaviour:
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
+  enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
   powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
@@ -13145,12 +13123,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694185885}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07d72eaf6393d064c87ba8f23d3bd366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
+  enemyAnimator: {fileID: 0}
   evasionDistance: 0
   waitTime: 0.5
   maxChaseTime: 0
@@ -27523,6 +27502,7 @@ MonoBehaviour:
   doors:
   - {fileID: 723293832}
   - {fileID: 178468552}
+  pressurePlates: []
 --- !u!61 &1844171698
 BoxCollider2D:
   m_ObjectHideFlags: 0

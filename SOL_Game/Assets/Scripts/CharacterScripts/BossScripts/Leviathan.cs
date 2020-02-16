@@ -104,15 +104,15 @@ public class Leviathan : Enemy
 	#region Utility Methods
 	private bool CheckIfInRange(Transform objectPosition)
 	{
-		bool laskdfjlsakf = false;
+		bool IsInRange = false;
 
 		if (objectPosition.position.x >= upperLeftSpawnPointLimit.position.x && objectPosition.position.x < lowerRightSpawnPointLimit.position.x &&
 					objectPosition.position.y >= lowerRightSpawnPointLimit.position.y && objectPosition.position.y < upperLeftSpawnPointLimit.position.y)
 		{
-			laskdfjlsakf = true;
+			IsInRange = true;
 		}
 
-		return laskdfjlsakf;
+		return IsInRange;
 	}
 
 
@@ -176,6 +176,7 @@ public class Leviathan : Enemy
 			splitLeviathanScript.currentHealth = currentHealth;
 			splitLeviathanScript.leviathan = this;
 			splitLeviathanScript.lockOnProjectile.veerLeft = true;
+			splitLeviathanScript.lockOnProjectile.target = CreateTarget();
 		}
 
 		// create the second split leviathan
@@ -190,6 +191,7 @@ public class Leviathan : Enemy
 			splitLeviathanScript.currentHealth = currentHealth;
 			splitLeviathanScript.leviathan = this;
 			splitLeviathanScript.lockOnProjectile.veerLeft = false;
+			splitLeviathanScript.lockOnProjectile.target = CreateTarget();
 		}
 
 
