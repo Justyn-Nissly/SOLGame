@@ -44,20 +44,21 @@ public class DialogueManager : MonoBehaviour
 	///<summary> Check if the player has pressed the return key to move to the next sentence </summary>
 	void Update()
 	{
+		Debug.Log(NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence]);
 		if (Input.GetKeyDown(KeyCode.Return) && animator.GetBool("IsOpen") == true)
 		{
-			Debug.Log(sentences.Count);
-			if (dialogueText.text.Length < FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence].Length)
+			
+			if (dialogueText.text != NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence])
 			{
 				StopAllCoroutines();
-				if (currentSentence < FindObjectOfType<DialogueTrigger>().dialogue.sentences.Length)
+				if (currentSentence < NPC.GetComponent<DialogueTrigger>().dialogue.sentences.Length)
 				{
-					dialogueText.text = FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence];
+					dialogueText.text = NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence];
 				}
 			}
 			else
 			{
-				if (currentSentence < FindObjectOfType<DialogueTrigger>().dialogue.sentences.Length)
+				if (currentSentence < NPC.GetComponent<DialogueTrigger>().dialogue.sentences.Length)
 				{
 					currentSentence += 1;
 					Debug.Log(currentSentence);
@@ -107,6 +108,7 @@ public class DialogueManager : MonoBehaviour
 		StartCoroutine(TeleportLoadstar());
 		NPC.GetComponent<DialogueTrigger>().canActivate = false;
 		Debug.Log("End of Conversation.");
+		currentSentence = 0;
 	}
 	#endregion
 

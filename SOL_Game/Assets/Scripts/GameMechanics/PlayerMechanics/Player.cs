@@ -44,7 +44,7 @@ public class Player : BaseCharacter
 		heavyStartTimeBetweenAttacks = .6f,
 		RangedStartTimeBetweenAttacks = .5f;
 	#endregion
-
+	private float fast , oldSpeed;
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
@@ -62,6 +62,8 @@ public class Player : BaseCharacter
 
 		dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 		powerUpTimers = new float[PowerUp.SPEED + 1];
+		fast = playerMovementSpeed * 2;
+		oldSpeed = playerMovementSpeed;
 	}
 
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly </summary>
@@ -69,6 +71,35 @@ public class Player : BaseCharacter
 	{
 		// Apply power ups to the player
 		ApplyPowerUps();
+
+
+
+		/*************************************************************************************************************************************************************
+		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
+		 *************************************************************************************************************************************************************
+		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
+		 *************************************************************************************************************************************************************
+		 *************************************************************************************************************************************************************/
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			playerMovementSpeed = fast;
+			this.GetComponent<Rigidbody2D>().isKinematic = true;
+		}
+		if (Input.GetKeyUp(KeyCode.Space))
+		{
+			playerMovementSpeed = oldSpeed;
+			this.GetComponent<Rigidbody2D>().isKinematic = false;
+		}
+		/*************************************************************************************************************************************************************
+		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
+		 *************************************************************************************************************************************************************
+		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
+		 *************************************************************************************************************************************************************
+		 *************************************************************************************************************************************************************/
+
+
+
+
 
 		// If the player is allowed to move, check for player movement input and apply it to the player
 		if (playerAllowedToMove)

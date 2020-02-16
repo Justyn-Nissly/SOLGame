@@ -77,7 +77,10 @@ public class EnemySpawner : MonoBehaviour
 
 		// play the teleport shader effect if there is one on the enemy
 		//(it will find all effects on the enemy because some enemies have more than one like the shield enemy)
-		tempEnemy.GetComponent<Enemy>().PlayTeleportEffect();
+		if(enemy.CompareTag("Enemy"))
+		{
+			tempEnemy.GetComponent<Enemy>().PlayTeleportEffect();
+		}
 	}
 
 	/// <summary> this starts the logic to check if all this spawners enemies are defeated (this is a separate method so that other scripts can call this)</summary>
