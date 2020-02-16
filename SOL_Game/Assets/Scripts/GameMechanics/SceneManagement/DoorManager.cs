@@ -14,9 +14,7 @@ public class DoorManager : MonoBehaviour
 		pressurePlates = new List<PuzzleLogic>(); // A list of pressure plates to unlock
 	#endregion
 
-	#region Private Variables
-	private int
-		pressurePlatesPressed; // The number of pressure plates that have been activated
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
@@ -52,7 +50,7 @@ public class DoorManager : MonoBehaviour
 	///<summary> Unlock doors if all pressure plates are active </summary>
 	public int CheckPressurePlatesPressed()
 	{
-		pressurePlatesPressed = 0;
+		int pressurePlatesPressed = 0; // The number of pressure plates that have been activated
 		foreach (PuzzleLogic pressurePlate in pressurePlates)
 		{
 			if (pressurePlate.isComplete == true)
@@ -62,6 +60,7 @@ public class DoorManager : MonoBehaviour
 		}
 		return pressurePlatesPressed;
 	}
+
 	#endregion
 
 	#region Coroutines (Empty)

@@ -59,17 +59,19 @@ public class PuzzleLogic : MonoBehaviour
 			}
 			else if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
 			{
+				isComplete = true;
 				spriteRenderer.sprite = completeSprite;
-
-				// Unlock the doors
-				doorManager.UnlockDoors();
+				if (doorManager.CheckPressurePlatesPressed() == doorManager.pressurePlates.Count)
+				{
+					OnPuzzleComplete(collision.gameObject);
+				}
 			}
 
 			if (collision.CompareTag("Enemy") && enemyCanTriggerPressurePlate)
 			{
-				// Move the puzzle item to the end location
-				GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyMovement>().canMove = false;
-				StartCoroutine(MoveOverSeconds(GameObject.FindGameObjectWithTag("Enemy"), transform.position, 2.0f));
+				// Lock the enemy in place and activate the pressure plate
+				collision.GetComponent<EnemyMovement>().canMove = false;
+				OnPuzzleComplete(collision.gameObject);
 			}
 		}
 	}
@@ -77,10 +79,7 @@ public class PuzzleLogic : MonoBehaviour
 	/// <summary> Prevent the player from passing an unsolved puzzle </summary>
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if(isComplete == false)
-		{
-			spriteRenderer.sprite = unlockedSprite;
-		}
+		isComplete = false;
 		if (collision.CompareTag("Player") && playerCanTriggerPressurePlate)
 		{
 			spriteRenderer.sprite = unlockedSprite;
@@ -92,35 +91,44 @@ public class PuzzleLogic : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	private void OnPuzzleComplete(GameObject puzzleItem)
+	private void OnPuzzleComplete(GameObject itemOnPressurePlate)
 	{
-		// set flag so that the player cant trigger the pressure plate any more
+		// Set flags so that the pressure plate cannot be triggered any more
 		playerCanTriggerPressurePlate = false;
+		//enemyCanTriggerPressurePlate  = false;
+		pressurePlateCollider.enabled = false;
 
-		// enable the lazer sprite if it is not null
-		if(LazerSprite != null)
+		// Set the pressure plate to complete
+		isComplete = true;
+
+		// Enable the lazer sprite if it is not null
+		if (LazerSprite != null)
 		{
 			Invoke("EnableLazerSprite", .5f); // using invoke to add a timed delay
 		}
 
-		// change sprite to the complete sprite
+		// Change sprite to the complete sprite
 		spriteRenderer.sprite = completeSprite;
-
+		
 		// Prevent the puzzle item from moving
-		puzzleItem.GetComponent<Rigidbody2D>().velocity    = Vector2.zero;
-		puzzleItem.GetComponent<Rigidbody2D>().isKinematic = true;
+		if (itemOnPressurePlate.CompareTag("Player") == false)
+		{
+			itemOnPressurePlate.GetComponent<Rigidbody2D>().velocity    = Vector2.zero;
+			itemOnPressurePlate.GetComponent<Rigidbody2D>().isKinematic = true;
+		}
 
 		// Move the puzzle item to the end location
-		StartCoroutine(MoveOverSeconds(puzzleItem, transform.position, 2.0f));
+		if(itemOnPressurePlate.CompareTag("Player") == false)
+		{
+			StartCoroutine(MoveOverSeconds(itemOnPressurePlate, transform.position, 2.0f));
+		}
 
 		// Play the puzzle solved sound
 		GetComponent<AudioSource>().Play();
 
-
-		// Check if all the pressure plates are pressed
-		if(doorManager.pressurePlates.Count == doorManager.CheckPressurePlatesPressed())
+		// Unlock the doors
+		if (doorManager.CheckPressurePlatesPressed() == doorManager.pressurePlates.Count)
 		{
-			// Unlock the doors
 			doorManager.UnlockDoors();
 		}
 	}
