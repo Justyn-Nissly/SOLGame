@@ -14,7 +14,7 @@ public class TractorBeamEmitter : MonoBehaviour
 		beamDelay; // Time between emitting beams
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
 	private float
 		beamTimer; // Time left before launching another beam
 	#endregion
