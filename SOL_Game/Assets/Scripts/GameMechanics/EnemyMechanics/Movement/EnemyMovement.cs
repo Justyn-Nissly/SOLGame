@@ -348,7 +348,8 @@ public class EnemyMovement : MonoBehaviour
 			if (Vector2.Distance((Vector2)transform.position, playerPos) > enemy.aggroRange)
 			{
 				enemy.aggro = false;
-				enemyAnimator.SetLayerWeight(1, 1);
+				if (enemyAnimator != null)
+					enemyAnimator.SetLayerWeight(1, 1);
 			}
 		}
 		// Update the values in the Animator for the players animation

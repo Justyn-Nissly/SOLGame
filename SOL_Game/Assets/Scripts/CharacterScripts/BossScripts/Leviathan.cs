@@ -22,28 +22,36 @@ public class Leviathan : Enemy
 	public EnemySpawner
 		LeviathanEnemySpawner; // a reference to the bosses enemy spawner
 	public GameObject
-		homingMissile,
-		splitLeviathan,
-		staticArmLeft,
-		staticArmRight,
-		spinningArmLeft,
-		spinningArmRight,
-		poison,
-		healthCanvas;
+		homingMissile, // the prefab of the homing missile that will get Instantiated
+		splitLeviathan, // the prefab of the split Leviathan that will get Instantiated twice when the leviathan splits
+		staticArmLeft, // reference to the static left arm
+		staticArmRight, // reference to the static right arm
+		spinningArmLeft, // reference to the spinning left arm
+		spinningArmRight, // reference to the spinning right arm
+		poison, // the prefab of a poison spot that will get Instantiated under the enemy
+		breathAttack; // the prefab of a breath attack game object that creates a line of fire (more then one is used to create the fire breath attack)
+
+	public List<Transform>
+		breathAttackTargets; // referance to all points that a line of fire should go to
 
 	#endregion
 
 	#region Private Variables
 	private bool
-		Moving = false; // flag for if the enemy is charging at the player
+		canDoHalfHealthEvent = true, // flag so that this health event only happens once
+		canDoQuarterHealthEvent = true, // flag so that this health event only happens once
+		canDoThreeQuarterHealthEvent = true, // flag so that this health event only happens once
+		enemyIsShacking = false; // for making the enemy look "mad"
 
 
 	private float
-		enemyMoveSpeed = 15,
-		timer = 5,
-		maxTimer = 5,
-		poisonTimer = .25f,
-		poisonMaxTimer = .25f;
+		attackCountdownTimer = 5, // the countdown timer for the attacks
+		attackIntervalTime = 5, // the interval time before attacking again
+		poisonCountdownTimer = .25f, // the countdown timer for placing poison
+		poisonIntervalTimer = .25f, // the interval time before placing a poison spot again
+		requiredPlayerDistanceAway = 10, // the missile will not shoot if the player is to close
+		shackSpeed = 50.0f, //how fast it shakes
+		shackAmount = .01f; //how much it shakes
 	#endregion
 
 	// Unity Named Methods
@@ -52,49 +60,41 @@ public class Leviathan : Enemy
 	{
 		base.Start();
 
-		//LeviathanEnemySpawner.AddNewEnemyID(gameObject.GetInstanceID());
-		//LeviathanEnemySpawner.StartCheckingIfEnemiesDefeated();
-	}
-
-	private void OnEnable()
-	{
-		healthCanvas.SetActive(true);
+		// add this boss to the enemy spawner, so that the doors out of the room only unlock when the boss and all spawned in enemies are dead
+		LeviathanEnemySpawner.AddNewEnemyID(gameObject.GetInstanceID());
+		LeviathanEnemySpawner.StartCheckingIfEnemiesDefeated();
 	}
 
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 
-		if(canAttack)
+		// place a poison spot if the enemy can attack
+		if(aggro)
 			PoisonLogic();
 
-		if (timer < 0 && canAttack)
+		// only try and do an attack if the timer countdown is zero and the enemy is allowed to attack
+		if (attackCountdownTimer < 0 && canAttack && currentHealth > 0)
 		{
-			// shoot a missile if the player is a certain distance away
-			if (Vector2.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, gameObject.transform.position) >= 12)
-			{
-				HomingMissileAttack();
-				timer = maxTimer;
-			}
-			else if (CheckIfInRange(splitLeviathanSpawnPointOne) && CheckIfInRange(splitLeviathanSpawnPointTwo))
-			{
-				SplitIntoTwoAttack();
-
-				timer = maxTimer;
-			}
+			DoAnAttack();
 		}
 		else
 		{
-			timer -= Time.deltaTime;
+			attackCountdownTimer -= Time.deltaTime;
 		}
 
-		
+		// if the enemy should be shacking start shacking the enemy
+		if (enemyIsShacking)
+		{
+			transform.position = new Vector2(transform.position.x + (Mathf.Sin(Time.time * shackSpeed) * shackAmount), transform.position.y + (Mathf.Sin(Time.time * shackSpeed) * shackAmount));
+		}
+
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		// if the boss collided with the player damage the player
-		if (collision.gameObject.CompareTag("Player") && Moving) // only damage the player when charging
+		if (collision.gameObject.CompareTag("Player")) // only damage the player when charging
 		{
 			DamagePlayer(collision.gameObject.GetComponent<Player>());
 		}
@@ -102,6 +102,63 @@ public class Leviathan : Enemy
 	#endregion
 
 	#region Utility Methods
+	/// <summary> this will do an attack based on the situation</summary>
+	private void DoAnAttack()
+	{
+			// shoot a missile if the player is a certain distance away
+			if (Vector2.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, gameObject.transform.position) >= requiredPlayerDistanceAway)
+			{
+				HomingMissileAttack();
+				attackCountdownTimer = attackIntervalTime;
+			}
+			// check is the enemy has less than half health, if true it will do all attacks that are allowed below half health
+			else if (currentHealth <= maxHealth.initialValue / 2) // do this attack if bellow half health
+			{
+				// do a random attack weighted to doing the breath attack more often
+				switch (Random.Range(1, 5))
+				{
+					case 1:
+					case 2:
+						BreathAttack();
+						break;
+					case 3:
+						StartCoroutine(DoSpinAttack());
+						break;
+					default:
+						SplitIntoTwoAttack();
+						break;
+
+				}
+				attackCountdownTimer = attackIntervalTime;
+			}
+			// do the default attack of splitting into two enemies
+			else
+			{
+				SplitIntoTwoAttack();
+				attackCountdownTimer = attackIntervalTime;
+			}
+	}
+
+
+
+	/// <summary>  create a line of fire to each fire point in the list of breath target points </summary>
+	private void BreathAttack()
+	{
+		foreach (Transform attactTarget in breathAttackTargets)
+		{
+			// create the line of fire game object
+			GameObject breathAttackGO = Instantiate(breathAttack, transform.position, new Quaternion(0, 0, 0, 0));
+
+			// set that line of fire's target position
+			SpikeSurge breathAttackLogic = breathAttackGO.GetComponent<SpikeSurge>();
+			if (breathAttackLogic != null)
+			{
+				breathAttackLogic.target = attactTarget.position;
+			}
+		}
+	}
+
+	/// <summary> this makes sure that the passed in objects position is in room </summary>
 	private bool CheckIfInRange(Transform objectPosition)
 	{
 		bool IsInRange = false;
@@ -115,21 +172,22 @@ public class Leviathan : Enemy
 		return IsInRange;
 	}
 
-
+	/// <summary> creates a poison spot every N seconds </summary>
 	private void PoisonLogic()
 	{
-		if (poisonTimer < 0)
+		if (poisonCountdownTimer < 0)
 		{
 			Destroy(Instantiate(poison, transform.position, new Quaternion(0, 0, 0, 0)), 5f);
 
-			poisonTimer = poisonMaxTimer;
+			poisonCountdownTimer = poisonIntervalTimer;
 		}
 		else
 		{
-			poisonTimer -= Time.deltaTime;
+			poisonCountdownTimer -= Time.deltaTime;
 		}
 	}
 
+	/// <summary> creates and returns an empty game object at the players current position</summary>
 	private GameObject CreateTarget()
 	{
 		GameObject targetGameObject = new GameObject("target game object");
@@ -138,15 +196,16 @@ public class Leviathan : Enemy
 		return targetGameObject;
 	}
 
+	/// <summary> do a homing missile attack (it will not do any thing if the player is too close)</summary>
 	private void HomingMissileAttack()
 	{
+		// create the missile
 		GameObject missile = Instantiate(homingMissile, missileSpawnPoint.position, missileSpawnPoint.rotation);
 
+		// set target and random veer direction
 		LockOnProjectile lockOnProjectile = missile.GetComponent<LockOnProjectile>();
 		if(lockOnProjectile != null)
 		{
-			//lockOnProjectile.target = CreateTarget();
-
 			// make the projectile veer in a random direction
 			if(Random.Range(0, 1) == 0)
 			{
@@ -164,52 +223,49 @@ public class Leviathan : Enemy
 
 	private void SplitIntoTwoAttack()
 	{
-		// create the first split leviathan
-		GameObject splitLeviathanGO = Instantiate(splitLeviathan, splitLeviathanSpawnPointOne.position, new Quaternion(0, 0, 0, 0));
-
-		SplitLeviathan splitLeviathanScript = splitLeviathanGO.GetComponent<SplitLeviathan>();
-
-		if(splitLeviathanScript != null)
+		// if one of the split leviathans would be created outside the walls don't do anything
+		if (CheckIfInRange(splitLeviathanSpawnPointOne) == false || CheckIfInRange(splitLeviathanSpawnPointTwo) == false)
 		{
-			splitLeviathanScript.maxHealth = maxHealth;
-			splitLeviathanScript.healthBar = healthBar;
-			splitLeviathanScript.currentHealth = currentHealth;
-			splitLeviathanScript.leviathan = this;
-			splitLeviathanScript.lockOnProjectile.veerLeft = true;
-			splitLeviathanScript.lockOnProjectile.target = CreateTarget();
+			return;
 		}
+
+		// create the first split leviathan
+		CreateSplitLeviathan(splitLeviathanSpawnPointOne.transform.position, true);
 
 		// create the second split leviathan
-		splitLeviathanGO = Instantiate(splitLeviathan, splitLeviathanSpawnPointTwo.position, new Quaternion(0, 0, 0, 0));
-
-		splitLeviathanScript = splitLeviathanGO.GetComponent<SplitLeviathan>();
-
-		if (splitLeviathanScript != null)
-		{
-			splitLeviathanScript.maxHealth = maxHealth;
-			splitLeviathanScript.healthBar = healthBar;
-			splitLeviathanScript.currentHealth = currentHealth;
-			splitLeviathanScript.leviathan = this;
-			splitLeviathanScript.lockOnProjectile.veerLeft = false;
-			splitLeviathanScript.lockOnProjectile.target = CreateTarget();
-		}
-
+		CreateSplitLeviathan(splitLeviathanSpawnPointTwo.transform.position, false);
 
 		// move the main leviathan off screen
-		//aggro = true; // this disables the enemies movement
 		canAttack = false;
 		transform.position = offScreenLocation.position;
 	}
 
+	/// <summary> Creates a Split Leviathan </summary>
+	private void CreateSplitLeviathan(Vector3 spawnPoint, bool veerLeft)
+	{
+		// create the splitLeviathan game object
+		GameObject splitLeviathanGO = Instantiate(splitLeviathan, spawnPoint, new Quaternion(0, 0, 0, 0));
+
+		// get a reference to the split Leviathan's Script
+		SplitLeviathan splitLeviathanScript = splitLeviathanGO.GetComponent<SplitLeviathan>();
+
+		if (splitLeviathanScript != null) // null check
+		{
+			splitLeviathanScript.leviathan = this; // this is used for linking health and for merging the two split leviathan back together
+			splitLeviathanScript.lockOnProjectile.veerLeft = veerLeft;
+			splitLeviathanScript.lockOnProjectile.target = CreateTarget(); // set the target to the players current position
+		}
+	}
+
+	/// <summary> merges the leviathan back together and does a spin attack</summary>
 	public void Merge(Vector3 mergePosition)
 	{
-		//aggro = false; // this re-enables the enemies movement
 		transform.position = mergePosition;
 
 		StartCoroutine(DoSpinAttack());
 	}
 
-	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
+	/// <summary> overridden takeDamage() method, mainly for doing things at curtain health points</summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
@@ -217,7 +273,26 @@ public class Leviathan : Enemy
 		if (currentHealth <= 0)
 		{
 			canAttack = false;
-			Moving = false;
+			aggro = false;
+		}
+		else
+		{
+			// check if the enemy should start a health event
+			if (currentHealth <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
+			{
+				canDoThreeQuarterHealthEvent = false; // this flag is here so this only can happen once
+				StartCoroutine(StartHealthEvent(1)); // start health event
+			}
+			else if (currentHealth <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
+			{
+				canDoHalfHealthEvent = false; // this flag is here so this only can happen once
+				StartCoroutine(StartHealthEvent(2)); // start health event
+			}
+			else if (currentHealth <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
+			{
+				canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
+				StartCoroutine(StartHealthEvent(3)); // start health event
+			}
 		}
 	}
 
@@ -232,9 +307,59 @@ public class Leviathan : Enemy
 			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
+
+	/// <summary> this is every thing that happens a Health event point </summary>
+	private void HealthEvent(int numOfEnemiesToSpawn)
+	{
+		// start doing boss spawning logic
+		StartCoroutine(SpawningEnemiesActions(numOfEnemiesToSpawn + 2));
+
+		attackIntervalTime--; // decrease the time between each attack
+
+		// spawn in enemies
+		StartCoroutine(LeviathanEnemySpawner.SpawnInEnemies(false, numOfEnemiesToSpawn));
+	}
 	#endregion
 
 	#region Coroutines
+	/// <summary> disable attacking then after a delay enable attacking again</summary>
+	private IEnumerator SpawningEnemiesActions(float delayTime)
+	{
+		// set flags for disabling attacking, enabling enemy shacking, take no damage, and stop the enemy from moving
+		canAttack = false;
+		enemyIsShacking = true;
+		canTakeDamage = false;
+		aggro = false;
+
+		yield return new WaitForSeconds(delayTime);
+
+		canAttack = true;
+		enemyIsShacking = false;
+		canTakeDamage = true;
+		aggro = true;
+	}
+
+	/// <summary> Moves the boss to the center then starts spawning in enemies </summary>
+	public IEnumerator StartHealthEvent(int numberOfEnemiesToSpawn)
+	{
+		float seconds = 1;
+		float elapsedTime = 0;
+		Vector3 startingPosition = transform.position; // save the starting position
+		
+		canAttack = false;
+
+		// move the enemy to the center
+		while (elapsedTime < seconds)
+		{
+			transform.position = Vector3.Lerp(startingPosition, roomCenterTransform.position, (elapsedTime / seconds));
+			elapsedTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+		// start the health event
+		HealthEvent(numberOfEnemiesToSpawn);
+	}
+
 	/// <summary> this does a spinning the arms type attack</summary>
 	private IEnumerator DoSpinAttack()
 	{
@@ -255,52 +380,6 @@ public class Leviathan : Enemy
 		yield return new WaitForSeconds(1);
 
 		canAttack = true;
-	}
-
-	/// <summary> Moves a game object in the player direction (at the time this method is called) over N seconds </summary>
-	public IEnumerator MoveInPlayersDirection()
-	{
-		// set flags
-		Moving = true;
-		canTakeDamage = false;
-
-		// get the direction the player is in
-		Vector3 targetDirection = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).normalized;
-
-		// charge at the player
-		while (Moving == true)
-		{
-			transform.position += targetDirection * enemyMoveSpeed * Time.deltaTime;
-			yield return new WaitForEndOfFrame();
-		}
-
-		// set flags
-		canTakeDamage = true;
-	}
-
-	/// <summary> Moves a game object to a center of the room position over N seconds </summary>
-	public IEnumerator MoveToCenter(float delayTime = 0)
-	{
-		float seconds = 1; // the time in second that it will take to move to the center
-		float elapsedTime = 0; // timer variable
-
-		// wait for the optional delay time before moving the boss to the center
-		yield return new WaitForSeconds(delayTime);
-
-		Vector3 startingPosition = transform.position; // save the starting position
-
-		// move the enemy a little each frame based on how many seconds it should take to get the ending position
-		while (elapsedTime < seconds)
-		{
-			transform.position = Vector3.Lerp(startingPosition, roomCenterTransform.position, (elapsedTime / seconds));
-			elapsedTime += Time.deltaTime;
-			yield return new WaitForEndOfFrame();
-		}
-
-		// add a delay before letting the boss attack again
-		yield return new WaitForSeconds(2f);
-		canAttack = true;
-
 	}
 	#endregion
 }

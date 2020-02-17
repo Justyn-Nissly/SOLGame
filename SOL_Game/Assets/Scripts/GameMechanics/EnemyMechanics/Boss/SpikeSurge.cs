@@ -13,10 +13,15 @@ public class SpikeSurge : MonoBehaviour
 		maxX,           // Maximum x-coordinate of the direction
 		minX,           // Minimum x-coordinate of the direction
 		maxY,           // Maximum y-coordinate of the direction
-		minY;           // Minimum y-coordinate of the direction
+		minY,           // Minimum y-coordinate of the direction
+		spikeTimeTillDestroyed = 5; // how long the instantiated spike will exist for
 	public GameObject
 		spike,  // Used to instantiate the blast objects
 		source; // Where the blast launches from
+	public Vector2
+		target;    // Position the arc will move towards
+	public bool
+		stopWhenHitWall = false; // destroy this spike surge if it hits a wall(the wall needs a rigid body 2d to detect this)
 	#endregion
 
 	#region Private Variables
@@ -28,12 +33,21 @@ public class SpikeSurge : MonoBehaviour
 		arcLaunching; // The arc is being launched
 	private Vector2
 		direction, // Where the arc is moving
-		origin,    // The starting location of the first arc
-		target;    // Position the arc will move towards
+		origin;    // The starting location of the first arc
+
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	/// <summary> destroy this spike surge if it hits a wall if the flag to stop when hit wall is set </summary>
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.CompareTag("Wall") && stopWhenHitWall)
+		{
+			Destroy(gameObject);
+		}
+	}
+
 	/// <summary> Set up the blasts to appear </summary>
 	void Start()
 	{
@@ -74,7 +88,7 @@ public class SpikeSurge : MonoBehaviour
 	/// <summary> Make a new blast appear along the arc </summary>
 	void CreateBlast()
 	{
-		Instantiate(spike, transform.position, Quaternion.identity);
+		Destroy(Instantiate(spike, transform.position, Quaternion.identity), spikeTimeTillDestroyed);
 	}
 
 	/// <summary> Launch the arc </summary>
@@ -130,8 +144,11 @@ public class SpikeSurge : MonoBehaviour
 
 	void AssignDirection()
 	{
-		target.x = Random.Range(minX, maxX);
-		target.y = Random.Range(minY, maxY);
+		if(target == null)
+		{
+			target.x = Random.Range(minX, maxX);
+			target.y = Random.Range(minY, maxY);
+		}
 	}
 	#endregion
 

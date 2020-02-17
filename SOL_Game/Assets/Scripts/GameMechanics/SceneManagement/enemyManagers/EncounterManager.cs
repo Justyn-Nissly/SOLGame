@@ -59,6 +59,7 @@ public class EncounterManager : MonoBehaviour
 		yield return new WaitForSeconds(2f);
 
 		enemyToSpawn.GetComponent<Enemy>().canAttack = true;
+		enemyToSpawn.GetComponent<Enemy>().aggroRange = 100;
 	}
 	#endregion
 }
