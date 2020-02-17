@@ -144,6 +144,8 @@ public class Leviathan : Enemy
 	/// <summary>  create a line of fire to each fire point in the list of breath target points </summary>
 	private void BreathAttack()
 	{
+		StartCoroutine(SpawningEnemiesActions(2));
+
 		foreach (Transform attactTarget in breathAttackTargets)
 		{
 			// create the line of fire game object
