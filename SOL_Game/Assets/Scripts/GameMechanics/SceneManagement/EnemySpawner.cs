@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
 	#region Public Variables
 	public List<GameObject>
 		enemiesToSpawn = new List<GameObject>(), // a list of all enemies that will be spawned in
-		enemySpawnPoints = new List<GameObject>(); // a list of all points that the enemies will be spawned at 
+		enemySpawnPoints = new List<GameObject>(); // a list of all points that the enemies will be spawned at
 																 //(these lists should be the same length but the code will still work if they are not)
 
 	public List<DoorLogic>
@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
 		panCamera = true; // flag for if you want the camera to pan to the first spawn point when the enemies spawn in
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
 	private bool
 		enemiesHaveSpawned = false,
 		doorsHaveBeenUnlocked = false;
@@ -45,11 +45,6 @@ public class EnemySpawner : MonoBehaviour
 		timer = CheckInterval;
 	}
 
-	private void Update()
-	{
-
-	}
-
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// if the player collides with this trigger spawn in enemies
@@ -65,48 +60,35 @@ public class EnemySpawner : MonoBehaviour
 			// start checking if the enemies have been defeated(for unlocking doors so dont check this if there are no doors)
 			if(doorManager.doors.Count > 0)
 			{
-				InvokeRepeating("CheckEnemies", 1f, .5f);  //1s delay, repeat every .5s
+				StartCheckingIfEnemiesDefeated();  //1s delay, repeat every .5s
 			}
 		}
 	}
 	#endregion
 
 	#region Utility Methods
-	private void SpawnInEnemy(GameObject enemy)
+	private void SpawnInEnemy(GameObject enemy, int spawnPoint)
 	{
 		// instantiate the current enemy in the loop at a spawn point and remove that spawn point from the list of spawn points
-		GameObject tempEnemy = Instantiate(enemy, enemySpawnPoints[0].transform.position, new Quaternion(0, 0, 0, 0));
+		GameObject tempEnemy = Instantiate(enemy, enemySpawnPoints[spawnPoint].transform.position, new Quaternion(0, 0, 0, 0));
 
 		// saves this enemy's ID number
 		enemyIDs.Add(tempEnemy.GetInstanceID());
 
 		// play the teleport shader effect if there is one on the enemy
 		//(it will find all effects on the enemy because some enemies have more than one like the shield enemy)
-		PlayTeleportEffect(tempEnemy);
-
-		// remove this enemies spawn point from the list because its been used
-		enemySpawnPoints.Remove(enemySpawnPoints[0]);
+		tempEnemy.GetComponent<Enemy>().PlayTeleportEffect();
 	}
 
-	private void PlayTeleportEffect(GameObject enemy)
+	/// <summary> this starts the logic to check if all this spawners enemies are defeated (this is a separate method so that other scripts can call this)</summary>
+	public void StartCheckingIfEnemiesDefeated()
 	{
-		List<_2dxFX_NewTeleportation2> enemyTeleportScripts = new List<_2dxFX_NewTeleportation2>();
-		enemyTeleportScripts.AddRange(enemy.GetComponentsInChildren<_2dxFX_NewTeleportation2>());
-
-		if (enemyTeleportScripts.Count != 0) // check for empty list
-		{
-			foreach (_2dxFX_NewTeleportation2 enemyTeleportScript in enemyTeleportScripts)
-			{
-				StartCoroutine(TeleportInEnemy(enemyTeleportScript));
-			}
-		}
+		InvokeRepeating("CheckEnemies", 1f, .5f);  //1s delay, repeat every .5s
 	}
 
 	/// <summary> this method unlocks any locked doors linked to this spawner if all this spawer's enemies have been defeated</summary>
 	private void CheckEnemies()
 	{
-		print("check");
-
 		if (CheckIfEnemiesDefeated())
 		{
 			// unlock any doors
@@ -116,7 +98,7 @@ public class EnemySpawner : MonoBehaviour
 			// stop checking if enemies have been defeated
 			CancelInvoke();
 		}
-		
+
 	}
 
 	/// <summary> this method returns true if all this spawner's enemies have been defeated</summary>
@@ -136,56 +118,64 @@ public class EnemySpawner : MonoBehaviour
 				}
 			}
 		}
-
 		return true;
+	}
+
+	/// <summary> for adding a new enemy that needs to die before the doors unlock (mainly used for boss battles)</summary>
+	public void AddNewEnemyID(int enemyID)
+	{
+		enemyIDs.Add(enemyID);
 	}
 	#endregion
 
 	#region Coroutines
 	/// <summary> method to spawn in this spawner's enemies </summary>
-	private IEnumerator SpawnInEnemies()
+	/// <param name="numberOfEnemiesToSpawn">only fill in if you want to limit the number of spawned in enemies
+	/// (the reason the default value is 100 is because that is a limit that we will never reach)</param>
+	public IEnumerator SpawnInEnemies(bool freezePlayer = true, int numberOfEnemiesToSpawn = 100)
 	{
+		int spawnPointIndex = 0;
+
 		// pan the camera to the newly spawned in enemies
 		if (panCamera)
 		{
 			GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(enemySpawnPoints[0], 1, 1, 1f);
 		}
+		else
+		{
+			freezePlayer = false;
+		}
 
-		// freeze the player
-		FindObjectOfType<Player>().FreezePlayer();
+		// freeze the player, there is a bool check because we don't want to freeze movement in the middle of a boss fight
+		if (freezePlayer)
+		{
+			FindObjectOfType<Player>().FreezePlayer();
+		}
 
 		// spawn in each enemy in the enemies to spawn list
 		foreach (GameObject enemy in enemiesToSpawn)
 		{
 			// make sure there are spawn points left in the spawn points list
-			if (enemySpawnPoints.Count > 0)
+			if (enemySpawnPoints.Count > 0 && numberOfEnemiesToSpawn >= 1)
 			{
-				SpawnInEnemy(enemy);
+				SpawnInEnemy(enemy, spawnPointIndex); // spawn in the enemy
+
+				// change counters
+				numberOfEnemiesToSpawn--; // decrement the counter
+				if (spawnPointIndex < enemySpawnPoints.Count - 1)
+				{
+					spawnPointIndex++;
+				}
+
 				yield return new WaitForSeconds(enemySpawnRate); // spawn in an enemy every N seconds
 			}
 		}
 
 		// unfreeze the player
-		FindObjectOfType<Player>().UnFreezePlayer();
-	}
-
-	private IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
-	{
-		float percentageComplete = 0;
-
-		// make the enemy invisible, this is not set by default in the prefab because
-		// then the enemy would be invisible in Dev rooms because they don't have this script running in them
-		teleportScript._Fade = 1;
-
-		// teleport the enemy in, it does this by "sliding" a float from 0 to 1 over time
-		while (percentageComplete < 1)
+		if (freezePlayer)
 		{
-			teleportScript._Fade = Mathf.Lerp(1f, 0f, percentageComplete);
-			percentageComplete += Time.deltaTime;
-			yield return null;
+			FindObjectOfType<Player>().UnFreezePlayer();
 		}
-
-		teleportScript._Fade = 0;
 	}
 	#endregion
 }

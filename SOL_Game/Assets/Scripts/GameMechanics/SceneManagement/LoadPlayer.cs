@@ -84,6 +84,9 @@ public class LoadPlayer : MonoBehaviour
 		// then the player would be invisible in Dev rooms because they don't have this script running in them
 		teleportScript._Fade = 1;
 
+		// disable player movement
+		playerInScene.GetComponent<Player>().FreezePlayer();
+
 		// Pause before playing teleport effect
 		yield return new WaitForSeconds(1f);
 
@@ -96,6 +99,9 @@ public class LoadPlayer : MonoBehaviour
 		}
 
 		teleportScript._Fade = 0;
+
+		// enable player movement
+		playerInScene.GetComponent<Player>().UnFreezePlayer();
 	}
 	#endregion
 }

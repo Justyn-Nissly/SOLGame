@@ -28,7 +28,10 @@ public class BulletLogic : MonoBehaviour
 	/// <summary> Set the bullet to move </summary>
 	public void Start()
 	{
-		bulletRigidbody.velocity = transform.up * bulletSpeed;
+		if(bulletRigidbody != null)
+		{
+			bulletRigidbody.velocity = transform.up * bulletSpeed;
+		}
 	}
 
 

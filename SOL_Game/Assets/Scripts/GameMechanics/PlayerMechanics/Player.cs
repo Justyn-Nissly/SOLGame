@@ -52,6 +52,7 @@ public class Player : BaseCharacter
 	{
 		// The player starts with max health
 		currentHealth = maxHealth.initialValue;
+		BulletShootingDelay = 0;
 
 		// Set the players movement speed
 		playerMovementSpeed = .1f;
@@ -230,8 +231,6 @@ public class Player : BaseCharacter
 	/// <summary> Update the values in the Animator for the players animations </summary>
 	private void SetPlayerAnimatorValues()
 	{
-		Debug.Log(playerMovementAmount.x);
-		Debug.Log(playerMovementAmount.y);
 		playerAnimator.SetFloat("Horizontal", playerMovementAmount.x);
 		playerAnimator.SetFloat("Vertical", playerMovementAmount.y);
 		playerAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);

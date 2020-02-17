@@ -52,7 +52,11 @@ public class Enemy : BaseCharacter
 	{
 		player        = GameObject.FindObjectOfType<Player>();
 		rb2d          = GetComponent<Rigidbody2D>();
-		currentHealth = maxHealth.initialValue;
+
+		if(maxHealth != null)
+		{
+			currentHealth = maxHealth.initialValue;
+		}
 
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
     countDownTimer = maxHealOverTime;
@@ -78,7 +82,7 @@ public class Enemy : BaseCharacter
                 {
                     currentHealth += healPerLoop;
                     SetHealth(currentHealth / maxHealth.initialValue);
-                    Debug.Log("enemy CurrentHealth = " + currentHealth);
+                    //Debug.Log("enemy CurrentHealth = " + currentHealth);
                 }
             }
             else
@@ -113,7 +117,9 @@ public class Enemy : BaseCharacter
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}
-			Destroy(gameObject);
+
+			StartCoroutine("Die");
+			
 		}
 	}
 
@@ -122,10 +128,78 @@ public class Enemy : BaseCharacter
 	{
 		healthBar.fillAmount = percentHelth;
 	}
-    #endregion
 
+	/// <summary>
+	/// play the teleport shader effect if there is one on the enemy
+	/// (it will find all effects on the enemy because some enemies have more than one like the shield enemy)
+	/// </summary>
+	public void PlayTeleportEffect()
+	{
+		List<_2dxFX_NewTeleportation2> enemyTeleportScripts = new List<_2dxFX_NewTeleportation2>();
+		enemyTeleportScripts.AddRange(GetComponentsInChildren<_2dxFX_NewTeleportation2>());
 
-    #region Coroutines
+		if (enemyTeleportScripts.Count != 0) // check for empty list
+		{
+			foreach (_2dxFX_NewTeleportation2 enemyTeleportScript in enemyTeleportScripts)
+			{
+				StartCoroutine(TeleportInEnemy(enemyTeleportScript));
+			}
+		}
+	}
+	#endregion
 
-    #endregion
+	public Material pixelDesolveMaterial;
+
+	#region Coroutines
+	private IEnumerator Die()
+	{
+		float percentageComplete = 0;
+
+		// freeze the enemy because they are dead...
+		canAttack = false;
+		moveSpeed = 0;
+
+		if(pixelDesolveMaterial != null)
+		{
+			foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>()	)
+			{
+				renderer.material = pixelDesolveMaterial;
+			}
+
+			pixelDesolveMaterial.SetFloat("Disolve_Value", 0); // set starting value
+
+			// play the pixel die effect from start(0) to finish(1)
+			while (percentageComplete < 1)
+			{
+				pixelDesolveMaterial.SetFloat("Disolve_Value", Mathf.Lerp(0f, 1f, percentageComplete));
+				percentageComplete += Time.deltaTime /2;
+				yield return null;
+			}
+
+			pixelDesolveMaterial.SetFloat("Disolve_Value", 1); // set ending value
+		}
+
+		// destroy the enemy
+		Destroy(gameObject);
+	}
+
+	private IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
+	{
+		float percentageComplete = 0;
+
+		// make the enemy invisible, this is not set by default in the prefab because
+		// then the enemy would be invisible in Dev rooms because they don't have this script running in them
+		teleportScript._Fade = 1;
+
+		// teleport the enemy in, it does this by "sliding" a float from 0 to 1 over time
+		while (percentageComplete < 1)
+		{
+			teleportScript._Fade = Mathf.Lerp(1f, 0f, percentageComplete);
+			percentageComplete += Time.deltaTime;
+			yield return null;
+		}
+
+		teleportScript._Fade = 0;
+	}
+	#endregion
 }
