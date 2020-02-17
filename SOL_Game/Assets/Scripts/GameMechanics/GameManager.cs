@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 			DontDestroyOnLoad(GameObject.Find("EventSystem"));
 			DontDestroyOnLoad(GameObject.Find("AudioManager"));
 			DontDestroyOnLoad(GameObject.Find("DialogueManager"));
+			DontDestroyOnLoad(GameObject.Find("Player"));
+			DontDestroyOnLoad(GameObject.Find("PlayerHealthCanvas"));
 		}
 		else
 		{

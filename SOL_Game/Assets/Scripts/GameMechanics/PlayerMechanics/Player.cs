@@ -158,6 +158,10 @@ public class Player : BaseCharacter
 			// call the parents TakeDamage()
 			base.TakeDamage(damage, playSwordImpactSound);
 
+			// set the float value varable to the players current health after taking damage
+			// the float value is used for updating the players health bar
+			maxHealth.runTimeValue = currentHealth;
+
 			// send a signal saying that the player has taken damage so update his health UI
 			playerHealthSignal.Raise();
 
