@@ -18,6 +18,7 @@ public class BehemothController : Enemy
 	#region Public Variables
 	public float
 		phaseChangeDelay,      // How long the boss takes to move to the next phase
+		phaseChangeTimer,      // Count down to start the next phase
 		tractorBeamDuration,   // How long the tractor beam fires
 		tractorBeamChargeTime; // How long the tractor beam takes to charge
 	public int
@@ -25,6 +26,8 @@ public class BehemothController : Enemy
 	public GameObject
 		powerWave, // Used to instantiate power waves
 		orb;       // Used to instantiate attack orbs
+	public EnemyMovement
+		enemyMovement; // Make the boss move
 	#endregion
 
 	#region Private Variables
@@ -34,20 +37,17 @@ public class BehemothController : Enemy
 		conveyorBeltTimer, // Time until the conveyor belt directions switch
 		tractorBeamCharge, // How much longer the tractor beam will take to charge
 		tractorBeamTimer,  // How much longer the tractor beam will fire
-		defeatTimer,       // Time left between fatal damage and being destroyed
-		phaseChangeTimer;  // Count down to start the next phase
+		defeatTimer;       // Time left between fatal damage and being destroyed
 	private int
 		phase; // Current phase of the boss fight
 	private OrbController []
 		allOrbs,   // Track all the orbs
 		outerOrbs, // Track the outer orbs
 		innerOrbs; // Track the inner orbs
-	private EnemyMovement
-		enemyMovement; // Make the boss move
 	private TractorBeamEmitter
-		emitter; // Reference tractor beam emitter script
+		emitter; // Use tractor beam
 	private ConveyorBeltControl
-		conveyorBeltControl; // The boss controls conveyor belts
+		conveyorBeltControl; // Controls conveyor belts
 	#endregion
 
 	// Unity Named Methods
@@ -83,7 +83,7 @@ public class BehemothController : Enemy
 
 		// Delay the boss's activation and charge the tractor beam
 		phaseChangeTimer  = phaseChangeDelay * 5.0f;
-		tractorBeamCharge = tractorBeamChargeTime;
+		tractorBeamCharge = tractorBeamChargeTime - 5.0f;
 	}
 
 	/// <summary> Turn towards and chase down the player </summary>
@@ -100,7 +100,7 @@ public class BehemothController : Enemy
 
 		// Move unless the phase is changing, the boss is defeated, or the tractor beam is in use
 		enemyMovement.enabled = (phaseChangeTimer  <= 0.0f && defeated          == false                         &&
-		                        (tractorBeamCharge >  5.0f && tractorBeamCharge <  tractorBeamChargeTime - 3.0f) &&
+		                        (tractorBeamCharge >  3.0f && tractorBeamCharge <  tractorBeamChargeTime - 3.0f) &&
 		                         emitter.emitting == false);
 
 		// Remain invincible unless hit by the hammer

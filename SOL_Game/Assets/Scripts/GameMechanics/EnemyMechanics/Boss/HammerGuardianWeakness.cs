@@ -10,6 +10,8 @@ public class HammerGuardianWeakness : MonoBehaviour
 		health; // Only the weak point can take damage
 	public Sprite
 		destroyedSprite; // Sprite displayed when weak point takes sufficient damage
+	public AudioManager
+		audioManager; // 
 	#endregion
 
 	#region Private Variables (Empty)
@@ -21,11 +23,14 @@ public class HammerGuardianWeakness : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// If the right weapon hit the weak point deal the guardian damage
-		if (collision.gameObject.CompareTag("PlayerLightWeapon"))
+		if (collision.gameObject.CompareTag("PlayerLightWeapon") &&
+		    FindObjectOfType<HammerGuardianController>().isAttacking)
 		{
-			if (health-- < 0)
+			audioManager.PlaySound();
+			if (--health <= 0)
 			{
 				DestroyObject();
+				FindObjectOfType<HammerGuardianController>().AdvancePhase();
 			}
 		}
 	}

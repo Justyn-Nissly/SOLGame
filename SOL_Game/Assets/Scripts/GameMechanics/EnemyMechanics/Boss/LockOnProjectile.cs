@@ -19,13 +19,13 @@ public class LockOnProjectile : MonoBehaviour
 	public Vector2
 		direction, // The projectile's actual direction of movement (not necessarily directly towards the target)
 		targetPos; // The target's position
+	public GameObject
+		target; // The projectile locks on to this
 	#endregion
 
 	#region Private Variables
 	private float
 		moveAngle; // Angle the projectile will move at
-	private GameObject
-		target; // The projectile locks on to this
 	private Player
 		player; // Reference the player
 	#endregion

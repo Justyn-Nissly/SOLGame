@@ -188,10 +188,12 @@ MonoBehaviour:
   enemyAudioManager: {fileID: 2259566401528189603, guid: 204e36eb2d958144b888173b4d3536dc,
     type: 3}
   powerUp: {fileID: 5583976521140673498, guid: ec4f96be2928bc141a97e89d8b1779f5, type: 3}
+  pixelDesolveMaterial: {fileID: 0}
   phaseChangeDelay: 5
+  phaseChangeTimer: 0
   tractorBeamDuration: 4
   tractorBeamChargeTime: 16
-  phaseHealth: 300
+  phaseHealth: 400
   powerWave: {fileID: 5583976521140673498, guid: bc063c27e32860b4ab4d592d4e2f5477,
     type: 3}
   orb: {fileID: 7170359262935122860, guid: 01e8c30eee1c0bf4db03eaecdc72e570, type: 3}
@@ -209,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   enemyAnimator: {fileID: 8645274407220581172}
-  evasionDistance: -6
+  evasionDistance: -4
   waitTime: 0
   maxChaseTime: 1
   canMoveAtPlayer: 1
@@ -351,7 +353,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8645274407220581160}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
