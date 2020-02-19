@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DisolvePixel
-  m_Shader: {fileID: 4800000, guid: 28b943913f85286418f40e0461cf03a4, type: 3}
+  m_Shader: {fileID: 4800000, guid: f04621984ee14c046bc6c0a036831d2d, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -71,7 +71,7 @@ Material:
     - Desintegration_Speed: 0.5
     - Desintegration_Value: 0
     - Disolve_Seed: 0.5
-    - Disolve_Value: 1
+    - Disolve_Value: 0.6103118
     - Displacement_Value: -0.30740225
     - Effect_Fading: 1
     - Glass_Displacement: -0.27332112
@@ -81,7 +81,9 @@ Material:
     - PixelSnap: 0
     - Pixel_Size: 19
     - Seed: 0.6
+    - _Alpha: 0
     - _AutomaticLerp_Speed_1: 0.487
+    - _BlendOp: 0
     - _BlurHQPlus_Intensity_1: 32.6
     - _Blur_Intensity_1: -0.2695522
     - _Brightness_Fade_1: 0.2868607
@@ -102,7 +104,8 @@ Material:
     - _Destroyer_Speed_1: 0.5
     - _Destroyer_Value_1: 0.32481977
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _Distortion: 0
+    - _DstBlend: 10
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -113,6 +116,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Size: 0.81
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpriteFade: 1
@@ -123,11 +127,13 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _UVSec: 0
+    - _Z: 0
     - _ZWrite: 1
     m_Colors:
     - Tint_Color: {r: 0, g: 0.9117646, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorRGBA_Color_1: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorX: {r: 0, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FillColor_Color_1: {r: 0.3814879, g: 1, b: 0.1911765, a: 1}
     - _TintRGBA_Color_1: {r: 1, g: 0.7941177, b: 0, a: 1}

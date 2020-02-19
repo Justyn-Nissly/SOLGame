@@ -44,7 +44,7 @@ public class DialogueManager : MonoBehaviour
 	///<summary> Check if the player has pressed the return key to move to the next sentence </summary>
 	void Update()
 	{
-		Debug.Log(NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence]);
+		/*Debug.Log(NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence]);*/
 		if (Input.GetKeyDown(KeyCode.Return) && animator.GetBool("IsOpen") == true)
 		{
 			

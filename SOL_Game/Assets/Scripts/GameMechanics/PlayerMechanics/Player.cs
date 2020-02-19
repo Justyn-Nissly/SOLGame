@@ -44,8 +44,8 @@ public class Player : BaseCharacter
 		heavyStartTimeBetweenAttacks = .6f,
 		RangedStartTimeBetweenAttacks = .5f;
 	#endregion
-	private float fast , oldSpeed;
-	// Unity Named Methods
+	private float fast , oldSpeed;//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION/////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION/////////////////
+	 // Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
 	void Start()
