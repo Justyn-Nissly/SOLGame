@@ -25,11 +25,8 @@ public class GameManager : MonoBehaviour
 
 			/// Keep items persisting across scenes
 			DontDestroyOnLoad(gameObject);
-			DontDestroyOnLoad(GameObject.Find("EventSystem"));
-			DontDestroyOnLoad(GameObject.Find("AudioManager"));
-			DontDestroyOnLoad(GameObject.Find("DialogueManager"));
-			DontDestroyOnLoad(GameObject.Find("Player"));
-			DontDestroyOnLoad(GameObject.Find("PlayerHealthCanvas"));
+
+			AddGameObjectsToDontDestroy("EventSystem", "AudioManager", "DialogueManager", "Player", "PlayerHealthCanvas");
 		}
 		else
 		{
@@ -39,6 +36,19 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// <summary> this finds and calls DontDestroyOnLoad() on all passed in game object names </summary>
+	void AddGameObjectsToDontDestroy(params string[] GOnames)
+	{
+		foreach (string GOname in GOnames)
+		{
+			GameObject persistentGO = GameObject.Find(GOname);
+
+			if (persistentGO != null)
+			{
+				DontDestroyOnLoad(persistentGO);
+			}
+		}
+	}
 	#endregion
 
 	#region Coroutines

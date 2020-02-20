@@ -33,6 +33,8 @@ public class Basilisk : Enemy
 
 	public EncounterManager
 		basiliskEncounterManager; // this reference is used to send a signal when the basilisk dies
+	public Animator
+		animator; // animations controller
 	#endregion
 
 	#region Private Variables
@@ -120,8 +122,10 @@ public class Basilisk : Enemy
 	{
 		// change to the under ground sprite
 		mainSpriteRenderer.enabled = false;
-		underGoundSpriteRenderer.enabled = true;
+		//underGoundSpriteRenderer.enabled = true;
 		basiliskCollider.enabled = false; // disable the collider so it wont hit the player while under ground
+
+		animator.SetTrigger("UnderGround");
 
 		//float oldMoveSpeed = moveSpeed; // save the old move speed
 		//moveSpeed = 0; // stops the free roam script from effecting the run movement
@@ -137,15 +141,18 @@ public class Basilisk : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
+
+		animator.SetTrigger("PopUp");
+
 		// start the animation that plays when the basilisk pops out of the ground
-		if(popUpAnimaiton != null)
+		if (popUpAnimaiton != null)
 		{
 			Destroy(Instantiate(popUpAnimaiton, endingPosition, new Quaternion(0, 0, 0, 0)), 1);
 		}
 
 		// change to the main sprite
 		mainSpriteRenderer.enabled = true;
-		underGoundSpriteRenderer.enabled = false;
+		//underGoundSpriteRenderer.enabled = false;
 		basiliskCollider.enabled = true; // enable the collider so it will hit the player while not under ground
 
 		// wait for N seconds

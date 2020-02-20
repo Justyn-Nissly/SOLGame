@@ -37,6 +37,8 @@ public class Enemy : BaseCharacter
 		enemyAudioManager;
 	public GameObject
 		powerUp; // Reference PowerUp prefab.
+
+	public Material pixelDesolveMaterial;
 	#endregion
 
 	#region Private Variables
@@ -147,8 +149,6 @@ public class Enemy : BaseCharacter
 		}
 	}
 	#endregion
-
-	public Material pixelDesolveMaterial;
 
 	#region Coroutines
 	private IEnumerator Die()

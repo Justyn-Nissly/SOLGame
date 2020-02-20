@@ -32,8 +32,7 @@ public class Leviathan : Enemy
 		breathAttack; // the prefab of a breath attack game object that creates a line of fire (more then one is used to create the fire breath attack)
 
 	public List<Transform>
-		breathAttackTargets; // referance to all points that a line of fire should go to
-
+		breathAttackTargets; // reference to all points that a line of fire should go to
 	#endregion
 
 	#region Private Variables
