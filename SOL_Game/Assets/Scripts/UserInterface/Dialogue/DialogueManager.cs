@@ -11,29 +11,32 @@ public class DialogueManager : MonoBehaviour
 
 	#region Public Variables
 	public static GameObject
-		NPC;          // A reference to the NPC
+		NPC;             // A reference to the NPC
 	public Animator
-		animator;     // The animator controler to make the dialogue box appear
+		animator;        // The animator controler to make the dialogue box appear
 	public Text
-		dialogueText, // The text that the NPC is currently speaking
-	    nameText;     // The name of the NPC currently Speaking
+		dialogueText,    // The text that the NPC is currently speaking
+	    nameText;        // The name of the NPC currently Speaking
 	public Queue<string> 
-		sentences;    // All sentences for the characters dialogue
+		sentences;       // All sentences for the characters dialogue
+	public bool
+		isClosed;        // The dialogue is open and closed
+	public int
+		currentSentence; // The sentence that is currently being typed
 	public float
-		textSpeed,    // The speed at which the text will be typed on the screen
-		timer;        // The timer to remove the NPC from the scene
+		textSpeed,       // The speed at which the text will be typed on the screen
+		timer;           // The timer to remove the NPC from the scene
 	#endregion
 
 	#region Private Variables
 	private GameObject playerMovement; // A reference to the player
 	#endregion
-	public int
-		currentSentence; // The sentence that is currently being typed
 	// Unity Named Methods
 	#region Main Methods
 	///<summary> Initialize the sentence queue for the NPC, find the player, and get the animator for the NPC</summary>
 	void Start()
 	{
+		isClosed = false;
 		NPC = GameObject.FindGameObjectWithTag("LoadStar");
 		sentences      = new Queue<string>();
 		playerMovement = GameObject.FindGameObjectWithTag("Player");
@@ -102,11 +105,17 @@ public class DialogueManager : MonoBehaviour
 	/// End the dialogue with the player and close the dialogue box
 	public void EndDialogue()
 	{
+		// Set the dialogue box to close and turn off the loadstar
 		animator.SetBool("IsOpen", false);
 		NPC.GetComponent<Animator>().SetBool("IsActive", false);
+
+		// Set the player to be able to move
 		FindObjectOfType<Player>().playerAllowedToMove = true;
 		StartCoroutine(TeleportLoadstar());
+
+		// Set the dialogue trigger to not trigger again
 		NPC.GetComponent<DialogueTrigger>().canActivate = false;
+		isClosed = true;
 		Debug.Log("End of Conversation.");
 		currentSentence = 0;
 	}
