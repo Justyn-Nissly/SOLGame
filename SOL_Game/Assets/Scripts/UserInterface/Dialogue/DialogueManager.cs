@@ -48,7 +48,7 @@ public class DialogueManager : MonoBehaviour
 	void Update()
 	{
 		/*Debug.Log(NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence]);*/
-		if (Input.GetKeyDown(KeyCode.Return) && animator.GetBool("IsOpen") == true)
+		if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && animator.GetBool("IsOpen") == true)
 		{
 			
 			if (dialogueText.text != NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence])
