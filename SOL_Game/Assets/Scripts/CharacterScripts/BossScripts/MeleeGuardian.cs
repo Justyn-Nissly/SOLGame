@@ -9,15 +9,19 @@ public class MeleeGuardian : Enemy
 	#endregion
 
 	#region Public Variables
-	public GameObject
-		homingSword,
-		staticArmLeft;
-		
-
+	public Animator
+		anim;
+	public Vector2
+		destination;
 	public Transform
 		upperLeftSpawnPointLimit,  // used to get a random position between these two limits
 		lowerRightSpawnPointLimit, // Location you wish the enemy to move to
 		swordSawnPoint;            // The obejct that the enemy will throw at the player
+	public GameObject
+	    origin,
+        sword;
+	public testthrow
+		throwSword;
 
 	public FloatValue
 		meleeDamageToGive;
@@ -26,14 +30,16 @@ public class MeleeGuardian : Enemy
 	#endregion
 
 	#region Private Variables
-	private bool
-		moving = false;
-    private Vector3 targetGameObject;
+	public bool
+		moving = false,
+		returnOrigin = false;
+	private Vector3
+         targetGameObject;
+
     #endregion
 
     // Unity Named Methods
     #region Main Methods
-
     public override void FixedUpdate()
 	{
 		base.FixedUpdate();
@@ -84,7 +90,8 @@ public class MeleeGuardian : Enemy
 			// Move the ranged guardian to the closest teleporter location
 			moving = true;
 			StartCoroutine(MoveOverSeconds(gameObject, GetRandomPositionBeweenLimits(), 1f));
-			StartCoroutine(DoSpinAttack());
+            
+
 
 		}
 	}
@@ -100,37 +107,32 @@ public class MeleeGuardian : Enemy
 
 		return randomPosition;
 	}
-
-
-	private Vector2 CreateTarget()
+    /*
+	private void Throw()
 	{
-		targetGameObject = GameObject.FindGameObjectWithTag("Player").transform.position;
+		//StartCoroutine(HomingSword());
+		//StartCoroutine(HomingSword());
 
-		return targetGameObject;
+		if ((Vector2)sword.transform.position == destination)
+		{
+			returnOrigin = true;
+		}
+		else if (sword.transform.position == origin.transform.position)
+		{
+			destination = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position;
+			returnOrigin = false;
+		}
+		sword.transform.position = (returnOrigin == true) ? Vector2.Lerp(sword.transform.position, origin.transform.position, 10 * Time.deltaTime) :
+													  Vector2.Lerp(sword.transform.position, destination, 10 * Time.deltaTime);
+
+		moving = false;
+		anim.SetTrigger("Patrol");
+
 	}
-
+    */
 	#endregion
 
 	#region Coroutines
-	/// <summary> this does a spinning the arms type attack</summary>
-	private IEnumerator DoSpinAttack()
-	{
-		homingSword.SetActive(true);
-
-		staticArmLeft.SetActive(false);
-
-		StartCoroutine(MoveOverSeconds(homingSword, CreateTarget(), 1f));
-
-		yield return new WaitForSeconds(2);
-
-		homingSword.SetActive(false);
-
-		staticArmLeft.SetActive(true);
-
-		yield return new WaitForSeconds(1);
-
-		canAttack = true;
-	}
 
 	/// <summary> Moves a game object to a location over N seconds </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endingPosition, float seconds)
@@ -147,7 +149,11 @@ public class MeleeGuardian : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
-		yield return new WaitForSeconds(4);
+		anim.SetTrigger("Attack");
+		yield return new WaitForSeconds(1.5f);
+		throwSword.shouldThrow = true;
+		anim.SetTrigger("Patrol");
+		yield return new WaitForSeconds(6);
 		moving = false;
 	}
 
