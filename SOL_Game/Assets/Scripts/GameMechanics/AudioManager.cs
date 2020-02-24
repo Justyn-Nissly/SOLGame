@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
 	public AudioClip
 		enemyDeath;    // The enemy death sound
 	public AudioSource
-		enemyAudioSRC; // The audio source to control enemy souds
+		enemyAudioSRC; // The audio source to control enemy sounds
 	#endregion
 
 	#region Private Variables

@@ -183,7 +183,7 @@ public class Enemy : BaseCharacter
 		Destroy(gameObject);
 	}
 
-	private IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
+	protected virtual IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
 	{
 		float percentageComplete = 0;
 

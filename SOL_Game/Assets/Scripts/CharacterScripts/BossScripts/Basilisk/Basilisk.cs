@@ -11,22 +11,18 @@ public class Basilisk : Enemy
 	#region Public Variables
 	public GameObject
 		popUpAnimaiton, // the animation that will be played when the basilisk pops up
-		bomb;
+		bomb; // bomb prefab that with be instantiated
 
 	public Transform
 		upperLeftSpawnPointLimit, // used to get a random position between these two limits
-		lowerRightSpawnPointLimit,
-		bombSpawnPoint;
+		lowerRightSpawnPointLimit, // used to get a random position between these two limits
+		bombSpawnPoint; // the point that bombs with be instantiated
 
 	public CircleCollider2D
-		basiliskCollider;
-
-	public SpriteRenderer
-		mainSpriteRenderer, // the main sprite for when the basilisk is above ground
-		underGoundSpriteRenderer; // the sprite that is shown when the basilisk is under ground
+		basiliskCollider; // referance to the basilisk's Collider
 
 	public FloatValue
-		basiliskDamageToGive;
+		basiliskDamageToGive; // basilisk's damage
 
 	public float
 		secondsAboveGround = 2f; // the number of second the basilisk stays above ground for
@@ -86,6 +82,7 @@ public class Basilisk : Enemy
 		}
 	}
 
+	/// <summary> starts moving the basilisk to a random point if the basilisk is not moving</summary>
 	private void Move()
 	{
 		// so that you don't call the coroutine again if the boss is already running
@@ -109,6 +106,7 @@ public class Basilisk : Enemy
 		return randomPosition;
 	}
 
+	/// <summary> Instantiate a bomb prefab</summary>
 	private void SpawnBomb()
 	{
 		GameObject bombGameObject = Instantiate(bomb, gameObject.transform.position, new Quaternion(0, 0, 0, 0));
@@ -120,15 +118,16 @@ public class Basilisk : Enemy
 	/// <summary> Moves a game object to a location over N seconds </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endingPosition, float seconds)
 	{
-		// change to the under ground sprite
-		mainSpriteRenderer.enabled = false;
-		//underGoundSpriteRenderer.enabled = true;
 		basiliskCollider.enabled = false; // disable the collider so it wont hit the player while under ground
 
+		// trigger the under ground animation
 		animator.SetTrigger("UnderGround");
+		GetComponent<SpriteRenderer>().sortingOrder--; // change that the basilsik is rendered under other sprites like the player while under ground
 
-		//float oldMoveSpeed = moveSpeed; // save the old move speed
-		//moveSpeed = 0; // stops the free roam script from effecting the run movement
+		yield return new WaitForSeconds(secondsAboveGround / 2); // wait for the animation to fully play
+
+		// spawn some bombs
+		SpawnBomb();
 
 		float elapsedTime = 0;
 		Vector3 startingPosition = objectToMove.transform.position; // save the starting position
@@ -141,27 +140,32 @@ public class Basilisk : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
-
+		// trigger pop out of ground animation
 		animator.SetTrigger("PopUp");
-
-		// start the animation that plays when the basilisk pops out of the ground
-		if (popUpAnimaiton != null)
-		{
-			Destroy(Instantiate(popUpAnimaiton, endingPosition, new Quaternion(0, 0, 0, 0)), 1);
-		}
-
-		// change to the main sprite
-		mainSpriteRenderer.enabled = true;
-		//underGoundSpriteRenderer.enabled = false;
+		GetComponent<SpriteRenderer>().sortingOrder++; // change the render layer
 		basiliskCollider.enabled = true; // enable the collider so it will hit the player while not under ground
 
-		// wait for N seconds
-		yield return new WaitForSeconds(secondsAboveGround);
-
-		// spawn some bombs
-		SpawnBomb();
+		// wait for N seconds above the ground
+		yield return new WaitForSeconds(secondsAboveGround/ 2);
 
 		moving = false;
+	}
+
+	/// <summary> override teleport script so that the basilisk pops out of the ground instead of teleporting in </summary>
+	protected override IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
+	{
+		// trigger pop out of ground animation
+		animator.SetTrigger("PopUp");
+
+		// dont let the basilisk move, attack, or take damage
+		canAttack = false; 
+		canTakeDamage = false;
+
+		yield return new WaitForSeconds(secondsAboveGround);
+
+		// let the basilisk move, attack, or take damage
+		canAttack = true;
+		canTakeDamage = true;
 	}
 
 

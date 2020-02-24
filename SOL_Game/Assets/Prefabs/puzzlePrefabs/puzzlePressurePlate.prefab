@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b35cf834fa473a44950d798e905c6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressurePlateCollider: {fileID: 0}
   completeSprite: {fileID: 1102053498198241713, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
     type: 3}
   incompleteSprite: {fileID: -444579236762991050, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
@@ -111,6 +112,7 @@ MonoBehaviour:
   doorManager: {fileID: 0}
   LazerSprite: {fileID: 0}
   playerCanTriggerPressurePlate: 1
+  isComplete: 0
   isPowered: 0
   isLocked: 0
 --- !u!58 &6990640965563911026
@@ -138,7 +140,8 @@ AudioSource:
   m_GameObject: {fileID: 6990640965563911025}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 6fc7eb9d39e847249abc26ed4dee60ad, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5

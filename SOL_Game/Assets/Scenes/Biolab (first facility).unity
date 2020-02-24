@@ -2242,7 +2242,8 @@ AudioSource:
   m_GameObject: {fileID: 440552188}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2393,8 +2394,6 @@ MonoBehaviour:
   lowerRightSpawnPointLimit: {fileID: 130298026}
   bombSpawnPoint: {fileID: 2124143771}
   basiliskCollider: {fileID: 440552194}
-  mainSpriteRenderer: {fileID: 440552192}
-  underGoundSpriteRenderer: {fileID: 213001012}
   basiliskDamageToGive: {fileID: 11400000, guid: defea4fe047dd46e899819e4de2d6168,
     type: 2}
   secondsAboveGround: 4
@@ -2444,7 +2443,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1400813265}
+  - {fileID: 842578465}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3314,8 +3313,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.61}
-  m_SizeDelta: {x: 1.6929, y: 0.228}
+  m_AnchoredPosition: {x: 735, y: 466}
+  m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &580437103
 MonoBehaviour:
@@ -3876,7 +3875,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.6929, y: 0.228}
+  m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &693250499
 GameObject:
@@ -4383,6 +4382,49 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 810743100}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &842578465
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation2
+  m_Shader: {fileID: 4800000, guid: 81a8c4a625e2be24abb96978d8656203, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &887492647 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8847381732684700268, guid: 7dfb4bc393a9323419e679fa642b87fa,
@@ -9907,9 +9949,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1195093813}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 580437102}
   m_Father: {fileID: 440552193}
@@ -9917,9 +9959,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.03, y: 0.15}
-  m_SizeDelta: {x: 2.3661, y: 1.9858}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1195093815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9949,12 +9991,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -9968,7 +10010,7 @@ Canvas:
   m_GameObject: {fileID: 1195093813}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -23871,49 +23913,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1388509548}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1400813265
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation2
-  m_Shader: {fileID: 4800000, guid: 81a8c4a625e2be24abb96978d8656203, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1405370832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25900,6 +25899,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2259566401528189602, guid: 204e36eb2d958144b888173b4d3536dc,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+        type: 2}
     - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25955,6 +25960,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2259566401528189603, guid: 204e36eb2d958144b888173b4d3536dc,
+        type: 3}
+      propertyPath: enemyAudioSRC
+      value: 
+      objectReference: {fileID: 1971578256}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 204e36eb2d958144b888173b4d3536dc, type: 3}
 --- !u!4 &1964068749 stripped
@@ -25962,6 +25972,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
     type: 3}
   m_PrefabInstance: {fileID: 2115414106}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1971578256 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2259566401528189602, guid: 204e36eb2d958144b888173b4d3536dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1956533704}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1975531826 stripped
 Transform:
