@@ -160,4 +160,3 @@ public class Basilisk : Enemy
 
 	#endregion
 }
-
