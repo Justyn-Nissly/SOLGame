@@ -197,6 +197,7 @@ MonoBehaviour:
   powerWave: {fileID: 5583976521140673498, guid: bc063c27e32860b4ab4d592d4e2f5477,
     type: 3}
   orb: {fileID: 7170359262935122860, guid: 01e8c30eee1c0bf4db03eaecdc72e570, type: 3}
+  enemyMovement: {fileID: 0}
 --- !u!114 &8645274407220581165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,8 +253,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fadc74e08c9e19e4e9f0e41027ce857c, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 02c8b7da0306a73469b7e84abc8abb40, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -267,7 +268,7 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
-  BypassListenerEffects: 0
+  BypassListenerEffects: 1
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
@@ -387,8 +388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31327d10cce7014ca030619197d92e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDeath: {fileID: 8300000, guid: fadc74e08c9e19e4e9f0e41027ce857c, type: 3}
-  enemyAudioSRC: {fileID: 0}
+  enemyDeath: {fileID: 8300000, guid: 02c8b7da0306a73469b7e84abc8abb40, type: 3}
+  enemyAudioSRC: {fileID: 8645274407220581167}
 --- !u!95 &8645274407220581172
 Animator:
   serializedVersion: 3

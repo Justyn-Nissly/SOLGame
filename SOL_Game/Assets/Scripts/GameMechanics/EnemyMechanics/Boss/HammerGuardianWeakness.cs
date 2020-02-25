@@ -23,8 +23,7 @@ public class HammerGuardianWeakness : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// If the right weapon hit the weak point deal the guardian damage
-		if (collision.gameObject.CompareTag("PlayerLightWeapon") &&
-		    FindObjectOfType<HammerGuardianController>().isAttacking)
+		if (collision.CompareTag("PlayerLightWeapon") && FindObjectOfType<HammerGuardianController>().isAttacking)
 		{
 			audioManager.PlaySound();
 			if (--health <= 0)

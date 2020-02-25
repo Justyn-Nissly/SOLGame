@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Basilisk : Enemy
 {
-
 	#region Enums (Empty)
 	#endregion
 
@@ -160,4 +159,3 @@ public class Basilisk : Enemy
 
 	#endregion
 }
-

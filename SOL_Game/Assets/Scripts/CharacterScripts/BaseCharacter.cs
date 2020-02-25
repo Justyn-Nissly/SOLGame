@@ -9,21 +9,21 @@ public class BaseCharacter : MonoBehaviour
 
 	#region Public Variables
 	public FloatValue
-		maxHealth;     // The character's highest health possible
+		maxHealth; // Maximum possible health
 	public bool
-		canAttack = true,     // Toggle the character's ability to attack
-		canTakeDamage = true; // Toggle the character's ability to take damage
+		canAttack = true,     // Toggle ability to attack
+		canTakeDamage = true; // Toggle vulnerability
 	public float
-		currentHealth; // The character's current health
+		currentHealth; // Current health
 
 	public List<AudioClip>
-		takeDamageSounds,
-		meleeSwingSoundEffects;
+		takeDamageSounds,       // Play injured sound
+		meleeSwingSoundEffects; // Play melee attack sound
 
 	public AudioSource
-		audioSource; // used to player sounds from
+		audioSource; // Plays character sounds
 
-	// light melee attack variables (only need to be filled in the inspector if you use the light melee attack)
+	// Light melee attack variables (fill in the inspector only if using light melee attack)
 	public Transform
 		lightMeleeAttackPosition;
 	public float
@@ -33,7 +33,7 @@ public class BaseCharacter : MonoBehaviour
 	public FloatValue
 		lightMeleeDamageToGive;
 
-	// heavy melee attack variables (only need to be filled in the inspector if you use the heavy melee attack)
+	// Heavy melee attack variables (fill in the inspector only if using heavy melee attack)
 	public Transform
 		heavyMeleeAttackPosition;
 	public float
@@ -44,9 +44,9 @@ public class BaseCharacter : MonoBehaviour
 		heavyMeleeDamageToGive;
 
 	public LayerMask
-		willDamageLayer; // the layer that the light and heavy attack will damage
+		willDamageLayer; // Layer that light and heavy melee will damage
 
-	// ranged attack variables (only need to be filled in the inspector if you use the ranged attack)
+	// Ranged attack variables (fill in the inspector only if using ranged attack)
 	public Transform
 		firePoint,
 		gunSpawnPoint;
@@ -60,24 +60,29 @@ public class BaseCharacter : MonoBehaviour
 	public AudioClip
 		blasterSound;
 
-	// shield variables
+	// Shield variables
 	public SpriteRenderer
 		shieldSprite; // Shield graphics
 	public BoxCollider2D
 		shieldBoxCollider; // The shield itself
 	public AudioSource
-		shieldSound; // the sound of the shield while its active
-
+		shieldSound; // Sound of the shield while active
 	#endregion
 
 	#region Private Variables
 	protected float
-		thrust = 7, // used for the knock back effect
-		knockTime = .2f; // used for the knock back effect
+		thrust = 7,      // Apply knock back
+		knockTime = .2f; // Time of knock back
 	protected bool
-		characterHasKnockback = false, // used for the knock back effect
-		shieldIsEnabled = false; // flag for whether the shield is on/off
-	protected Player player; // not needed ?
+		characterHasKnockback = false, // Used for knock back
+		shieldIsEnabled = false;       // Check if shield is on or off
+	// NOT NEEDED; REMOVE LATER
+	// NOT NEEDED; REMOVE LATER
+	// NOT NEEDED; REMOVE LATER
+	protected Player player;
+	// NOT NEEDED; REMOVE LATER
+	// NOT NEEDED; REMOVE LATER
+	// NOT NEEDED; REMOVE LATER
 	#endregion
 
 	// Unity Named Methods
@@ -85,30 +90,35 @@ public class BaseCharacter : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary> Make the character receive damage and then become temporarily invincible </summary> 
+	/// <summary> Make the character take damage and become temporarily invincible </summary> 
 	public virtual void TakeDamage(int damage, bool playSwordImpactSound)
 	{
+		// The character must be vulnerable to take damage
 		if (canTakeDamage == true)
 		{
+			// Play a damaged sound
 			if (takeDamageSounds.Count > 0 && playSwordImpactSound && audioSource != null)
 			{
 				audioSource.clip = GetRandomSoundEffect(takeDamageSounds);
 				audioSource.Play();
 			}
 
-
+			// Reduce the character's health and grant it temporary invincibility
 			currentHealth -= damage;
 			StartCoroutine("StartBlinking");
 		}
 	}
 
-	/// <summary> the attack method used for the enemy and the player to swing light/heavy melee weapons</summary>
+	/// <summary> Make a character use a melee attack</summary>
 	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool characterHasKnockback)
 	{
+		// Enable the attack to damage multiple objects
 		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
 
+		// Each object hit can take damage
 		foreach (Collider2D collider in enemiesToDamage)
 		{
+			// Damage and knock back hit objects
 			BaseCharacter characterBeingAtacked = collider.GetComponent<BaseCharacter>();
 			if (characterBeingAtacked != null)
 			{
@@ -121,75 +131,91 @@ public class BaseCharacter : MonoBehaviour
 			}
 		}
 
+		// Play a damage sound
 		if (meleeSwingSoundEffects.Count > 0)
 		{
 			audioSource.clip = GetRandomSoundEffect(meleeSwingSoundEffects);
 			audioSource.Play();
 		}
 
+		// VISUALS HANDLED BY ANIMATOR; CHANGE THIS LATER
+		// VISUALS HANDLED BY ANIMATOR; CHANGE THIS LATER
+		// VISUALS HANDLED BY ANIMATOR; CHANGE THIS LATER
 		GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition.transform);
 		Destroy(weaponInstance, .5f);
+		// VISUALS HANDLED BY ANIMATOR; CHANGE THIS LATER
+		// VISUALS HANDLED BY ANIMATOR; CHANGE THIS LATER
+		// VISUALS HANDLED BY ANIMATOR; CHANGE THIS LATER
 	}
 
-	/// <summary> needs to be changed to always work</summary>
+	/// <summary> Apply knock back to an object </summary>
+	// NEEDS EDITING
+	// NEEDS EDITING
+	// NEEDS EDITING
 	private void ApplyKnockBack(GameObject characterBeingAtacked)
 	{
+		// Find the rigidbody of the target
 		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
 
-		// add knock back
+		// Apply knock back to the target
 		if (rigidbody2D != null)
 		{
-			Vector2 difference;
+			Vector2
+				difference; // The direction to apply knock back
 
+			// Find the direction to knock back the object
 			if (GetPlayer(characterBeingAtacked) != null)
 			{
 				GetPlayer(characterBeingAtacked).playerAllowedToMove = false;
 				rigidbody2D.isKinematic = true;
 				rigidbody2D.isKinematic = false;
-
-				difference = characterBeingAtacked.transform.position - GameObject.FindGameObjectWithTag("Player").transform.position;
+				difference              =
+					characterBeingAtacked.transform.position - GameObject.FindGameObjectWithTag("Player").transform.position;
 			}
 			else
 			{
 				difference = characterBeingAtacked.transform.position - transform.position;
 			}
 
+			// Apply force to knock back the target
 			difference = difference.normalized * thrust;
-
 			rigidbody2D.AddForce(difference, ForceMode2D.Impulse);
 			StartCoroutine(KnockBackCoroutine(characterBeingAtacked));
 		}
-
 	}
+	// NEEDS EDITING
+	// NEEDS EDITING
+	// NEEDS EDITING
 
-	// 
-	/// <summary> gets the player script from the game object if it has one (not needed after fixing the knock back effect)</summary>
+	/// <summary> Find the player (not needed after fixing the knock back effect)</summary>
 	private Player GetPlayer(GameObject gameObject)
 	{
 		return gameObject.GetComponent<Player>();
 	}
 
-	/// <summary>gets a random sound effect from a list of sound effects and returns it</summary>
+	/// <summary> Gets random sound effect from a list </summary>
 	private AudioClip GetRandomSoundEffect(List<AudioClip> SoundEffectList)
 	{
 		return SoundEffectList[Random.Range(0, SoundEffectList.Count - 1)];
 	}
 
-	/// <summary> Instantiates the gun and a bullet (both need to be assigned in the inspector to work)</summary>
+	/// <summary> Instantiate gun and bullet (both must be assigned in inspector) </summary>
 	public virtual void Shoot()
 	{
 		InstantiateAndDestroyGun();
 
+		// Play the blaster firing sound
 		if (audioSource != null && blasterSound != null)
 		{
 			audioSource.clip = blasterSound;
 			audioSource.Play();
 		}
 
+		// Launch the bullet
 		StartCoroutine(InstantiateBullet());
 	}
 
-	/// <summary> instantiates the gun game object variable then destroys it N seconds later </summary>
+	/// <summary> Temporarily spawn the gun </summary>
 	private void InstantiateAndDestroyGun()
 	{
 		GameObject gunInstance = Instantiate(gunPrefab, gunSpawnPoint.position, gunSpawnPoint.rotation);
@@ -198,24 +224,28 @@ public class BaseCharacter : MonoBehaviour
 		Destroy(gunInstance, .5f);
 	}
 
-	/// <summary> Turn on the shield </summary>
+	/// <summary> Activate shield </summary>
 	public virtual void EnableShield()
 	{
-		shieldSprite.enabled = true;
+		// Make the shield visible and able to block
+		shieldSprite.enabled      = true;
 		shieldBoxCollider.enabled = true;
 
+		// Play shield sound
 		if (shieldSound != null)
 		{
 			shieldSound.Play();
 		}
 	}
 
-	/// <summary> Turn off the shield </summary>
+	/// <summary> Deactivate shield </summary>
 	public virtual void DisableShield()
 	{
+		// Make the shield invisible and unable to block
 		shieldSprite.enabled = false;
 		shieldBoxCollider.enabled = false;
 
+		// Stop playing shield sound
 		if (shieldSound != null)
 		{
 			shieldSound.Stop();
@@ -229,15 +259,16 @@ public class BaseCharacter : MonoBehaviour
 	IEnumerator StartBlinking()
 	{
 		SpriteRenderer
-			spriteRenderer = GetComponent<SpriteRenderer>();
+			spriteRenderer = GetComponent<SpriteRenderer>(); // Control character's sprite
 		float
-			timer = 0.5f;  // The character blinks for a short time after taking damage
-		canTakeDamage = false; // The character cannot take more damage immediately after taking damage
+			timer = 0.5f;  // Time to blink after taking damage
 
-		// make the character blink
+		canTakeDamage = false; // Character becomes temporarily invulnerable
+
+		// Toggle sprite's visibility to make it blink
 		while (timer >= 0.0f)
 		{
-			spriteRenderer.enabled = !spriteRenderer.enabled; // Toggle the sprite's visibility to make it blink
+			spriteRenderer.enabled = !spriteRenderer.enabled;
 			timer -= Time.deltaTime + 0.1f;
 			yield return new WaitForSeconds(0.1f);
 		}
@@ -247,24 +278,30 @@ public class BaseCharacter : MonoBehaviour
 		canTakeDamage = true;
 	}
 
-	/// <summary> needs to be fixed </summary>
+	/// <summary> Apply knock back </summary>
+	// NEEDS EDITING
+	// NEEDS EDITING
+	// NEEDS EDITING
 	private IEnumerator KnockBackCoroutine(GameObject characterBeingAtacked)
 	{
-		Enemy enemy = characterBeingAtacked.GetComponent<Enemy>();
-		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
+		Enemy
+			enemy = characterBeingAtacked.GetComponent<Enemy>(); // Reference an enemy
+		Rigidbody2D
+			rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>(); // Apply physics to character
 
-
+		// Damaged enemies deaggro while being knocked back
 		if (enemy != null)
 		{
 			enemy.aggro = false;
 		}
 
+		// Apply knock back
 		if (rigidbody2D != null)
 		{
 			yield return new WaitForSeconds(knockTime);
 			if (rigidbody2D != null)
 			{
-				rigidbody2D.velocity = Vector2.zero;
+				rigidbody2D.velocity    = Vector2.zero;
 				rigidbody2D.isKinematic = true;
 				rigidbody2D.isKinematic = false;
 
@@ -273,6 +310,7 @@ public class BaseCharacter : MonoBehaviour
 					GetPlayer(characterBeingAtacked).playerAllowedToMove = true;
 				}
 
+				// Damaged enemies automatically aggro after knock back dissipates
 				if (enemy != null)
 				{
 					enemy.aggro = true;
@@ -280,16 +318,24 @@ public class BaseCharacter : MonoBehaviour
 			}
 		}
 	}
+	// NEEDS EDITING
+	// NEEDS EDITING
+	// NEEDS EDITING
 
-	/// <summary> instantiates the bullet game object variable </summary>
+	/// <summary> Instantiate bullet </summary>
+	// NEEDS EDITING
+	// NEEDS EDITING
+	// NEEDS EDITING
 	private IEnumerator InstantiateBullet()
 	{
 		yield return new WaitForSeconds(BulletShootingDelay);
 
 		GameObject bulletInstance = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-
-		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = (int)rangedAttackDamageToGive.initialValue; // is this right
+		BulletLogic bulletLogic   = bulletInstance.GetComponent<BulletLogic>();
+		bulletLogic.bulletDamage  = (int)rangedAttackDamageToGive.initialValue;
 	}
+	// NEEDS EDITING
+	// NEEDS EDITING
+	// NEEDS EDITING
 	#endregion
 }

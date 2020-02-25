@@ -14,7 +14,8 @@ public class PowerUp : MonoBehaviour
 	public int
 		type; // The type of the power up itself
 	public float
-		timer; // Time until the power up disappears
+		powerUpTimer, // How long power ups last
+		timer;        // Time until the power up disappears
 	public Sprite
 		powerUp; // Power up graphic
 	public Sprite []
@@ -57,7 +58,7 @@ public class PowerUp : MonoBehaviour
 		if (collision.gameObject.tag == "Player")
 		{
 			// Effects have timers but healing is instantaneous
-			player.powerUpTimers[type] = (type == HEAL) ? 0.0001f : player.powerUpTimer;
+			player.powerUpTimers[type] = (type == HEAL) ? 0.0001f : powerUpTimer;
 			Destroy(gameObject);
 		}
 

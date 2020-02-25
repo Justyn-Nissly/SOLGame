@@ -12,9 +12,9 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 
 	#region Private Variables
 	private GameObject
-		target;
+		target; // The object to rotate towards
 	private Enemy
-		enemy;
+		enemy; // Reference en enemy
 	#endregion
 
 	// Unity Named Methods
@@ -29,13 +29,15 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 	///<summary> Make aggroed enemies face the player </summary>
 	private void FixedUpdate()
 	{
-		if(target != null) // make sure a target is assigned
+		// Make sure a target is assigned before trying to face it
+		if (target != null)
 		{
-			if (enemy != null && enemy.aggro) // if there is an enemy check if aggro
+			// Face the player if he is within detection range
+			if (enemy != null && enemy.aggro)
 			{
 				LookInEightDirectionOfGameObject();
 			}
-			else if (enemy == null) // if there is no enemy just rotate
+			else if (enemy == null)
 			{
 				LookInEightDirectionOfGameObject();
 			}
@@ -44,12 +46,16 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	///<summary> Make the enemy look at the player </summary>
+	///<summary> Turn an object to an orthogonal or diagonal direction </summary>
 	public void LookInEightDirectionOfGameObject()
 	{
-		// Get the angle between the enemy and player and keep it within 0 and 360 degrees
-		Vector3 dir = target.transform.position - transform.position;
-		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 22.5f;
+		// Get the angle between the enemy and player
+		Vector3
+			dir = target.transform.position - transform.position;
+		float
+			angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 22.5f;
+
+		// Make sure 0 <= angle < 360
 		if (angle < 0.0f)
 		{
 			angle += 360.0f;
@@ -59,8 +65,8 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 			angle -= 360.0f;
 		}
 
-		// Make the enemy look orthagonally or diagonally at the player
-		angle = (float)(((int)angle) / 45) * 45.0f;
+		// Make the object face orthagonally or diagonally towards the target
+		angle = (float) (((int)angle) / 45) * 45.0f;
 		transform.rotation = Quaternion.AngleAxis(angle - 90.0f, Vector3.forward);
 	}
 	#endregion
