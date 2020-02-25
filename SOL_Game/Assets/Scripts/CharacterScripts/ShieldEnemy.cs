@@ -11,6 +11,8 @@ public class ShieldEnemy : Enemy
 	public float
 		maxTimeBetweenAttacks,
 		minTimeBetweenAttacks;
+	public FloatValue
+		shieldEnemyDamageToGive;
 	#endregion
 
 	#region Private Variables
@@ -18,7 +20,10 @@ public class ShieldEnemy : Enemy
 		shieldDownTimer; // When this timer runs out the enemy drops its shield
 	private EvasiveStrike
 		strike;
-    #endregion
+	private bool
+		canDamagePlayer = false;
+
+	 #endregion
 
 	// Unity Named Methods
 	#region Main Methods
@@ -42,9 +47,10 @@ public class ShieldEnemy : Enemy
 			shieldDownTimer -= Time.deltaTime;
 			if (shieldDownTimer <= 0.0f)
 			{
-					DisableShield();
-					shieldIsEnabled = false;
-					canAttack = true;
+				DisableShield();
+				shieldIsEnabled = false;
+				canAttack = true;
+				canDamagePlayer = false;
 			}
 		}
 		else if (strike.charging)
@@ -53,20 +59,32 @@ public class ShieldEnemy : Enemy
 		}
 		else
 		{
-			Invoke("ReEnableShield", 1.5f);
+			StartCoroutine(ReEnableShield(1.5f));
 		}
 	}
 	#endregion
 
 	#region Utility Methods
-	public void ReEnableShield()
+	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		EnableShield();
-		shieldIsEnabled = true;
-		canAttack = false;
+		// if the boss collided with the player damage the player
+		if (collision.gameObject.CompareTag("Player") && canDamagePlayer) // only damage the player when charging
+		{
+			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)shieldEnemyDamageToGive.initialValue);
+		}
 	}
 	#endregion
 
-	#region Coroutines (Empty)
+	#region Coroutines
+	/// <summary> re enables the enemy's shield after a delay</summary>
+	public IEnumerator ReEnableShield(float delayTime)
+	{
+		yield return new WaitForSeconds(delayTime);
+
+		EnableShield();
+		shieldIsEnabled = true;
+		canAttack = false;
+		canDamagePlayer = true;
+	}
 	#endregion
 }

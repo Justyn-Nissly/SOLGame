@@ -85,7 +85,7 @@ public class ShieldGuardian : Enemy
 		// if the boss collided with the player damage the player
 		if (collision.gameObject.CompareTag("Player") && Charging) // only damage the player when charging
 		{
-			DamagePlayer(collision.gameObject.GetComponent<Player>());
+			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)damageToGive.initialValue);
 		}
 		// check if the enemy hit a wall
 		else if (collision.gameObject.CompareTag("Wall"))
@@ -168,18 +168,6 @@ public class ShieldGuardian : Enemy
 
 		// spawn in enemies
 		StartCoroutine(ShieldGuardianEnemySpawner.SpawnInEnemies(false, numOfEnemiesToSpawn)); 
-	}
-
-	/// <summary> deal damage to the passed in player</summary>
-	private void DamagePlayer(Player player)
-	{
-		if (player != null)
-		{
-			player.TakeDamage((int)damageToGive.initialValue, false);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
-		}
 	}
 
 	/// <summary> this method is called with an event in the animator (thats why it exists) and it starts the shooting coroutine </summary>

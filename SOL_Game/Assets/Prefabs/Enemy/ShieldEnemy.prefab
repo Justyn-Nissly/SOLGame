@@ -516,8 +516,8 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   healthBar: {fileID: 845050603}
   enemyName: 
-  aggroRange: 5
-  followRange: 8
+  aggroRange: 20
+  followRange: 20
   attackDmg: 0
   contactDmg: 2
   healPerLoop: 0
@@ -535,6 +535,8 @@ MonoBehaviour:
     type: 2}
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 0.8
+  shieldEnemyDamageToGive: {fileID: 11400000, guid: defea4fe047dd46e899819e4de2d6168,
+    type: 2}
 --- !u!114 &5073558193283732429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldLookAtPlayer: 1
 --- !u!114 &4308309794557253121
 MonoBehaviour:
   m_ObjectHideFlags: 0

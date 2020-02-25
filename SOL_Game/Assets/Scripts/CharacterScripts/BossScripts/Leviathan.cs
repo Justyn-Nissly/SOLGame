@@ -95,7 +95,7 @@ public class Leviathan : Enemy
 		// if the boss collided with the player damage the player
 		if (collision.gameObject.CompareTag("Player")) // only damage the player when charging
 		{
-			DamagePlayer(collision.gameObject.GetComponent<Player>());
+			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)damageToGive.initialValue);
 		}
 	}
 	#endregion
@@ -294,18 +294,6 @@ public class Leviathan : Enemy
 				canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(3)); // start health event
 			}
-		}
-	}
-
-	/// <summary> deal damage to the passed in player</summary>
-	private void DamagePlayer(Player player)
-	{
-		if (player != null)
-		{
-			player.TakeDamage((int)damageToGive.initialValue, false);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
 

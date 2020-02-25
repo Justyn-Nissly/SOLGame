@@ -54,7 +54,7 @@ public class Basilisk : Enemy
 	{
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			DamagePlayer(collision.gameObject.GetComponent<Player>());
+			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)basiliskDamageToGive.initialValue);
 		}
 	}
 	#endregion
@@ -67,18 +67,6 @@ public class Basilisk : Enemy
 		if (currentHealth <= 0)
 		{
 			basiliskEncounterManager.EndEncounter();
-		}
-	}
-
-	/// <summary> the method deals damage to the passed in player</summary>
-	private void DamagePlayer(Player player)
-	{
-		if(player != null)
-		{
-			player.TakeDamage((int)basiliskDamageToGive.initialValue, false);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
 

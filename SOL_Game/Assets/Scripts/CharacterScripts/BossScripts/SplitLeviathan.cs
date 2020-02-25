@@ -41,7 +41,7 @@ public class SplitLeviathan : Enemy
 		// if the boss collided with the player damage the player
 		if (collision.gameObject.CompareTag("Player")) // only damage the player when charging
 		{
-			DamagePlayer(collision.gameObject.GetComponent<Player>());
+			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)damageToGive.initialValue);
 		}
 		if(collision.gameObject.CompareTag("Enemy") && collision.gameObject.GetComponent<SplitLeviathan>() != null)
 		{
@@ -84,18 +84,6 @@ public class SplitLeviathan : Enemy
 			Destroy(gameObject);
 		}
 
-	}
-
-	/// <summary> deal damage to the passed in player</summary>
-	private void DamagePlayer(Player player)
-	{
-		if (player != null)
-		{
-			player.TakeDamage((int)damageToGive.initialValue, false);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
-		}
 	}
 	#endregion
 
