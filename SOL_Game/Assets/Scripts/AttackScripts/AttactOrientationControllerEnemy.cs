@@ -7,7 +7,9 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 	#region Enums (Empty)
 	#endregion
 
-	#region Public Variables (Empty)
+	#region Public Variables
+	public bool
+		shouldLookAtPlayer = true; // this is for toggling this Attack Orientation Controller on/off
 	#endregion
 
 	#region Private Variables
@@ -29,7 +31,7 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 	///<summary> Make aggroed enemies face the player </summary>
 	private void FixedUpdate()
 	{
-		if(target != null) // make sure a target is assigned
+		if(shouldLookAtPlayer && target != null) // make sure a target is assigned
 		{
 			if (enemy != null && enemy.aggro) // if there is an enemy check if aggro
 			{

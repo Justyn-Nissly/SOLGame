@@ -11,11 +11,19 @@ public class ShieldGuardian : Enemy
 	public FloatValue
 		damageToGive; // the bosses damage that is dealed to the player
 	public Transform
-		roomCenterTransform; // a transform at the center of the room used for some of the bosses movement calculation
+		roomCenterTransform, // a transform at the center of the room used for some of the bosses movement calculation
+		shootingPointLeft, // the left point at which a blaster bullet will be instantiated
+		shootingPointRight, // the right point at which a blaster bullet will be instantiated
+		LeftShootingLaneLimit,
+		RightShootingLaneLimit;
 	public EnemySpawner
 		ShieldGuardianEnemySpawner; // a reference to the bosses enemy spawner
 	public SpriteRenderer
 		bossShieldSprite; // a reference to the bosses shield sprite renderer
+	public AttactOrientationControllerEnemy
+		armsRotationController; // this is a reference to the script that rotates the arms
+	public Animator
+		animator; // this is a reference to the animation controller
 	#endregion
 
 	#region Private Variables
@@ -26,7 +34,8 @@ public class ShieldGuardian : Enemy
 		canDoHalfHealthEvent = true, // flag so that this health event only happens once
 		canDoQuarterHealthEvent = true, // flag so that this health event only happens once
 		canDoThreeQuarterHealthEvent = true, // flag so that this health event only happens once
-		enemyIsShacking = false; // for making the enemy look "mad"
+		enemyIsShacking = false, // for making the enemy look "mad"
+		canShoot = true;
 		
 	private float
 		enemyChargeSpeed = 15, // how fast the enemy charges at the player
@@ -49,11 +58,20 @@ public class ShieldGuardian : Enemy
 		base.FixedUpdate();
 
 		// check if the boss should start charging at the player
-		if (Charging == false && stunned == false && canAttack)
+		if (canShoot && canAttack && PlayerInShootingLane())
+		{
+			canAttack = false;
+			canShoot = false;
+			RandomlySetShootingPoint();
+			animator.SetTrigger("shootBlaster");
+		}
+		else if (Charging == false && stunned == false && canAttack)
 		{
 			// make the boss charge at the player
 			StartCoroutine(MoveInPlayersDirection());
 		}
+
+
 
 		// if the enemy should be shacking start shacking the enemy
 		if (enemyIsShacking)
@@ -163,15 +181,70 @@ public class ShieldGuardian : Enemy
 			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
+
+	/// <summary> this method is called with an event in the animator (thats why it exists) and it starts the shooting coroutine </summary>
+	public void ShootGuardianBlaster()
+	{
+		StartCoroutine(ShootGuardianBlasterCoroutine());
+	}
+
+	/// <summary> Randomly Sets Shooting Point the guardian will use for the blaster attack</summary>
+	private void RandomlySetShootingPoint()
+	{
+		if (Random.Range(0, 2) == 0)
+		{
+			animator.SetBool("LeftBlaster", true);
+		}
+		else
+		{
+			animator.SetBool("LeftBlaster", false);
+		}
+	}
+
+	private bool PlayerInShootingLane()
+	{
+		bool playerInshootingLane = false;
+
+		if(player.transform.position.x >= LeftShootingLaneLimit.position.x && // check if the player is passed the left limit
+			player.transform.position.x <= RightShootingLaneLimit.position.x && // check if the player is passed the right limit
+			player.transform.position.y < transform.position.y) // don't shoot if the player is above the enemy
+		{
+			print("player is not in the enemies shooting range");
+			playerInshootingLane = true;
+		}
+
+		return playerInshootingLane;
+	}
 	#endregion
 
 	#region Coroutines
+	/// <summary> shoots a bullet from ether the left or right side of the shield guardian(its randomly selected)</summary>
+	private IEnumerator ShootGuardianBlasterCoroutine()
+	{
+		Transform bulletSpawnPoint = animator.GetBool("LeftBlaster") ? shootingPointLeft : shootingPointRight;
+
+		GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
+		bulletLogic.bulletDamage = (int)rangedAttackDamageToGive.initialValue; // is this right
+
+		yield return new WaitForSeconds(2);
+		canShoot = true;
+		canAttack = true;
+	}
+
 	/// <summary> Moves a game object in the player direction (at the time this method is called) over N seconds </summary>
 	public IEnumerator MoveInPlayersDirection()
 	{
 		// set flags
 		Charging = true;
 		canTakeDamage = false;
+		canAttack = false;
+		animator.SetBool("isCharging", true);
+
+		yield return new WaitForSeconds(1);
+
+		armsRotationController.shouldLookAtPlayer = false; // stop the arms from rotating
 		bossShieldSprite.enabled = true;
 
 		// get the direction the player is in
@@ -187,6 +260,7 @@ public class ShieldGuardian : Enemy
 		// set flags
 		canTakeDamage = true;
 		bossShieldSprite.enabled = false;
+		animator.SetBool("isCharging", false);
 	}
 
 	/// <summary> Moves a game object to a center of the room position over N seconds </summary>
@@ -211,7 +285,6 @@ public class ShieldGuardian : Enemy
 		// add a delay before letting the boss attack again
 		yield return new WaitForSeconds(2f);
 		canAttack = true;
-
 	}
 
 	/// <summary> Moves a game object to a center of the room position over N seconds </summary>
@@ -254,9 +327,16 @@ public class ShieldGuardian : Enemy
 	{
 		stunned = true;
 
-		yield return new WaitForSeconds(delayTime);
+		yield return new WaitForSeconds(delayTime / 2);
+
+		// let the arms rotate again half way through the stun delay
+		armsRotationController.shouldLookAtPlayer = true;
+
+		yield return new WaitForSeconds(delayTime / 2);
 
 		stunned = false;
+		canAttack = true;
+
 	}
 	#endregion
 
