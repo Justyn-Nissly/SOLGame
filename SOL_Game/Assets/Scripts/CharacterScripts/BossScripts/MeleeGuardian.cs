@@ -35,11 +35,19 @@ public class MeleeGuardian : Enemy
 		returnOrigin = false;
 	private Vector3
          targetGameObject;
+	private SwordThrow
+		shouldThrow;
 
     #endregion
 
     // Unity Named Methods
     #region Main Methods
+   /* public void Awake()  
+    {
+		moving = true;
+
+	}
+    */
     public override void FixedUpdate()
 	{
 		base.FixedUpdate();
@@ -87,7 +95,7 @@ public class MeleeGuardian : Enemy
 		// Prevents coroutine from running again if the boss is already running
 		if (moving == false)
 		{
-			// Move the ranged guardian to the closest teleporter location
+			
 			moving = true;
 			StartCoroutine(MoveOverSeconds(gameObject, GetRandomPositionBeweenLimits(), 1f));
             
@@ -137,8 +145,9 @@ public class MeleeGuardian : Enemy
 	/// <summary> Moves a game object to a location over N seconds </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endingPosition, float seconds)
 	{
+		shouldThrow = FindObjectOfType<SwordThrow>();
 
-        float elapsedTime = 0; // Amount of time an enemy is waiting in one position
+		float elapsedTime = 0; // Amount of time an enemy is waiting in one position
 	    Vector3 startingPosition = objectToMove.transform.position; // save the starting position
 
 		// Move the guardian a little each frame based on how many seconds it should take to get the ending position
@@ -149,12 +158,13 @@ public class MeleeGuardian : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
-		anim.SetTrigger("Attack");
-		yield return new WaitForSeconds(1.5f);
-		throwSword.shouldThrow = true;
-		anim.SetTrigger("Patrol");
-		yield return new WaitForSeconds(6);
-		moving = false;
+		//anim.SetTrigger("Attack");
+		//yield return new WaitForSeconds(1.5f);
+		//throwSword.shouldThrow = true;
+		//anim.SetTrigger("Patrol");
+		yield return new WaitForSeconds(3);
+		shouldThrow.findTarget = true;
+		//moving = false;
 	}
 
 
