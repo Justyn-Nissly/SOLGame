@@ -148,6 +148,13 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Utility Methods
+	public override void Shoot()
+	{
+		base.Shoot();
+
+		//GetComponent<Rigidbody2D>().a
+	}
+
 	/// <summary> this method is for the player to take damage
 	/// and send a signal to the UI to update it with the players new health </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
