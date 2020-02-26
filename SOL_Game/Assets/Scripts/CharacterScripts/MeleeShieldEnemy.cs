@@ -40,7 +40,7 @@ public class MeleeShieldEnemy : Enemy
 			DisableShield(); // make the enemy disable there shield
 
 			// attack with a light attack
-			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
+			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive);
 
 			Invoke("ReEnableShield", shieldReEnableDelayTime); // re enable the enemies shield after N seconds
 			

@@ -28,7 +28,7 @@ public class LightAttackEnemy : Enemy
 		if (countDownTimer <= 0 && canAttack && aggro)
 		{
 			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
-			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
+			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive);
 		}
 		else
 		{

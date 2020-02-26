@@ -120,13 +120,13 @@ public class Player : BaseCharacter
 				else if (Input.GetButtonDown("X"))
 				{
 					timeBetweenAttacks = heavyStartTimeBetweenAttacks; // reset the time between attacks
-					MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+					MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive);
 				}
 				// A is right arrow based on the SNES controller layout; attack with light weapon and reset the cooldown
 				else if (Input.GetButtonDown("A"))
 				{
 					timeBetweenAttacks = lightStartTimeBetweenAttacks; // reset the time between attacks
-					MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
+					MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive);
 				}
 			}
 		}
@@ -152,7 +152,7 @@ public class Player : BaseCharacter
 	{
 		base.Shoot();
 
-		//GetComponent<Rigidbody2D>().a
+		StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.25f));
 	}
 
 	/// <summary> this method is for the player to take damage
@@ -164,6 +164,8 @@ public class Player : BaseCharacter
 		{
 			// call the parents TakeDamage()
 			base.TakeDamage(damage, playSwordImpactSound);
+
+			StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.25f));
 
 			// set the float value varable to the players current health after taking damage
 			// the float value is used for updating the players health bar

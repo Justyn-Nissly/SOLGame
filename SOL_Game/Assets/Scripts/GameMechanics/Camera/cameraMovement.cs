@@ -15,8 +15,24 @@ public class cameraMovement : MonoBehaviour
 		target; // Center the camera on the player
 	private float
 		smoothing = 0.05f; // Make camera movement smooth
+
 	private bool
-		cameraIsPanning = false; // so you can pan the camera to a game object without it fighting the normal camera movement
+		cameraIsPanning = false, // so you can pan the camera to a game object without it fighting the normal camera movement
+		cameraIsShaking = false; // this if a flag for is the camera is shaking (an effect used when shooting)
+
+
+	// Desired duration of the shake effect
+	private float shakeDuration = 0f;
+
+	// A measure of magnitude for the shake. Tweak based on your preference
+	private float shakeMagnitude = 0.1f;
+
+	// A measure of how quickly the shake effect should evaporate
+	private float dampingSpeed = 1.0f;
+
+	// The initial position of the GameObject
+	Vector3 initialPosition;
+
 	#endregion
 
 	// Unity Named Methods
@@ -31,7 +47,7 @@ public class cameraMovement : MonoBehaviour
 	private void LateUpdate()
 	{
 		// The camera doesn't move if already centered on the player
-		if (transform.position != target.position && cameraIsPanning == false)
+		if (transform.position != target.position && cameraIsPanning == false && cameraIsShaking == false)
 		{
 			transform.position = Vector3.Lerp(transform.position,
 											  new Vector3(target.position.x, target.position.y, transform.position.z),
@@ -48,7 +64,27 @@ public class cameraMovement : MonoBehaviour
 	}
 	#endregion
 
-	#region Coroutines (Empty)
+	#region Coroutines
+	/// <summary> This method shakes the camera for N seconds </summary>
+	public IEnumerator ShakeCamera(float shakeDuration)
+	{
+		cameraIsShaking = true;
+		initialPosition = transform.position;
+
+		while (shakeDuration > 0)
+		{
+			transform.localPosition = initialPosition + Random.insideUnitSphere * shakeMagnitude;
+
+			shakeDuration -= Time.deltaTime * dampingSpeed;
+
+			yield return null;
+		}
+
+			shakeDuration = 0f;
+			transform.localPosition = initialPosition;
+			cameraIsShaking = false;
+	}
+
 	/// <summary> Moves a game object to a location over N seconds </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 end, float timeToLocation, float pauseTime, float timeBackToPlayer)
 	{

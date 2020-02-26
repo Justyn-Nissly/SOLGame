@@ -103,7 +103,7 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> the attack method used for the enemy and the player to swing light/heavy melee weapons</summary>
-	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool characterHasKnockback)
+	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive)
 	{
 		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
 
@@ -113,11 +113,6 @@ public class BaseCharacter : MonoBehaviour
 			if (characterBeingAtacked != null)
 			{
 				characterBeingAtacked.TakeDamage((int)damageToGive.initialValue, true);
-
-				if (characterHasKnockback)
-				{
-					ApplyKnockBack(collider.gameObject);
-				}
 			}
 		}
 
@@ -129,37 +124,6 @@ public class BaseCharacter : MonoBehaviour
 
 		GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition.transform);
 		Destroy(weaponInstance, .5f);
-	}
-
-	/// <summary> needs to be changed to always work</summary>
-	private void ApplyKnockBack(GameObject characterBeingAtacked)
-	{
-		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
-
-		// add knock back
-		if (rigidbody2D != null)
-		{
-			Vector2 difference;
-
-			if (GetPlayer(characterBeingAtacked) != null)
-			{
-				GetPlayer(characterBeingAtacked).playerAllowedToMove = false;
-				rigidbody2D.isKinematic = true;
-				rigidbody2D.isKinematic = false;
-
-				difference = characterBeingAtacked.transform.position - GameObject.FindGameObjectWithTag("Player").transform.position;
-			}
-			else
-			{
-				difference = characterBeingAtacked.transform.position - transform.position;
-			}
-
-			difference = difference.normalized * thrust;
-
-			rigidbody2D.AddForce(difference, ForceMode2D.Impulse);
-			StartCoroutine(KnockBackCoroutine(characterBeingAtacked));
-		}
-
 	}
 
 	// 
@@ -245,40 +209,6 @@ public class BaseCharacter : MonoBehaviour
 		// Ensure the sprite is visible and the character can take damage after blinking stops
 		spriteRenderer.enabled = true;
 		canTakeDamage = true;
-	}
-
-	/// <summary> needs to be fixed </summary>
-	private IEnumerator KnockBackCoroutine(GameObject characterBeingAtacked)
-	{
-		Enemy enemy = characterBeingAtacked.GetComponent<Enemy>();
-		Rigidbody2D rigidbody2D = characterBeingAtacked.GetComponent<Rigidbody2D>();
-
-
-		if (enemy != null)
-		{
-			enemy.aggro = false;
-		}
-
-		if (rigidbody2D != null)
-		{
-			yield return new WaitForSeconds(knockTime);
-			if (rigidbody2D != null)
-			{
-				rigidbody2D.velocity = Vector2.zero;
-				rigidbody2D.isKinematic = true;
-				rigidbody2D.isKinematic = false;
-
-				if (GetPlayer(characterBeingAtacked) != null)
-				{
-					GetPlayer(characterBeingAtacked).playerAllowedToMove = true;
-				}
-
-				if (enemy != null)
-				{
-					enemy.aggro = true;
-				}
-			}
-		}
 	}
 
 	/// <summary> instantiates the bullet game object variable </summary>
