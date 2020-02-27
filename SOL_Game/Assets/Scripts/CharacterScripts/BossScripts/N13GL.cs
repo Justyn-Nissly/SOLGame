@@ -6,21 +6,29 @@ using UnityEngine;
 public class N13GL : MonoBehaviour
 {
 	#region Enums
-	public enum GuardianType
+	public enum AttackPattern
 	{
-		shieldGuardian,
-		gunGuardian,
-		hammerGuardian,
-		swordGuardian,
-		finalGuardian
+		shieldGuardianPattern,
+		gunGuardianPattern,
+		hammerGuardianPattern,
+		swordGuardianPattern,
+		finalGuardianPattern
 	}
 	#endregion
 
 	#region Public Variables
 
 	#region Shared Variables
-	public GuardianType
-		currentGuardian; // The current guardian type
+	public AttackPattern
+		currentGuardianPattern; // The current guardian attack pattern type
+	public GameObject
+		currentGuardian, // The current guardian that was chosen
+		nextGuardian;    // The next guardian that will be chosen
+	public Sprite
+		shieldSprite, // The sprite for the shield guardian arm
+		gunSprite,    // The sprite for the gun    guardian arm
+		hammerSprite, // The sprite for the hammer guardian arm
+		swordSprite;  // The sprite for the sword  guardian arm
 	public bool 
 		typeIsChanged; // The current guardian type has been changed
 	public int
@@ -48,9 +56,10 @@ public class N13GL : MonoBehaviour
 	#region Private Variables
 	#region Shared Variables
 	private Array
-		allGuardianTypes; // All possible guardian types
+		allGuardianPatternTypes; // All possible guardian attack pattern types
 	private System.Random
-		randomGuardian; // The number of the random guardian to choose
+		randomGuardianPattern; // The number of the random guardian attack pattern to choose
+	private Color32 guardianColour = new Color32(0x3C, 0x71, 0x6F, 0xFF);
 	#endregion
 	#region Shield Guardian
 	#endregion
@@ -69,65 +78,58 @@ public class N13GL : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		allGuardianTypes = Enum.GetValues(typeof(GuardianType));
+		allGuardianPatternTypes = Enum.GetValues(typeof(AttackPattern));
 		typeIsChanged    = true;
 		changething      = 0;
-		currentGuardian = GuardianType.finalGuardian;
+		currentGuardianPattern = AttackPattern.finalGuardianPattern;
 	}
 
     // Update is called once per frame
     void Update()
     {
-		/*if(Input.GetKeyDown(KeyCode.Return))
-		{
-			currentGuardian = GuardianType.shieldGuardian;
-			typeIsChanged = true;
-		}
-		if(Input.GetKeyDown(KeyCode.RightShift))
-		{
-			currentGuardian = GuardianType.gunGuardian;
-			typeIsChanged = true;
-		}*/
-
 		if (changething == 5)
 		{
 			changething = 0;
-			currentGuardian = (GuardianType)UnityEngine.Random.Range(0, 4);
+			currentGuardianPattern = (AttackPattern)UnityEngine.Random.Range(0, 4);
 			typeIsChanged = false;
+			currentGuardian = shieldGuardianArm;
 		}
 
 		// Check which guardian arm needs to be teleported in
-		if(typeIsChanged == false)
+		if(typeIsChanged == true)
 		{
-			switch(currentGuardian)
+			switch(currentGuardianPattern)
 			{
-				case GuardianType.finalGuardian:
+				case AttackPattern.finalGuardianPattern:
 				{
 					// Spawn in the final guardian arm
 					break;
 				}
-				case GuardianType.shieldGuardian:
+				case AttackPattern.shieldGuardianPattern:
 				{
 					// Spawn in the shield guardian arm
-					typeIsChanged = true;
+					typeIsChanged = false;
 					shieldGuardianArm.SetActive(true);
-					StartCoroutine(SpawnNewArm(shieldGuardianArm, gunGuardianArm));
+					currentGuardian = shieldGuardianArm;
+					/*StartCoroutine(SpawnNewArm(shieldGuardianArm, gunGuardianArm));*/
 					break;
 				}
-				case GuardianType.gunGuardian:
+				case AttackPattern.gunGuardianPattern:
 				{
 					// Spawn in the gun guardian arm
-					typeIsChanged = true;
+					typeIsChanged = false;
 					gunGuardianArm.SetActive(true);
-					StartCoroutine(SpawnNewArm(gunGuardianArm, shieldGuardianArm));
+					currentGuardian = gunGuardianArm;
+					/*shieldGuardianArm.GetComponent<_2dxFX_NewTeleportation2>().TeleportationColor = guardianColour;*/
+					/*StartCoroutine(SpawnNewArm(gunGuardianArm, shieldGuardianArm));*/
 					break;
 				}
-				case GuardianType.hammerGuardian:
+				case AttackPattern.hammerGuardianPattern:
 				{
 					// Spawn in the hammer guardian arm
 					break;
 				}
-				case GuardianType.swordGuardian:
+				case AttackPattern.swordGuardianPattern:
 				{
 					// Spawn in the sword guardian arm
 					break;
@@ -136,36 +138,36 @@ public class N13GL : MonoBehaviour
 		}
 
 		// Check which attak pattern should be used
-		switch (currentGuardian)
+		switch (currentGuardianPattern)
 		{
-			case GuardianType.finalGuardian:
+			case AttackPattern.finalGuardianPattern:
 			{
 				// Execute the final guardian attack pattern
-				FinalGuardianAttack();
+				FinalGuardianAttackPattern();
 				break;
 			}
-			case GuardianType.shieldGuardian:
+			case AttackPattern.shieldGuardianPattern:
 			{
 				// Execute the shield guardian attack pattern
-				ShieldGuardianAttack();
+				ShieldGuardianAttackPattern();
 				break;
 			}
-			case GuardianType.gunGuardian:
+			case AttackPattern.gunGuardianPattern:
 			{
 				// Execute the gun guardian attack pattern
-				GunGuardianAttack();
+				GunGuardianAttackPattern();
 				break;
 			}
-			case GuardianType.hammerGuardian:
+			case AttackPattern.hammerGuardianPattern:
 			{
 				// Execute the hammer guardian attack pattern
-				HammerGuardianAttack();
+				HammerGuardianAttackPattern();
 				break;
 			}
-			case GuardianType.swordGuardian:
+			case AttackPattern.swordGuardianPattern:
 			{
 				// Execute the sword guardian attack pattern
-				SwordGuardianAttack();
+				SwordGuardianAttackPattern();
 				break;
 			}
 		};
@@ -174,10 +176,14 @@ public class N13GL : MonoBehaviour
 
 	#region Utility Methods
 	#region Shared Methods
+	public void SwitchArms()
+	{
+		
+	}
 	#endregion
 	#region Shield Guardian
 	/// <summary> The attack pattern for the shield guardian </summary>
-	public void ShieldGuardianAttack()
+	public void ShieldGuardianAttackPattern()
 	{
 		Debug.Log("Shield Attack");
 		if (Input.GetKeyDown(KeyCode.Return))
@@ -188,7 +194,7 @@ public class N13GL : MonoBehaviour
 	#endregion
 	#region Gun Guardian
 	/// <summary> The attack pattern for the gun guardian </summary>
-	public void GunGuardianAttack()
+	public void GunGuardianAttackPattern()
 	{
 		Debug.Log("Gun Attack");
 		if (Input.GetKeyDown(KeyCode.Return))
@@ -199,7 +205,7 @@ public class N13GL : MonoBehaviour
 	#endregion
 	#region Hammer Guardian
 	/// <summary> The attack pattern for the hammer guardian </summary>
-	public void HammerGuardianAttack()
+	public void HammerGuardianAttackPattern()
 	{
 		Debug.Log("Hammer Attack");
 		if (Input.GetKeyDown(KeyCode.Return))
@@ -210,7 +216,7 @@ public class N13GL : MonoBehaviour
 	#endregion
 	#region Sword Guardian
 	/// <summary> The attack pattern for the shield guardian </summary>
-	public void SwordGuardianAttack()
+	public void SwordGuardianAttackPattern()
 	{
 		Debug.Log("Sword Attack");
 		if (Input.GetKeyDown(KeyCode.Return))
@@ -221,7 +227,7 @@ public class N13GL : MonoBehaviour
 	#endregion
 	#region Final Guardian
 	/// <summary> The attack pattern for the shield guardian </summary>
-	public void FinalGuardianAttack()
+	public void FinalGuardianAttackPattern()
 	{
 		Debug.Log("Final Attack");
 		if (Input.GetKeyDown(KeyCode.Return))
