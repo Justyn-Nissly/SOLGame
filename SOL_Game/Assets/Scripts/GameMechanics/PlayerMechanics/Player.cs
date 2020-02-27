@@ -152,7 +152,7 @@ public class Player : BaseCharacter
 	{
 		base.Shoot();
 
-		StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.25f));
+		StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(0.05f, 0.25f));
 	}
 
 	/// <summary> this method is for the player to take damage
@@ -165,7 +165,7 @@ public class Player : BaseCharacter
 			// call the parents TakeDamage()
 			base.TakeDamage(damage, playSwordImpactSound);
 
-			StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.25f));
+			StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.1f, .25f));
 
 			// set the float value varable to the players current health after taking damage
 			// the float value is used for updating the players health bar

@@ -20,15 +20,8 @@ public class cameraMovement : MonoBehaviour
 		cameraIsPanning = false, // so you can pan the camera to a game object without it fighting the normal camera movement
 		cameraIsShaking = false; // this if a flag for is the camera is shaking (an effect used when shooting)
 
-
-	// Desired duration of the shake effect
-	private float shakeDuration = 0f;
-
-	// A measure of magnitude for the shake. Tweak based on your preference
-	private float shakeMagnitude = 0.1f;
-
-	// A measure of how quickly the shake effect should evaporate
-	private float dampingSpeed = 1.0f;
+	private float
+		dampingSpeed = 1.0f; // A measure of how quickly the shake effect should evaporate
 
 	// The initial position of the GameObject
 	Vector3 initialPosition;
@@ -66,7 +59,7 @@ public class cameraMovement : MonoBehaviour
 
 	#region Coroutines
 	/// <summary> This method shakes the camera for N seconds </summary>
-	public IEnumerator ShakeCamera(float shakeDuration)
+	public IEnumerator ShakeCamera(float shakeMagnitude, float shakeDuration)
 	{
 		cameraIsShaking = true;
 		initialPosition = transform.position;
