@@ -67,38 +67,41 @@ public class Enemy : BaseCharacter
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	public virtual void FixedUpdate()
 	{
-		// Check if the player is close enough to aggro
-		playerPos = GameObject.FindWithTag("Player").transform.position;
-		if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
+		if(this.GetComponent<EnemyMovement>().canMove == true)
 		{
-			aggro = true;
+			// Check if the player is close enough to aggro
+			playerPos = GameObject.FindWithTag("Player").transform.position;
+			if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
+			{
+				aggro = true;
+			}
+			// Enemies that are not aggro heal over time
+			else if (Vector2.Distance(transform.position, playerPos) >= followRange)
+			{
+				aggro = false;
+				if (countDownTimer <= 0)
+				{
+					countDownTimer = maxHealOverTime; // reset the time after going to 0
+
+					if (currentHealth < maxHealth.initialValue) // only heal if health less than full
+					{
+						currentHealth += healPerLoop;
+						SetHealth(currentHealth / maxHealth.initialValue);
+						//Debug.Log("enemy CurrentHealth = " + currentHealth);
+					}
+				}
+				else
+				{
+					countDownTimer -= Time.deltaTime;
+				}
+			}
+
+			//// Enemies attack the player only if aggroed
+			//if (aggro)
+			//{
+			//	canAttack = true;
+			//}
 		}
-		// Enemies that are not aggro heal over time
-		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
-		{
-			aggro = false;
-            if (countDownTimer <= 0)
-            {
-                countDownTimer = maxHealOverTime; // reset the time after going to 0
-
-                if (currentHealth < maxHealth.initialValue) // only heal if health less than full
-                {
-                    currentHealth += healPerLoop;
-                    SetHealth(currentHealth / maxHealth.initialValue);
-                    //Debug.Log("enemy CurrentHealth = " + currentHealth);
-                }
-            }
-            else
-            {
-                countDownTimer -= Time.deltaTime;
-            }
-        }
-
-		//// Enemies attack the player only if aggroed
-		//if (aggro)
-		//{
-		//	canAttack = true;
-		//}
 	}
 	#endregion
 

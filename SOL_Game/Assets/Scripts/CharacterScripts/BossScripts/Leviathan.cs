@@ -10,47 +10,47 @@ public class Leviathan : Enemy
 
 	#region Public Variables
 	public FloatValue
-		damageToGive; // the bosses damage that is dealed to the player
+		damageToGive; // The bosses damage that is dealed to the player
 	public Transform
-		roomCenterTransform, // a transform at the center of the room used for some of the bosses movement calculation
+		roomCenterTransform, // A transform at the center of the room used for some of the bosses movement calculation
 		offScreenLocation,
 		splitLeviathanSpawnPointOne,
 		splitLeviathanSpawnPointTwo,
 		missileSpawnPoint,
-		upperLeftSpawnPointLimit, // used to get a random position between these two limits
+		upperLeftSpawnPointLimit, // Used to get a random position between these two limits
 		lowerRightSpawnPointLimit;
 	public EnemySpawner
-		LeviathanEnemySpawner; // a reference to the bosses enemy spawner
+		LeviathanEnemySpawner; // A reference to the bosses enemy spawner
 	public GameObject
-		homingMissile, // the prefab of the homing missile that will get Instantiated
-		splitLeviathan, // the prefab of the split Leviathan that will get Instantiated twice when the leviathan splits
-		staticArmLeft, // reference to the static left arm
-		staticArmRight, // reference to the static right arm
-		spinningArmLeft, // reference to the spinning left arm
-		spinningArmRight, // reference to the spinning right arm
-		poison, // the prefab of a poison spot that will get Instantiated under the enemy
-		breathAttack; // the prefab of a breath attack game object that creates a line of fire (more then one is used to create the fire breath attack)
+		homingMissile,    // The prefab of the homing missile that will get Instantiated
+		splitLeviathan,   // The prefab of the split Leviathan that will get Instantiated twice when the leviathan splits
+		staticArmLeft,    // Reference to the static left arm
+		staticArmRight,   // Reference to the static right arm
+		spinningArmLeft,  // Reference to the spinning left arm
+		spinningArmRight, // Reference to the spinning right arm
+		poison,           // The prefab of a poison spot that will get Instantiated under the enemy
+		breathAttack;     // The prefab of a breath attack game object that creates a line of fire (more then one is used to create the fire breath attack)
 
 	public List<Transform>
-		breathAttackTargets; // reference to all points that a line of fire should go to
+		breathAttackTargets; // Reference to all points that a line of fire should go to
 	#endregion
 
 	#region Private Variables
 	private bool
-		canDoHalfHealthEvent = true, // flag so that this health event only happens once
-		canDoQuarterHealthEvent = true, // flag so that this health event only happens once
-		canDoThreeQuarterHealthEvent = true, // flag so that this health event only happens once
-		enemyIsShacking = false; // for making the enemy look "mad"
+		canDoHalfHealthEvent = true,         // Flag so that this health event only happens once
+		canDoQuarterHealthEvent = true,      // Flag so that this health event only happens once
+		canDoThreeQuarterHealthEvent = true, // Flag so that this health event only happens once
+		enemyIsShacking = false;             // For making the enemy look "mad"
 
 
 	private float
-		attackCountdownTimer = 5, // the countdown timer for the attacks
-		attackIntervalTime = 5, // the interval time before attacking again
-		poisonCountdownTimer = .25f, // the countdown timer for placing poison
-		poisonIntervalTimer = .25f, // the interval time before placing a poison spot again
-		requiredPlayerDistanceAway = 10, // the missile will not shoot if the player is to close
-		shackSpeed = 50.0f, //how fast it shakes
-		shackAmount = .01f; //how much it shakes
+		attackCountdownTimer = 5,        // The countdown timer for the attacks
+		attackIntervalTime = 5,          // The interval time before attacking again
+		poisonCountdownTimer = .25f,     // The countdown timer for placing poison
+		poisonIntervalTimer = .25f,      // The interval time before placing a poison spot again
+		requiredPlayerDistanceAway = 10, // The missile will not shoot if the player is to close
+		shackSpeed = 50.0f,              // How fast it shakes
+		shackAmount = .01f;              // How much it shakes
 	#endregion
 
 	// Unity Named Methods
@@ -59,7 +59,7 @@ public class Leviathan : Enemy
 	{
 		base.Start();
 
-		// add this boss to the enemy spawner, so that the doors out of the room only unlock when the boss and all spawned in enemies are dead
+		// Add this boss to the enemy spawner, so that the doors out of the room only unlock when the boss and all spawned in enemies are dead
 		LeviathanEnemySpawner.AddNewEnemyID(gameObject.GetInstanceID());
 		LeviathanEnemySpawner.StartCheckingIfEnemiesDefeated();
 	}
@@ -68,11 +68,11 @@ public class Leviathan : Enemy
 	{
 		base.FixedUpdate();
 
-		// place a poison spot if the enemy can attack
+		// Place a poison spot if the enemy can attack
 		if(aggro)
 			PoisonLogic();
 
-		// only try and do an attack if the timer countdown is zero and the enemy is allowed to attack
+		// Only try and do an attack if the timer countdown is zero and the enemy is allowed to attack
 		if (attackCountdownTimer < 0 && canAttack && currentHealth > 0)
 		{
 			DoAnAttack();
@@ -82,7 +82,7 @@ public class Leviathan : Enemy
 			attackCountdownTimer -= Time.deltaTime;
 		}
 
-		// if the enemy should be shacking start shacking the enemy
+		// If the enemy should be shacking start shacking the enemy
 		if (enemyIsShacking)
 		{
 			transform.position = new Vector2(transform.position.x + (Mathf.Sin(Time.time * shackSpeed) * shackAmount), transform.position.y + (Mathf.Sin(Time.time * shackSpeed) * shackAmount));
@@ -92,7 +92,7 @@ public class Leviathan : Enemy
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		// if the boss collided with the player damage the player
+		// If the boss collided with the player damage the player
 		if (collision.gameObject.CompareTag("Player")) // only damage the player when charging
 		{
 			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)damageToGive.initialValue);
@@ -334,7 +334,7 @@ public class Leviathan : Enemy
 		float seconds = 1;
 		float elapsedTime = 0;
 		Vector3 startingPosition = transform.position; // save the starting position
-		
+
 		canAttack = false;
 
 		// move the enemy to the center

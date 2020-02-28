@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6990640965563911027}
   - component: {fileID: 6990640965563911026}
   - component: {fileID: 6990640965563911030}
+  - component: {fileID: 1982460259}
+  - component: {fileID: 1982460260}
   m_Layer: 0
   m_Name: puzzlePressurePlate
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6990640965563911025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 47.85, y: -51.27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -71,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -444579236762991050, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,9 +96,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b35cf834fa473a44950d798e905c6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pressurePlateCollider: {fileID: 0}
+  m_Name:
+  m_EditorClassIdentifier:
+  pressurePlateCollider: {fileID: 1982460260}
   completeSprite: {fileID: 1102053498198241713, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
     type: 3}
   incompleteSprite: {fileID: -444579236762991050, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
@@ -112,8 +114,9 @@ MonoBehaviour:
   doorManager: {fileID: 0}
   LazerSprite: {fileID: 0}
   playerCanTriggerPressurePlate: 1
+  enemyCanTriggerPressurePlate: 1
   isComplete: 0
-  isPowered: 0
+  isPowered: 1
   isLocked: 0
 --- !u!58 &6990640965563911026
 CircleCollider2D:
@@ -228,3 +231,55 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!61 &1982460259
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6990640965563911025}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000043958426, y: 0.00028990954}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.24, y: 0.24}
+    newSize: {x: 0.24, y: 0.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16117315, y: 0.16059439}
+  m_EdgeRadius: 0
+--- !u!61 &1982460260
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6990640965563911025}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.24, y: 0.24}
+    newSize: {x: 0.24, y: 0.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.24, y: 0.24}
+  m_EdgeRadius: 0
