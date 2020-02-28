@@ -10,15 +10,15 @@ public class OrbController : MonoBehaviour
 	#region Public Variables
 	public float
 		attackHP; // The orb starts attacking when its health drops to this value
+	public LockOnMissile
+		missileScript; // Control the lock on missile script
+	public RevolveAroundObject
+		revolveScript; // Control the revolve around object script
+	public DestructibleObject
+		destructible; // Control the destructible object script
 	#endregion
 
 	#region Private Variables
-	private LockOnMissile
-		missileScript; // Control the lock on missile script
-	private RevolveAroundObject
-		revolveScript; // Control the revolve around object script
-	private DestructibleObject
-		destructible; // Control the destructible object script
 	private bool
 		isAttacking; // Check if the orb is attacking
 	#endregion

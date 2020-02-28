@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
 	}*/
 	public void PlaySound()
 	{
-		enemyAudioSRC.Play();
+		if (enemyAudioSRC!=null) enemyAudioSRC.Play();
 	}
 	#endregion
 

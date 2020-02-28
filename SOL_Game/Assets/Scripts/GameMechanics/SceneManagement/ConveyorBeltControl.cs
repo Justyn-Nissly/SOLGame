@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 
-public class ConveryorBeltControl : MonoBehaviour
+public class ConveyorBeltControl : MonoBehaviour
 {
 	#region Enums (Empty)
 	#endregion
 
-	#region Public Variables (Empty)
+	#region Public Variables
+	[Header("Leave empty to access all belts.")]
+	public ConveyorBelt[]
+		belts; // Keep track of conveyor belts
+	public bool
+		lockLever; // Check if the lever can be used more than once
 	#endregion
 
 	#region Private Variables
 	private bool
-		reversed; // The conveyor belts have been reversed
-	private ConveyorBelt[]
-		belts; // Keep track of all conveyor belts in the scene
+		reversed, // The conveyor belts have been reversed
+		locked;   // The lever cannot be used again
 	private SpriteRenderer
 		sprite; // The belt control lever
 	private float
@@ -28,11 +32,16 @@ public class ConveryorBeltControl : MonoBehaviour
 	void Start()
 	{
 		reversed      = false;
-		belts         = FindObjectsOfType<ConveyorBelt>();
 		sprite        = GetComponent<SpriteRenderer>();
 		soundEffect   = GetComponent<AudioSource>();
 		coolDownTime  = 1.0f;
 		coolDownTimer = 0.0f;
+
+		// Leave the conveyor belts array empty to automatically access all conveyor belts
+		if (belts.Length == 0)
+		{
+			belts = FindObjectsOfType<ConveyorBelt>();
+		}
 	}
 
 	/// <summary> Reverse the conveyor belts' direction when the lever is thrown </summary>
@@ -56,7 +65,7 @@ public class ConveryorBeltControl : MonoBehaviour
 	/// <summary> The lever is thrown when the player touches it </summary>
 	void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.tag == "Player")
+		if (collision.gameObject.tag == "Player" && locked == false)
 		{
 			reversed = true;
 		}
@@ -88,6 +97,9 @@ public class ConveryorBeltControl : MonoBehaviour
 					break;
 			}
 		}
+
+		// Check if the lever should lock
+		locked = lockLever;
 	}
 	#endregion
 

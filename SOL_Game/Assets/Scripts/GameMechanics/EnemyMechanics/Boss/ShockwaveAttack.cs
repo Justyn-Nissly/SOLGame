@@ -25,7 +25,7 @@ public class ShockwaveAttack : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary> Initialize the shockwave </summary>
+	/// <summary> Initialize the shockwave and play its sound </summary>
 	void Awake()
 	{
 		spinAngle = 0.0f;
@@ -68,7 +68,7 @@ public class ShockwaveAttack : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary> Make the shockwave spin </summary>
+	/// <summary> Make the shockwave spin (aesthetic effect) </summary>
 	void SpinShockwave()
 	{
 		transform.rotation = Quaternion.AngleAxis(spinAngle -= 5.0f, Vector3.forward);

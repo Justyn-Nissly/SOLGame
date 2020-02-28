@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HammerGuardianWeakness : MonoBehaviour
 {
@@ -10,9 +7,9 @@ public class HammerGuardianWeakness : MonoBehaviour
 
 	#region Public Variables
 	public int
-		health;
+		health; // Only the weak point can take damage
 	public Sprite
-		destroyedSprite; // Sprite displayed when object is destroyed
+		destroyedSprite; // Sprite displayed when weak point takes sufficient damage
 	#endregion
 
 	#region Private Variables (Empty)
@@ -20,15 +17,10 @@ public class HammerGuardianWeakness : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-
-	private void Update()
-	{
-		;
-	}
-
+	/// <summary> Check if the player has hit the guardian </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// Check if the right weapon hit this object
+		// If the right weapon hit the weak point deal the guardian damage
 		if (collision.gameObject.CompareTag("PlayerLightWeapon"))
 		{
 			if (health-- < 0)
@@ -40,10 +32,9 @@ public class HammerGuardianWeakness : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// <summary> call this method to destroy the destructible object </summary>
+	/// <summary> Change sprite to destroyed if applicable </summary>
 	private void DestroyObject()
 	{
-		// Change to destroyed sprite if available
 		if (destroyedSprite != null)
 		{
 			gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
