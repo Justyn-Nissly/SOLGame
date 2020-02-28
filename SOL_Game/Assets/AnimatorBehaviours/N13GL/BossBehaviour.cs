@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class BossBehaviour : StateMachineBehaviour
 {
-	int timeBeforeAttack;
+	int timeToWait; // The time to wait before attacking or moving
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		timeBeforeAttack = 0;
+		timeToWait = 0;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if (timeBeforeAttack == 150)
+		/*if (timeToWait == 150)
 		{
 			if (animator.GetBool("IsGun"   ) || animator.GetBool("IsHammer") ||
 				animator.GetBool("IsShield") || animator.GetBool("IsSword" ) == true)
@@ -32,7 +32,15 @@ public class BossBehaviour : StateMachineBehaviour
 		}
 		else
 		{
-			timeBeforeAttack += 1;
+			timeToWait += 1;
+		}*/
+		if(timeToWait == 150)
+		{
+			animator.SetTrigger("Move");
+		}
+		else
+		{
+			timeToWait += 1;
 		}
 	}
 
