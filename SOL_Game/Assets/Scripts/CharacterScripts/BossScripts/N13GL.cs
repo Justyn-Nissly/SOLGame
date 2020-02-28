@@ -25,10 +25,11 @@ public class N13GL : MonoBehaviour
 		currentGuardian, // The current guardian that was chosen
 		nextGuardian;    // The next guardian that will be chosen
 	public Sprite
-		shieldSprite, // The sprite for the shield guardian arm
-		gunSprite,    // The sprite for the gun    guardian arm
-		hammerSprite, // The sprite for the hammer guardian arm
-		swordSprite;  // The sprite for the sword  guardian arm
+		gunSprite,     // The sprite for the gun    guardian arm
+		hammerSprite,  // The sprite for the hammer guardian arm
+		nextArmSprite, // The sprite for the next   guardian arm to be spawned in
+		shieldSprite,  // The sprite for the shield guardian arm
+		swordSprite;   // The sprite for the sword  guardian arm
 	public bool 
 		typeIsChanged; // The current guardian type has been changed
 	public int
@@ -91,7 +92,7 @@ public class N13GL : MonoBehaviour
 		{
 			changething = 0;
 			currentGuardianPattern = (AttackPattern)UnityEngine.Random.Range(0, 4);
-			typeIsChanged = false;
+			typeIsChanged = true;
 			currentGuardian = shieldGuardianArm;
 		}
 
@@ -109,8 +110,9 @@ public class N13GL : MonoBehaviour
 				{
 					// Spawn in the shield guardian arm
 					typeIsChanged = false;
-					shieldGuardianArm.SetActive(true);
-					currentGuardian = shieldGuardianArm;
+					//shieldGuardianArm.SetActive(true);
+					nextArmSprite = shieldSprite;
+					GetComponent<Animator>().SetTrigger("SwitchArm");
 					/*StartCoroutine(SpawnNewArm(shieldGuardianArm, gunGuardianArm));*/
 					break;
 				}
@@ -118,8 +120,9 @@ public class N13GL : MonoBehaviour
 				{
 					// Spawn in the gun guardian arm
 					typeIsChanged = false;
-					gunGuardianArm.SetActive(true);
-					currentGuardian = gunGuardianArm;
+					//gunGuardianArm.SetActive(true);
+					nextArmSprite = gunSprite;
+					GetComponent<Animator>().SetTrigger("SwitchArm");
 					/*shieldGuardianArm.GetComponent<_2dxFX_NewTeleportation2>().TeleportationColor = guardianColour;*/
 					/*StartCoroutine(SpawnNewArm(gunGuardianArm, shieldGuardianArm));*/
 					break;
@@ -178,7 +181,7 @@ public class N13GL : MonoBehaviour
 	#region Shared Methods
 	public void SwitchArms()
 	{
-		
+		shieldGuardianArm.GetComponent<SpriteRenderer>().sprite = nextArmSprite; // Take this and set this to "nextSprite" rather than just shieldSprite....It is 3:37...go to bed...
 	}
 	#endregion
 	#region Shield Guardian
