@@ -16,14 +16,15 @@ public class Enemy : BaseCharacter
         enemyName; // The enemy's name
 	public float
 		aggroRange,  // The max range where the enemy can detect the player
-		//duration,
+						 //duration,
 		followRange, // How far away the player must get for the enemy to deaggro
 		attackDmg,   // Base damage from an intentional attack
-        contactDmg,  // Base damage from making contact with the player
+		  contactDmg,  // Base damage from making contact with the player
 		healPerLoop,
 		MAXPOSSIBLEHEALTH,
-        maxHealOverTime,
-        moveSpeed;   // Base movement speed
+		  maxHealOverTime,
+		  moveSpeed,   // Base movement speed
+			maxMoveSpeed;
     public bool
         aggro; // The enemy has detected the player
     public Vector2[]
