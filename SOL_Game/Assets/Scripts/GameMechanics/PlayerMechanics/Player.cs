@@ -9,18 +9,26 @@ public class Player : BaseCharacter
 
 	#region Public Variables
 	// player movement variables
-	public bool playerAllowedToMove = true; // used to disable player movement like when the player is knocked back
-	public Animator playerAnimator; // used to animate the players movement
-	public Signal playerHealthSignal; // used to signal the health UI system that the player has taken damage
+	public bool
+		playerAllowedToMove = true; // used to disable player movement like when the player is knocked back
+	public Animator
+		playerAnimator; // used to animate the players movement
+	public Signal
+		playerHealthSignal; // used to signal the health UI system that the player has taken damage
 
 	// player attack origination variables
-	public GameObject playerAttackGameObject; // this is where the players weapons get instantiated
-	public DialogueManager dialogueManager;
+	public GameObject 
+		playerAttackGameObject, // this is where the players weapons get instantiated
+		dustEffect; // this effect is created when the player walks around
+	public DialogueManager
+		dialogueManager;
 
 	// player sound effects
-	public AudioSource audioSourcePlayerMovement;
+	public AudioSource
+		audioSourcePlayerMovement;
 
-	public AudioSource shieldSoundSource;
+	public AudioSource
+		shieldSoundSource;
 
 	public float
 		extraSpeed,   // Extra speed gained from a power up
@@ -42,7 +50,9 @@ public class Player : BaseCharacter
 		timeBetweenAttacks, // the timer that cotrols if the player can use any of their attacks
 		lightStartTimeBetweenAttacks = .3f,
 		heavyStartTimeBetweenAttacks = .6f,
-		RangedStartTimeBetweenAttacks = .5f;
+		RangedStartTimeBetweenAttacks = .5f,
+		dustCountdownTimer = 1,
+		dustTimeInterval = 1;
 	#endregion
 
 	// Unity Named Methods
@@ -224,6 +234,8 @@ public class Player : BaseCharacter
 		if (playerMovementAmount.x != 0 || playerMovementAmount.y != 0)
 		{
 			playerAnimator.SetLayerWeight(1, 1);
+
+			DoDustEffectLogic();
 		}
 		else
 		{
@@ -233,6 +245,19 @@ public class Player : BaseCharacter
 		SetPlayerAnimatorValues();
 		// Update the Hero's position, taking note of colliders.
 		playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
+	}
+
+	private void DoDustEffectLogic()
+	{
+		if(dustCountdownTimer <= 0)
+		{
+			Instantiate(dustEffect, transform.position, new Quaternion(0, 0, 0, 0));
+			dustCountdownTimer = dustTimeInterval;
+		}
+		else
+		{
+			dustCountdownTimer -= Time.deltaTime;
+		}
 	}
 
 	/// <summary> Get the amount of movement that the player needs to move </summary>
