@@ -50,7 +50,7 @@ public class Player : BaseCharacter
 		timeBetweenAttacks, // the timer that cotrols if the player can use any of their attacks
 		lightStartTimeBetweenAttacks = .3f,
 		heavyStartTimeBetweenAttacks = .6f,
-		RangedStartTimeBetweenAttacks = .5f,
+		RangedStartTimeBetweenAttacks = .75f,
 		dustCountdownTimer = 1,
 		dustTimeInterval = 1;
 	#endregion
@@ -102,13 +102,15 @@ public class Player : BaseCharacter
 		// On input activate the player's shield
 		if (Input.GetButton("B") && shieldIsEnabled == false)
 		{
-			EnableShield();
+			StartShieldAnimation();
+			EnableShield(false);
 			shieldIsEnabled = true;
 			canAttack = false;
 		}
 		// On release of input deactivate the player's shield
 		else if (Input.GetButton("B") == false && shieldIsEnabled)
 		{
+			EndAttackAnimation();
 			DisableShield();
 			shieldIsEnabled = false;
 			canAttack = true;
@@ -124,19 +126,21 @@ public class Player : BaseCharacter
 				if (Input.GetButtonUp("Y"))
 				{
 					timeBetweenAttacks = RangedStartTimeBetweenAttacks;
-					Shoot();
+					Shoot(false);
 				}
 				// X is up arrow based on the SNES controller layout; attack with heavy weapon and reset the cooldown
 				else if (Input.GetButtonDown("X"))
 				{
 					timeBetweenAttacks = heavyStartTimeBetweenAttacks; // reset the time between attacks
-					MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive);
+					MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+					StartHammerAnimation();
 				}
 				// A is right arrow based on the SNES controller layout; attack with light weapon and reset the cooldown
 				else if (Input.GetButtonDown("A"))
 				{
 					timeBetweenAttacks = lightStartTimeBetweenAttacks; // reset the time between attacks
-					MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive);
+					MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
+					StartSwordAnimation();
 				}
 			}
 		}
@@ -158,11 +162,91 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Utility Methods
-	public override void Shoot()
+	public override void Shoot(bool createGun)
 	{
-		base.Shoot();
+		base.Shoot(createGun);
+
+		StartShootAnimation();
 
 		StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(0.05f, 0.25f));
+	}
+
+	/// <summary> this method starts playing the shooting animation </summary>
+	private void StartShootAnimation()
+	{
+		playerAnimator.SetBool("blasting", true); // set bool flag blasting to true
+		FreezePlayer(); // don't let the player move
+		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
+		playerAnimator.SetLayerWeight(2, 2); // increase the blaster layer priority
+	}
+
+	/// <summary> this method starts playing the sword animation </summary>
+	private void StartHammerAnimation()
+	{
+		playerAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
+		FreezePlayer(); // don't let the player move
+		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
+		playerAnimator.SetLayerWeight(4, 2); // increase the blaster layer priority
+	}
+
+	/// <summary> this method starts playing the sword animation </summary>
+	private void StartSwordAnimation()
+	{
+		playerAnimator.SetBool("isSwordAttacking", true); // set bool flag blasting to true
+		FreezePlayer(); // don't let the player move
+		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
+		playerAnimator.SetLayerWeight(3, 2); // increase the blaster layer priority
+	}
+
+	/// <summary> this method starts playing the sword animation </summary>
+	private void StartShieldAnimation()
+	{
+		playerAnimator.SetBool("isShieldUp", true); // set bool flag blasting to true
+		FreezePlayer(); // don't let the player move
+		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
+		playerAnimator.SetLayerWeight(5, 2); // increase the blaster layer priority
+	}
+
+	/// <summary> ends an attack animation (called with an event in the attack animation)</summary>
+	public void EndAttackAnimation()
+	{
+		playerAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
+		playerAnimator.SetLayerWeight(3, 0); // lowers the sword layer priority
+		playerAnimator.SetLayerWeight(4, 0); // lowers the hammer layer priority
+		playerAnimator.SetLayerWeight(5, 0); // lowers the shield layer priority
+
+		playerAnimator.SetBool("blasting", false); // set flag blasting to false
+		playerAnimator.SetBool("isSwordAttacking", false); // set flag isSwordAttacking to false
+		playerAnimator.SetBool("isHammerAttacking", false); // set flag isHammerAttacking to true
+		playerAnimator.SetBool("isShieldUp", false); // set flag isHammerAttacking to true
+
+		UnFreezePlayer(); // let the player move again
+	}
+
+	/// <summary> this gets the direction that an animations should play based on the players idle animation state</summary>
+	private int GetAnimationDirection()
+	{
+		int animationDirection = 0; // return value for the animations direction
+
+		AnimatorClipInfo[] animatorStateInfo = playerAnimator.GetCurrentAnimatorClipInfo(0);
+
+		switch (animatorStateInfo[0].clip.name)
+		{
+			case "IdleLeft":
+				animationDirection = 0; // west
+				break;
+			case "IdleUp":
+				animationDirection = 1; // north
+				break;
+			case "IdleRight":
+				animationDirection = 2; // east
+				break;
+			case "IdleDown":
+				animationDirection = 3; // south
+				break;
+		}
+
+		return animationDirection;
 	}
 
 	/// <summary> this method is for the player to take damage
@@ -295,9 +379,9 @@ public class Player : BaseCharacter
 	}
 
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
-	public override void EnableShield()
+	public override void EnableShield(bool createShield)
 	{
-		base.EnableShield();
+		base.EnableShield(createShield);
 		canTakeDamage = false;
 	}
 
