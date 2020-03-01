@@ -141,101 +141,105 @@ public class EnemyMovement : MonoBehaviour
 			SetEnemyAnimatorValues();
 		}
 
-		// Update the values in the Animator for the players animation
-		SetEnemyAnimatorValues();
-
 		// Check which movement type is being used
 		switch (Type)
 		{
-			case MovementType.EvadePlayer:
-			{
-				if (enemy.aggro)
-				{
-					playerPos = GameObject.FindWithTag("Player").transform.position;
-					Evade();
-				}
-				break;
-			}
-			case MovementType.PersuePlayer:
-			{
-				if (enemy.aggro && canMoveAtPlayer)
-				{
-					playerPos = GameObject.FindWithTag("Player").transform.position;
-					Pursue();
-				}
-				break;
-			}
-			case MovementType.FreeRoam:
-			{
-				if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
-				{
-					Roam();
-				}
-				else
-				{
-					waiting = waitTime;
-				}
+			// Update the values in the Animator for the players animation
+			SetEnemyAnimatorValues();
 
-				// if the enemy is the ranged guardian roam even if aggro
-				if (enemy is RangedGuardian)
-				{
-					Roam();
-				}
-				if (enemy.aggro && canMoveAtPlayer)
-				{
-					playerPos = GameObject.FindWithTag("Player").transform.position;
-					Pursue();
-				}
-				break;
-			}
-			case MovementType.EvasiveStrike:
+			// Check which movement type is being used
+			switch (Type)
 			{
-				if (charging)
+				case MovementType.EvadePlayer:
 				{
-					enemy.aggro = true;
-				}
-
-				// If the enemy has detected the player it starts its attack pattern
-				if (enemy.aggro)
-				{
-					// The enemy is evading the player
-					if (charging == false && isWaiting == false)
+					if (enemy.aggro)
 					{
 						playerPos = GameObject.FindWithTag("Player").transform.position;
 						Evade();
-						evadeTime -= Time.deltaTime;
-
-						// Check if the enemy will charge at the player
-						if (evadeTime <= 0.0f)
-						{
-							isWaiting = true;
-							waitTime = 0.4f;
-							charging = true;
-							chargeTime = Vector2.Distance(enemy.rb2d.position, playerPos);
-						}
 					}
-					// The enemy is waiting
-					else if (isWaiting)
+					break;
+				}
+				case MovementType.PersuePlayer:
+				{
+					if (enemy.aggro && canMoveAtPlayer)
 					{
-						Wait();
+						playerPos = GameObject.FindWithTag("Player").transform.position;
+						Pursue();
 					}
-
-					// The enemy is charging at the player
+					break;
+				}
+				case MovementType.FreeRoam:
+				{
+					if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
+					{
+						Roam();
+					}
 					else
 					{
-						ChargeAtPlayer();
+						waiting = waitTime;
+					}
+
+					// if the enemy is the ranged guardian roam even if aggro
+					if (enemy is RangedGuardian)
+					{
+						Roam();
+					}
+					if (enemy.aggro && canMoveAtPlayer)
+					{
+						playerPos = GameObject.FindWithTag("Player").transform.position;
+						Pursue();
+					}
+					break;
+				}
+				case MovementType.EvasiveStrike:
+				{
+					if (charging)
+					{
+						enemy.aggro = true;
+					}
+
+					// If the enemy has detected the player it starts its attack pattern
+					if (enemy.aggro)
+					{
+						// The enemy is evading the player
+						if (charging == false && isWaiting == false)
+						{
+							playerPos = GameObject.FindWithTag("Player").transform.position;
+							Evade();
+							evadeTime -= Time.deltaTime;
+
+							// Check if the enemy will charge at the player
+							if (evadeTime <= 0.0f)
+							{
+								isWaiting = true;
+								waitTime = 0.4f;
+								charging = true;
+								chargeTime = Vector2.Distance(enemy.rb2d.position, playerPos);
+							}
+						}
+						// The enemy is waiting
+						else if (isWaiting)
+						{
+							Wait();
+						}
+
+						// The enemy is charging at the player
+						else
+						{
+							ChargeAtPlayer();
+							evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
+						}
+					}
+
+					// If the enemy is not aggroed, reset the evasion time
+					else
+					{
 						evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
 					}
+					break;
 				}
-
-				// If the enemy is not aggroed, reset the evasion time
-				else
-				{
-					evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
-				}
-				break;
-			}
-		};
+			};
+		}
 	}
 	#region Persue Player Unity Methods
 
