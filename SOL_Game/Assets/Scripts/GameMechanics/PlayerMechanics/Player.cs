@@ -10,7 +10,9 @@ public class Player : BaseCharacter
 	#region Public Variables
 	// player movement variables
 	public bool
-		playerAllowedToMove = true; // used to disable player movement like when the player is knocked back
+		playerAllowedToMove = true, // used to disable player movement like when the player is knocked back
+		hammerComboUnlocked = true, // flag for if the player has unlocked the hammer attack combo ability
+		swordComboUnlocked = true; // flag for if the player has unlocked the sword attack combo ability
 	public Animator
 		playerAnimator; // used to animate the players movement
 	public Signal
@@ -48,11 +50,20 @@ public class Player : BaseCharacter
 	// player attack timer variables
 	private float
 		timeBetweenAttacks, // the timer that cotrols if the player can use any of their attacks
-		lightStartTimeBetweenAttacks = .3f,
-		heavyStartTimeBetweenAttacks = .6f,
-		RangedStartTimeBetweenAttacks = .75f,
-		dustCountdownTimer = 1,
-		dustTimeInterval = 1;
+		lightStartTimeBetweenAttacks = 1f,
+		heavyStartTimeBetweenAttacks = 1.5f,
+		RangedStartTimeBetweenAttacks = 1f,
+		dustCountdownTimer = 1, // timer for placing dust
+		dustTimeInterval = 1,
+		comboCountdownTimer = .05f, // this is used so that there is a slight delay before registering a new attack keypress
+		comboTimeInterval = .05f;
+
+	private int
+		swordComboCounter, // this counts how many times the player presses the sword attack button and is for knowing if the sword attack animator should play the next attack
+		hammerComboCouter; // this counts how many times the player presses the hammer attack button and is for knowing if the hammer attack animator should play the next attack
+	private bool
+		usingSwordAttack = false,
+		usingHammerAttack = false;
 	#endregion
 
 	// Unity Named Methods
@@ -117,7 +128,7 @@ public class Player : BaseCharacter
 		}
 
 		// The player can use a weapon on cool down
-		if (timeBetweenAttacks <= 0.0f)
+		if (timeBetweenAttacks <= 0.0f && usingSwordAttack == false && usingHammerAttack == false)
 		{
 			// if the player is allowed to attack
 			if (canAttack)
@@ -133,6 +144,7 @@ public class Player : BaseCharacter
 				{
 					timeBetweenAttacks = heavyStartTimeBetweenAttacks; // reset the time between attacks
 					MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+
 					StartHammerAnimation();
 				}
 				// A is right arrow based on the SNES controller layout; attack with light weapon and reset the cooldown
@@ -140,6 +152,7 @@ public class Player : BaseCharacter
 				{
 					timeBetweenAttacks = lightStartTimeBetweenAttacks; // reset the time between attacks
 					MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
+
 					StartSwordAnimation();
 				}
 			}
@@ -147,6 +160,9 @@ public class Player : BaseCharacter
 		// The attack cool down has not finished yet
 		else
 		{
+			IncreaseComboCounter();
+
+
 			timeBetweenAttacks -= Time.deltaTime;
 		}
 	}
@@ -162,6 +178,32 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Utility Methods
+	private void IncreaseComboCounter()
+	{
+		if (comboCountdownTimer <= 0)
+		{
+			// X is up arrow based on the SNES controller layout; 
+			if (Input.GetButtonDown("X") && hammerComboUnlocked)
+			{
+				hammerComboCouter++;
+				print("hammer counter:" + hammerComboCouter);
+			}
+			// A is right arrow based on the SNES controller layout; 
+			if (Input.GetButtonDown("A") && swordComboUnlocked)
+			{
+				swordComboCounter++;
+				print("sword counter:" + swordComboCounter);
+			}
+
+
+			comboCountdownTimer = comboTimeInterval; // reset timer
+		}
+		else
+		{
+			comboCountdownTimer -= Time.deltaTime;
+		}
+	}
+
 	public override void Shoot(bool createGun)
 	{
 		base.Shoot(createGun);
@@ -183,6 +225,11 @@ public class Player : BaseCharacter
 	/// <summary> this method starts playing the sword animation </summary>
 	private void StartHammerAnimation()
 	{
+		hammerComboCouter++;
+		usingHammerAttack = true;
+		comboCountdownTimer = comboTimeInterval; // reset timer
+		print("hammer counter:" + hammerComboCouter);
+
 		playerAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
 		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
@@ -192,6 +239,11 @@ public class Player : BaseCharacter
 	/// <summary> this method starts playing the sword animation </summary>
 	private void StartSwordAnimation()
 	{
+		swordComboCounter++;
+		usingSwordAttack = true;
+		comboCountdownTimer = comboTimeInterval; // reset timer
+		print("sword counter:" + swordComboCounter);
+
 		playerAnimator.SetBool("isSwordAttacking", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
 		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
@@ -208,6 +260,30 @@ public class Player : BaseCharacter
 	}
 
 	/// <summary> ends an attack animation (called with an event in the attack animation)</summary>
+	public void CheckIfShouldEndAttackAnimation()
+	{
+		if (usingSwordAttack)
+		{
+			swordComboCounter--; // decrement counter
+
+			if (swordComboCounter <= 0)
+			{
+				EndAttackAnimation();
+			}
+		}
+		else if (usingHammerAttack)
+		{
+			hammerComboCouter--; // decrement counter
+
+			if (hammerComboCouter <= 0)
+			{
+				EndAttackAnimation();
+			}
+		}
+
+	}
+
+	/// <summary> ends an attack animation (called with an event in the attack animation)</summary>
 	public void EndAttackAnimation()
 	{
 		playerAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
@@ -221,6 +297,14 @@ public class Player : BaseCharacter
 		playerAnimator.SetBool("isShieldUp", false); // set flag isHammerAttacking to true
 
 		UnFreezePlayer(); // let the player move again
+
+		// reset the attack counters
+		swordComboCounter = 0;
+		hammerComboCouter = 0;
+
+		// reset attack flags
+		usingSwordAttack = false;
+		usingHammerAttack = false;
 	}
 
 	/// <summary> this gets the direction that an animations should play based on the players idle animation state</summary>
@@ -324,6 +408,7 @@ public class Player : BaseCharacter
 		else
 		{
 			playerAnimator.SetLayerWeight(1, 0);
+			dustCountdownTimer = -.1f; // set the countdown timer less than zero so that dust will be created right when the player next moves
 		}
 		// Update the values in the Animator for the players animation
 		SetPlayerAnimatorValues();
