@@ -176,13 +176,11 @@ public class Player : BaseCharacter
 		if (Input.GetButtonDown("X") && hammerComboUnlocked)
 		{
 			hammerComboCouter++;
-			print("hammer counter:" + hammerComboCouter);
 		}
 		// A is right arrow based on the SNES controller layout; check if the sword attack has been used again
 		if (Input.GetButtonDown("A") && swordComboUnlocked)
 		{
 			swordComboCounter++;
-			print("sword counter:" + swordComboCounter);
 		}
 	}
 
@@ -224,6 +222,12 @@ public class Player : BaseCharacter
 	{
 		// Deal Player hammer Damage to enemies in range
 		MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+	}
+
+	/// <summary> shake the screen (called from in event in the hammer animation) </summary>
+	public void ShakeScreen()
+	{
+		StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(0.2f, 0.35f));
 	}
 
 	/// <summary> this method starts playing the sword animation </summary>
