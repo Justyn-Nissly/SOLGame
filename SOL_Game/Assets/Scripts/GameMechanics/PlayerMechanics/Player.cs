@@ -49,21 +49,16 @@ public class Player : BaseCharacter
 
 	// player attack timer variables
 	private float
-		timeBetweenAttacks, // the timer that cotrols if the player can use any of their attacks
-		lightStartTimeBetweenAttacks = 1f,
-		heavyStartTimeBetweenAttacks = 1.5f,
-		RangedStartTimeBetweenAttacks = 1f,
 		dustCountdownTimer = 1, // timer for placing dust
-		dustTimeInterval = 1,
-		comboCountdownTimer = .05f, // this is used so that there is a slight delay before registering a new attack keypress
-		comboTimeInterval = .05f;
+		dustTimeInterval = 1;
 
 	private int
 		swordComboCounter, // this counts how many times the player presses the sword attack button and is for knowing if the sword attack animator should play the next attack
 		hammerComboCouter; // this counts how many times the player presses the hammer attack button and is for knowing if the hammer attack animator should play the next attack
 	private bool
-		usingSwordAttack = false,
-		usingHammerAttack = false;
+		usingSwordAttack = false, // flags for whether the player is using an attack so that it only plays once
+		usingHammerAttack = false,
+		usingBlasterAttack = false;
 	#endregion
 
 	// Unity Named Methods
@@ -127,44 +122,8 @@ public class Player : BaseCharacter
 			canAttack = true;
 		}
 
-		// The player can use a weapon on cool down
-		if (timeBetweenAttacks <= 0.0f && usingSwordAttack == false && usingHammerAttack == false)
-		{
-			// if the player is allowed to attack
-			if (canAttack)
-			{
-				// Y is left arrow based on the SNES controller layout; fire and reset the cooldown
-				if (Input.GetButtonUp("Y"))
-				{
-					timeBetweenAttacks = RangedStartTimeBetweenAttacks;
-					Shoot(false);
-				}
-				// X is up arrow based on the SNES controller layout; attack with heavy weapon and reset the cooldown
-				else if (Input.GetButtonDown("X"))
-				{
-					timeBetweenAttacks = heavyStartTimeBetweenAttacks; // reset the time between attacks
-					MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
-
-					StartHammerAnimation();
-				}
-				// A is right arrow based on the SNES controller layout; attack with light weapon and reset the cooldown
-				else if (Input.GetButtonDown("A"))
-				{
-					timeBetweenAttacks = lightStartTimeBetweenAttacks; // reset the time between attacks
-					MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
-
-					StartSwordAnimation();
-				}
-			}
-		}
-		// The attack cool down has not finished yet
-		else
-		{
-			IncreaseComboCounter();
-
-
-			timeBetweenAttacks -= Time.deltaTime;
-		}
+		// check if the player is trying use an attack
+		DetectAttackInput();
 	}
 
 	/// <summary> The player picks up a power up </summary>
@@ -178,29 +137,52 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Utility Methods
-	private void IncreaseComboCounter()
+	private void DetectAttackInput()
 	{
-		if (comboCountdownTimer <= 0)
+		// The player can use a weapon on cool down
+		if (usingBlasterAttack == false && usingSwordAttack == false && usingHammerAttack == false)
 		{
-			// X is up arrow based on the SNES controller layout; 
-			if (Input.GetButtonDown("X") && hammerComboUnlocked)
+			// if the player is allowed to attack
+			if (canAttack)
 			{
-				hammerComboCouter++;
-				print("hammer counter:" + hammerComboCouter);
+				// Y is left arrow based on the SNES controller layout; fire and reset the cooldown
+				if (Input.GetButtonUp("Y"))
+				{
+					Shoot(false);
+				}
+				// X is up arrow based on the SNES controller layout; attack with heavy weapon and reset the cooldown
+				else if (Input.GetButtonDown("X"))
+				{
+					StartHammerAnimation();
+				}
+				// A is right arrow based on the SNES controller layout; attack with light weapon and reset the cooldown
+				else if (Input.GetButtonDown("A"))
+				{
+					StartSwordAnimation();
+				}
 			}
-			// A is right arrow based on the SNES controller layout; 
-			if (Input.GetButtonDown("A") && swordComboUnlocked)
-			{
-				swordComboCounter++;
-				print("sword counter:" + swordComboCounter);
-			}
-
-
-			comboCountdownTimer = comboTimeInterval; // reset timer
 		}
+		// The attack cool down has not finished yet
 		else
 		{
-			comboCountdownTimer -= Time.deltaTime;
+			IncreaseComboCounter();
+		}
+	}
+
+	/// <summary> This method increases the counters for the combos (used when the player has already started attacking)</summary>
+	private void IncreaseComboCounter()
+	{
+		// X is up arrow based on the SNES controller layout; check if the hammer attack has been used again
+		if (Input.GetButtonDown("X") && hammerComboUnlocked)
+		{
+			hammerComboCouter++;
+			print("hammer counter:" + hammerComboCouter);
+		}
+		// A is right arrow based on the SNES controller layout; check if the sword attack has been used again
+		if (Input.GetButtonDown("A") && swordComboUnlocked)
+		{
+			swordComboCounter++;
+			print("sword counter:" + swordComboCounter);
 		}
 	}
 
@@ -216,6 +198,8 @@ public class Player : BaseCharacter
 	/// <summary> this method starts playing the shooting animation </summary>
 	private void StartShootAnimation()
 	{
+		usingBlasterAttack = true;
+
 		playerAnimator.SetBool("blasting", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
 		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
@@ -225,10 +209,9 @@ public class Player : BaseCharacter
 	/// <summary> this method starts playing the sword animation </summary>
 	private void StartHammerAnimation()
 	{
+		// set combo flags
 		hammerComboCouter++;
 		usingHammerAttack = true;
-		comboCountdownTimer = comboTimeInterval; // reset timer
-		print("hammer counter:" + hammerComboCouter);
 
 		playerAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
@@ -236,18 +219,31 @@ public class Player : BaseCharacter
 		playerAnimator.SetLayerWeight(4, 2); // increase the blaster layer priority
 	}
 
+	/// <summary>This deals damage at a certain frame in the hammer attack animation using an event</summary>
+	public void DealPlayerHammerDamage()
+	{
+		// Deal Player hammer Damage to enemies in range
+		MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+	}
+
 	/// <summary> this method starts playing the sword animation </summary>
 	private void StartSwordAnimation()
 	{
+		// set combo flags
 		swordComboCounter++;
 		usingSwordAttack = true;
-		comboCountdownTimer = comboTimeInterval; // reset timer
-		print("sword counter:" + swordComboCounter);
 
 		playerAnimator.SetBool("isSwordAttacking", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
 		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
 		playerAnimator.SetLayerWeight(3, 2); // increase the blaster layer priority
+	}
+
+	/// <summary>This deals damage at a certain frame in the sword attack animation using an event</summary>
+	public void DealPlayerSwordDamage()
+	{
+		// Deal Player Sword Damage to enemies in range
+		MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
 	}
 
 	/// <summary> this method starts playing the sword animation </summary>
@@ -305,6 +301,7 @@ public class Player : BaseCharacter
 		// reset attack flags
 		usingSwordAttack = false;
 		usingHammerAttack = false;
+		usingBlasterAttack = false;
 	}
 
 	/// <summary> this gets the direction that an animations should play based on the players idle animation state</summary>
@@ -416,6 +413,7 @@ public class Player : BaseCharacter
 		playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
 	}
 
+	/// <summary> This creates a dust effect every N seconds</summary>
 	private void DoDustEffectLogic()
 	{
 		if(dustCountdownTimer <= 0)
