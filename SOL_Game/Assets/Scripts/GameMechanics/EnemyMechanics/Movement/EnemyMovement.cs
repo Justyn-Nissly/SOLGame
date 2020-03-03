@@ -144,62 +144,56 @@ public class EnemyMovement : MonoBehaviour
 		// Check which movement type is being used
 		switch (Type)
 		{
-			// Update the values in the Animator for the players animation
-			SetEnemyAnimatorValues();
-
-			// Check which movement type is being used
-			switch (Type)
+			case MovementType.EvadePlayer:
 			{
-				case MovementType.EvadePlayer:
+				if (enemy.aggro)
 				{
-					if (enemy.aggro)
-					{
-						playerPos = GameObject.FindWithTag("Player").transform.position;
-						Evade();
-					}
-					break;
+					playerPos = GameObject.FindWithTag("Player").transform.position;
+					Evade();
 				}
-				case MovementType.PersuePlayer:
+				break;
+			}
+			case MovementType.PersuePlayer:
+			{
+				if (enemy.aggro && canMoveAtPlayer)
 				{
-					if (enemy.aggro && canMoveAtPlayer)
-					{
-						playerPos = GameObject.FindWithTag("Player").transform.position;
-						Pursue();
-					}
-					break;
+					playerPos = GameObject.FindWithTag("Player").transform.position;
+					Pursue();
 				}
-				case MovementType.FreeRoam:
+				break;
+			}
+			case MovementType.FreeRoam:
+			{
+				if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
 				{
-					if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
-					{
-						Roam();
-					}
-					else
-					{
-						waiting = waitTime;
-					}
+					Roam();
+				}
+				else
+				{
+					waiting = waitTime;
+				}
 
-					// if the enemy is the ranged guardian roam even if aggro
-					if (enemy is RangedGuardian)
-					{
-						Roam();
-					}
-					if (enemy.aggro && canMoveAtPlayer)
-					{
-						playerPos = GameObject.FindWithTag("Player").transform.position;
-						Pursue();
-					}
-					break;
-				}
-				case MovementType.EvasiveStrike:
+				// if the enemy is the ranged guardian roam even if aggro
+				if (enemy is RangedGuardian)
 				{
-					if (charging)
-					{
-						enemy.aggro = true;
-					}
+					Roam();
+				}
+				if (enemy.aggro && canMoveAtPlayer)
+				{
+					playerPos = GameObject.FindWithTag("Player").transform.position;
+					Pursue();
+				}
+				break;
+			}
+			case MovementType.EvasiveStrike:
+			{
+				if (charging)
+				{
+					enemy.aggro = true;
+				}
 
-					// If the enemy has detected the player it starts its attack pattern
-					if (enemy.aggro)
+				// If the enemy has detected the player it starts its attack pattern
+				if (enemy.aggro)
 					{
 						// The enemy is evading the player
 						if (charging == false && isWaiting == false)
@@ -231,15 +225,16 @@ public class EnemyMovement : MonoBehaviour
 						}
 					}
 
-					// If the enemy is not aggroed, reset the evasion time
-					else
-					{
-						evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
-					}
-					break;
+				// If the enemy is not aggroed, reset the evasion time
+				else
+				{
+					evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
 				}
-			};
+				break;
+			}
 		}
+		// Update the values in the Animator for the player's animation
+		SetEnemyAnimatorValues();
 	}
 	#region Persue Player Unity Methods
 
@@ -375,16 +370,6 @@ public class EnemyMovement : MonoBehaviour
 	}
 	#endregion
 
-
-
-	/*private Vector2 GetNextVector()
-	{
-		return Vector2.Distance(playerPos, enemyRidgedBody.position) * enemy.moveSpeed;
-	}*/
-
-
-
-
 	#region FreeRoam Methods
 	/// <summary> Move in a new direction </summary>
 	public void ChooseNewPath()
@@ -489,7 +474,7 @@ public class EnemyMovement : MonoBehaviour
 			chargeTime = -1.0f;
 		}
 
-		// Check if the enemy stops trying to charge
+		// Check if the enemy has stopped trying to charge
 		chargeTime -= Time.deltaTime;
 		if (chargeTime <= 0.0f)
 		{
@@ -517,7 +502,7 @@ public class EnemyMovement : MonoBehaviour
 	}
 	#endregion
 
-	#endregion
+	#endregion End Utility Methods
 
 	#region Coroutines (Empty)
 	#endregion

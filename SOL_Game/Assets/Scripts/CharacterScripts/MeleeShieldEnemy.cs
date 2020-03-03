@@ -7,13 +7,14 @@ public class MeleeShieldEnemy : Enemy
 	#region Enums (Empty)
 	#endregion
 
-	#region Public Variables
+	#region Public Variables (Empty)
+	public float
+		shieldDropTime         , // Time before the enemy deactivates its shield
+		shieldReEnableDelayTime; // Time taken to reactivate the shield
 	#endregion
 
 	#region Private Variables
 	private float
-		shieldDropTime = 3, // How often the enemy disables his shield to attack
-		shieldReEnableDelayTime = 1, // how long it takes for the enemy to re enable his shield after attacking
 		shieldDownTimer; // Track when to drop the shield
 
 	#endregion
@@ -28,22 +29,20 @@ public class MeleeShieldEnemy : Enemy
 		shieldDownTimer = shieldDropTime;
 	}
 
-	///<summary> Toggle the shield on and off based on a timer </summary>
+	///<summary> Toggle the shield on and off </summary>
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 
 		if (shieldDownTimer <= 0.0f && aggro)
 		{
-			shieldDownTimer = shieldDropTime; // reset timer
+			DisableShield();
+			shieldDownTimer = shieldDropTime;
 
-			DisableShield(); // make the enemy disable there shield
-
-			// attack with a light attack
+			// Light melee attack
 			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive);
 
-			Invoke("ReEnableShield", shieldReEnableDelayTime); // re enable the enemies shield after N seconds
-			
+			Invoke("ReEnableShield", shieldReEnableDelayTime);
 		}
 		else
 		{
@@ -63,16 +62,14 @@ public class MeleeShieldEnemy : Enemy
 	///<summary> Toggle the shield and enable attack if the shield is down </summary>
 	public void ToggleShield()
 	{
-		if (shieldIsEnabled)
+		if (canAttack = shieldIsEnabled)
 		{
 			DisableShield();
 			shieldIsEnabled = false;
-			canAttack = true;
 		}
 		else
 		{
 			ReEnableShield();
-			canAttack = false;
 		}
 	}
 	#endregion

@@ -9,35 +9,37 @@ public class RangedGuardian : Enemy
 
 	#region Public Variables
 	public GameObject
-	enemyToSpawn, // the enemy type that gets spawned in when the ranged guardian gets to half health
-	teleportAnimaiton;
+		enemyToSpawn,      // Enemy to spawn when the ranged guardian's health falls to half
+		teleportAnimaiton; // Makes enemies appear when they spawn
 
 	public List<GameObject>
-		teleporterPositions;
+		teleporterPositions; // Locations where enemies spawn
 
 	public float
-		maxTimeBetweenAttacks = 2f,
-		minTimeBetweenAttacks = 1f;
+		maxTimeBetweenAttacks = 2f, // Longest time between attacks
+		minTimeBetweenAttacks = 1f; // Shortest time between attacks
 
 	public EncounterManager
-		encounterManager;
+		encounterManager; // Control the guardian fight
 	#endregion
 
 	#region Private Variables
 	private bool
-	running = false,
-	canSpawnEnemies = true;
+		retreat         = false, // Check if the guardian is retreating to a teleporter
+		canSpawnEnemies = true;  // Check if enemies can spawn
 
 	private float
-		attackCountDownTimer;
+		attackCountDownTimer; // Time left before the next attack
 	#endregion
 
 	// Unity Named Methods
+	/// <summary> Control attacking </summary>
 	#region Main Methods
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 
+		// Count down to the next attack then attack
 		if (canAttack)
 		{
 			if (attackCountDownTimer <= 0)
@@ -53,58 +55,62 @@ public class RangedGuardian : Enemy
 	}
 	#endregion
 
+	/// <summary> Deal damage to the guardian </summary>
 	#region Utility Methods
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if(currentHealth <= 0)
+		// The guardian is defeated when it runs out of health
+		if (currentHealth <= 0)
 		{
 			encounterManager.EndEncounter();
 		}
 
-		if (currentHealth <= maxHealth.initialValue / 2 && canSpawnEnemies)
+		// Additional enemies spawn when the guardian's health falls to half
+		if (currentHealth <= maxHealth.initialValue * 0.5f && canSpawnEnemies)
 		{
-			// spawn enemies
 			canSpawnEnemies = false;
 			StartCoroutine(SpawnRangedEnemies());
 		}
 		else
 		{
-			Run();
+			Retreat();
 		}
 
 	}
 
-	private void Run()
+	private void Retreat()
 	{
-		// so that you don't call the coroutine again if the ranged guardian is already running
-		if (running == false)
+		// Don't call the coroutine again if the ranged guardian is retreating
+		if (retreat == false)
 		{
 			// Move the ranged guardian to the closest teleporter location
-			running = true;
+			retreat = true;
 			StartCoroutine(MoveOverSeconds(gameObject, GetClosestGameobject(teleporterPositions).transform.position, 1f));
 		}
 	}
 
-	/// <summary> gets the closest game object from the passed in list in relation to this game object</summary>
+	/// <summary> Find the closest game object in a list </summary>
 	private GameObject GetClosestGameobject(List<GameObject> gameObjects)
 	{
-		GameObject closestGameObject = null;
-		float distance;
+		GameObject
+			closestGameObject = null; // Find the distance to this
+		float
+			distance; // Distance to the nearest object
 
 		if (gameObjects.Count >= 1)
 		{
-			// set the first game object as the closest so that we have something to compare with
+			// Set the first game object as the closest to start comparing distances
 			distance = Vector2.Distance(transform.position, gameObjects[0].transform.position);
 			closestGameObject = gameObjects[0];
 
-			// loop through each game object searching for the closest one
+			// Find the nearest object in the list
 			foreach (GameObject gameObject in gameObjects)
 			{
 				if (Vector2.Distance(transform.position, gameObject.transform.position) < distance)
 				{
-					distance = Vector2.Distance(transform.position, gameObject.transform.position);
+					distance          = Vector2.Distance(transform.position, gameObject.transform.position);
 					closestGameObject = gameObject;
 				}
 			}
@@ -113,26 +119,27 @@ public class RangedGuardian : Enemy
 		return closestGameObject;
 	}
 
-	/// <summary> returns the next teleport in the list of teleporters, so to work right the list needs to be in clockwise order</summary>
+	/// <summary> Find the next teleporter clockwise </summary>
 	private Vector3 GetNextClockWiseTeleporter(Vector3 CurrentTeleporter)
 	{
-		int nextTeleporterIndex = 0;
+		int
+			nextTeleporterIndex = 0; // Where in the list the next teleporter is
 
-		if (teleporterPositions.Count <= 0)
+		// The guardian does not retreat if no teleporters are available
+		if (teleporterPositions.Count > 0)
 		{
-			// error, no game objects in the teleporter list
-			Debug.LogError("There are no telporter locations to teleport too!");
-			return Vector3.zero; 
-		}
-		else if (teleporterPositions.Count > 0)
-		{
-			nextTeleporterIndex = teleporterPositions.FindIndex(teleporter => teleporter.transform.position == CurrentTeleporter) + 1;
+			nextTeleporterIndex =
+				teleporterPositions.FindIndex(teleporter => teleporter.transform.position == CurrentTeleporter) + 1;
 
-			// check if the index is greater then the index range, if it is set index to zero
+			// Loop the index to zero if needed
 			if (nextTeleporterIndex == teleporterPositions.Count)
 			{
 				nextTeleporterIndex = 0;
 			}
+		}
+		else
+		{
+			return Vector3.zero;
 		}
 
 		return teleporterPositions[nextTeleporterIndex].transform.position;
@@ -143,13 +150,14 @@ public class RangedGuardian : Enemy
 	/// <summary> Moves a game object to a location over N seconds </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 end, float seconds)
 	{
-		float oldMoveSpeed = moveSpeed; // save the old move speed
-		moveSpeed = 0; // stops the free roam script from effecting the run movement
+		float
+			oldMoveSpeed = moveSpeed, // Save the old move speed
+			elapsedTime  = 0.0f;      // Time that has passed
+		Vector3
+			startingPos = objectToMove.transform.position; // Where the object to move starts
 
-		float elapsedTime = 0;
-		Vector3 startingPos = objectToMove.transform.position;
-
-
+		// Manually move an object towards a specified position
+		moveSpeed = 0.0f;
 		while (elapsedTime < seconds)
 		{
 			objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
@@ -157,34 +165,39 @@ public class RangedGuardian : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
+		// Teleport the guardian
 		Destroy(Instantiate(teleportAnimaiton, end, new Quaternion(0, 0, 0, 0)), 1);
 		objectToMove.transform.position = GetNextClockWiseTeleporter(end);
 
-		running = false;
-		moveSpeed = oldMoveSpeed; // set move speed back
+		// Reset the move speed
+		retreat                         = false;
+		moveSpeed                       = oldMoveSpeed;
 	}
 
+	/// <summary> Spawn additional ranged enemies to aid the guardian </summary>
 	private IEnumerator SpawnRangedEnemies()
 	{
-		float oldMoveSpeed = moveSpeed; // save the old move speed
+		float
+			oldMoveSpeed = moveSpeed; // Save the old move speed
 
-		// this stops attacks, and movement, and makes invulnerable while spawning enemies
-		canAttack = false;
-		moveSpeed = 0;
+		// Spawning enemies start deactivated
 		canTakeDamage = false;
+		canAttack     = false;
+		moveSpeed     = 0;
 
-		// spawn in an enemy for each teleporter ever N seconds
+		// Spawn an enemy from each teleporter
 		foreach (GameObject teleporterGameObject in teleporterPositions)
 		{
-			yield return new WaitForSeconds(.5f);
+			yield return new WaitForSeconds(0.5f);
 			Instantiate(enemyToSpawn, teleporterGameObject.transform.position, teleporterGameObject.transform.rotation);
-			Destroy(Instantiate(teleportAnimaiton, teleporterGameObject.transform.position, new Quaternion(0, 0, 0, 0)), 1);
+			Destroy(Instantiate(teleportAnimaiton, teleporterGameObject.transform.position,
+			                    new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)), 1.0f);
 		}
 
-		// this resumes attacks, and movement, and stops invulnerably
-		canAttack = true;
-		moveSpeed = oldMoveSpeed;
+		// Activate spawned enemies
 		canTakeDamage = true;
+		canAttack     = true;
+		moveSpeed     = oldMoveSpeed;
 		yield return null;
 	}
 	#endregion

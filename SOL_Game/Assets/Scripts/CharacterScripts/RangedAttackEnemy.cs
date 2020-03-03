@@ -9,51 +9,47 @@ public class RangedAttackEnemy : Enemy
 
 	#region Public Variables
 	public int
-		rangeAttackDamage;
+		rangeAttackDamage; // Projectile damage
 	public float
-		maxTimeBetweenAttacks = 2f,
-		minTimeBetweenAttacks = 1f;
+		maxTimeBetweenAttacks, // Longest possible interval between attacks
+		minTimeBetweenAttacks; // Shortest possible interval between attacks
 	#endregion
 
 	#region Private Variables
 	private float
-		attackCountDownTimer; // Track how long before the next attack
-	private Enemy
-		enemy;
+		attackTimer; // Time until the next attack
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	///<summary> Assign the attack's damage </summary>
+	///<summary> Assign attack damage </summary>
 	private void Awake()
 	{
 		rangeAttackDamage = (int)rangedAttackDamageToGive.initialValue;
 	}
 
-	///<summary> Make the enemy ready to attack </summary>
+	///<summary> Get the enemy ready to attack </summary>
 	public override void Start()
 	{
 		base.Start();
-
-		enemy          = GetComponent<Enemy>();
-		attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+		attackTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 	}
 
-	///<summary> If the enemy is aggro it fires at the player </summary>
+	///<summary> Fire at the player if aggro </summary>
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 
-		if (enemy.aggro)
+		if (aggro)
 		{
-			if (attackCountDownTimer <= 0)
+			if (attackTimer <= 0)
 			{
-					Shoot();
-					attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+				Shoot();
+				attackTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 			}
 			else
 			{
-					attackCountDownTimer -= Time.deltaTime;
+				attackTimer -= Time.deltaTime;
 			}
 		}
 	}

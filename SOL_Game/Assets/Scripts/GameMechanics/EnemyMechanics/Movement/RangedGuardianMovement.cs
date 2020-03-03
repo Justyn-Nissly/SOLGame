@@ -9,7 +9,7 @@ public class RangedGuardianMovement : FreeRoam
 
 	#region Public Variables
 	public bool
-	rangedGuardianCanFreeRoam = true; // with this you can control if the RangedGuardian free roams regardless of other conditions
+	canFreeRoam = true; // with this you can control if the RangedGuardian free roams regardless of other conditions
 	#endregion
 
 	#region Private Variables (Empty)
@@ -20,7 +20,7 @@ public class RangedGuardianMovement : FreeRoam
 	private void FixedUpdate()
 	{
 		// if the enemy is the ranged guardian roam even if aggro, but stop if the enemy cant attack(this stops the enemy from moving then spawning enemies)
-		if (rangedGuardianCanFreeRoam)
+		if (canFreeRoam)
 		{
 			Roam();
 		}

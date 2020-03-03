@@ -4,35 +4,37 @@ using UnityEngine;
 
 public class LightAttackEnemy : Enemy
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
 	public float
-		maxTimeBetweenAttacks = 1.2f,
-		minTimeBetweenAttacks = 0.7f,
-		countDownTimer;
+		maxTimeBetweenAttacks, // Longest possible interval between attacks
+		minTimeBetweenAttacks; // Shortest possible interval between attacks
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
+	private float
+		attackTimer; // Time until the next attack
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	/// <summary> Attack player as able </summary>
 	public override void FixedUpdate()
 	{
-		// call the logic that is in the base script Enemy first
 		base.FixedUpdate();
 
-		// attack with the light melee weapon every couple seconds if the enemy is aggro and the enemy can attack(used so that an enemy doesnt attack if their shield is up)
-		if (countDownTimer <= 0 && canAttack && aggro)
+		// Deal light melee attack if the enemy is aggroed
+		if (attackTimer <= 0 && canAttack && aggro)
 		{
-			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
+			// Reset attack interval
+			attackTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive);
 		}
 		else
 		{
-			countDownTimer -= Time.deltaTime;
+			attackTimer -= Time.deltaTime;
 		}
 	}
 	#endregion

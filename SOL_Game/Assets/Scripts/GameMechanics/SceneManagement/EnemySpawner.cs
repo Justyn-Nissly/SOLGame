@@ -79,7 +79,7 @@ public class EnemySpawner : MonoBehaviour
 		Enemy enemyScript = tempEnemy.GetComponent<Enemy>();
 		if (enemyScript != null)
 		{
-			enemyScript.maxMoveSpeed = enemyScript.moveSpeed; // save old move speed
+			enemyScript.saveSpeed = enemyScript.moveSpeed; // save old move speed
 			enemyScript.moveSpeed = 0;
 
 			// play the teleport shader effect if there is one on the enemy
@@ -190,7 +190,7 @@ public class EnemySpawner : MonoBehaviour
 		{
 			if(enemyIDs.Contains(enemy.gameObject.GetInstanceID())) // check if this enemy is from this spawner
 			{
-				enemy.moveSpeed = enemy.maxMoveSpeed; // set move speed back to what it was
+				enemy.moveSpeed = enemy.saveSpeed; // set move speed back to what it was
 			}
 		}
 	}

@@ -9,23 +9,24 @@ public class ShieldEnemy : Enemy
 
 	#region Public Variables
 	public float
-		maxTimeBetweenAttacks,
-		minTimeBetweenAttacks;
+		maxTimeBetweenAttacks, // Longest possible interval between attacks
+		minTimeBetweenAttacks; // Shortest possible interval between attacks
 	public FloatValue
-		shieldEnemyDamageToGive;
+		shieldEnemyDamageToGive; // Shield bash damage
 	#endregion
 
 	#region Private Variables
 	private float
-		shieldDownTimer; // When this timer runs out the enemy drops its shield
+		shieldDownTimer; // Controls deactivating shield
 	private EvasiveStrike
-		strike;
+		strike; // Enable shield bashing the player
 	private bool
-		canDamagePlayer = false;
+		canDamagePlayer = false; // Check if shield bash already hit player
 
 	 #endregion
 
 	// Unity Named Methods
+	/// <summary> Initialize enemy </summary>
 	#region Main Methods
 	public override void Start()
 	{
@@ -38,10 +39,12 @@ public class ShieldEnemy : Enemy
 		shieldDownTimer = 0.0f;
     }
 
+	/// <summary> Control the shield and charge at the player </summary>
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 
+		// Drop the shield after charging at the player
 		if (shieldDownTimer > 0.0f)
 		{
 			shieldDownTimer -= Time.deltaTime;
@@ -53,6 +56,7 @@ public class ShieldEnemy : Enemy
 				canDamagePlayer = false;
 			}
 		}
+		// Charge at the player
 		else if (strike.charging)
 		{
 			shieldDownTimer = 1.5f;
@@ -65,10 +69,10 @@ public class ShieldEnemy : Enemy
 	#endregion
 
 	#region Utility Methods
+	/// <summary> Deal damage on shield bash </summary>
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		// if the boss collided with the player damage the player
-		if (collision.gameObject.CompareTag("Player") && canDamagePlayer) // only damage the player when charging
+		if (collision.gameObject.CompareTag("Player") && canDamagePlayer)
 		{
 			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)shieldEnemyDamageToGive.initialValue);
 		}
@@ -76,7 +80,7 @@ public class ShieldEnemy : Enemy
 	#endregion
 
 	#region Coroutines
-	/// <summary> re enables the enemy's shield after a delay</summary>
+	/// <summary> Reenable the shield after a delay</summary>
 	public IEnumerator ReEnableShield(float delayTime)
 	{
 		yield return new WaitForSeconds(delayTime);

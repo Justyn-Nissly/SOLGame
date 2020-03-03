@@ -11,41 +11,41 @@ public class Enemy : BaseCharacter
 
 	#region Public Variables
 	public Image
-		healthBar;
-    public string
-        enemyName; // The enemy's name
+		healthBar; // Health bar image
+	public string
+		enemyName; // The enemy's name
 	public float
-		aggroRange,  // The max range where the enemy can detect the player
-						 //duration,
-		followRange, // How far away the player must get for the enemy to deaggro
-		attackDmg,   // Base damage from an intentional attack
-		  contactDmg,  // Base damage from making contact with the player
-		healPerLoop,
-		MAXPOSSIBLEHEALTH,
-		  maxHealOverTime,
-		  moveSpeed,   // Base movement speed
-			maxMoveSpeed;
-    public bool
-        aggro; // The enemy has detected the player
-    public Vector2[]
-        patrol; // Enemy patrol points
+		aggroRange,        // Max range that an enemy can detect the player
+		followRange,       // How far away the player must get for the enemy to deaggro
+		attackDmg,         // Base damage from an intentional attack
+		contactDmg,        // Base damage from making contact with the player
+		healPerLoop,       // Health regained per healing increment
+		MAXPOSSIBLEHEALTH, // Health cannot exceed this
+		maxHealOverTime,   // Healing speed
+		saveSpeed,         // Save speed as enemies spawn not moving
+		moveSpeed;         // Base movement speed
+	public bool
+		aggro; // Check if the enemy has detected the player
+	public Vector2[]
+		patrol; // Enemy patrol points
 	public Vector2
-		playerPos,   // Track the player's position
-		enemyVector; // Track the enemy's vector
-    public Rigidbody2D
-		rb2d; // The enemy's rigidBody
+		playerPos,   // Player's position
+		enemyVector; // Enemy's movement vector
+	public Rigidbody2D
+		rb2d; // Apply physics to the enemy
 	public AudioManager
-		enemyAudioManager;
+		enemyAudioManager; // Control playing audio
 	public GameObject
-		powerUp; // Reference PowerUp prefab.
-
-	public Material pixelDesolveMaterial;
+		powerUp; // Enable the enemy to drop a powerup
+	public Material
+		pixelDissolveMaterial; // Dissolve effect plays upon enemy defeat
 	#endregion
 
 	#region Private Variables
 	private float
-    amountHealed = 0,
-    countDownTimer;
+		healTimer;    // Time left before gaining health
+	private bool
+		canDropPowerUp; // Prevent multiple power ups from spawning upon defeat
 	#endregion
 
 	// Unity Named Methods
@@ -53,72 +53,61 @@ public class Enemy : BaseCharacter
 	/// <summary> Initialize the enemy </summary>
 	public virtual void Start()
 	{
-		player        = GameObject.FindObjectOfType<Player>();
-		rb2d          = GetComponent<Rigidbody2D>();
+		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
+		player            = GameObject.FindObjectOfType<Player>();
+		rb2d              = GetComponent<Rigidbody2D>();
+		healTimer         = maxHealOverTime;
 
-		if(maxHealth != null)
+		if (maxHealth != null)
 		{
 			currentHealth = maxHealth.initialValue;
 		}
-
-		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
-    countDownTimer = maxHealOverTime;
 	}
+
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	public virtual void FixedUpdate()
 	{
-		if(this.GetComponent<EnemyMovement>().canMove == true)
+		// Check if the player is close enough to aggro
+		playerPos = GameObject.FindWithTag("Player").transform.position;
+		if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
 		{
-			// Check if the player is close enough to aggro
-			playerPos = GameObject.FindWithTag("Player").transform.position;
-			if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
+			aggro = true;
+		}
+		// Passive enemies heal over time
+		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
+		{
+			aggro = false;
+			if (healTimer <= 0)
 			{
-				aggro = true;
-			}
-			// Enemies that are not aggro heal over time
-			else if (Vector2.Distance(transform.position, playerPos) >= followRange)
-			{
-				aggro = false;
-				if (countDownTimer <= 0)
-				{
-					countDownTimer = maxHealOverTime; // reset the time after going to 0
+				// Reset the heal timer
+				healTimer = maxHealOverTime;
 
-					if (currentHealth < maxHealth.initialValue) // only heal if health less than full
-					{
-						currentHealth += healPerLoop;
-						SetHealth(currentHealth / maxHealth.initialValue);
-						//Debug.Log("enemy CurrentHealth = " + currentHealth);
-					}
-				}
-				else
+				// Heal while below max health
+				if (currentHealth < maxHealth.initialValue)
 				{
-					countDownTimer -= Time.deltaTime;
+					currentHealth += healPerLoop;
+					SetHealth(currentHealth / maxHealth.initialValue);
 				}
 			}
-
-			//// Enemies attack the player only if aggroed
-			//if (aggro)
-			//{
-			//	canAttack = true;
-			//}
+			else
+			{
+				healTimer -= Time.deltaTime;
+			}
 		}
 	}
 	#endregion
 
 	#region Utility Methods
-	/// <summary> deal damage to the passed in player</summary>
+	/// <summary> Damage the player </summary>
 	protected virtual void DamagePlayer(Player player, int damageToGive, bool playSwordSoundEffect = false)
 	{
 		if (player != null)
 		{
 			player.TakeDamage(damageToGive, playSwordSoundEffect);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
 
-	///<summary> Deal damage to the enemy </summary>
+	///<summary> Damage the enemy </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage + player.extraDamage, playSwordImpactSound);
@@ -130,14 +119,15 @@ public class Enemy : BaseCharacter
 		if (currentHealth <= 0)
 		{
 			enemyAudioManager.PlaySound();
-			// The enemy might drop a power up
-			if (Random.Range(0.0f, 5.0f) > 4.0f)
+
+			// Destroyed enemies might drop a power up
+			if (Random.Range(0.0f, 5.0f) > 4.0f && canDropPowerUp)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}
+			canDropPowerUp = false;
 
 			StartCoroutine("Die");
-			
 		}
 	}
 
@@ -147,16 +137,15 @@ public class Enemy : BaseCharacter
 		healthBar.fillAmount = percentHelth;
 	}
 
-	/// <summary>
-	/// play the teleport shader effect if there is one on the enemy
-	/// (it will find all effects on the enemy because some enemies have more than one like the shield enemy)
-	/// </summary>
+	/// <summary> Enemy spawn effect </summary>
 	public void PlayTeleportEffect()
 	{
+		// Add an enemy to a list of enemies
 		List<_2dxFX_NewTeleportation2> enemyTeleportScripts = new List<_2dxFX_NewTeleportation2>();
 		enemyTeleportScripts.AddRange(GetComponentsInChildren<_2dxFX_NewTeleportation2>());
 
-		if (enemyTeleportScripts.Count != 0) // check for empty list
+		// Add an enemy to the scene
+		if (enemyTeleportScripts.Count != 0)
 		{
 			foreach (_2dxFX_NewTeleportation2 enemyTeleportScript in enemyTeleportScripts)
 			{
@@ -167,47 +156,50 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Coroutines
+	/// <summary> Defeat enemy </summary>
 	private IEnumerator Die()
 	{
-		float percentageComplete = 0;
+		float
+			percentageComplete = 0; // Percent of finishing the effect
 
-		// freeze the enemy because they are dead...
+		// Defeated enemy deactivates
 		canAttack = false;
 		moveSpeed = 0;
 
-		if(pixelDesolveMaterial != null)
+		// Make the enemy dissolve
+		if (pixelDissolveMaterial != null)
 		{
-			foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>()	)
+			foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
 			{
-				renderer.material = pixelDesolveMaterial;
+				renderer.material = pixelDissolveMaterial;
 			}
+			pixelDissolveMaterial.SetFloat("Disolve_Value", 0);
 
-			pixelDesolveMaterial.SetFloat("Disolve_Value", 0); // set starting value
-
-			// play the pixel die effect from start(0) to finish(1)
+			// Play dissolve effect
 			while (percentageComplete < 1)
 			{
-				pixelDesolveMaterial.SetFloat("Disolve_Value", Mathf.Lerp(0f, 1f, percentageComplete));
-				percentageComplete += Time.deltaTime /2;
+				pixelDissolveMaterial.SetFloat("Disolve_Value", Mathf.Lerp(0.0f, 1.0f, percentageComplete));
+				percentageComplete += Time.deltaTime * 0.5f;
 				yield return null;
 			}
 
-			pixelDesolveMaterial.SetFloat("Disolve_Value", 1); // set ending value
+			pixelDissolveMaterial.SetFloat("Disolve_Value", 1);
 		}
 
-		// destroy the enemy
+		// Destroy the enemy
 		Destroy(gameObject);
 	}
 
+	/// <summary> Make enemy appear </summary>
 	protected virtual IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
 	{
-		float percentageComplete = 0;
+		float
+			percentageComplete = 0; // Percent of finishing the effect
 
-		// make the enemy invisible, this is not set by default in the prefab because
-		// then the enemy would be invisible in Dev rooms because they don't have this script running in them
+		// Enemy spawns invisible
 		teleportScript._Fade = 1;
 
-		// teleport the enemy in, it does this by "sliding" a float from 0 to 1 over time
+		// Enemy fades into view upon spawning
 		while (percentageComplete < 1)
 		{
 			teleportScript._Fade = Mathf.Lerp(1f, 0f, percentageComplete);

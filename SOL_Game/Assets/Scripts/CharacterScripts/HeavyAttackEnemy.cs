@@ -9,34 +9,38 @@ public class HeavyAttackEnemy : Enemy
 
 	#region Public Variables
 	public float
-		maxTimeBetweenAttacks = 2f,
-		minTimeBetweenAttacks = 1f;
+		maxTimeBetweenAttacks, // Longest possible interval between attacks
+		minTimeBetweenAttacks; // Shortest possible interval between attacks
 	#endregion
 
 	#region Private Variables
 	private float
-		countDownTimer;
+		attackTimer; // Time until the next attack
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-
+	/// <summary> Attack the player if possible </summary>
 	public override void FixedUpdate()
 	{
-		// call the logic that is in the base script Enemy first
 		base.FixedUpdate();
 
-		// attack with the heavy melee weapon every couple seconds if the enemy is aggro
-		if (countDownTimer <= 0 && aggro)
+		// Deal heavy melee attack if the enemy is aggroed
+		if (attackTimer <= 0 && aggro)
 		{
-			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
-
+			attackTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 			MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive);
 		}
 		else
 		{
-			countDownTimer -= Time.deltaTime;
+			attackTimer -= Time.deltaTime;
 		}
 	}
+	#endregion
+
+	#region Utility Methods (Empty)
+	#endregion
+
+	#region Coroutines (Empty)
 	#endregion
 }
