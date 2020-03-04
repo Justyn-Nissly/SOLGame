@@ -67,7 +67,9 @@ public class Enemy : BaseCharacter
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	public virtual void FixedUpdate()
 	{
-		if(this.GetComponent<EnemyMovement>().canMove == true)
+		EnemyMovement enemyMovement = this.GetComponent<EnemyMovement>();
+
+		if (enemyMovement != null && enemyMovement.canMove == true)
 		{
 			// Check if the player is close enough to aggro
 			playerPos = GameObject.FindWithTag("Player").transform.position;
