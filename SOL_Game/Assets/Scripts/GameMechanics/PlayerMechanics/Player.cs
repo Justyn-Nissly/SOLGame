@@ -60,8 +60,10 @@ public class Player : BaseCharacter
 		usingHammerAttack = false,
 		usingBlasterAttack = false;
 	#endregion
-	private float fast , oldSpeed;//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION/////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION/////////////////
-	 // Unity Named Methods
+//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
+private float fast , oldSpeed;
+//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
+	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
 	void Start()

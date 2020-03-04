@@ -44,8 +44,10 @@ public class Enemy : BaseCharacter
 
 	#region Private Variables
 	private float
-    amountHealed = 0,
-    countDownTimer;
+		amountHealed = 0,
+		countDownTimer;
+	private bool
+		canDropPowerUp;
 	#endregion
 
 	// Unity Named Methods
@@ -53,8 +55,9 @@ public class Enemy : BaseCharacter
 	/// <summary> Initialize the enemy </summary>
 	public virtual void Start()
 	{
-		player        = GameObject.FindObjectOfType<Player>();
-		rb2d          = GetComponent<Rigidbody2D>();
+		canDropPowerUp = true;
+		player         = GameObject.FindObjectOfType<Player>();
+		rb2d           = GetComponent<Rigidbody2D>();
 
 		if(maxHealth != null)
 		{
@@ -133,13 +136,13 @@ public class Enemy : BaseCharacter
 		{
 			enemyAudioManager.PlaySound();
 			// The enemy might drop a power up
-			if (Random.Range(0.0f, 5.0f) > 4.0f)
+			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}
 
+			canDropPowerUp = false;
 			StartCoroutine("Die");
-			
 		}
 	}
 

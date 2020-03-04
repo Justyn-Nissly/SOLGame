@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PowerUp : MonoBehaviour
 {
 	#region Enums and Defined Constants
 	public const int
-		HEAL  = 0, // Heal the player
+		HEAL = 0, // Heal the player
 		POWER = 1, // Boost the player's damage
 		SPEED = 2; // Boost the player's speed
 	#endregion
@@ -16,10 +14,11 @@ public class PowerUp : MonoBehaviour
 	public int
 		type; // The type of the power up itself
 	public float
-		timer; // Time until the power up disappears
+		powerUpTimer, // How long power ups last
+		timer;        // Time until the power up disappears
 	public Sprite
 		powerUp; // Power up graphic
-	public Sprite []
+	public Sprite[]
 		powerUps; // Possible power up graphics
 	#endregion
 
@@ -34,8 +33,14 @@ public class PowerUp : MonoBehaviour
 	void Awake()
 	{
 		new Random();
-		player  = GameObject.FindObjectOfType<Player>();
-		type    = (int)Random.Range((float)HEAL, (float)SPEED + 0.5f);
+		player = GameObject.FindObjectOfType<Player>();
+
+		// Healing power up is the most common
+		type   = (int)Random.Range((float)HEAL, (float)SPEED + 1.5f);
+		if (type > SPEED)
+		{
+			type = HEAL;
+		}
 		this.GetComponent<SpriteRenderer>().sprite = powerUps[type];
 	}
 
@@ -59,7 +64,7 @@ public class PowerUp : MonoBehaviour
 		if (collision.gameObject.tag == "Player")
 		{
 			// Effects have timers but healing is instantaneous
-			player.powerUpTimers[type] = (type == HEAL) ? 0.0001f : player.powerUpTimer;
+			player.powerUpTimers[type] = (type == HEAL) ? 0.0001f : powerUpTimer;
 			Destroy(gameObject);
 		}
 
@@ -82,7 +87,6 @@ public class PowerUp : MonoBehaviour
 			// Toggle the sprite's visibility to make it blink
 			spriteRenderer.enabled = !spriteRenderer.enabled;
 
-			// Put custom timer here?
 			// Blinking speeds up as the timer runs down
 			yield return new WaitForSeconds(timer);
 		}
