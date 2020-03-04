@@ -4,33 +4,27 @@ using UnityEngine;
 
 public class Basilisk : Enemy
 {
-
 	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
 	public GameObject
-		popUpAnimaiton, // the animation that will be played when the basilisk pops up
-		bomb; // bomb prefab that with be instantiated
-
+		popUpAnimaiton, // Emerging from the ground animation
+		bomb;           // Basilisk bomb
 	public Transform
-		upperLeftSpawnPointLimit, // used to get a random position between these two limits
-		lowerRightSpawnPointLimit, // used to get a random position between these two limits
-		bombSpawnPoint; // the point that bombs with be instantiated
-
+		upperLeftSpawnPointLimit,  // Get a random position between two coordinates
+		lowerRightSpawnPointLimit, // Get a random position between two coordinates
+		bombSpawnPoint;            // Where a bomb is dropped
 	public CircleCollider2D
-		basiliskCollider; // referance to the basilisk's Collider
-
+		basiliskCollider; // Reference the Basilisk collider
 	public FloatValue
-		basiliskDamageToGive; // basilisk's damage
-
+		basiliskDamageToGive; // Basilisk's damage to the player
 	public float
-		secondsAboveGround = 2f; // the number of second the basilisk stays above ground for
-
+		secondsAboveGround = 2.0f; // the number of second the basilisk stays above ground for
 	public EncounterManager
-		basiliskEncounterManager; // this reference is used to send a signal when the basilisk dies
+		basiliskEncounterManager; // Raises a signal upon Basilisk defeat
 	public Animator
-		animator; // animations controller
+		animator; // Control the animator
 	#endregion
 
 	#region Private Variables

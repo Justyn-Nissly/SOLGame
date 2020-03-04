@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DestroyBomb : StateMachineBehaviour
 {
-	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+	// State machine finishes this state and the bomb is destroyed
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		Destroy(animator.transform.gameObject, 1);
+		Destroy(animator.transform.gameObject, 1.0f);
 	}
 }

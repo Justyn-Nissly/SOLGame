@@ -10,43 +10,41 @@ public class SplitLeviathan : Enemy
 
 	#region Public Variables
 	public FloatValue
-		damageToGive; // the bosses damage that is dealed to the player
+		damageToGive; // Boss's damage to the player
 	public Leviathan
-		leviathan; // reference to the main leviathan script
+		leviathan; // Reference the Leviathan
 	public LockOnProjectile
-		lockOnProjectile; // reference to the script that moves this split leviathan
+		lockOnProjectile; // Moves the split leviathan
 	public GameObject
-		poison; // the prefab of a poison spot that will get Instantiated under the enemy
+		poison; // A small poison puddle
 	#endregion
 
 	#region Private Variables
 	private float
-		poisonTimer = .10f, // the countdown timer for placing poison
-		poisonMaxTimer = .10f; // the interval time before placing a poison spot again
-
+		poisonTimer    = 0.10f, // Time until dropping poison
+		poisonMaxTimer = 0.10f; // Interval between poison drops
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	/// <summary> Leave a poison trail </summary>
 	public override void FixedUpdate()
 	{
-		//base.FixedUpdate();
-
-		// creates a poison spot every N seconds
 		PoisonLogic();
 	}
 
+	/// <summary> Damage the player on contact and merge the Leviathan </summary>
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		// if the boss collided with the player damage the player
-		if (collision.gameObject.CompareTag("Player")) // only damage the player when charging
+		// Damage the player only while charging
+		if (collision.gameObject.CompareTag("Player"))
 		{
 			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)damageToGive.initialValue);
 		}
-		if(collision.gameObject.CompareTag("Enemy") && collision.gameObject.GetComponent<SplitLeviathan>() != null)
+		// Merge the Leviathan back into one
+		if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.GetComponent<SplitLeviathan>() != null)
 		{
 			leviathan.Merge(transform.position);
-
 			Destroy(lockOnProjectile.target);
 			Destroy(collision.gameObject);
 			Destroy(gameObject);
@@ -55,13 +53,12 @@ public class SplitLeviathan : Enemy
 	#endregion
 
 	#region Utility Methods
-	/// <summary> creates a poison spot every N seconds </summary>
+	/// <summary> Leave a poison trail </summary>
 	private void PoisonLogic()
 	{
 		if (poisonTimer < 0)
 		{
 			Destroy(Instantiate(poison, transform.position, new Quaternion(0, 0, 0, 0)), 5f);
-
 			poisonTimer = poisonMaxTimer;
 		}
 		else
@@ -70,23 +67,20 @@ public class SplitLeviathan : Enemy
 		}
 	}
 
-	/// <summary>overridden takeDamage() method, mainly for dealing damage to the main leviathan not this split leviathan</summary>
+	/// <summary> Damage the merged Leviathan not the split leviathan </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		// deal damage to the main leviathan not this split leviathan
 		if(leviathan != null)
 		{
 			leviathan.TakeDamage(damage, playSwordImpactSound);
 		}
-		// destroy this split leviathan if the main leviathan does not exist
 		else
 		{
 			Destroy(gameObject);
 		}
-
 	}
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }

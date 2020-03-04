@@ -4,44 +4,41 @@ using UnityEngine;
 
 public class MeleeGuardian : Enemy
 {
-
 	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
 	public Animator
-		anim;
+		anim; // Reference the animator
 	public Vector2
-		destination;
+		destination; // Where the guardian is going
 	public Transform
-		upperLeftSpawnPointLimit,  // used to get a random position between these two limits
-		lowerRightSpawnPointLimit, // Location you wish the enemy to move to
-		swordSawnPoint;            // The obejct that the enemy will throw at the player
+		upperLeftSpawnPointLimit,  // Get a random position between two limits
+		lowerRightSpawnPointLimit, // Get a random position between two limits
+		swordSpawnPoint;           // Object the enemy will throw at the player
 	public GameObject
-	    origin,
-        sword;
-	public testthrow
-		throwSword;
-
+		origin, // Where the sword is thrown from
+		sword;  // Reference the sword being thrown
+	public TestThrow
+		throwSword; // Control throwing the sword
 	public FloatValue
-		meleeDamageToGive;
-
-	public EncounterManager EncounterManager; // this reference is used to send a signal when the basilisk dies
+		meleeDamageToGive; // Boss's damage to the player
+	public EncounterManager
+		encounterManager; // Raises a signal upon guardian defeat
 	#endregion
 
 	#region Private Variables
 	public bool
-		moving = false,
+		moving       = false,
 		returnOrigin = false;
 	private Vector3
-         targetGameObject;
+		targetGameObject;
 	private SwordThrow
 		shouldThrow;
+	#endregion
 
-    #endregion
-
-    // Unity Named Methods
-    #region Main Methods
+	// Unity Named Methods
+	#region Main Methods
    /* public void Awake()  
     {
 		moving = true;
@@ -68,55 +65,46 @@ public class MeleeGuardian : Enemy
 	#endregion
 
 	#region Utility Methods
+	/// <summary> Deal the guardian damage </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
 		if (currentHealth <= 0)
 		{
-			EncounterManager.EndEncounter();
+			encounterManager.EndEncounter();
 		}
 	}
 
-	/// <summary> the method deals damage to the passed in player</summary>
+	/// <summary> Damage the player </summary>
 	private void DamagePlayer(Player player)
 	{
 		if (player != null)
 		{
 			player.TakeDamage((int)meleeDamageToGive.initialValue, false);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
 
+	/// <summary> Move the guardian </summary>
 	private void Move()
 	{
-		// Prevents coroutine from running again if the boss is already running
+		// Prevents the coroutine from running again while already running
 		if (moving == false)
 		{
-			
 			moving = true;
-			StartCoroutine(MoveOverSeconds(gameObject, GetRandomPositionBeweenLimits(), 1f));
-            
-
-
+			StartCoroutine(MoveOverSeconds(gameObject, GetRandomPositionBeweenLimits(), 1.0f));
 		}
 	}
 
-	/// <summary> gets a random gameobject from the list of pop up positions</summary>
+	/// <summary> Return a random position within a specified range </summary>
 	private Vector2 GetRandomPositionBeweenLimits()
 	{
-		Vector2 randomPosition = new Vector2();
-
-		// set the random psition to be in the range of the set limits
-		randomPosition.x = Random.Range(upperLeftSpawnPointLimit.position.x, lowerRightSpawnPointLimit.position.x);
-		randomPosition.y = Random.Range(upperLeftSpawnPointLimit.position.y, lowerRightSpawnPointLimit.position.y);
-
-		return randomPosition;
+		return new Vector2(Random.Range(upperLeftSpawnPointLimit.position.x, lowerRightSpawnPointLimit.position.x),
+		                   Random.Range(upperLeftSpawnPointLimit.position.y, lowerRightSpawnPointLimit.position.y));
 	}
-    /*
-	private void Throw()
+
+	/// <summary> Throw the sword </summary>
+/*	private void Throw()
 	{
 		//StartCoroutine(HomingSword());
 		//StartCoroutine(HomingSword());
@@ -135,26 +123,25 @@ public class MeleeGuardian : Enemy
 
 		moving = false;
 		anim.SetTrigger("Patrol");
-
-	}
-    */
+	}*/
 	#endregion
 
 	#region Coroutines
-
-	/// <summary> Moves a game object to a location over N seconds </summary>
+	/// <summary> Move towards a specified position </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endingPosition, float seconds)
 	{
 		shouldThrow = FindObjectOfType<SwordThrow>();
 
-		float elapsedTime = 0; // Amount of time an enemy is waiting in one position
-	    Vector3 startingPosition = objectToMove.transform.position; // save the starting position
+		float
+			elapsedTime = 0.0f; // Time an enemy is waiting
+		Vector3
+			startingPosition = objectToMove.transform.position; // Save the starting position
 
-		// Move the guardian a little each frame based on how many seconds it should take to get the ending position
+		// Move the guardian to a specified position
 		while (elapsedTime < seconds)
 		{
-			objectToMove.transform.position = Vector3.Lerp(startingPosition, endingPosition, (elapsedTime / seconds));
-			elapsedTime += Time.deltaTime;
+			objectToMove.transform.position  = Vector3.Lerp(startingPosition, endingPosition, (elapsedTime / seconds));
+			elapsedTime                     += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
 
@@ -164,9 +151,7 @@ public class MeleeGuardian : Enemy
 		//anim.SetTrigger("Patrol");
 		yield return new WaitForSeconds(3);
 		shouldThrow.findTarget = true;
-		//moving = false;
+		//moving                 = false;
 	}
-
-
 	#endregion
 }
