@@ -146,7 +146,7 @@ public class Player : BaseCharacter
 			if (canAttack)
 			{
 				// Y is left arrow based on the SNES controller layout; fire and reset the cooldown
-				if (Input.GetButtonUp("Y"))
+				if (Input.GetButtonDown("Y"))
 				{
 					Shoot(false);
 				}
