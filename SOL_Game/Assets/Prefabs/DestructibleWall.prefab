@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5490478314212510844}
   - component: {fileID: 5490478314212510847}
   - component: {fileID: 5490478314212510843}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DestructibleWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5490478314212510846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 24.36, y: 5.88, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 1}
+  m_LocalScale: {x: 13.937, y: 13.797, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3206879430569254414, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
+  m_Sprite: {fileID: 7954913359123053958, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -148,4 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf08e4c56190f442b2c6a3c4b057a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  weaponDestroysObject: 1
+  doorsUnlocked:
+  - {fileID: 0}
+  destroyedSprite: {fileID: 0}
+  health: 3

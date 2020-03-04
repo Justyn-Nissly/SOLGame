@@ -247,7 +247,7 @@ public class Player : BaseCharacter
 	public void DealPlayerSwordDamage()
 	{
 		// Deal Player Sword Damage to enemies in range
-		MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
+		MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, true);
 	}
 
 	/// <summary> this method starts playing the sword animation </summary>
