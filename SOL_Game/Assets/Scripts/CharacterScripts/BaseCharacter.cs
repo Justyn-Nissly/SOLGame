@@ -103,7 +103,7 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> the attack method used for the enemy and the player to swing light/heavy melee weapons</summary>
-	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive)
+	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool createWeapon)
 	{
 		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
 
@@ -122,8 +122,11 @@ public class BaseCharacter : MonoBehaviour
 			audioSource.Play();
 		}
 
-		GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition.transform);
-		Destroy(weaponInstance, .5f);
+		if (createWeapon && meleeWeapon != null)
+		{
+			GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition.transform);
+			Destroy(weaponInstance, .5f);
+		}
 	}
 
 	// 
@@ -140,9 +143,12 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> Instantiates the gun and a bullet (both need to be assigned in the inspector to work)</summary>
-	public virtual void Shoot()
+	public virtual void Shoot(bool createGun)
 	{
-		InstantiateAndDestroyGun();
+		if (createGun)
+		{
+			InstantiateAndDestroyGun();
+		}
 
 		if (audioSource != null && blasterSound != null)
 		{
@@ -163,9 +169,13 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> Turn on the shield </summary>
-	public virtual void EnableShield()
+	public virtual void EnableShield(bool createShield)
 	{
-		shieldSprite.enabled = true;
+		if (createShield)
+		{
+			shieldSprite.enabled = true;
+		}
+
 		shieldBoxCollider.enabled = true;
 
 		if (shieldSound != null)
