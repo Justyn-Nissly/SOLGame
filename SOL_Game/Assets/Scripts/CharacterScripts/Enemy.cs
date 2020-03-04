@@ -44,8 +44,10 @@ public class Enemy : BaseCharacter
 
 	#region Private Variables
 	private float
-    amountHealed = 0,
-    countDownTimer;
+		amountHealed = 0,
+		countDownTimer;
+	public bool
+		canMove; // The enemy can move
 	#endregion
 
 	// Unity Named Methods
@@ -62,12 +64,13 @@ public class Enemy : BaseCharacter
 		}
 
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
-    countDownTimer = maxHealOverTime;
+		countDownTimer = maxHealOverTime;
+		canMove = true;
 	}
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	public virtual void FixedUpdate()
 	{
-		if(this.GetComponent<EnemyMovement>().canMove == true)
+		if(canMove == true)
 		{
 			// Check if the player is close enough to aggro
 			playerPos = GameObject.FindWithTag("Player").transform.position;

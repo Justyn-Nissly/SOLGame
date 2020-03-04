@@ -70,7 +70,7 @@ public class PuzzleLogic : MonoBehaviour
 			if (collision.CompareTag("Enemy") && enemyCanTriggerPressurePlate)
 			{
 				// Lock the enemy in place and activate the pressure plate
-				collision.GetComponent<EnemyMovement>().canMove = false;
+				collision.GetComponent<Enemy>().canMove = false;
 				OnPuzzleComplete(collision.gameObject);
 			}
 		}
