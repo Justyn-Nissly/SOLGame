@@ -76,7 +76,7 @@ public class DestructibleObject : MonoBehaviour
 	}
 
 	/// <summary> call this method to destroy the destructible object </summary>
-	private void DestroyObject()
+	public void DestroyObject()
 	{
 		// unlock any doors that need to be unlocked
 		doorManager.UnlockDoors();

@@ -179,7 +179,7 @@ private float fast , oldSpeed;
 			if (canAttack)
 			{
 				// Y is left arrow based on the SNES controller layout; fire and reset the cooldown
-				if (Input.GetButtonUp("Y"))
+				if (Input.GetButtonDown("Y"))
 				{
 					Shoot(false);
 				}
@@ -280,7 +280,7 @@ private float fast , oldSpeed;
 	public void DealPlayerSwordDamage()
 	{
 		// Deal Player Sword Damage to enemies in range
-		MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
+		MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, true);
 	}
 
 	/// <summary> this method starts playing the sword animation </summary>
