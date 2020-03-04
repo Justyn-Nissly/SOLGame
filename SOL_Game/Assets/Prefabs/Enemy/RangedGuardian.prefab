@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5184558088362625348
 Transform:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: {fileID: 11400000, guid: a4c7dc28fc0ae2648a17c507397831fb, type: 2}
-  canAttack: 1
+  canAttack: 0
   canTakeDamage: 1
   currentHealth: 0
   takeDamageSounds:
@@ -406,6 +406,7 @@ MonoBehaviour:
   MAXPOSSIBLEHEALTH: 0
   maxHealOverTime: 0
   moveSpeed: 5
+  maxMoveSpeed: 0
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
@@ -415,10 +416,15 @@ MonoBehaviour:
   powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
-  enemyToSpawn: {fileID: 7703339030992561050, guid: 26af7c5a5104cf24b841fe07b062005a,
+  enemyToSpawn: {fileID: 8519565967622166670, guid: f1eca1112838fe24cb66670739160314,
     type: 3}
-  teleportAnimaiton: {fileID: 0}
-  teleporterPositions: []
+  teleportAnimaiton: {fileID: 4427221070863624914, guid: f74538149d8286f44b9d817eda2f9702,
+    type: 3}
+  teleporterPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
   encounterManager: {fileID: 0}
