@@ -111,15 +111,12 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Utility Methods
-	/// <summary> deal damage to the passed in player</summary>
+	/// <summary> deal damage to the passed in player </summary>
 	protected virtual void DamagePlayer(Player player, int damageToGive, bool playSwordSoundEffect = false)
 	{
 		if (player != null)
 		{
 			player.TakeDamage(damageToGive, playSwordSoundEffect);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
 

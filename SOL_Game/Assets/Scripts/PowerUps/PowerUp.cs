@@ -64,7 +64,7 @@ public class PowerUp : MonoBehaviour
 		if (collision.gameObject.tag == "Player")
 		{
 			// Effects have timers but healing is instantaneous
-			player.powerUpTimers[type] = (type == HEAL) ? 0.0001f : powerUpTimer;
+			player.powerUpTimers[type] = (type == HEAL) ? 0.001f : powerUpTimer;
 			Destroy(gameObject);
 		}
 

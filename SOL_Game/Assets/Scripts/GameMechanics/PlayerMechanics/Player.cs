@@ -19,7 +19,7 @@ public class Player : BaseCharacter
 		playerHealthSignal; // used to signal the health UI system that the player has taken damage
 
 	// player attack origination variables
-	public GameObject 
+	public GameObject
 		playerAttackGameObject, // this is where the players weapons get instantiated
 		dustEffect; // this effect is created when the player walks around
 	public DialogueManager
@@ -39,6 +39,8 @@ public class Player : BaseCharacter
 		extraDamage; // Extra damage dealt with a power up
 	public float[]
 		powerUpTimers; // Make power ups last for a set time
+	public bool[]
+		powerUpsActive; // Check which power ups are active
 	#endregion
 
 	#region Private Variables
@@ -58,11 +60,12 @@ public class Player : BaseCharacter
 	private bool
 		usingSwordAttack = false, // flags for whether the player is using an attack so that it only plays once
 		usingHammerAttack = false,
-		usingBlasterAttack = false;
+		usingBlasterAttack = false,
+		canPowerUp = false;
 	#endregion
-//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
-private float fast , oldSpeed;
-//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
+	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
+	private float fast, oldSpeed;
+	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
@@ -80,6 +83,7 @@ private float fast , oldSpeed;
 
 		dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 		powerUpTimers = new float[PowerUp.SPEED + 1];
+		powerUpsActive = new bool[PowerUp.SPEED + 1];
 		fast = playerMovementSpeed * 2;
 		oldSpeed = playerMovementSpeed;
 	}
@@ -87,6 +91,9 @@ private float fast , oldSpeed;
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly </summary>
 	private void FixedUpdate()
 	{
+		// Activate power ups
+		ActivatePowerUps();
+
 		// Apply power ups to the player
 		ApplyPowerUps();
 
@@ -423,7 +430,7 @@ private float fast , oldSpeed;
 		playerMovementAmount = GetPlayerMovementAmount();
 
 		// play or stop the player movement sound
-		if(playerMovementAmount != Vector2.zero)
+		if (playerMovementAmount != Vector2.zero)
 		{
 			audioSourcePlayerMovement.volume = 1;
 		}
@@ -453,7 +460,7 @@ private float fast , oldSpeed;
 	/// <summary> This creates a dust effect every N seconds</summary>
 	private void DoDustEffectLogic()
 	{
-		if(dustCountdownTimer <= 0)
+		if (dustCountdownTimer <= 0)
 		{
 			Instantiate(dustEffect, transform.position, new Quaternion(0, 0, 0, 0));
 			dustCountdownTimer = dustTimeInterval;
@@ -478,23 +485,55 @@ private float fast , oldSpeed;
 		playerAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);
 	}
 
+	private void ActivatePowerUps()
+	{
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			canPowerUp = true;
+			canAttack = false;
+		}
+		else if (Input.GetKeyUp(KeyCode.Q))
+		{
+			canPowerUp = false;
+			canAttack = true;
+		}
+
+		if (canPowerUp)
+		{
+			powerUpsActive[PowerUp.HEAL]  = (currentHealth < maxHealth.initialValue && Input.GetButtonDown("Y"));
+			powerUpsActive[PowerUp.POWER] = (powerUpsActive[PowerUp.POWER]          || Input.GetButtonDown("X"));
+			powerUpsActive[PowerUp.SPEED] = (powerUpsActive[PowerUp.SPEED]          || Input.GetButtonDown("A"));
+		}
+	}
+
 	/// <summary> Apply any power ups the player has picked up </summary>
 	private void ApplyPowerUps()
 	{
-		// Not a for loop because different power ups work differently
-		// Apply heal
-		currentHealth += (powerUpTimers[PowerUp.HEAL] > 0.0f) ? 2 : 0;
+		// Apply healing (not a for loop because different power ups work differently)
+		currentHealth += (powerUpsActive[PowerUp.HEAL] && powerUpTimers[PowerUp.HEAL] > 0.0f) ? 2 : 0;
+		if (currentHealth > maxHealth.initialValue)
+		{
+			currentHealth = maxHealth.initialValue;
+		}
 
 		// Apply damage boost
-		extraDamage = (powerUpTimers[PowerUp.POWER] > 0.0f) ? 1 : 0;
+		extraDamage = (powerUpsActive[PowerUp.POWER] && powerUpTimers[PowerUp.POWER] > 0.0f) ? 1 : 0;
 
 		// Apply Speed boost
-		extraSpeed = (powerUpTimers[PowerUp.SPEED] > 0.0f) ? 0.05f : 0.0f;
+		extraSpeed = (powerUpsActive[PowerUp.SPEED] && powerUpTimers[PowerUp.SPEED] > 0.0f) ? 0.05f : 0.0f;
 
 		// Decrease each power up timer
 		for (int counter = PowerUp.HEAL; counter <= PowerUp.SPEED; counter++)
 		{
-			powerUpTimers[counter] -= (powerUpTimers[counter] > 0.0f) ? Time.deltaTime : 0.0f;
+			if ((powerUpsActive[counter] && powerUpTimers[counter] > 0.0f))
+			{
+				powerUpTimers[counter]  -= Time.deltaTime;
+				powerUpsActive[counter]  = true;
+			}
+			else
+			{
+				powerUpsActive[counter] = false;
+			}
 		}
 	}
 
