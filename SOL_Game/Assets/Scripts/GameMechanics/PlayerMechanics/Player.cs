@@ -496,6 +496,8 @@ public class Player : BaseCharacter
 	public void FreezePlayer()
 	{
 		playerMovementAmount = Vector2.zero;
+		if(playerRigidbody != null)
+			playerRigidbody.isKinematic = true;
 		playerAnimator.SetLayerWeight(1, 0);
 		audioSourcePlayerMovement.volume = 0;
 		playerAllowedToMove = false;
@@ -507,6 +509,8 @@ public class Player : BaseCharacter
 	{
 		playerAllowedToMove = true;
 		canAttack = true;
+		if (playerRigidbody != null)
+			playerRigidbody.isKinematic = false;
 	}
 	#endregion
 
