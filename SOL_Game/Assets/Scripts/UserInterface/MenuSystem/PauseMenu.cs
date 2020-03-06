@@ -13,31 +13,29 @@ public class PauseMenu : MonoBehaviour
 	public static bool       isPaused = false;  // The value for if the game is paused
 	public GameObject pauseMenuUI;       // The UI object for the pause menu
 	public string            sceneName;         // The name of the acctive scene
-	//public Canvas pauseMenuCanvas; // The canvas that houses the controls for the pause menu
-	//public Signal pauseSignal;
+															  //public Canvas pauseMenuCanvas; // The canvas that houses the controls for the pause menu
+															  //public Signal pauseSignal;
 	#endregion
 
 	#region Private Variables
-
+	private PlayerControls
+			inputActions;
 	#endregion
+	private void Start()
+	{
+		// this sets up the players input detection
+		inputActions = new PlayerControls(); // this in the reference to the new unity input system
+		inputActions.Gameplay.Enable();
+	}
 
 	// Unity Named Methods
 	#region Main Methods
 	void Update()
 	{
 
-		/// Check if the escape key was pressed and if the game was paused resume, otherwise pause the game
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (inputActions.Gameplay.PauseMenu.triggered)
 		{
-			InstantiatePauseMenu();
-			if (isPaused)
-			{
-				Resume();
-			}
-			else
-			{
-				Pause();
-			}
+			PauseButtonPressed();
 		}
 
 		/// Load the development menu when 'End' is pressed
@@ -49,6 +47,20 @@ public class PauseMenu : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// <summary> called when the pause button has been pressed</summary>
+	private void PauseButtonPressed()
+	{
+		InstantiatePauseMenu();
+		if (isPaused)
+		{
+			Resume();
+		}
+		else
+		{
+			Pause();
+		}
+	}
+
 	/// Instantiates the pause menu when the player presses escape
 	public void InstantiatePauseMenu()
 	{

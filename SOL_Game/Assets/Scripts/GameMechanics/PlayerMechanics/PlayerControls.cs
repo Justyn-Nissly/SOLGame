@@ -57,6 +57,30 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""bafe4854-bc2b-4151-a08c-9d7cc33fc24b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb832dab-c261-4572-b5c1-233f5c26c3b6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a6e09c3-ffb8-4112-acb3-61e874161381"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -257,6 +281,83 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""622a7921-3669-4443-9914-7d740dfc0f16"",
+                    ""path"": ""<HID::USB Gamepad >/button10"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13763af2-a894-4ff4-a041-55bc22607725"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6fb6f241-182a-4acd-99df-10aca2c45e8a"",
+                    ""path"": ""<HID::USB Gamepad >/button9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4bbb66a7-7387-4102-a857-2bc2161dbec7"",
+                    ""path"": ""<HID::USB Gamepad >/button5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59b03347-c9a2-4820-8e06-bd8b1319ba85"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df038152-4543-44b1-a320-148aae81805f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8574a6a-2d1e-4b8b-beda-eb6118365bd8"",
+                    ""path"": ""<HID::USB Gamepad >/button6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -270,6 +371,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_BlasterAttack = m_Gameplay.FindAction("BlasterAttack", throwIfNotFound: true);
         m_Gameplay_ShieldDefense = m_Gameplay.FindAction("ShieldDefense", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
+        m_Gameplay_PauseMenu = m_Gameplay.FindAction("PauseMenu", throwIfNotFound: true);
+        m_Gameplay_LeftTrigger = m_Gameplay.FindAction("LeftTrigger", throwIfNotFound: true);
+        m_Gameplay_RightTrigger = m_Gameplay.FindAction("RightTrigger", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -324,6 +428,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_BlasterAttack;
     private readonly InputAction m_Gameplay_ShieldDefense;
     private readonly InputAction m_Gameplay_Movement;
+    private readonly InputAction m_Gameplay_PauseMenu;
+    private readonly InputAction m_Gameplay_LeftTrigger;
+    private readonly InputAction m_Gameplay_RightTrigger;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -333,6 +440,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @BlasterAttack => m_Wrapper.m_Gameplay_BlasterAttack;
         public InputAction @ShieldDefense => m_Wrapper.m_Gameplay_ShieldDefense;
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
+        public InputAction @PauseMenu => m_Wrapper.m_Gameplay_PauseMenu;
+        public InputAction @LeftTrigger => m_Wrapper.m_Gameplay_LeftTrigger;
+        public InputAction @RightTrigger => m_Wrapper.m_Gameplay_RightTrigger;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -357,6 +467,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
+                @PauseMenu.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseMenu;
+                @PauseMenu.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPauseMenu;
+                @LeftTrigger.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftTrigger;
+                @LeftTrigger.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftTrigger;
+                @LeftTrigger.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftTrigger;
+                @RightTrigger.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightTrigger;
+                @RightTrigger.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightTrigger;
+                @RightTrigger.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightTrigger;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -376,6 +495,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @PauseMenu.started += instance.OnPauseMenu;
+                @PauseMenu.performed += instance.OnPauseMenu;
+                @PauseMenu.canceled += instance.OnPauseMenu;
+                @LeftTrigger.started += instance.OnLeftTrigger;
+                @LeftTrigger.performed += instance.OnLeftTrigger;
+                @LeftTrigger.canceled += instance.OnLeftTrigger;
+                @RightTrigger.started += instance.OnRightTrigger;
+                @RightTrigger.performed += instance.OnRightTrigger;
+                @RightTrigger.canceled += instance.OnRightTrigger;
             }
         }
     }
@@ -387,5 +515,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnBlasterAttack(InputAction.CallbackContext context);
         void OnShieldDefense(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnPauseMenu(InputAction.CallbackContext context);
+        void OnLeftTrigger(InputAction.CallbackContext context);
+        void OnRightTrigger(InputAction.CallbackContext context);
     }
 }
