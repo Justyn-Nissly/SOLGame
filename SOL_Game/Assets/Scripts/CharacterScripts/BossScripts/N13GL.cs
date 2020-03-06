@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,11 +8,11 @@ public class N13GL : Enemy
 	#region Enums
 	public enum AttackPattern
 	{
+		finalGuardianPattern,
 		shieldGuardianPattern,
 		gunGuardianPattern,
 		hammerGuardianPattern,
-		swordGuardianPattern,
-		finalGuardianPattern
+		swordGuardianPattern
 	}
 	#endregion
 
@@ -26,22 +25,19 @@ public class N13GL : Enemy
 		isSword,
 		isFinal;
 	#endregion
+
 	#region Shared Variables
 	public AttackPattern
 		currentGuardianPattern; // The current guardian attack pattern type
-	public GameObject
-		currentGuardian, // The current guardian that was chosen
-		nextGuardian;    // The next guardian that will be chosen
 	public Sprite
-		gunSprite,     // The sprite for the gun guardian arm
-		hammerSprite,  // The sprite for the hammer guardian arm
-		nextArmSprite, // The sprite for the next guardian arm to be spawned in
-		shieldSpriteArm,  // The sprite for the shield guardian arm
-		swordSprite;   // The sprite for the sword guardian arm
-	public bool 
+		finalArmSprite,  // The sprite for the final guardian arm
+		gunArmSprite,    // The sprite for the gun guardian arm
+		hammerArmSprite, // The sprite for the hammer guardian arm
+		nextArmSprite,   // The sprite for the next guardian arm to be spawned in
+		shieldArmSprite, // The sprite for the shield guardian arm
+		swordArmSprite;  // The sprite for the sword guardian arm
+	public bool
 		typeIsChanged; // The current guardian type has been changed
-	public int
-		changething; // Change the thing
 	#endregion
 
 	#region Shield Guardian
@@ -51,7 +47,7 @@ public class N13GL : Enemy
 	public EnemySpawner
 		ShieldGuardianEnemySpawner; // A reference to the bosses enemy spawner
 	public FloatValue
-		damageToGive; // The bosses damage that is dealed to the player
+		damageToGive; // The bosses damage that is dealt to the player
 	public GameObject
 		shieldGuardianArm; // The arm of the shield guardian
 	public SpriteRenderer
@@ -59,28 +55,29 @@ public class N13GL : Enemy
 	public Transform
 		roomCenterTransform, // a transform at the center of the room used for some of the bosses movement calculation
 		shootingPointLeft,   // the left point at which a blaster bullet will be instantiated
-		shootingPointRight,  // the right point at which a blaster bullet will be instantiated
-		LeftShootingLaneLimit,
-		RightShootingLaneLimit;
+		shootingPointRight;  // the right point at which a blaster bullet will be instantiated
 	public bool
-		isCharging                   = false, // Flag for if the enemy is charging at the player
-		isStunned                    = false, // Flag for if the enemy is stunned
-		isHittingPlayer              = false, // Flag for is the enemy is colliding with the player right now
-		canDoHalfHealthEvent         = true,  // Flag so that this health event only happens once
-		canDoQuarterHealthEvent      = true,  // Flag so that this health event only happens once
+		isCharging = false, // Flag for if the enemy is charging at the player
+		isStunned = false, // Flag for if the enemy is stunned
+		isHittingPlayer = false, // Flag for is the enemy is colliding with the player right now
+		canDoHalfHealthEvent = true,  // Flag so that this health event only happens once
+		canDoQuarterHealthEvent = true,  // Flag so that this health event only happens once
 		canDoThreeQuarterHealthEvent = true,  // Flag so that this health event only happens once
-		enemyIsShacking              = false, // For making the enemy look "mad"
-		canShoot                     = true;  // Can the guardian shoot
+		enemyIsShacking = false, // For making the enemy look "mad"
+		canShoot = true;  // Can the guardian shoot
 	public float
 		chargeSpeed,              // The speed at which the enemy will charge
 		enemyChargeSpeed = 15,    // how fast the enemy charges at the player
-		shackSpeed       = 50.0f, // how fast it shakes
-		shackAmount      = .01f;  // how much it shakes
+		shackSpeed = 50.0f, // how fast it shakes
+		shackAmount = .01f;  // how much it shakes
 	#endregion
 
 	#region Gun Guardian
 	public GameObject
 		gunGuardianArm; // The arm of the gun guardian
+	public float
+		maxTimeBetweenAttacks = 2f,
+		minTimeBetweenAttacks = 1f;
 	#endregion
 
 	#region Hammer Guardian
@@ -104,14 +101,18 @@ public class N13GL : Enemy
 	private System.Random
 		randomGuardianPattern; // The number of the random guardian attack pattern to choose
 	private Color32 guardianColour = new Color32(0x3C, 0x71, 0x6F, 0xFF);
+	private int
+		guardianPhase; // The current phase the guardian is in
 	#endregion
+
 	#region Shield Guardian
 
 	#endregion
 
 	#region Gun Guardian
+	private float
+		attackCountDownTimer;
 	#endregion
-
 	#region Hammer Guardian
 	#endregion
 
@@ -127,69 +128,35 @@ public class N13GL : Enemy
 	#region Main Methods
 	// Start is called before the first frame update
 	void Awake()
-    {
+	{
 		allGuardianPatternTypes = Enum.GetValues(typeof(AttackPattern));
-		typeIsChanged    = false;
-		changething      = 0;
 		currentGuardianPattern = AttackPattern.finalGuardianPattern;
+		typeIsChanged = false;
+		guardianPhase = 0;
+		changething = 0;
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	// Update is called once per frame
+	void Update()
+	{
 		if (changething == 5)
 		{
 			changething = 0;
-			currentGuardianPattern = (AttackPattern)UnityEngine.Random.Range(0, 4);
+			currentGuardianPattern = (AttackPattern)allGuardianPatternTypes.GetValue(guardianPhase + 1);
 			typeIsChanged = true;
-			currentGuardian = shieldGuardianArm;
 		}
 
-		// Check which guardian arm needs to be teleported in
-		if(typeIsChanged == true)
+		// Change to the next guardian type
+		if (typeIsChanged == true)
 		{
-			switch(currentGuardianPattern)
+			ChangeAttackPattern();
+			if(guardianPhase < allGuardianPatternTypes.Length)
 			{
-				case AttackPattern.finalGuardianPattern:
-				{
-					// Spawn in the final guardian arm
-					break;
-				}
-				case AttackPattern.shieldGuardianPattern:
-				{
-					// Spawn in the shield guardian arm
-					typeIsChanged = false;
-					//shieldGuardianArm.SetActive(true);
-					nextArmSprite = shieldSpriteArm;
-					GetComponent<Animator>().SetTrigger("SwitchArm");
-					/*StartCoroutine(SpawnNewArm(shieldGuardianArm, gunGuardianArm));*/
-					break;
-				}
-				case AttackPattern.gunGuardianPattern:
-				{
-					// Spawn in the gun guardian arm
-					typeIsChanged = false;
-					//gunGuardianArm.SetActive(true);
-					nextArmSprite = gunSprite;
-					GetComponent<Animator>().SetTrigger("SwitchArm");
-					/*shieldGuardianArm.GetComponent<_2dxFX_NewTeleportation2>().TeleportationColor = guardianColour;*/
-					/*StartCoroutine(SpawnNewArm(gunGuardianArm, shieldGuardianArm));*/
-					break;
-				}
-				case AttackPattern.hammerGuardianPattern:
-				{
-					// Spawn in the hammer guardian arm
-					break;
-				}
-				case AttackPattern.swordGuardianPattern:
-				{
-					// Spawn in the sword guardian arm
-					break;
-				}
-			};
+				guardianPhase += 1;
+			}
 		}
 
-		// Check which attak pattern should be used
+		// Check which attack pattern should be used
 		switch (currentGuardianPattern)
 		{
 			case AttackPattern.finalGuardianPattern:
@@ -200,35 +167,11 @@ public class N13GL : Enemy
 			}
 			case AttackPattern.shieldGuardianPattern:
 			{
-				Debug.Log("Doing Shield Attack");
-				base.FixedUpdate();
-
-				// check if the boss should start charging at the player
-				/*if (canShoot && canAttack && PlayerInShootingLane())
-				{
-					canAttack = false;
-					canShoot = false;
-					RandomlySetShootingPoint();
-					animator.SetTrigger("shootBlaster");
-				}*/
-				if (isCharging == false && isStunned == false && canAttack)
-				{
-					// make the boss charge at the player
-					StartCoroutine(MoveInPlayersDirection());
-				}
-
-
-
-				// if the enemy should be shacking start shacking the enemy
-				if (enemyIsShacking)
-				{
-					transform.position = new Vector2(transform.position.x + (Mathf.Sin(Time.time * shackSpeed) * shackAmount), transform.position.y + (Mathf.Sin(Time.time * shackSpeed) * shackAmount));
-				}
+				ShieldGuardianAttackPattern();
 				break;
 			}
 			case AttackPattern.gunGuardianPattern:
 			{
-				// Execute the gun guardian attack pattern
 				GunGuardianAttackPattern();
 				break;
 			}
@@ -246,27 +189,30 @@ public class N13GL : Enemy
 			}
 		};
 	}
-	
+
 	#region Shield Guardian
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		// if the boss collided with the player damage the player
+		// Check if the boss collided with the player then deal damage the player
 		if (collision.gameObject.CompareTag("Player") && isCharging) // only damage the player when charging
 		{
 			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)damageToGive.initialValue);
 		}
-		// check if the enemy hit a wall
+		// Check if the enemy hit a wall
 		else if (collision.gameObject.CompareTag("Wall"))
 		{
 			Debug.Log("WWWWWAAAAAALLLLLLLLLLLL");
-			// check if the enemy is hitting the wall and the player is so move to the center (so that the player doen't get stuck between the wall and the enemy)
+			/// <summary>
+			/// Check if the enemy is hitting the wall and the player is so move to the center
+			/// (so that the player doesn't get stuck between the wall and the enemy) 
+			/// <summary>
 			if (isHittingPlayer)
 			{
 				isCharging = false;
-				canAttack = false;
+				canAttack  = false;
 				StartCoroutine(MoveToCenter(1f));
 			}
-			// "stun" the enemy because he ran into a wall
+			// "Stun" the enemy because he ran into a wall
 			else
 			{
 				isCharging = false;
@@ -296,20 +242,84 @@ public class N13GL : Enemy
 	#endregion
 
 	#region Utility Methods
+
 	#region Shared Methods
+	public void ChangeAttackPattern()
+	{
+		currentGuardianPattern = (AttackPattern)allGuardianPatternTypes.GetValue(guardianPhase);
+		switch (currentGuardianPattern)
+		{
+			case AttackPattern.finalGuardianPattern:
+			{
+				typeIsChanged = false;
+				nextArmSprite = finalArmSprite;
+				break;
+			}
+			case AttackPattern.shieldGuardianPattern:
+			{
+				// Set the attack type to the shield guardian
+				typeIsChanged = false;
+				nextArmSprite = shieldArmSprite;
+				break;
+			}
+			case AttackPattern.gunGuardianPattern:
+			{
+				// Spawn in the gun guardian arm
+				typeIsChanged = false;
+				//gunGuardianArm.SetActive(true);
+				nextArmSprite = gunArmSprite;
+				/*shieldGuardianArm.GetComponent<_2dxFX_NewTeleportation2>().TeleportationColor = guardianColour;*/
+				/*StartCoroutine(SpawnNewArm(gunGuardianArm, shieldGuardianArm));*/
+				break;
+			}
+			case AttackPattern.hammerGuardianPattern:
+			{
+				nextArmSprite = hammerArmSprite;
+				break;
+			}
+			case AttackPattern.swordGuardianPattern:
+			{
+				nextArmSprite = swordArmSprite;
+				break;
+			}
+		};
+		GetComponent<Animator>().SetTrigger("SwitchArm");
+	}
 	public void SwitchArms()
 	{
 		shieldGuardianArm.GetComponent<SpriteRenderer>().sprite = nextArmSprite; // Take this and set this to "nextSprite" rather than just shieldSprite....It is 3:37...go to bed...
 	}
 	#endregion
+
 	#region Shield Guardian
 	/// <summary> The attack pattern for the shield guardian </summary>
 	public void ShieldGuardianAttackPattern()
 	{
 		Debug.Log("Shield Attack");
-		if (Input.GetKeyDown(KeyCode.Return))
+		base.FixedUpdate();
+
+		// check if the boss should start charging at the player
+		/*if (canShoot && canAttack && PlayerInShootingLane())
 		{
-			changething += 1;
+			canAttack = false;
+			canShoot = false;
+			RandomlySetShootingPoint();
+			animator.SetTrigger("shootBlaster");
+		}
+		*/
+		if (isCharging == false && isStunned == false && canAttack)
+		{
+			// make the boss charge at the player
+			StartCoroutine(MoveInPlayersDirection());
+		}
+
+
+
+		// if the enemy should be shacking start shacking the enemy
+		if (enemyIsShacking)
+		{
+			transform.position = new Vector2(transform.position.x + (Mathf.Sin(Time.time * shackSpeed) * shackAmount),
+											 transform.position.y + (Mathf.Sin(Time.time * shackSpeed) * shackAmount));
 		}
 	}
 	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
@@ -356,105 +366,62 @@ public class N13GL : Enemy
 		StartCoroutine(ShieldGuardianEnemySpawner.SpawnInEnemies(false, numOfEnemiesToSpawn));
 	}
 
-	/// <summary> this method is called with an event in the animator (thats why it exists) and it starts the shooting coroutine </summary>
-	public void ShootGuardianBlaster()
-	{
-		StartCoroutine(ShootGuardianBlasterCoroutine());
-	}
-
-	/// <summary> Randomly Sets Shooting Point the guardian will use for the blaster attack</summary>
-	public void RandomlySetShootingPoint()
-	{
-		if (Random.Range(0, 2) == 0)
-		{
-			animator.SetBool("LeftBlaster", true);
-		}
-		else
-		{
-			animator.SetBool("LeftBlaster", false);
-		}
-	}
-
-	public bool PlayerInShootingLane()
-	{
-		bool playerInshootingLane = false;
-
-		if (player.transform.position.x >= LeftShootingLaneLimit.position.x && // check if the player is passed the left limit
-			player.transform.position.x <= RightShootingLaneLimit.position.x && // check if the player is passed the right limit
-			player.transform.position.y < transform.position.y) // don't shoot if the player is above the enemy
-		{
-			print("player is not in the enemies shooting range");
-			playerInshootingLane = true;
-		}
-
-		return playerInshootingLane;
-	}
 	#endregion
+
 	#region Gun Guardian
 	/// <summary> The attack pattern for the gun guardian </summary>
 	public void GunGuardianAttackPattern()
 	{
 		Debug.Log("Gun Attack");
-		if (Input.GetKeyDown(KeyCode.Return))
+		// Execute the gun guardian attack pattern
+		base.FixedUpdate();
+		if (canAttack)
 		{
-			changething += 1;
+			if (attackCountDownTimer <= 0)
+			{
+				Shoot();
+				attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+			}
+			else
+			{
+				attackCountDownTimer -= Time.deltaTime;
+			}
 		}
 	}
 	#endregion
+
 	#region Hammer Guardian
 	/// <summary> The attack pattern for the hammer guardian </summary>
 	public void HammerGuardianAttackPattern()
 	{
 		Debug.Log("Hammer Attack");
-		if (Input.GetKeyDown(KeyCode.Return))
-		{
-			changething += 1;
-		}
 	}
 	#endregion
+
 	#region Sword Guardian
 	/// <summary> The attack pattern for the shield guardian </summary>
 	public void SwordGuardianAttackPattern()
 	{
 		Debug.Log("Sword Attack");
-		if (Input.GetKeyDown(KeyCode.Return))
-		{
-			changething += 1;
-		}
 	}
 	#endregion
+
 	#region Final Guardian
 	/// <summary> The attack pattern for the shield guardian </summary>
 	public void FinalGuardianAttackPattern()
 	{
 		Debug.Log("Final Attack");
-		if (Input.GetKeyDown(KeyCode.Return))
-		{
-			changething += 1;
-		}
 	}
 	#endregion
+
 	#endregion
 
 	#region Coroutines
+
 	#region Shared Coroutines
 	#endregion
+
 	#region Shield Guardian
-	/// <summary> shoots a bullet from ether the left or right side of the shield guardian(its randomly selected)</summary>
-	public IEnumerator ShootGuardianBlasterCoroutine()
-	{
-		Transform bulletSpawnPoint = animator.GetBool("LeftBlaster") ? shootingPointLeft : shootingPointRight;
-
-		GameObject bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-
-		BulletLogic bulletLogic = bulletInstance.GetComponent<BulletLogic>();
-		bulletLogic.bulletDamage = (int)rangedAttackDamageToGive.initialValue; // is this right
-
-		yield return new WaitForSeconds(2);
-		canShoot = true;
-		canAttack = true;
-	}
-
 	/// <summary> Moves a game object in the player direction (at the time this method is called) over N seconds </summary>
 	public IEnumerator MoveInPlayersDirection()
 	{
@@ -558,26 +525,30 @@ public class N13GL : Enemy
 
 	}
 	#endregion
+
 	#region Gun Guardian
 	#endregion
+
 	#region Hammer Guardian
 	#endregion
+
 	#region Sword Guardian
 	#endregion
+
 	#region Final Guardian
-	/// <summary> Switch the primary attack arm to the arm of another guardain</summary>
+	/// <summary> Switch the primary attack arm to the arm of another guardian</summary>
 	private IEnumerator SpawnNewArm(GameObject armToSpawn, GameObject armToDespawn)
 	{
 		float percentageComplete = 0; // The percentage of completion the teleport animation is at
 
-		// Set the arm that is to be teleported in to invisable
+		// Set the arm that is to be teleported in to invisible
 		armToSpawn.GetComponent<_2dxFX_NewTeleportation2>()._Fade = 1;
 
 		// Teleport the current arm away
 		while (percentageComplete < 1)
 		{
 			armToDespawn.GetComponent<_2dxFX_NewTeleportation2>()._Fade = Mathf.Lerp(0f, 1f, percentageComplete);
-			percentageComplete                                         += Time.deltaTime;
+			percentageComplete += Time.deltaTime;
 			yield return null;
 		}
 
@@ -585,13 +556,14 @@ public class N13GL : Enemy
 		percentageComplete = 0;
 		while (percentageComplete < 1)
 		{
-			armToSpawn.GetComponent  <_2dxFX_NewTeleportation2>()._Fade = Mathf.Lerp(1f, 0f, percentageComplete);
-			percentageComplete                                         += Time.deltaTime;
+			armToSpawn.GetComponent<_2dxFX_NewTeleportation2>()._Fade = Mathf.Lerp(1f, 0f, percentageComplete);
+			percentageComplete += Time.deltaTime;
 			yield return null;
 		}
 		armToDespawn.SetActive(false);
 		armToSpawn.GetComponent<_2dxFX_NewTeleportation2>()._Fade = 0;
 	}
 	#endregion
+
 	#endregion
 }

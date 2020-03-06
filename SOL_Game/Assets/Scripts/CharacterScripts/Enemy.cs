@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-[System.Serializable]
 
 public class Enemy : BaseCharacter
 {
@@ -39,7 +38,8 @@ public class Enemy : BaseCharacter
 	public GameObject
 		powerUp; // Reference PowerUp prefab.
 
-	public Material pixelDesolveMaterial;
+	public Material
+		pixelDesolveMaterial;
 	#endregion
 
 	#region Private Variables

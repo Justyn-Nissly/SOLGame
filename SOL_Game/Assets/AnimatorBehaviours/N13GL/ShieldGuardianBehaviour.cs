@@ -13,23 +13,26 @@ public class ShieldGuardianBehaviour : StateMachineBehaviour
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		n13glControl = animator.GetComponent<N13GL>();
+		n13glControl.currentGuardianPattern = N13GL.AttackPattern.shieldGuardianPattern;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		/*// check if the boss should start charging at the player
-		//if (n13glControl.canShoot && n13glControl.canAttack && n13glControl.PlayerInShootingLane())
-		//{
-		//	n13glControl.canAttack = false;
-		//	n13glControl.canShoot = false;
-		//	n13glControl.RandomlySetShootingPoint();
-		//	animator.SetTrigger("shootBlaster");
-		//}
+		n13glControl.base.FixedUpdate();
+
+		// check if the boss should start charging at the player
+		/*if (canShoot && canAttack && PlayerInShootingLane())
+		{
+			canAttack = false;
+			canShoot = false;
+			RandomlySetShootingPoint();
+			animator.SetTrigger("shootBlaster");
+		}*/
 		if (n13glControl.isCharging == false && n13glControl.isStunned == false && n13glControl.canAttack)
 		{
 			// make the boss charge at the player
-			n13glControl.startthing();
+			monoBehaviour.StartCoroutine(n13glControl.MoveInPlayersDirection());
 		}
 
 
@@ -37,15 +40,17 @@ public class ShieldGuardianBehaviour : StateMachineBehaviour
 		// if the enemy should be shacking start shacking the enemy
 		if (n13glControl.enemyIsShacking)
 		{
-			animator.transform.position = new Vector2(animator.transform.position.x + (Mathf.Sin(Time.time * n13glControl.shackSpeed) * n13glControl.shackAmount), 
+			animator.transform.position = new Vector2(animator.transform.position.x + (Mathf.Sin(Time.time * n13glControl.shackSpeed) * n13glControl.shackAmount),
 				                                      animator.transform.position.y + (Mathf.Sin(Time.time * n13glControl.shackSpeed) * n13glControl.shackAmount));
 		}
-		Debug.Log("doing the thing");*/
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
 	{
-		
+		animator.GetComponent<N13GL>().currentGuardianPattern = N13GL.AttackPattern.finalGuardianPattern;
+		animator.SetBool     ("IsShield", false);
+		animator.SetTrigger  ("Idle");
+		animator.ResetTrigger("Idle");
 	}
 }
