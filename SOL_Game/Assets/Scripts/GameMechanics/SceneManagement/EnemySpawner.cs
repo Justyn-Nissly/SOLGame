@@ -88,13 +88,13 @@ public class EnemySpawner : MonoBehaviour
 		}
 	}
 
-	/// <summary> this starts the logic to check if all this spawners enemies are defeated (this is a separate method so that other scripts can call this)</summary>
+	/// <summary> this starts the logic to check if all this spawner's enemies are defeated (this is a separate method so that other scripts can call this)</summary>
 	public void StartCheckingIfEnemiesDefeated()
 	{
 		InvokeRepeating("CheckEnemies", 1f, .5f);  //1s delay, repeat every .5s
 	}
 
-	/// <summary> this method unlocks any locked doors linked to this spawner if all this spawer's enemies have been defeated</summary>
+	/// <summary> this method unlocks any locked doors linked to this spawner if all this spawner's enemies have been defeated</summary>
 	private void CheckEnemies()
 	{
 		if (CheckIfEnemiesDefeated())
