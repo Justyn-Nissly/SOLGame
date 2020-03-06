@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Basilisk : Enemy
 {
-
 	#region Enums (Empty)
 	#endregion
 
@@ -146,7 +145,7 @@ public class Basilisk : Enemy
 		animator.SetTrigger("PopUp");
 
 		// dont let the basilisk move, attack, or take damage
-		canAttack = false; 
+		canAttack = false;
 		canTakeDamage = false;
 
 		yield return new WaitForSeconds(secondsAboveGround);
