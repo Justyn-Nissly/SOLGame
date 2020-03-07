@@ -26,8 +26,6 @@ public class DialogueManager : MonoBehaviour
 	public float
 		textSpeed,    // The speed at which the text will be typed on the screen
 		timer;        // The timer to remove the NPC from the scene
-	public int
-		currentSentence; // The sentence that is currently being typed
 	#endregion
 
 	#region Private Variables

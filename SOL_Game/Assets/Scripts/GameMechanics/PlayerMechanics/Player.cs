@@ -49,9 +49,6 @@ public class Player : BaseCharacter
 		powerUpTimers; // Make power ups last for a set time
 	public bool[]
 		powerUpsActive; // Check which power ups are active
-
-	public Vector2
-		playerMovementAmount; // used to store the amount that the player will move this frame
 	#endregion
 
 	#region Private Variables
@@ -74,7 +71,7 @@ public class Player : BaseCharacter
 		usingSwordAttack = false, // flags for whether the player is using an attack so that it only plays once
 		usingHammerAttack = false,
 		usingBlasterAttack = false,
-		canPowerUp = false;
+		canPowerUp = false,
 		canIncrementComboCounter = false;
 
 	private PlayerControls
