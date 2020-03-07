@@ -8,8 +8,8 @@ public class RevolveAroundObject : MonoBehaviour
 	#region Public Variables
 	public bool
 		clockwise; // The enemy is patrolling clockwise
-	public GameObject
-		revolutionObject; // The object to revolve around
+	public Vector2
+		revolutionPoint; // The object to revolve around
 	public float
 		angle,                 // Current angle of rotation
 		maxRevolutionDistance, // Maximum distance this object revolves around its host
@@ -68,16 +68,12 @@ public class RevolveAroundObject : MonoBehaviour
 	/// <summary> Make an object revolve around another object </summary>
 	public void Revolve(ref float angle)
 	{
-		if (revolutionObject != null)
+		if (revolutionPoint != null)
 		{
 			// Move this object around its host object
-			transform.position = ((Vector2)revolutionObject.transform.position +
+			transform.position = ((Vector2)revolutionPoint +
 								  new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad),
 											  Mathf.Sin(angle * Mathf.Deg2Rad)) * revolutionDistance);
-		}
-		else
-		{
-			Destroy(gameObject);
 		}
 
 		// Update the revolution angle by its direction

@@ -11,8 +11,8 @@ public class BehemothController : Enemy
 		INNER_ORB_DIST           = 2.5f,                  // How far out the inner orbs rotate
 		OUTER_ORB_DIST           = INNER_ORB_DIST * 2.0f, // How far out the outer orbs rotate
 		CONVEYOR_BELT_SPEED      = 400.0f,                // The boss activates the conveyor belts
-		CONVEYOR_BELT_SWITCH_MIN = 15.0f,                 // Minimum time before switching conveyor belt direction
-		CONVEYOR_BELT_SWITCH_MAX = 30.0f;                 // Maximum time before switching conveyor belt direction
+		CONVEYOR_BELT_SWITCH_MIN = 15.0f,                 // Minimum time before switching conveypr belt direction
+		CONVEYOR_BELT_SWITCH_MAX = 30.0f;                 // Maximum time before switching conveypr belt direction
 	#endregion
 
 	#region Public Variables
@@ -165,7 +165,7 @@ public class BehemothController : Enemy
 	#endregion
 
 	#region Utility Methods
-	///<summary> The fight goes to the next phase </summary>
+	///<summary> The fight goes tothe next phase </summary>
 	private void AdvancePhase()
 	{
 		// Halt the conveyor belts and tractor beam if the boss is defeated
@@ -242,14 +242,14 @@ public class BehemothController : Enemy
 		// Initialize the outer orbs
 		for (int i = 0; i < OUTER_ORBS; i++)
 		{
-			outerOrbs[i].revolveScript.revolutionObject.transform.position = transform.position;
-			outerOrbs[i].revolveScript.maxRevolutionDistance               = OUTER_ORB_DIST + 2.5f * (phase - 1);
-			outerOrbs[i].revolveScript.minRevolutionDistance               = OUTER_ORB_DIST;
-			outerOrbs[i].revolveScript.startAngle                          = 360.0f / (float) OUTER_ORBS * i;
-			outerOrbs[i].attackHP                                          = (phase > 1) ? phase : 0;
-			outerOrbs[i].destructible.health                               = phase + 1;
-			outerOrbs[i].revolveScript.clockwise                           = true;
-			outerOrbs[i].revolveScript.revolutionSpeed                     = 1.0f;
+			outerOrbs[i].revolveScript.revolutionPoint       = transform.position;
+			outerOrbs[i].revolveScript.maxRevolutionDistance = OUTER_ORB_DIST + 2.5f * (phase - 1);
+			outerOrbs[i].revolveScript.minRevolutionDistance = OUTER_ORB_DIST;
+			outerOrbs[i].revolveScript.startAngle            = 360.0f / (float) OUTER_ORBS * i;
+			outerOrbs[i].attackHP                            = (phase > 1) ? phase : 0;
+			outerOrbs[i].destructible.health                 = phase + 1;
+			outerOrbs[i].revolveScript.clockwise             = true;
+			outerOrbs[i].revolveScript.revolutionSpeed       = 1.0f;
 		}
 
 		// Initialize the inner orbs
@@ -257,13 +257,13 @@ public class BehemothController : Enemy
 		{
 			for (int i = 0; i < INNER_ORBS; i++)
 			{
-				innerOrbs[i].revolveScript.revolutionObject.transform.position = transform.position;
-				innerOrbs[i].revolveScript.maxRevolutionDistance               = INNER_ORB_DIST;
-				innerOrbs[i].revolveScript.minRevolutionDistance               = INNER_ORB_DIST;
-				innerOrbs[i].revolveScript.startAngle                          = 360.0f / (float)INNER_ORBS * i;
-				innerOrbs[i].attackHP                                          = 0;
-				innerOrbs[i].destructible.health                               = phase * 2 - 1;
-				outerOrbs[i].revolveScript.revolutionSpeed                     = 1.2f;
+				innerOrbs[i].revolveScript.revolutionPoint       = transform.position;
+				innerOrbs[i].revolveScript.maxRevolutionDistance = INNER_ORB_DIST;
+				innerOrbs[i].revolveScript.minRevolutionDistance = INNER_ORB_DIST;
+				innerOrbs[i].revolveScript.startAngle            = 360.0f / (float)INNER_ORBS * i;
+				innerOrbs[i].attackHP                            = 0;
+				innerOrbs[i].destructible.health                 = phase * 2 - 1;
+				outerOrbs[i].revolveScript.revolutionSpeed       = 1.2f;
 			}
 		}
 	}
@@ -286,7 +286,7 @@ public class BehemothController : Enemy
 		{
 			foreach (OrbController orb in innerOrbs)
 			{
-				orb.revolveScript.revolutionObject.transform.position = transform.position;
+				orb.revolveScript.revolutionPoint = transform.position;
 			}
 			if (CheckOrbsEmpty(outerOrbs, OUTER_ORBS) == false)
 			{
@@ -302,7 +302,7 @@ public class BehemothController : Enemy
 		{
 			foreach (OrbController orb in outerOrbs)
 			{
-				orb.revolveScript.revolutionObject.transform.position = transform.position;
+				orb.revolveScript.revolutionPoint = transform.position;
 			}
 		}
 		else if (CheckOrbsEmpty(innerOrbs, INNER_ORBS) == false)
