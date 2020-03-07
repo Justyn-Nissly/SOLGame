@@ -132,6 +132,7 @@ public class Enemy : BaseCharacter
 		if (currentHealth <= 0)
 		{
 			enemyAudioManager.PlaySound();
+
 			// The enemy might drop a power up
 			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
 			{

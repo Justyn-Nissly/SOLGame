@@ -5,9 +5,11 @@ public class PowerUp : MonoBehaviour
 {
 	#region Enums and Defined Constants
 	public const int
-		HEAL = 0, // Heal the player
-		POWER = 1, // Boost the player's damage
-		SPEED = 2; // Boost the player's speed
+		MAX_MED_KITS = 4, // Player cannot hold moer than this many med kits
+		SHIELD       = 0, // Grant temporary invulnerability
+		POWER        = 1, // Boost the player's damage
+		SPEED        = 2, // Boost the player's speed
+		HEAL         = 3; // Heal the player
 	#endregion
 
 	#region Public Variables
@@ -35,9 +37,9 @@ public class PowerUp : MonoBehaviour
 		new Random();
 		player = GameObject.FindObjectOfType<Player>();
 
-		// Healing power up is the most common
-		type   = (int)Random.Range((float)HEAL, (float)SPEED + 1.5f);
-		if (type > SPEED)
+		// Med kits are more common than other power ups
+		type = (int)Random.Range((float)SHIELD, (float)HEAL + 1.1f);
+		if (type > HEAL)
 		{
 			type = HEAL;
 		}
@@ -63,8 +65,17 @@ public class PowerUp : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Player")
 		{
-			// Effects have timers but healing is instantaneous
-			player.powerUpTimers[type] = (type == HEAL) ? 0.001f : powerUpTimer;
+			// Enable the player to use the power up
+			if (type != HEAL)
+			{
+				player.powerUpTimers[type] = powerUpTimer;
+			}
+			else if (player.medKits < MAX_MED_KITS)
+			{
+				player.medKits++;
+			}
+
+			// Power up disappears atfer being picked up
 			Destroy(gameObject);
 		}
 

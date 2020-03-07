@@ -17,8 +17,9 @@ public class Player : BaseCharacter
 		playerAnimator; // used to animate the players movement
 	public Signal
 		playerHealthSignal; // used to signal the health UI system that the player has taken damage
-
-	// player attack origination variables
+	public
+		Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
+		                              // player attack origination variables
 	public GameObject
 		playerAttackGameObject, // this is where the players weapons get instantiated
 		dustEffect; // this effect is created when the player walks around
@@ -36,6 +37,7 @@ public class Player : BaseCharacter
 		extraSpeed,   // Extra speed gained from a power up
 		powerUpTimer; // How long power ups last
 	public int
+		medKits,     // How many med kits the player is holding
 		extraDamage; // Extra damage dealt with a power up
 	public float[]
 		powerUpTimers; // Make power ups last for a set time
@@ -45,14 +47,16 @@ public class Player : BaseCharacter
 
 	#region Private Variables
 	// player movement variables
-	private float playerMovementSpeed; // the speed the player can move at
-	public Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
-	private Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
+	private
+		float playerMovementSpeed; // the speed the player can move at
+	private
+		Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
 
 	// player attack timer variables
 	private float
-		dustCountdownTimer = 1, // timer for placing dust
-		dustTimeInterval = 1;
+		dustCountdownTimer = 1.0f, // timer for placing dust
+		dustTimeInterval = 1.0f,
+		healTimer = 1.0f;          // Time between being able to heal
 
 	private int
 		swordComboCounter, // this counts how many times the player presses the sword attack button and is for knowing if the sword attack animator should play the next attack
@@ -81,6 +85,7 @@ public class Player : BaseCharacter
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
 
+		medKits = 0;
 		dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
 		powerUpTimers = new float[PowerUp.SPEED + 1];
 		powerUpsActive = new bool[PowerUp.SPEED + 1];
@@ -91,6 +96,12 @@ public class Player : BaseCharacter
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly </summary>
 	private void FixedUpdate()
 	{
+		// Prevent the player's health from exceeding its maximum
+		if (currentHealth > maxHealth.initialValue)
+		{
+			currentHealth = maxHealth.initialValue;
+		}
+
 		// Activate power ups
 		ActivatePowerUps();
 
@@ -145,8 +156,8 @@ public class Player : BaseCharacter
 			ApplyAttackGameObjectRotation();
 		}
 
-		// On input activate the player's shield
-		if (Input.GetButton("B") && shieldIsEnabled == false)
+		// On input activate the player's shield unless the player has the power up menu open
+		if (Input.GetButton("B") && shieldIsEnabled == false && Input.GetKey(KeyCode.Q) == false)
 		{
 			StartShieldAnimation();
 			EnableShield(false);
@@ -162,7 +173,7 @@ public class Player : BaseCharacter
 			canAttack = true;
 		}
 
-		// check if the player is trying use an attack
+		// Check if the player is trying use an attack
 		DetectAttackInput();
 	}
 
@@ -487,33 +498,26 @@ public class Player : BaseCharacter
 
 	private void ActivatePowerUps()
 	{
-		if (Input.GetKeyDown(KeyCode.Q))
+		if (Input.GetKey(KeyCode.Q))
 		{
-			canPowerUp = true;
+			powerUpsActive[PowerUp.SHIELD] = (powerUpsActive[PowerUp.SHIELD] || Input.GetButtonDown("B"));
+			powerUpsActive[PowerUp.POWER]  = (powerUpsActive[PowerUp.POWER]  || Input.GetButtonDown("Y"));
+			powerUpsActive[PowerUp.SPEED]  = (powerUpsActive[PowerUp.SPEED]  || Input.GetButtonDown("A"));
 			canAttack = false;
 		}
-		else if (Input.GetKeyUp(KeyCode.Q))
+		else
 		{
-			canPowerUp = false;
 			canAttack = true;
-		}
-
-		if (canPowerUp)
-		{
-			powerUpsActive[PowerUp.HEAL]  = (currentHealth < maxHealth.initialValue && Input.GetButtonDown("Y"));
-			powerUpsActive[PowerUp.POWER] = (powerUpsActive[PowerUp.POWER]          || Input.GetButtonDown("X"));
-			powerUpsActive[PowerUp.SPEED] = (powerUpsActive[PowerUp.SPEED]          || Input.GetButtonDown("A"));
 		}
 	}
 
 	/// <summary> Apply any power ups the player has picked up </summary>
 	private void ApplyPowerUps()
 	{
-		// Apply healing (not a for loop because different power ups work differently)
-		currentHealth += (powerUpsActive[PowerUp.HEAL] && powerUpTimers[PowerUp.HEAL] > 0.0f) ? 2 : 0;
-		if (currentHealth > maxHealth.initialValue)
+		// Apply shield power up
+		if (powerUpsActive[PowerUp.SHIELD] && powerUpTimers[PowerUp.SHIELD] > 0.0f)
 		{
-			currentHealth = maxHealth.initialValue;
+			canTakeDamage = false;
 		}
 
 		// Apply damage boost
@@ -522,8 +526,18 @@ public class Player : BaseCharacter
 		// Apply Speed boost
 		extraSpeed = (powerUpsActive[PowerUp.SPEED] && powerUpTimers[PowerUp.SPEED] > 0.0f) ? 0.05f : 0.0f;
 
+		// Apply healing
+		healTimer -= (healTimer > 0.0f) ? Time.deltaTime : 0.0f;
+		if (Input.GetKey(KeyCode.Q) && Input.GetButtonDown("X") && medKits > 0 &&
+		    currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
+		{
+			currentHealth += 2;
+			healTimer = 1.0f;
+			medKits--;
+		}
+
 		// Decrease each power up timer
-		for (int counter = PowerUp.HEAL; counter <= PowerUp.SPEED; counter++)
+		for (int counter = PowerUp.SHIELD; counter <= PowerUp.SPEED; counter++)
 		{
 			if ((powerUpsActive[counter] && powerUpTimers[counter] > 0.0f))
 			{

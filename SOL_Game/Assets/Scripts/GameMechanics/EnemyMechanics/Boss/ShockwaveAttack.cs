@@ -17,10 +17,12 @@ public class ShockwaveAttack : MonoBehaviour
 	private AudioSource
 		source; // Make the sound
 	private float
-		waveDirection, // The shockwave knocks the player back
+		waveDirection, // Shockwave knocks the player back
 		spinAngle;     // Make the shockwave spin
 	private Vector2
-		knockBack; // Amount of force applied to the player on knockback
+		knockBack; // Force applied to the player on knockback
+	private bool
+		canDamage = true; // Prevent the shockwave from dealing damage more than once
 	#endregion
 
 	// Unity Named Methods
@@ -58,10 +60,14 @@ public class ShockwaveAttack : MonoBehaviour
 	{
 		if (this.enabled)
 		{
-			if (collision.gameObject.tag == "Player")
+			// The shockwave damages through shields
+			if (canDamage && collision.gameObject.tag == "Player")
 			{
+				player.canTakeDamage = true;
 				collision.attachedRigidbody.AddRelativeForce(knockBack * 1000.0f, ForceMode2D.Force);
 				player.TakeDamage(1, false);
+				player.canTakeDamage = false;
+				canDamage            = false;
 			}
 		}
 	}
@@ -71,7 +77,7 @@ public class ShockwaveAttack : MonoBehaviour
 	/// <summary> Make the shockwave spin (aesthetic effect) </summary>
 	void SpinShockwave()
 	{
-		transform.rotation = Quaternion.AngleAxis(spinAngle -= 5.0f, Vector3.forward);
+		transform.rotation = Quaternion.AngleAxis(spinAngle -= 7.5f, Vector3.forward);
 	}
 	#endregion
 

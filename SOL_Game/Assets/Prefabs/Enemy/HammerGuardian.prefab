@@ -83,12 +83,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 37f0c6fd2917ee54d82bdd7dab07a345, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6566e4d26b8304a4994ef38b35a53b6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -185,6 +185,7 @@ MonoBehaviour:
   MAXPOSSIBLEHEALTH: 0
   maxHealOverTime: 0
   moveSpeed: 0
+  maxMoveSpeed: 0
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
@@ -193,15 +194,17 @@ MonoBehaviour:
   enemyAudioManager: {fileID: 2259566401528189603, guid: 204e36eb2d958144b888173b4d3536dc,
     type: 3}
   powerUp: {fileID: 0}
+  pixelDesolveMaterial: {fileID: 0}
   attackTime: 2
   restDelay: 3
   range: 5
   attackDelayTime: 2
   shockWave: {fileID: 5583976521140673498, guid: ec4f96be2928bc141a97e89d8b1779f5,
     type: 3}
-  spikes: {fileID: 8293354123750813633, guid: 96b28feecbfc347428c534b016fed726, type: 3}
+  spikes: {fileID: 80973955993958353, guid: ac185fbafc2442749b917a3393dbd73a, type: 3}
+  maxSpikes: 0
   phase: 0
-  phaseHealth: 20
+  phaseHealth: 10
   sprite: {fileID: 278430650391770924}
 --- !u!58 &278430650391770926
 CircleCollider2D:
@@ -437,4 +440,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  destroyedSprite: {fileID: 21300000, guid: b024081486c84a546a1d80416957e385, type: 3}
+  destroyedSprite: {fileID: 6657893770769798689, guid: e1ce698453699674aac89b48cf7060c1,
+    type: 3}
