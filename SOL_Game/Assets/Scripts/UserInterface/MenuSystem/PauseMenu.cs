@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -66,12 +67,14 @@ public class PauseMenu : MonoBehaviour
 	{
 		if (GameObject.Find("PauseMenuCanvas(Clone)") == null)
 		{
-			Instantiate(pauseMenuUI, new Vector3(0, 0, 0), Quaternion.identity);
+			GameObject pauseMenu = Instantiate(pauseMenuUI, new Vector3(0, 0, 0), Quaternion.identity);
+			GameObject.Find("ResumeButton").GetComponent<Button>().Select();
 		}
 	}
 	/// Resume the game
 	public void Resume()
 	{
+		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UnFreezePlayer();
 		Destroy(GameObject.Find("PauseMenuCanvas(Clone)"));
 		Time.timeScale = 1.0f;
 		isPaused = false;	
@@ -80,7 +83,7 @@ public class PauseMenu : MonoBehaviour
 	/// Pause the game
 	void Pause()
 	{
-		
+		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().FreezePlayer();
 		Time.timeScale = 0.0f;
 		isPaused = true;
 	}

@@ -81,6 +81,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MenuSelect"",
+                    ""type"": ""Button"",
+                    ""id"": ""77fa18e2-8d20-45f8-9cd7-6f0a5e6b1af6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -358,6 +366,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""RightTrigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0425bd30-58ae-4583-8d20-01e04b1b9075"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuSelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -374,6 +393,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_PauseMenu = m_Gameplay.FindAction("PauseMenu", throwIfNotFound: true);
         m_Gameplay_LeftTrigger = m_Gameplay.FindAction("LeftTrigger", throwIfNotFound: true);
         m_Gameplay_RightTrigger = m_Gameplay.FindAction("RightTrigger", throwIfNotFound: true);
+        m_Gameplay_MenuSelect = m_Gameplay.FindAction("MenuSelect", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -431,6 +451,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_PauseMenu;
     private readonly InputAction m_Gameplay_LeftTrigger;
     private readonly InputAction m_Gameplay_RightTrigger;
+    private readonly InputAction m_Gameplay_MenuSelect;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -443,6 +464,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @PauseMenu => m_Wrapper.m_Gameplay_PauseMenu;
         public InputAction @LeftTrigger => m_Wrapper.m_Gameplay_LeftTrigger;
         public InputAction @RightTrigger => m_Wrapper.m_Gameplay_RightTrigger;
+        public InputAction @MenuSelect => m_Wrapper.m_Gameplay_MenuSelect;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -476,6 +498,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @RightTrigger.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightTrigger;
                 @RightTrigger.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightTrigger;
                 @RightTrigger.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightTrigger;
+                @MenuSelect.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuSelect;
+                @MenuSelect.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuSelect;
+                @MenuSelect.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMenuSelect;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -504,6 +529,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @RightTrigger.started += instance.OnRightTrigger;
                 @RightTrigger.performed += instance.OnRightTrigger;
                 @RightTrigger.canceled += instance.OnRightTrigger;
+                @MenuSelect.started += instance.OnMenuSelect;
+                @MenuSelect.performed += instance.OnMenuSelect;
+                @MenuSelect.canceled += instance.OnMenuSelect;
             }
         }
     }
@@ -518,5 +546,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnPauseMenu(InputAction.CallbackContext context);
         void OnLeftTrigger(InputAction.CallbackContext context);
         void OnRightTrigger(InputAction.CallbackContext context);
+        void OnMenuSelect(InputAction.CallbackContext context);
     }
 }

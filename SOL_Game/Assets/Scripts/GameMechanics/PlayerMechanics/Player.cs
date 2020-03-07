@@ -473,6 +473,11 @@ public class Player : BaseCharacter
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
 	public override void EnableShield(bool createShield)
 	{
+		if(canAttack == false)
+		{
+			return;
+		}
+
 		base.EnableShield(createShield);
 
 		canTakeDamage = false;
@@ -484,6 +489,11 @@ public class Player : BaseCharacter
 	/// <summary> override the disable shield method to re able the player to take damage because the shield is down </summary>
 	public override void DisableShield()
 	{
+		if (canAttack == false && shieldIsEnabled == false)
+		{
+			return;
+		}
+
 		base.DisableShield();
 		canTakeDamage = true;
 
