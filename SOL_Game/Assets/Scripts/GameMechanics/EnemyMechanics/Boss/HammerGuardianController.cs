@@ -4,7 +4,7 @@ public class HammerGuardianController : Enemy
 {
 	#region Enums and Defined Constants
 	public const int
-		START_PHASE = 1; // The guardian starts at phase 1
+		START_PHASE = 1;  // The guardian starts at phase 1
 	#endregion
 
 	#region Public Variables
@@ -22,6 +22,8 @@ public class HammerGuardianController : Enemy
 		phaseHealth; // The guardian's starting health at each phase
 	public SpriteRenderer
 		sprite; // The guardian's sprite
+	public bool
+		isAttacking; // Check if the guardian is attacking
 	#endregion
 
 	#region Private Variables
@@ -36,8 +38,6 @@ public class HammerGuardianController : Enemy
 		weaknessRotation; // Used to rotate the weak point as the guardian moves
 	private Vector2
 		facing; // The general direction the guardian is facing
-	private bool
-		isAttacking; // Check if the guardian is attacking
 	#endregion
 
 	// Unity Named Methods
@@ -45,14 +45,15 @@ public class HammerGuardianController : Enemy
 	/// <summary> Locate the player and initialize the guardian </summary>
 	override public void Start()
 	{
-		isAttacking   = false;
-		restTimer     = 0.0f;
-		attackTimer   = attackTime;
-		phase         = START_PHASE;
-		player        = FindObjectOfType<Player>();
-		weakness      = FindObjectOfType<HammerGuardianWeakness>();
-		guardianMove  = FindObjectOfType<HammerGuardianMovement>();
-		currentHealth = weakness.health = phaseHealth;
+		isAttacking     = false;
+		restTimer       = 0.0f;
+		attackTimer     = attackTime;
+		phase           = START_PHASE;
+		player          = FindObjectOfType<Player>();
+		weakness        = FindObjectOfType<HammerGuardianWeakness>();
+		guardianMove    = FindObjectOfType<HammerGuardianMovement>();
+		weakness.health = phaseHealth;
+		canTakeDamage   = false;
 	}
 
 	/// <summary> Turn towards and chase down the player </summary>
@@ -64,15 +65,14 @@ public class HammerGuardianController : Enemy
 		// The weak point rotates with the guardian
 		RotateWeakness();
 
-		// Check if the guardian has taken enough damage to advance the phase
-		AdvancePhase();
-
 		// When attacking the player the guardian stops
 		Targeting();
+	}
 
-		// Check if the guardian should take damage
-		canTakeDamage   = isAttacking;
-		weakness.health = (int) currentHealth;
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.CompareTag("PlayerLightWeapon"))
+		enemyAudioManager.PlaySound();
 	}
 	#endregion
 
@@ -182,9 +182,6 @@ public class HammerGuardianController : Enemy
 			sprite.color = Color.red;
 			// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
 
-			// The guardian takes damage only when it is ready to attack
-			currentHealth = weakness.health;
-
 			// The guardian pauses before striking
 			guardianMove.canMove = false;
 			if (attackDelay > 0.0f)
@@ -237,7 +234,7 @@ public class HammerGuardianController : Enemy
 	}
 
 	/// <summary> Advance the fight to the next phase </summary>
-	private void AdvancePhase()
+	public void AdvancePhase()
 	{
 		if (weakness.health <= 0)
 		{
@@ -245,9 +242,10 @@ public class HammerGuardianController : Enemy
 			if (phase == START_PHASE)
 			{
 				phase++;
-				currentHealth = weakness.health = phaseHealth;
-				restTimer     = restDelay;
-				isAttacking   = false;
+				weakness.health = phaseHealth;
+				restTimer       = restDelay;
+				isAttacking     = false;
+				
 			}
 			else
 			{

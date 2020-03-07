@@ -4,7 +4,7 @@ public class OrbController : MonoBehaviour
 {
 	#region Enums and Defined Constants
 	private const float
-		ATTACK_SPEED_MULTIPLIER = 4.0f; // Match attack speed to revolution speed
+		ATTACK_SPEED_MULTIPLIER = 2.0f; // Match attack speed to revolution speed
 	#endregion
 
 	#region Public Variables
@@ -16,11 +16,16 @@ public class OrbController : MonoBehaviour
 		revolveScript; // Control the revolve around object script
 	public DestructibleObject
 		destructible; // Control the destructible object script
+	public GameObject
+		target; // Missiles target this
 	#endregion
 
 	#region Private Variables
 	private bool
 		isAttacking; // Check if the orb is attacking
+	private float
+		targetAngle,
+		movementAngle;
 	#endregion
 
 	// Unity Named Methods
@@ -28,9 +33,6 @@ public class OrbController : MonoBehaviour
 	/// <summary> Make the orb passive and set up access to its scripts to control its behavior </summary>
 	void Start()
 	{
-		missileScript = GetComponent<LockOnMissile>();
-		revolveScript = GetComponent<RevolveAroundObject>();
-		destructible  = GetComponent<DestructibleObject>();
 		isAttacking   = false;
 	}
 
@@ -57,20 +59,25 @@ public class OrbController : MonoBehaviour
 	/// <summary> Check if the orb's trajectory is in the player's direction </summary>
 	bool checkAngle()
 	{
-		return (Mathf.Abs(((revolveScript.angle - ((revolveScript.clockwise) ? 90.0f : -90.0f)) % 360.0f) -
-		                   (Mathf.Atan2(missileScript.targetPos.y - transform.position.y,
-		                                missileScript.targetPos.x - transform.position.x) * Mathf.Rad2Deg)) <= 3.0f);
+		// Find the angles to compare
+		targetAngle    = (Mathf.Atan2(target.transform.position.y - transform.position.y,
+									  target.transform.position.x - transform.position.x) *
+		                  Mathf.Rad2Deg + 360.0f + ((revolveScript.clockwise) ? 90.0f :-90.0f)) % 360.0f;
+		movementAngle  = ((revolveScript.angle + 360.0f) % 360.0f);
+
+		// Prevent the loop from 360 to 0 from altering the calculation
+		movementAngle += ((targetAngle - movementAngle <= 180.0f) ? 0.0f : 360.0f);
+		targetAngle   += ((movementAngle - targetAngle <= 180.0f) ? 0.0f : 360.0f);
+
+		return (Mathf.Abs(targetAngle - movementAngle) <= 3.0f);
 	}
 
 	/// <summary> Prevent the orb from trying to revolve and attack simultaneously </summary>
 	void ControlMovement()
 	{
 		// If the orb is passive it does not act like a missile
-		if (missileScript.enabled == true && isAttacking == false)
-		{
-			missileScript.enabled = false;
-		}
-
+		missileScript.enabled = isAttacking;
+		
 		// If the orb is ready to attack disable revolving
 		if (revolveScript.enabled == true && isAttacking)
 		{

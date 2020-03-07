@@ -22,7 +22,7 @@ public class LockOnProjectile : MonoBehaviour
 		direction, // The projectile's actual direction of movement (not necessarily directly towards the target)
 		targetPos; // The target's position
 	public GameObject
-	target; // The projectile locks on to this
+		target; // The projectile locks on to this
 	#endregion
 
 	#region Private Variables
