@@ -1,10 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : BaseCharacter
 {
 	#region Enums (Empty)
+	private const int
+		WEST = 0,
+		NORTH = 1,
+		EAST = 2,
+		SOUTH = 3;
 	#endregion
 
 	#region Public Variables
@@ -43,14 +49,17 @@ public class Player : BaseCharacter
 		powerUpTimers; // Make power ups last for a set time
 	public bool[]
 		powerUpsActive; // Check which power ups are active
+
+	public Vector2
+		playerMovementAmount; // used to store the amount that the player will move this frame
 	#endregion
 
 	#region Private Variables
 	// player movement variables
-	private
-		float playerMovementSpeed; // the speed the player can move at
-	private
-		Rigidbody2D playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
+	private float
+		playerMovementSpeed; // the speed the player can move at
+	private Rigidbody2D
+		playerRigidbody; // the players rigid body 2d, used to apply physics to the player like movement
 
 	// player attack timer variables
 	private float
@@ -66,6 +75,10 @@ public class Player : BaseCharacter
 		usingHammerAttack = false,
 		usingBlasterAttack = false,
 		canPowerUp = false;
+		canIncrementComboCounter = false;
+
+	private PlayerControls
+		inputActions;
 	#endregion
 	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
 	private float fast, oldSpeed;
@@ -75,6 +88,8 @@ public class Player : BaseCharacter
 	/// <summary> Start is called before the first frame update </summary>
 	void Start()
 	{
+		SetUpInputDetection();
+
 		// The player starts with max health
 		currentHealth = maxHealth.initialValue;
 		BulletShootingDelay = 0;
@@ -101,7 +116,6 @@ public class Player : BaseCharacter
 		{
 			currentHealth = maxHealth.initialValue;
 		}
-
 		// Activate power ups
 		ActivatePowerUps();
 
@@ -142,39 +156,8 @@ public class Player : BaseCharacter
 		{
 			ApplyPlayerMovement();
 		}
-		if (dialogueManager.GetComponentInChildren<Animator>().GetBool("IsOpen") == true)
-		{
-			playerMovementAmount = Vector2.zero;
-			playerAnimator.SetLayerWeight(1, 0);
-			audioSourcePlayerMovement.volume = 0;
-		}
 
-		// rotate the players attack object if there is input
-		// but don't rotate if the freeze rotation button is down
-		if (Input.GetAxis("FreezeRotation") == 0)
-		{
-			ApplyAttackGameObjectRotation();
-		}
-
-		// On input activate the player's shield unless the player has the power up menu open
-		if (Input.GetButton("B") && shieldIsEnabled == false && Input.GetKey(KeyCode.Q) == false)
-		{
-			StartShieldAnimation();
-			EnableShield(false);
-			shieldIsEnabled = true;
-			canAttack = false;
-		}
-		// On release of input deactivate the player's shield
-		else if (Input.GetButton("B") == false && shieldIsEnabled)
-		{
-			EndAttackAnimation();
-			DisableShield();
-			shieldIsEnabled = false;
-			canAttack = true;
-		}
-
-		// Check if the player is trying use an attack
-		DetectAttackInput();
+		CheckIfShouldIncreaseComboCounter();
 	}
 
 	/// <summary> The player picks up a power up </summary>
@@ -188,55 +171,48 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Utility Methods
-	private void DetectAttackInput()
+	/// <summary> increases the combo counter if the player presses the right attack button while attacking</summary>
+	private void CheckIfShouldIncreaseComboCounter()
 	{
-		// The player can use a weapon on cool down
-		if (usingBlasterAttack == false && usingSwordAttack == false && usingHammerAttack == false)
-		{
-			// if the player is allowed to attack
-			if (canAttack)
-			{
-				// Y is left arrow based on the SNES controller layout; fire and reset the cooldown
-				if (Input.GetButtonDown("Y"))
-				{
-					Shoot(false);
-				}
-				// X is up arrow based on the SNES controller layout; attack with heavy weapon and reset the cooldown
-				else if (Input.GetButtonDown("X"))
-				{
-					StartHammerAnimation();
-				}
-				// A is right arrow based on the SNES controller layout; attack with light weapon and reset the cooldown
-				else if (Input.GetButtonDown("A"))
-				{
-					StartSwordAnimation();
-				}
-			}
-		}
-		// The attack cool down has not finished yet
-		else
-		{
-			IncreaseComboCounter();
-		}
-	}
-
-	/// <summary> This method increases the counters for the combos (used when the player has already started attacking)</summary>
-	private void IncreaseComboCounter()
-	{
-		// X is up arrow based on the SNES controller layout; check if the hammer attack has been used again
-		if (Input.GetButtonDown("X") && hammerComboUnlocked)
-		{
-			hammerComboCouter++;
-		}
-		// A is right arrow based on the SNES controller layout; check if the sword attack has been used again
-		if (Input.GetButtonDown("A") && swordComboUnlocked)
-		{
+		if (usingSwordAttack == true && inputActions.Gameplay.SwordAttack.triggered && swordComboCounter >= 0 && canIncrementComboCounter)
 			swordComboCounter++;
-		}
+		else if (usingHammerAttack == true && inputActions.Gameplay.HammerAttack.triggered && hammerComboCouter >= 0 && canIncrementComboCounter)
+			hammerComboCouter++;
 	}
 
+	/// <summary> this sets up the players input detection</summary>
+	private void SetUpInputDetection()
+	{
+		inputActions = new PlayerControls(); // this in the reference to the new unity input system
+		inputActions.Gameplay.Enable();
+
+		inputActions.Gameplay.ShieldDefense.started += _ => EnableShield(false);
+		inputActions.Gameplay.ShieldDefense.canceled += _ => DisableShield();
+
+
+		inputActions.Gameplay.Movement.performed += context => playerMovementAmount = context.ReadValue<Vector2>() * (playerMovementSpeed + extraSpeed);
+		inputActions.Gameplay.Movement.canceled += _ => playerMovementAmount = Vector2.zero;
+
+
+
+		inputActions.Gameplay.HammerAttack.started += _ => StartHammerAnimation();
+		inputActions.Gameplay.HammerAttack.canceled += _ => canIncrementComboCounter = true;
+
+		inputActions.Gameplay.BlasterAttack.started += _ => Shoot(false);
+
+		inputActions.Gameplay.SwordAttack.started += _ => StartSwordAnimation();
+		inputActions.Gameplay.SwordAttack.canceled += _ => canIncrementComboCounter = true;
+	}
+
+	/// <summary> shoot the players blaster</summary>
 	public override void Shoot(bool createGun)
 	{
+		// dont attack if the player is not allowed to
+		if (canAttack == false || usingBlasterAttack)
+		{
+			return;
+		}
+
 		base.Shoot(createGun);
 
 		StartShootAnimation();
@@ -255,17 +231,28 @@ public class Player : BaseCharacter
 		playerAnimator.SetLayerWeight(2, 2); // increase the blaster layer priority
 	}
 
-	/// <summary> this method starts playing the sword animation </summary>
+	/// <summary> this method starts playing the hammer animation </summary>
 	private void StartHammerAnimation()
 	{
-		// set combo flags
-		hammerComboCouter++;
-		usingHammerAttack = true;
+		// dont attack if the player is not allowed to
+		if(canAttack == false)
+		{
+			return;
+		}
 
-		playerAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
-		FreezePlayer(); // don't let the player move
-		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
-		playerAnimator.SetLayerWeight(4, 2); // increase the blaster layer priority
+		// start the first hammer attack animation
+		if (usingHammerAttack == false)
+		{
+			// set combo flags
+			hammerComboCouter++;
+			usingHammerAttack = true;
+
+			playerAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
+			FreezePlayer(); // don't let the player move
+			playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
+			playerAnimator.SetLayerWeight(4, 2); // increase the blaster layer priority
+			canIncrementComboCounter = false;
+		}
 	}
 
 	/// <summary>This deals damage at a certain frame in the hammer attack animation using an event</summary>
@@ -284,14 +271,26 @@ public class Player : BaseCharacter
 	/// <summary> this method starts playing the sword animation </summary>
 	private void StartSwordAnimation()
 	{
-		// set combo flags
-		swordComboCounter++;
-		usingSwordAttack = true;
+		// dont attack if the player is not allowed to
+		if (canAttack == false)
+		{
+			return;
+		}
 
-		playerAnimator.SetBool("isSwordAttacking", true); // set bool flag blasting to true
-		FreezePlayer(); // don't let the player move
-		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
-		playerAnimator.SetLayerWeight(3, 2); // increase the blaster layer priority
+		swordComboCounter++;
+
+		// increase the sword combo counter if the sword is already being used
+		if (usingSwordAttack == false)
+		{
+			// set combo flags
+			usingSwordAttack = true;
+
+			playerAnimator.SetBool("isSwordAttacking", true); // set bool flag blasting to true
+			FreezePlayer(); // don't let the player move
+			playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
+			playerAnimator.SetLayerWeight(3, 2); // increase the blaster layer priority
+			canIncrementComboCounter = false;
+		}
 	}
 
 	/// <summary>This deals damage at a certain frame in the sword attack animation using an event</summary>
@@ -369,16 +368,16 @@ public class Player : BaseCharacter
 		switch (animatorStateInfo[0].clip.name)
 		{
 			case "IdleLeft":
-				animationDirection = 0; // west
+				animationDirection = WEST;
 				break;
 			case "IdleUp":
-				animationDirection = 1; // north
+				animationDirection = NORTH;
 				break;
 			case "IdleRight":
-				animationDirection = 2; // east
+				animationDirection = EAST;
 				break;
 			case "IdleDown":
-				animationDirection = 3; // south
+				animationDirection = SOUTH;
 				break;
 		}
 
@@ -412,33 +411,40 @@ public class Player : BaseCharacter
 	/// <summary> Rotates the players attack game object so that the players weapons are "fired" in the right direction </summary>
 	private void ApplyAttackGameObjectRotation()
 	{
-		// If the player clicks the left key set rotation to -90 degrees
-		if (Input.GetAxis("Horizontal") < 0)
+		float rotationValue = 0;
+
+		// get the direction the player is facing
+		switch (GetAnimationDirection())
 		{
-			playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, -90f);
+			case WEST:
+				rotationValue = -90f;
+				break;
+			case NORTH:
+				rotationValue = 180f;
+				break;
+			case EAST:
+				rotationValue = 90f;
+				break;
+			case SOUTH:
+				rotationValue = 0f;
+				break;
 		}
-		// If the player clicks the right key set rotation to 90 degrees
-		else if (Input.GetAxis("Horizontal") > 0)
-		{
-			playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, 90f);
-		}
-		// If the player clicks the up key set rotation to 180 degrees
-		else if (Input.GetAxis("Vertical") > 0)
-		{
-			playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, 180f);
-		}
-		// If the player clicks the down key set rotation to zero degrees
-		else if (Input.GetAxis("Vertical") < 0)
-		{
-			playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, 0f);
-		}
+
+		// apply rotation
+		playerAttackGameObject.transform.rotation = Quaternion.Euler(0, 0, rotationValue);
 	}
 
 	/// <summary> check for player movement input and apply it to the player </summary>
 	private void ApplyPlayerMovement()
 	{
-		// Get the amount of movement that the player needs to move
-		playerMovementAmount = GetPlayerMovementAmount();
+
+		if (dialogueManager.GetComponentInChildren<Animator>().GetBool("IsOpen") == true)
+		{
+			playerMovementAmount = Vector2.zero;
+			playerAnimator.SetLayerWeight(1, 0);
+			audioSourcePlayerMovement.volume = 0;
+			return;
+		}
 
 		// play or stop the player movement sound
 		if (playerMovementAmount != Vector2.zero)
@@ -462,10 +468,15 @@ public class Player : BaseCharacter
 			playerAnimator.SetLayerWeight(1, 0);
 			dustCountdownTimer = -.1f; // set the countdown timer less than zero so that dust will be created right when the player next moves
 		}
+
 		// Update the values in the Animator for the players animation
 		SetPlayerAnimatorValues();
+
 		// Update the Hero's position, taking note of colliders.
 		playerRigidbody.MovePosition(playerMovementAmount + playerRigidbody.position);
+
+		// rotate the point at which the player attacks will be determined from (blaster bullet direction)
+		ApplyAttackGameObjectRotation();
 	}
 
 	/// <summary> This creates a dust effect every N seconds</summary>
@@ -480,12 +491,6 @@ public class Player : BaseCharacter
 		{
 			dustCountdownTimer -= Time.deltaTime;
 		}
-	}
-
-	/// <summary> Get the amount of movement that the player needs to move </summary>
-	private Vector2 GetPlayerMovementAmount()
-	{
-		return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * (playerMovementSpeed + extraSpeed);
 	}
 
 	/// <summary> Update the values in the Animator for the players animations </summary>
@@ -554,21 +559,41 @@ public class Player : BaseCharacter
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
 	public override void EnableShield(bool createShield)
 	{
+		if(canAttack == false)
+		{
+			return;
+		}
+
 		base.EnableShield(createShield);
+
 		canTakeDamage = false;
+		StartShieldAnimation();
+		shieldIsEnabled = true;
+		canAttack = false;
 	}
 
 	/// <summary> override the disable shield method to re able the player to take damage because the shield is down </summary>
 	public override void DisableShield()
 	{
+		if (canAttack == false && shieldIsEnabled == false)
+		{
+			return;
+		}
+
 		base.DisableShield();
 		canTakeDamage = true;
+
+		EndAttackAnimation();
+		shieldIsEnabled = false;
+		canAttack = true;
 	}
 
 	/// <summary> this freezes the player so that he can't move or attack</summary>
 	public void FreezePlayer()
 	{
 		playerMovementAmount = Vector2.zero;
+		if(playerRigidbody != null)
+			playerRigidbody.isKinematic = true;
 		playerAnimator.SetLayerWeight(1, 0);
 		audioSourcePlayerMovement.volume = 0;
 		playerAllowedToMove = false;
@@ -580,6 +605,8 @@ public class Player : BaseCharacter
 	{
 		playerAllowedToMove = true;
 		canAttack = true;
+		if (playerRigidbody != null)
+			playerRigidbody.isKinematic = false;
 	}
 	#endregion
 
