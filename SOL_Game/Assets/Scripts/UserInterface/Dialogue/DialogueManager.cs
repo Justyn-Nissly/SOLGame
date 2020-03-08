@@ -17,20 +17,26 @@ public class DialogueManager : MonoBehaviour
 	public Text
 		dialogueText,    // The text that the NPC is currently speaking
 	    nameText;        // The name of the NPC currently Speaking
-	public Queue<string> 
+	public Queue<string>
 		sentences;       // All sentences for the characters dialogue
 	public bool
 		isClosed;        // The dialogue is open and closed
 	public int
 		currentSentence; // The sentence that is currently being typed
 	public float
-		textSpeed,       // The speed at which the text will be typed on the screen
-		timer;           // The timer to remove the NPC from the scene
+		textSpeed,    // The speed at which the text will be typed on the screen
+		timer;        // The timer to remove the NPC from the scene
 	#endregion
 
 	#region Private Variables
-	private GameObject playerMovement; // A reference to the player
+	private GameObject
+		playerMovement; // A reference to the player
+	private PlayerControls
+		inputActions;
+	private bool
+		dialogueBoxIsActive = false;
 	#endregion
+
 	// Unity Named Methods
 	#region Main Methods
 	///<summary> Initialize the sentence queue for the NPC, find the player, and get the animator for the NPC</summary>
@@ -38,6 +44,10 @@ public class DialogueManager : MonoBehaviour
 	{
 		isClosed = false;
 		NPC = GameObject.FindGameObjectWithTag("LoadStar");
+		// this sets up the players input detection
+		inputActions = new PlayerControls(); // this in the reference to the new unity input system
+		inputActions.Gameplay.Enable();
+
 		sentences      = new Queue<string>();
 		playerMovement = GameObject.FindGameObjectWithTag("Player");
 		animator       = GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>();
@@ -47,10 +57,9 @@ public class DialogueManager : MonoBehaviour
 	///<summary> Check if the player has pressed the return key to move to the next sentence </summary>
 	void Update()
 	{
-		/*Debug.Log(NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence]);*/
-		if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) && animator.GetBool("IsOpen") == true)
+		if (dialogueBoxIsActive && (inputActions.Gameplay.LeftTrigger.triggered || inputActions.Gameplay.RightTrigger.triggered))
 		{
-			
+
 			if (dialogueText.text != NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence])
 			{
 				StopAllCoroutines();
@@ -76,6 +85,8 @@ public class DialogueManager : MonoBehaviour
 	/// Start the dialogue with the player
 	public void StartDialogue (Dialogue dialogue)
 	{
+		dialogueBoxIsActive = true;
+
 		animator.SetBool("IsOpen", true);
 		nameText.text = dialogue.name;
 
@@ -105,7 +116,7 @@ public class DialogueManager : MonoBehaviour
 	/// End the dialogue with the player and close the dialogue box
 	public void EndDialogue()
 	{
-		// Set the dialogue box to close and turn off the loadstar
+		dialogueBoxIsActive = false;
 		animator.SetBool("IsOpen", false);
 		NPC.GetComponent<Animator>().SetBool("IsActive", false);
 

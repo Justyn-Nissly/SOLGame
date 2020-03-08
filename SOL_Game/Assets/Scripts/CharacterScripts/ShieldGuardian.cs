@@ -235,6 +235,8 @@ public class ShieldGuardian : Enemy
 		armsRotationController.shouldLookAtPlayer = false; // stop the arms from rotating
 		bossShieldSprite.enabled = true;
 
+		yield return new WaitForSeconds(1);
+
 		// get the direction the player is in
 		Vector3 targetDirection = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).normalized;
 
