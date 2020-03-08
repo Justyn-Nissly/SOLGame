@@ -68,7 +68,7 @@ public class PauseMenu : MonoBehaviour
 		if (GameObject.Find("PauseMenuCanvas(Clone)") == null)
 		{
 			GameObject pauseMenu = Instantiate(pauseMenuUI, new Vector3(0, 0, 0), Quaternion.identity);
-			GameObject.Find("ResumeButton").GetComponent<Button>().Select();
+			GameObject.Find("Resume").GetComponent<Button>().Select();
 		}
 	}
 	/// Resume the game
