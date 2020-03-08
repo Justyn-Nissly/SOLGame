@@ -434,8 +434,9 @@ public class Player : BaseCharacter
 	/// <summary> check for player movement input and apply it to the player </summary>
 	private void ApplyPlayerMovement()
 	{
+		
 
-		if (dialogueManager.GetComponentInChildren<Animator>().GetBool("IsOpen") == true)
+		if (dialogueManager != null && dialogueManager.GetComponentInChildren<Animator>().GetBool("IsOpen") == true)
 		{
 			playerMovementAmount = Vector2.zero;
 			playerAnimator.SetLayerWeight(1, 0);

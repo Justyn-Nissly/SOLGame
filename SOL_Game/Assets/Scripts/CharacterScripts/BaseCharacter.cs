@@ -215,7 +215,7 @@ public class BaseCharacter : MonoBehaviour
 
 	#region Coroutines
 	/// <summary> Make a character blink for a short time after taking damage </summary>
-	IEnumerator StartBlinking()
+	protected virtual IEnumerator StartBlinking()
 	{
 		SpriteRenderer
 			spriteRenderer = GetComponent<SpriteRenderer>(); // Control character's sprite

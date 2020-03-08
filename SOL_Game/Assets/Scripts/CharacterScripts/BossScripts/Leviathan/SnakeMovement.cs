@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SnakeMovement : MonoBehaviour
 {
+	public SnakeManager snakeManager;
 
 	public List<Transform> bodyParts = new List<Transform>();
 
@@ -34,8 +35,16 @@ public class SnakeMovement : MonoBehaviour
 	// Update is called once per frame
 	private void FixedUpdate()
 	{
-		if(stopMoving == false)
+
+		if (snakeManager.SnakeIsSplit && coRoutineRunning == false)
+		{
+			rotateBackAndForth = false;
+			StartCoroutine(lookatgameobject(GameObject.FindGameObjectWithTag("Player").transform.position, .25f, 1));
+		}
+		else if (stopMoving == false)
 			Move();
+		
+
 
 		if((bodyParts[0].position.x < LeftUpperLimit.position.x ||
 			bodyParts[0].position.x > RightLowerLimit.position.x ||
@@ -43,9 +52,22 @@ public class SnakeMovement : MonoBehaviour
 			bodyParts[0].position.y < RightLowerLimit.position.y) && coRoutineRunning == false)
 		{
 			rotateBackAndForth = false;
+			//UpdateLookAt();
 		}
 	}
 
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.transform.CompareTag("Enemy"))
+		{
+			if (snakeManager.canConnect)
+			{
+				snakeManager.SplitTheSnake = false;
+			}
+		}
+	}
+
+	///<summary> rotates the head back and forth to get a snake movement effect </summary>
 	private void RotateBackAndForth()
 	{
 		if (rotationAmount <= -uperLimit && countingUp == false)
@@ -70,22 +92,25 @@ public class SnakeMovement : MonoBehaviour
 		bodyParts[0].Rotate(new Vector3(0, 0, rotationAmount) * rotSPPPEddd * Time.deltaTime);
 	}
 
+	/// <summary> moves the snake based on the set varables</summary>
 	public void Move()
 	{
-		// move a little bit forward
+		// move the head a little bit forward
 		bodyParts[0].Translate(bodyParts[0].up * speed * Time.smoothDeltaTime, Space.World);
 
+		//rotate back and forth
 		if(rotateBackAndForth)
 		{
 			RotateBackAndForth();
 		}
 
+		//look and start moving to the center of the room
 		if (rotateBackAndForth == false && coRoutineRunning == false)
 		{
-			//StartCoroutine(Rotate(180));
-			StartCoroutine(lookatgameobject());
+			StartCoroutine(lookatgameobject(GameObject.FindGameObjectWithTag("Player").transform.position, 0, 1));
 		}
 
+		// move all the body parts forward
 		for (int i = 1; i < bodyParts.Count; i++)
 		{
 			curBodyPart = bodyParts[i];
@@ -107,6 +132,7 @@ public class SnakeMovement : MonoBehaviour
 		}
 	}
 
+	/// <summary>makes the snake look at the target game object</summary>
 	public void LookAtTarget()
 	{
 		// Get the angle between the enemy and player
@@ -139,32 +165,19 @@ public class SnakeMovement : MonoBehaviour
 		return randomPosition;
 	}
 
-	private IEnumerator lookatgameobject()
+	/// <summary> looks at the target and after N seconds stops so that normal movement can happen</summary>
+	public IEnumerator lookatgameobject(Vector3 lookAtTarget, float startDelay, float endDelay)
 	{
 		coRoutineRunning = true;
-		target.position = GetRandomPositionBeweenLimits();
-		LookAtTarget();
 
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(startDelay);
+
+		target.position = lookAtTarget;// set the target
+		LookAtTarget(); // look at the new target
+
+		yield return new WaitForSeconds(endDelay);
 
 		coRoutineRunning = false;
 		rotateBackAndForth = true;
-	}
-
-	private IEnumerator Rotate(float degrees)
-	{
-		coRoutineRunning = true;
-		float currentRotationAmount = 0;
-
-		while (currentRotationAmount <= degrees)
-		{
-			bodyParts[0].Rotate(new Vector3(0, 0, 2));
-			currentRotationAmount += 2;
-			yield return new WaitForSeconds(.01f);
-		}
-
-		coRoutineRunning = false;
-		rotateBackAndForth = true;
-
 	}
 }

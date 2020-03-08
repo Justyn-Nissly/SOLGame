@@ -131,7 +131,8 @@ public class Enemy : BaseCharacter
 		// The enemy gets destroyed if it runs out of health
 		if (currentHealth <= 0)
 		{
-			enemyAudioManager.PlaySound();
+			if(enemyAudioManager != null)
+				enemyAudioManager.PlaySound();
 
 			// The enemy might drop a power up
 			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
@@ -140,7 +141,7 @@ public class Enemy : BaseCharacter
 			}
 
 			canDropPowerUp = false;
-			StartCoroutine("Die");
+			StartCoroutine(Die());
 		}
 	}
 
