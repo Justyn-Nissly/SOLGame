@@ -26,7 +26,7 @@ public class EnemyMovement : MonoBehaviour
 	public MovementType
 		Type; // The movement pattern that the enemy uses
 	public Animator
-		enemyAnimator; // The animator controler for the enemy
+		enemyAnimator; // The animator controller for the enemy
 	public float
 		evasionDistance, // How far the enemy tries to stay from the player
 		waitTime;        // Waiting time before moving in new direction and how long the enemy waits to move again after charging
@@ -140,9 +140,6 @@ public class EnemyMovement : MonoBehaviour
 		{
 			SetEnemyAnimatorValues();
 		}
-
-		// Update the values in the Animator for the players animation
-		SetEnemyAnimatorValues();
 
 		// Check which movement type is being used
 		switch (Type)
@@ -431,7 +428,8 @@ public class EnemyMovement : MonoBehaviour
 		// If the enemy stops moving it chooses a new direction
 		if (moveTime <= 0.0f)
 		{
-			enemyAnimator.SetLayerWeight(1, 1);
+			if(enemyAnimator != null)
+				enemyAnimator.SetLayerWeight(1, 1);
 			waiting = waitTime;
 			ChooseNewPath();
 			stopped = false;
@@ -440,14 +438,19 @@ public class EnemyMovement : MonoBehaviour
 		// The enemy delays before moving in a new direction
 		else if (waiting > 0.0f)
 		{
-			enemyAnimator.SetLayerWeight(1, 1);
+			if (enemyAnimator != null)
+				enemyAnimator.SetLayerWeight(1, 1);
 			waiting -= Time.deltaTime;
 		}
 
 		// The enemy is moving
 		else
 		{
-			enemyAnimator.SetLayerWeight(1, 0);
+			if(enemyAnimator != null)
+			{
+				enemyAnimator.SetLayerWeight(1, 0);
+			}
+
 			enemy.rb2d.MovePosition((Vector2)transform.position + path * Time.deltaTime);
 			moveTime -= Time.deltaTime;
 			// If the enemy hits an obstacle it stops and chooses a different direction

@@ -68,7 +68,7 @@ public class MeleeGuardian : Enemy
 	#endregion
 
 	#region Utility Methods
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
