@@ -116,7 +116,7 @@ public class Leviadrin : Enemy
 			return;
 		}
 
-		StartCoroutine(SpawningEnemiesActions(3));
+		StartCoroutine(SpawningEnemiesActions(2));
 
 		foreach (Transform attactTarget in breathAttackTargets)
 		{
