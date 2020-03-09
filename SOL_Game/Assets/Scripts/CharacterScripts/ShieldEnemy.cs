@@ -31,7 +31,7 @@ public class ShieldEnemy : Enemy
 	{
 		base.Start();
 
-		EnableShield();
+		EnableShield(true);
 		strike          = GetComponent<EvasiveStrike>();
 		shieldIsEnabled = true;
 		canAttack = false;
@@ -81,7 +81,7 @@ public class ShieldEnemy : Enemy
 	{
 		yield return new WaitForSeconds(delayTime);
 
-		EnableShield();
+		EnableShield(true);
 		shieldIsEnabled = true;
 		canAttack = false;
 		canDamagePlayer = true;

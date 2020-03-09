@@ -10,7 +10,7 @@ public class Leviathan : Enemy
 
 	#region Public Variables
 	public FloatValue
-		damageToGive; // The bosses damage that is dealed to the player
+		damageToGive; // The bosses damage that is dealt to the player
 	public Transform
 		roomCenterTransform, // A transform at the center of the room used for some of the bosses movement calculation
 		offScreenLocation,

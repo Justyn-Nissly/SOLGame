@@ -1,65 +1,87 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PowerUp : MonoBehaviour
 {
 	#region Enums and Defined Constants
 	public const int
-		HEAL  = 0, // Heal the player
+		MAX_MED_KITS = 4, // Player cannot hold moer than this many med kits
+		SHIELD = 0, // Grant temporary invulnerability
 		POWER = 1, // Boost the player's damage
-		SPEED = 2; // Boost the player's speed
+		SPEED = 2, // Boost the player's speed
+		HEAL = 3; // Heal the player
 	#endregion
 
 	#region Public Variables
 	public int
 		type; // The type of the power up itself
 	public float
-		timer; // Time until the power up disappears
+		powerUpTimer, // How long power ups last
+		timer;        // Time until the power up disappears
 	public Sprite
 		powerUp; // Power up graphic
-	public Sprite []
+	public Sprite[]
 		powerUps; // Possible power up graphics
 	#endregion
 
 	#region Private Variables
 	private Player
 		player; // Apply the power up to the player
+	private float
+		spinTimer; // Make the power up appear to spin
+	private SpriteRenderer
+		powerUpSprite; // Power up visual
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary> Called when the power up spawns </summary>
+	/// <summary> Determine the power up type </summary>
 	void Awake()
 	{
 		new Random();
-		player  = GameObject.FindObjectOfType<Player>();
-		type    = (int)Random.Range((float)HEAL, (float)SPEED + 0.5f);
-		this.GetComponent<SpriteRenderer>().sprite = powerUps[type];
+		player = GameObject.FindObjectOfType<Player>();
+		spinTimer = 0.0f;
+
+		// Med kits are more common than other power ups
+		type = (int)Random.Range((float)SHIELD, (float)HEAL + 1.1f);
+		if (type > HEAL)
+		{
+			type = HEAL;
+		}
+		(powerUpSprite = GetComponent<SpriteRenderer>()).sprite = powerUps[type * (HEAL + 1)];
 	}
 
 	/// <summary> Power ups eventually disappear after dropping </summary>
 	void FixedUpdate()
 	{
-		if (timer > 0.0f)
-		{
-			timer -= Time.deltaTime;
-		}
-		else
+		spinTimer += Time.deltaTime * 8.0f;
+		powerUpSprite.sprite = powerUps[(int)(spinTimer % 4.0f) + type * (HEAL + 1)];
+
+		if (timer <= 0.0f)
 		{
 			Destroy(gameObject);
 		}
+
 		StartCoroutine("StartBlinking");
+		timer -= Time.deltaTime;
 	}
 
 	/// <summary> Apply the power up </summary>
-	void OnCollisionEnter2D(Collision2D collision)
+	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
 		{
-			// Effects have timers but healing is instantaneous
-			player.powerUpTimers[type] = (type == HEAL) ? 0.0001f : player.powerUpTimer;
+			// Enable the player to use the power up
+			if (type != HEAL)
+			{
+				player.powerUpTimers[type] = powerUpTimer;
+			}
+			else if (player.medKits < MAX_MED_KITS)
+			{
+				player.medKits++;
+			}
+
+			// Power up disappears atfer being picked up
 			Destroy(gameObject);
 		}
 
@@ -82,7 +104,6 @@ public class PowerUp : MonoBehaviour
 			// Toggle the sprite's visibility to make it blink
 			spriteRenderer.enabled = !spriteRenderer.enabled;
 
-			// Put custom timer here?
 			// Blinking speeds up as the timer runs down
 			yield return new WaitForSeconds(timer);
 		}

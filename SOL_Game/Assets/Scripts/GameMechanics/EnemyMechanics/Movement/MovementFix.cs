@@ -27,6 +27,8 @@ public class MovementFix : MonoBehaviour
 	void Start()
 	{
 		enemyRidgedBody = this.GetComponent<Rigidbody2D>();
+
+		player = GameObject.FindGameObjectWithTag("Player").transform;
 	}
 
 	void Update()

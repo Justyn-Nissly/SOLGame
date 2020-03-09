@@ -23,7 +23,7 @@ public class MeleeShieldEnemy : Enemy
 	///<summary> Initialize the enemy </summary>
 	private void Awake()
 	{
-		EnableShield();
+		EnableShield(true);
 		shieldIsEnabled = true;
 		shieldDownTimer = shieldDropTime;
 	}
@@ -40,7 +40,7 @@ public class MeleeShieldEnemy : Enemy
 			DisableShield(); // make the enemy disable there shield
 
 			// attack with a light attack
-			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive);
+			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, true);
 
 			Invoke("ReEnableShield", shieldReEnableDelayTime); // re enable the enemies shield after N seconds
 			
@@ -56,7 +56,7 @@ public class MeleeShieldEnemy : Enemy
 	///<summary> Turn the shield on </summary>
 	public void ReEnableShield()
 	{
-		EnableShield();
+		EnableShield(true);
 		shieldIsEnabled = true;
 	}
 

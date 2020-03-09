@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+[System.Serializable]
 
 public class Enemy : BaseCharacter
 {
@@ -38,16 +39,15 @@ public class Enemy : BaseCharacter
 	public GameObject
 		powerUp; // Reference PowerUp prefab.
 
-	public Material
-		pixelDesolveMaterial;
+	public Material pixelDesolveMaterial;
 	#endregion
 
 	#region Private Variables
 	private float
 		amountHealed = 0,
 		countDownTimer;
-	public bool
-		canMove; // The enemy can move
+	private bool
+		canDropPowerUp;
 	#endregion
 
 	// Unity Named Methods
@@ -55,8 +55,9 @@ public class Enemy : BaseCharacter
 	/// <summary> Initialize the enemy </summary>
 	public virtual void Start()
 	{
-		player        = GameObject.FindObjectOfType<Player>();
-		rb2d          = GetComponent<Rigidbody2D>();
+		canDropPowerUp = true;
+		player         = GameObject.FindObjectOfType<Player>();
+		rb2d           = GetComponent<Rigidbody2D>();
 
 		if(maxHealth != null)
 		{
@@ -64,13 +65,14 @@ public class Enemy : BaseCharacter
 		}
 
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
-		countDownTimer = maxHealOverTime;
-		canMove = true;
+    countDownTimer = maxHealOverTime;
 	}
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	public virtual void FixedUpdate()
 	{
-		if(canMove == true)
+		EnemyMovement enemyMovement = this.GetComponent<EnemyMovement>();
+
+		if (enemyMovement != null && enemyMovement.canMove == true)
 		{
 			// Check if the player is close enough to aggro
 			playerPos = GameObject.FindWithTag("Player").transform.position;
@@ -109,15 +111,12 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Utility Methods
-	/// <summary> deal damage to the passed in player</summary>
+	/// <summary> deal damage to the passed in player </summary>
 	protected virtual void DamagePlayer(Player player, int damageToGive, bool playSwordSoundEffect = false)
 	{
 		if (player != null)
 		{
 			player.TakeDamage(damageToGive, playSwordSoundEffect);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
 
@@ -133,14 +132,15 @@ public class Enemy : BaseCharacter
 		if (currentHealth <= 0)
 		{
 			enemyAudioManager.PlaySound();
+
 			// The enemy might drop a power up
-			if (Random.Range(0.0f, 5.0f) > 4.0f)
+			if (/*canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f*/true)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}
 
+			canDropPowerUp = false;
 			StartCoroutine("Die");
-			
 		}
 	}
 

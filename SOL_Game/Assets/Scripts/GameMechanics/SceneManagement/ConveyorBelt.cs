@@ -44,8 +44,8 @@ public class ConveyorBelt : MonoBehaviour
 	/// <summary> Push objects on the conveyor belt </summary>
 	private void OnTriggerStay2D(Collider2D collider)
 	{
-		// if the player collides with this trigger spawn in enemies
-		if (isMoving && (collider.tag == "Player" || collider.tag == "Enemy"))
+		// Only characters and items get affected by conveyor belts
+		if (isMoving && (collider.tag == "Player" || collider.tag == "Enemy" || collider.tag == "PuzzleItem"))
 		{
 			collider.attachedRigidbody.AddRelativeForce(movement * speed, ForceMode2D.Force);
 		}

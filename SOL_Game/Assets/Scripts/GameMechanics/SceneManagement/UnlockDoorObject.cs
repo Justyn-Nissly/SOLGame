@@ -48,6 +48,8 @@ public class UnlockDoorObject : MonoBehaviour
 		canUseObject        = false, // For knowing if you are allowed to use this object at this time
 		playerHasUsedObject = false, // Used to make sure the player cant use this object more than once
 		isSwitchFlipped     = false; // The state of the switch
+	private PlayerControls
+		inputActions;
 	#endregion
 
 	// Unity Named Methods
@@ -55,6 +57,9 @@ public class UnlockDoorObject : MonoBehaviour
 
 	private void Start()
 	{
+		inputActions = new PlayerControls();
+		inputActions.Gameplay.Enable();
+
 		// Assign the right sprite to this object
 		objectRenderer = GetComponent<SpriteRenderer>();
 		objectRenderer.sprite = unusedSprite;
@@ -69,7 +74,7 @@ public class UnlockDoorObject : MonoBehaviour
 	private void Update()
 	{
 		// Check to see if the switch has been flipped
-		if(playerHasUsedObject == false && canUseObject && (Input.GetKeyDown(KeyCode.E) || CheckForAttackInput()))
+		if(playerHasUsedObject == false && canUseObject && CheckForInput())
 		{
 			if (switchType == SwitchType.doorSwitch)
 			{
@@ -150,9 +155,11 @@ public class UnlockDoorObject : MonoBehaviour
 	}
 
 	/// <summary> Check if the player has pressed an attack button to flip the switch </summary>
-	private bool CheckForAttackInput()
+	private bool CheckForInput()
 	{
-		return Input.GetButton("B") || Input.GetButton("X") || Input.GetButton("A") || Input.GetButton("Y");
+		return (inputActions.Gameplay.BlasterAttack.triggered || inputActions.Gameplay.SwordAttack.triggered ||
+				 inputActions.Gameplay.ShieldDefense.triggered || inputActions.Gameplay.HammerAttack.triggered ||
+				 inputActions.Gameplay.LeftTrigger.triggered || inputActions.Gameplay.RightTrigger.triggered);
 	}
 
 	///<summary> Spawn in enemies if the switch is flipped </summary>

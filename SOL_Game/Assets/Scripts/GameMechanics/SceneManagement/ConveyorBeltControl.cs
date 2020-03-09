@@ -11,6 +11,8 @@ public class ConveyorBeltControl : MonoBehaviour
 		belts; // Keep track of conveyor belts
 	public bool
 		lockLever; // Check if the lever can be used more than once
+	public PolygonCollider2D
+		spawnTrigger; // Trigger enemy spawning
 	#endregion
 
 	#region Private Variables
@@ -68,13 +70,19 @@ public class ConveyorBeltControl : MonoBehaviour
 		if (collision.gameObject.tag == "Player" && locked == false)
 		{
 			reversed = true;
+
+			// Enable an enemy spawner
+			if (spawnTrigger != null)
+			{
+				spawnTrigger.enabled = true;
+			}
 		}
 	}
 	#endregion
 
 	#region Utility Methods
 	/// <summary> Reverse the direction of each conveyor belt in the scene </summary>
-	void SwitchBeltDirection()
+	public void SwitchBeltDirection()
 	{
 		foreach (ConveyorBelt conveyorBelt in belts)
 		{

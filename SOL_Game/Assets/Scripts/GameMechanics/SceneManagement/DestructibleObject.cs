@@ -23,7 +23,8 @@ public class DestructibleObject : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private DoorManager doorManager = new DoorManager(); // this manager has the logic to control a list of door (in this case used to unlock them all)
+	private DoorManager doorManager = new DoorManager(); // Used to unlock doors if applicable
+	private float damageTimer;
 	#endregion
 
 	// Unity Named Methods
@@ -35,19 +36,21 @@ public class DestructibleObject : MonoBehaviour
 		doorManager.doors.AddRange(doorsUnlocked);
 	}
 
+	private void FixedUpdate()
+	{
+		damageTimer -= (damageTimer >= 0.0f) ? Time.deltaTime : 0.0f;
+	}
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// check if the right weapon is whats hitting this object
-		if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)))
+		if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)) && damageTimer <= 0.0f)
 		{
-			if(health > 0)
-			{
-				health--;
-			}
-			else
+			if(--health <= 0)
 			{
 				DestroyObject();
 			}
+			damageTimer = 0.2f;
 		}
 	}
 	#endregion
@@ -76,7 +79,7 @@ public class DestructibleObject : MonoBehaviour
 	}
 
 	/// <summary> call this method to destroy the destructible object </summary>
-	private void DestroyObject()
+	public void DestroyObject()
 	{
 		// unlock any doors that need to be unlocked
 		doorManager.UnlockDoors();
