@@ -19,7 +19,7 @@ public class LeviadrinCollisionUnit : Enemy
 
 	// Unity Named Methods
 	#region Unity Main Methods
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		leviadrin.TakeDamage(damage, playSwordImpactSound);
 	}

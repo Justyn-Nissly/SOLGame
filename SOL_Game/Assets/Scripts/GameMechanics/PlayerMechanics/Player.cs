@@ -383,8 +383,13 @@ public class Player : BaseCharacter
 
 	/// <summary> this method is for the player to take damage
 	/// and send a signal to the UI to update it with the players new health </summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
+		if (fireBreathAttack && safeFromFireAttack)
+		{
+			return;
+		}
+
 		// only take damage if the player is allowed to take damage at the moment
 		if (canTakeDamage)
 		{
