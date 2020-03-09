@@ -171,7 +171,7 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Coroutines
-	private IEnumerator Die()
+	public virtual IEnumerator Die()
 	{
 		float percentageComplete = 0;
 

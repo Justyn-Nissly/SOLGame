@@ -49,5 +49,10 @@ public class LeviadrinCollisionUnit : Enemy
 	#endregion
 
 	#region Coroutines (Empty)
+	public override IEnumerator Die()
+	{
+		StartCoroutine(leviadrin.Die());
+		yield return null;
+	}
 	#endregion
 }

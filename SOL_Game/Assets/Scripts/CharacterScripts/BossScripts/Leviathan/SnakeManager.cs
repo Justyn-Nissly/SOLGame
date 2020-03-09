@@ -4,44 +4,58 @@ using UnityEngine;
 
 public class SnakeManager : MonoBehaviour
 {
-	public SnakeMovement 
-		FullSnake,
-		HalfSnakeHead,
-		HalfSnakeBody;
+	#region Enums (Empty)
+	#endregion
+
+	#region Public Variables
+	public SnakeMovement
+		FullSnake, // reference to the full snake movement logic
+		HalfSnakeHead, // reference to the Half Snake with a Head movement logic
+		HalfSnakeBody; // reference to the Half Snake with only a Body movement logic
 
 	public bool
-		SplitTheSnake = false;
+		SplitTheSnake = false, // flag to start spliting the snake
+		SnakeIsSplit = false; // flag for if the snake is split or not
+
+	public Animator
+		animator; // reference to the snakes head animation
+
 	public bool
-		SnakeIsSplit = false;
+		canConnect = false, // can reconnect flag
+		canMove = false; // can move flag that set the can move value on each snake
+	#endregion
 
-	public bool canConnect = false;
-	public bool CanMove = false;
-
+	#region Private Variables
 	private float
-		splitCountDownTimer = 5,
-		TotalSplitTime = 5;
+		splitCountDownTimer = 5, // count down timer, so that the snake doest reconnect till after this timer is done
+		TotalSplitTime = 5; // count down time interval, so that the snake doest reconnect till after this timer is done
+	#endregion
 
+	#region Main Methods
 	private void Start()
 	{
+		// set the snake to be whole by default
 		FullSnake.enabled = true;
 		HalfSnakeHead.enabled = false;
 		HalfSnakeBody.enabled = false;
 	}
 
-
 	private void FixedUpdate()
 	{
-		if(SnakeIsSplit == false && SplitTheSnake)
+		// Split the snake if the flag is set and the snake is not split yet
+		if (SnakeIsSplit == false && SplitTheSnake)
 		{
 			SplitSnake();
 			canConnect = false;
 			splitCountDownTimer = TotalSplitTime;
 		}
-		else if(SnakeIsSplit && SplitTheSnake == false && canConnect)
+		// Connect the snake if the flag is set and the snake is not connected yet
+		else if (SnakeIsSplit && SplitTheSnake == false && canConnect)
 		{
 			ConnectSnake();
 		}
 
+		// Start the countdown timer till the snake can re connect
 		if (SnakeIsSplit && canConnect == false)
 		{
 			splitCountDownTimer -= Time.deltaTime;
@@ -52,7 +66,8 @@ public class SnakeManager : MonoBehaviour
 			}
 		}
 
-		if (CanMove)
+		// Set all the movement flags in the snake movement script to the can move flag
+		if (canMove)
 		{
 			FullSnake.stopMoving = false;
 			HalfSnakeHead.stopMoving = false;
@@ -65,25 +80,30 @@ public class SnakeManager : MonoBehaviour
 			HalfSnakeBody.stopMoving = true;
 		}
 	}
+	#endregion
 
+	#region Utility Methods
+	/// <summary> Logic to split the snake </summary>
 	private void SplitSnake()
 	{
 		SnakeIsSplit = true;
 		FullSnake.enabled = false;
 		HalfSnakeHead.enabled = true;
 		HalfSnakeBody.enabled = true;
+		animator.SetBool("SnakeIsSplit", true);
 	}
 
+	/// <summary> Logic to connect the snake </summary>
 	private void ConnectSnake()
 	{
 		SnakeIsSplit = false;
 		FullSnake.enabled = true;
 		HalfSnakeHead.enabled = false;
 		HalfSnakeBody.enabled = false;
+		animator.SetBool("SnakeIsSplit", false);
 	}
+	#endregion
 
-	public void LookAtPlayer()
-	{
-		StartCoroutine(FullSnake.lookatgameobject(GameObject.FindGameObjectWithTag("Player").transform.position, 0, 0));
-	}
+	#region Coroutines (Empty)
+	#endregion
 }

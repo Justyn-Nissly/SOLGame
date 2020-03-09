@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7026187514918577284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.83, y: 90.72, z: -45.06002}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalPosition: {x: 21.83, y: 90.72, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2291127492886529908, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
+  m_Sprite: {fileID: -4309310589443118273, guid: 21495feb3c896d740b2b0c14716bd28e,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,7 +98,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.06
+  m_Radius: 0.9
 --- !u!114 &6274064706521520674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,3 +112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
+  poisonSprites:
+  - {fileID: -4309310589443118273, guid: 21495feb3c896d740b2b0c14716bd28e, type: 3}
+  - {fileID: -5857672902344664919, guid: 21495feb3c896d740b2b0c14716bd28e, type: 3}
+  - {fileID: 5218235833164160126, guid: 21495feb3c896d740b2b0c14716bd28e, type: 3}
+  - {fileID: -2272465552160095005, guid: 21495feb3c896d740b2b0c14716bd28e, type: 3}
+  - {fileID: -3371316100470027866, guid: 21495feb3c896d740b2b0c14716bd28e, type: 3}

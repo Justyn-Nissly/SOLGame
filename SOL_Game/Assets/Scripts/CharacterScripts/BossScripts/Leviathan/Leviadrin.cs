@@ -8,7 +8,8 @@ public class Leviadrin : Enemy
 	#endregion
 
 	#region Public Variables
-	public SnakeManager snakeManager;
+	public SnakeManager
+		snakeManager;
 	public FloatValue
 		damageToGive; // The bosses damage that is dealt to the player
 	public EnemySpawner
@@ -53,7 +54,7 @@ public class Leviadrin : Enemy
 	{
 		base.FixedUpdate();
 
-		snakeManager.CanMove = canAttack;
+		snakeManager.canMove = canAttack;
 
 		// Place a poison spot if the enemy can attack
 		if (aggro)
@@ -76,19 +77,10 @@ public class Leviadrin : Enemy
 		}
 
 	}
-
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		// If the boss collided with the player damage the player
-		if (collision.gameObject.CompareTag("Player")) // only damage the player when charging
-		{
-			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)damageToGive.initialValue);
-		}
-	}
 	#endregion
 
 	#region Utility Methods
-	/// <summary> this will do an attack based on the situation</summary>
+	/// <summary> this will do an attack based on the situation </summary>
 	private void DoAnAttack()
 	{
 		// check is the enemy has less than half health, if true it will do all attacks that are allowed below half health
@@ -115,8 +107,6 @@ public class Leviadrin : Enemy
 			attackCountdownTimer = attackIntervalTime;
 		}
 	}
-
-
 
 	/// <summary>  create a line of fire to each fire point in the list of breath target points </summary>
 	private void BreathAttack()
@@ -172,7 +162,7 @@ public class Leviadrin : Enemy
 		{
 			canAttack = false;
 			aggro = false;
-			snakeManager.CanMove = false;
+			snakeManager.canMove = false;
 		}
 		else
 		{
@@ -181,18 +171,29 @@ public class Leviadrin : Enemy
 			{
 				canDoThreeQuarterHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(1)); // start health event
+				IncreaseSnakeMovementSpeed(2);
 			}
 			else if (currentHealth <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
 			{
 				canDoHalfHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(2)); // start health event
+				IncreaseSnakeMovementSpeed(2);
 			}
 			else if (currentHealth <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
-				StartCoroutine(StartHealthEvent(3)); // start health event
+				StartCoroutine(StartHealthEvent(1)); // start health event
+				IncreaseSnakeMovementSpeed(-2);
 			}
 		}
+	}
+
+	/// <summary> changes the snakes movement speed by N </summary>
+	private void IncreaseSnakeMovementSpeed(int increaseAmount)
+	{
+		snakeManager.FullSnake.movementSpeed += increaseAmount;
+		snakeManager.HalfSnakeBody.movementSpeed += increaseAmount;
+		snakeManager.HalfSnakeHead.movementSpeed += increaseAmount;
 	}
 
 	/// <summary> this is every thing that happens a Health event point </summary>
@@ -218,7 +219,7 @@ public class Leviadrin : Enemy
 		enemyIsShacking = true;
 		canTakeDamage = false;
 		aggro = false;
-		snakeManager.CanMove = false;
+		snakeManager.canMove = false;
 
 		foreach(Rigidbody2D rigidbody2D in GetComponentsInChildren<Rigidbody2D>())
 		{
@@ -231,7 +232,7 @@ public class Leviadrin : Enemy
 		enemyIsShacking = false;
 		canTakeDamage = true;
 		aggro = true;
-		snakeManager.CanMove = true;
+		snakeManager.canMove = true;
 		foreach (Rigidbody2D rigidbody2D in GetComponentsInChildren<Rigidbody2D>())
 		{
 			rigidbody2D.isKinematic = false;
@@ -242,17 +243,12 @@ public class Leviadrin : Enemy
 	public IEnumerator StartHealthEvent(int numberOfEnemiesToSpawn)
 	{
 		float seconds = 1;
-		float elapsedTime = 0;
-		Vector3 startingPosition = transform.position; // save the starting position
 
-		//canAttack = false;
+		canAttack = false;
 
-		// move the enemy to the center
-		while (elapsedTime < seconds)
-		{
-			//snakeManager.CanMove = false;
-			yield return new WaitForEndOfFrame();
-		}
+		// stop the snake
+		yield return new WaitForSeconds(seconds);
+
 
 		// start the health event
 		HealthEvent(numberOfEnemiesToSpawn);
