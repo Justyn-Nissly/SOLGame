@@ -517,9 +517,9 @@ public class Player : BaseCharacter
 	private void ApplyPowerUps()
 	{
 		// Apply shield power up
-		if (powerUpsActive[PowerUp.SHIELD] && powerUpTimers[PowerUp.SHIELD] > 0.0f)
+		if (powerUpsActive[PowerUp.SHIELD])
 		{
-			canTakeDamage = false;
+			canTakeDamage = (powerUpTimers[PowerUp.SHIELD] <= 0.0f);
 		}
 
 		// Apply damage boost
@@ -539,16 +539,16 @@ public class Player : BaseCharacter
 		}
 
 		// Decrease each power up timer
-		for (int counter = PowerUp.SHIELD; counter <= PowerUp.SPEED; counter++)
+		for (int i = PowerUp.SHIELD; i <= PowerUp.SPEED; i++)
 		{
-			if ((powerUpsActive[counter] && powerUpTimers[counter] > 0.0f))
+			if ((powerUpsActive[i] && powerUpTimers[i] > 0.0f))
 			{
-				powerUpTimers[counter]  -= Time.deltaTime;
-				powerUpsActive[counter]  = true;
+				powerUpTimers[i]  -= Time.deltaTime;
+				powerUpsActive[i]  = true;
 			}
 			else
 			{
-				powerUpsActive[counter] = false;
+				powerUpsActive[i] = false;
 			}
 		}
 	}

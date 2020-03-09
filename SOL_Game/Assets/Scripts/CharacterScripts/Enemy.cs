@@ -134,7 +134,7 @@ public class Enemy : BaseCharacter
 			enemyAudioManager.PlaySound();
 
 			// The enemy might drop a power up
-			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
+			if (/*canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f*/true)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}
