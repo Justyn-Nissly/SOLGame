@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour
 	///<summary> Check if the player has pressed the return key to move to the next sentence </summary>
 	void Update()
 	{
-		if (dialogueBoxIsActive && (inputActions.Gameplay.LeftTrigger.triggered || inputActions.Gameplay.RightTrigger.triggered))
+		if (dialogueBoxIsActive && inputActions.Gameplay.MenuSelect.triggered)
 		{
 
 			if (dialogueText.text != NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence])

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DevMenu : MonoBehaviour
 {
@@ -18,6 +19,19 @@ public class DevMenu : MonoBehaviour
 	#endregion
 
 	// Unity Named Methods
+	private void Start()
+	{
+		// select the hub be default (needed to work right)
+		GameObject.Find("TheHub").GetComponent<Button>().Select();
+
+		// freeze player moment because we are in a menu
+		GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+		if(playerGO != null)
+		{
+			playerGO.GetComponent<Player>().FreezePlayer();
+		}
+	}
+
 	#region Main Methods
 	void Update()
 	{
