@@ -156,15 +156,6 @@ public class Player : BaseCharacter
 
 		CheckIfShouldIncreaseComboCounter();
 	}
-
-	/// <summary> The player picks up a power up </summary>
-	void OnCollisionEnter2D(Collision2D collision)
-	{
-		if (collision.gameObject.tag == "PowerUp")
-		{
-			Debug.Log("Picked up power up.");
-		}
-	}
 	#endregion
 
 	#region Utility Methods
@@ -533,7 +524,8 @@ public class Player : BaseCharacter
 		if (Input.GetKey(KeyCode.Q) && Input.GetButtonDown("X") && medKits > 0 &&
 		    currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
 		{
-			currentHealth += 2;
+			maxHealth.runTimeValue = (currentHealth += 2);
+			playerHealthSignal.Raise();
 			healTimer = 1.0f;
 			medKits--;
 		}

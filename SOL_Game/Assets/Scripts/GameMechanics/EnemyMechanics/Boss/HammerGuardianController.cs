@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class HammerGuardianController : Enemy
 {
@@ -12,8 +13,10 @@ public class HammerGuardianController : Enemy
 		attackTime,      // How long the guardian checks for the player before attacking
 		restDelay,       // How long the guardian rests after an attack
 		range,           // How far away the guardian will attack from
-		attackDelayTime; // How long the guardian takes to attack
+		attackDelayTime, // How long the guardian takes to attack
+		defeatTimer;     // Time between receiving lethal damage and actual defeat
 	public GameObject
+		explosion, // Guardian explodes upon defeat
 		shockWave, // Used to create shockwaves
 		spikes;    // Used to create spikes
 	public int
@@ -38,6 +41,8 @@ public class HammerGuardianController : Enemy
 		weaknessRotation; // Used to rotate the weak point as the guardian moves
 	private Vector2
 		facing; // The general direction the guardian is facing
+	private bool
+		defeated;
 	#endregion
 
 	// Unity Named Methods
@@ -54,19 +59,40 @@ public class HammerGuardianController : Enemy
 		guardianMove    = FindObjectOfType<HammerGuardianMovement>();
 		weakness.health = phaseHealth;
 		canTakeDamage   = false;
+		defeated        = false;
 	}
 
 	/// <summary> Turn towards and chase down the player </summary>
-	override public void FixedUpdate()
+	public override void FixedUpdate()
 	{
 		// Make the character lower down overlap the character higher up
 		Overlap();
 
-		// The weak point rotates with the guardian
-		RotateWeakness();
+		//The boss is defeated when its weak point takes sufficient damage
+		if (defeated)
+		{
+			if (defeatTimer > 0.0f)
+			{
+				defeatTimer -= Time.deltaTime;
+				if (defeatTimer > 0.3f && Mathf.Abs(0.3f - defeatTimer) < Time.deltaTime)
+				{
+					Instantiate(explosion, transform.position, Quaternion.identity);
+				}
+			}
+			else
+			{
+				Instantiate(powerUp, transform.position, Quaternion.identity);
+				Destroy(gameObject);
+			}
+		}
+		else
+		{
+			// The weak point rotates with the guardian
+			RotateWeakness();
 
-		// When attacking the player the guardian stops
-		Targeting();
+			// When attacking the player the guardian stops
+			Targeting();
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -77,6 +103,11 @@ public class HammerGuardianController : Enemy
 	#endregion
 
 	#region Utility Methods
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	{
+		;
+	}
+
 	/// <summary> Check if the player is in position to be attacked </summary>
 	public bool AttackCheck()
 	{
@@ -249,8 +280,8 @@ public class HammerGuardianController : Enemy
 			}
 			else
 			{
-				// Play death animation and die
-				Destroy(gameObject);
+				// Hammer guardian is defeated
+				defeated = true;
 			}
 		}
 	}
