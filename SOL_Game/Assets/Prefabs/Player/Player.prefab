@@ -189,7 +189,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: -1240475620096147251, guid: de9ef3999441828479fa58543803b300,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -226,7 +226,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3}
+  m_Size: {x: 0.42, y: 0.75}
   m_EdgeRadius: 0
 --- !u!50 &6841405128326533490
 Rigidbody2D:
@@ -264,6 +264,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: f14b1a1b671224a198bad7265575b949, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  safeFromFireAttack: 0
   currentHealth: 0
   takeDamageSounds:
   - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
@@ -307,6 +308,7 @@ MonoBehaviour:
   swordComboUnlocked: 1
   playerAnimator: {fileID: 6958614015349643136}
   playerHealthSignal: {fileID: 11400000, guid: ac92ac62b06a941faa2337f33d033a24, type: 2}
+  playerMovementAmount: {x: 0, y: 0}
   playerAttackGameObject: {fileID: 6841405128845876855}
   dustEffect: {fileID: 4937884779979335401, guid: cd58d09687e554f4babee8489f6b94fa,
     type: 3}
@@ -315,9 +317,10 @@ MonoBehaviour:
   shieldSoundSource: {fileID: 8065668250605309325}
   extraSpeed: 0
   powerUpTimer: 0
+  medKits: 0
   extraDamage: 0
   powerUpTimers: []
-  playerMovementAmount: {x: 0, y: 0}
+  powerUpsActive: 
 --- !u!95 &6958614015349643136
 Animator:
   serializedVersion: 3

@@ -34,7 +34,7 @@ public class PauseMenu : MonoBehaviour
 	void Update()
 	{
 
-		if (inputActions.Gameplay.PauseMenu.triggered)
+		if (inputActions.Gameplay.PauseMenu.triggered && SceneManager.GetActiveScene().name != "Menu")
 		{
 			PauseButtonPressed();
 		}
