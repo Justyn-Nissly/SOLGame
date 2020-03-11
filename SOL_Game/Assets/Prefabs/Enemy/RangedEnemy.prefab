@@ -201,6 +201,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: 6cc77bf4377a749aba194b4ed4b9d852, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  safeFromFireAttack: 0
   currentHealth: 0
   takeDamageSounds:
   - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
@@ -274,7 +275,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &7388532974646456485
 MonoBehaviour:
   m_ObjectHideFlags: 0
