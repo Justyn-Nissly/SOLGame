@@ -29,10 +29,10 @@ public class MainMenu : MonoBehaviour
 	/// Check every frame if the user has hit the "end" key to open the developer menu
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.End))
+		/*if (Input.GetKeyDown(KeyCode.End))
 		{
 			SceneManager.LoadScene("DevMenu");
-		}
+		}*/
 	}
 	#endregion
 

@@ -127,7 +127,7 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-		if (Input.GetKeyDown(KeyCode.Space))
+		/*if (Input.GetKeyDown(KeyCode.Space))
 		{
 			playerMovementSpeed = fast;
 			this.GetComponent<Rigidbody2D>().isKinematic = true;
@@ -136,7 +136,7 @@ public class Player : BaseCharacter
 		{
 			playerMovementSpeed = oldSpeed;
 			this.GetComponent<Rigidbody2D>().isKinematic = false;
-		}
+		}*/
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
