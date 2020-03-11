@@ -42,6 +42,7 @@ public class MainMenu : MonoBehaviour
 	{
 		//FindObjectOfType<AudioManager>().StartBackground();
 		SceneManager.LoadScene("Hub");
+		LoadPlayerHub.UseBeginningPostion = true;
 	}
 
 	/// Quits the game

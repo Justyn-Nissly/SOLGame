@@ -79,13 +79,14 @@ public class Player : BaseCharacter
 		inputActions;
 	#endregion
 	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
-	private float fast, oldSpeed;
+	private float fast, oldSpeed; private bool godModeEnabled;
 	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
 	void Start()
 	{
+		godModeEnabled = false;
 		SetUpInputDetection();
 
 		// The player starts with max health
@@ -128,16 +129,26 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-		/*if (Input.GetKeyDown(KeyCode.Space))
-		{
-			playerMovementSpeed = fast;
-			this.GetComponent<Rigidbody2D>().isKinematic = true;
-		}
-		if (Input.GetKeyUp(KeyCode.Space))
-		{
-			playerMovementSpeed = oldSpeed;
-			this.GetComponent<Rigidbody2D>().isKinematic = false;
-		}*/
+			/*if (Input.GetKeyDown(KeyCode.Space))
+			{
+				playerMovementSpeed = fast;
+				this.GetComponent<Rigidbody2D>().isKinematic = true;
+				GlobalVarablesAndMethods.swordUnlocked = true;
+				GlobalVarablesAndMethods.hammerUnlocked = true;
+				GlobalVarablesAndMethods.blasterUnlocked = true;
+				GlobalVarablesAndMethods.shieldUnlocked = true;
+				SetUpInputDetection();
+			}
+			if (Input.GetKeyDown(KeyCode.End))
+			{
+				playerMovementSpeed = oldSpeed;
+				this.GetComponent<Rigidbody2D>().isKinematic = false;
+				GlobalVarablesAndMethods.swordUnlocked = true;
+				GlobalVarablesAndMethods.hammerUnlocked = false;
+				GlobalVarablesAndMethods.blasterUnlocked = true;
+				GlobalVarablesAndMethods.shieldUnlocked = true;
+				SetUpInputDetection();
+			}*/
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
@@ -184,22 +195,31 @@ public class Player : BaseCharacter
 		inputActions = new PlayerControls(); // this in the reference to the new unity input system
 		inputActions.Gameplay.Enable();
 
-		inputActions.Gameplay.ShieldDefense.started += _ => EnableShield(false);
-		inputActions.Gameplay.ShieldDefense.canceled += _ => DisableShield();
-
-
 		inputActions.Gameplay.Movement.performed += context => playerMovementAmount = context.ReadValue<Vector2>() * (playerMovementSpeed + extraSpeed);
 		inputActions.Gameplay.Movement.canceled += _ => playerMovementAmount = Vector2.zero;
 
+		if (GlobalVarablesAndMethods.shieldUnlocked)
+		{
+			inputActions.Gameplay.ShieldDefense.started += _ => EnableShield(false);
+			inputActions.Gameplay.ShieldDefense.canceled += _ => DisableShield();
+		}
 
+		if (GlobalVarablesAndMethods.hammerUnlocked)
+		{
+			inputActions.Gameplay.HammerAttack.started += _ => StartHammerAnimation();
+			inputActions.Gameplay.HammerAttack.canceled += _ => canIncrementComboCounter = true;
+		}
 
-		inputActions.Gameplay.HammerAttack.started += _ => StartHammerAnimation();
-		inputActions.Gameplay.HammerAttack.canceled += _ => canIncrementComboCounter = true;
+		if (GlobalVarablesAndMethods.blasterUnlocked)
+		{
+			inputActions.Gameplay.BlasterAttack.started += _ => Shoot(false);
+		}
 
-		inputActions.Gameplay.BlasterAttack.started += _ => Shoot(false);
-
-		inputActions.Gameplay.SwordAttack.started += _ => StartSwordAnimation();
-		inputActions.Gameplay.SwordAttack.canceled += _ => canIncrementComboCounter = true;
+		if (GlobalVarablesAndMethods.swordUnlocked)
+		{
+			inputActions.Gameplay.SwordAttack.started += _ => StartSwordAnimation();
+			inputActions.Gameplay.SwordAttack.canceled += _ => canIncrementComboCounter = true;
+		}
 	}
 
 	/// <summary> shoot the players blaster</summary>
@@ -438,7 +458,7 @@ public class Player : BaseCharacter
 	}
 
 	/// <summary> check for player movement input and apply it to the player </summary>
-	private void ApplyPlayerMovement()
+	public void ApplyPlayerMovement()
 	{
 		
 
@@ -509,9 +529,18 @@ public class Player : BaseCharacter
 	{
 		if (Input.GetKey(KeyCode.Q))
 		{
-			powerUpsActive[PowerUp.SHIELD] = (powerUpsActive[PowerUp.SHIELD] || Input.GetButtonDown("B"));
-			powerUpsActive[PowerUp.POWER]  = (powerUpsActive[PowerUp.POWER]  || Input.GetButtonDown("Y"));
-			powerUpsActive[PowerUp.SPEED]  = (powerUpsActive[PowerUp.SPEED]  || Input.GetButtonDown("A"));
+			if(inputActions.Gameplay.Equals(inputActions.Gameplay.ShieldDefense))
+			{
+				powerUpsActive[PowerUp.SHIELD] = (powerUpsActive[PowerUp.SHIELD]);
+			}
+			else if(inputActions.Gameplay.Equals(inputActions.Gameplay.HammerAttack))
+			{
+				powerUpsActive[PowerUp.POWER]  = (powerUpsActive[PowerUp.POWER]  || Input.GetButtonDown("Y"));
+			}
+			else if(inputActions.Gameplay.Equals(inputActions.Gameplay.SwordAttack))
+			{
+				powerUpsActive[PowerUp.SPEED]  = (powerUpsActive[PowerUp.SPEED]  || Input.GetButtonDown("A"));
+			}
 			usingPowerUp = true;
 		}
 		else
@@ -542,6 +571,9 @@ public class Player : BaseCharacter
 		{
 			currentHealth += 2;
 			healTimer = 1.0f;
+			maxHealth.runTimeValue = currentHealth;
+			// send a signal saying that the player has taken damage so update his health UI
+			playerHealthSignal.Raise();
 			medKits--;
 		}
 

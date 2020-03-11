@@ -24,17 +24,15 @@ public class DialogueTrigger : MonoBehaviour
 	{
 		if (collider.CompareTag("Player"))
 		{
-			Debug.Log("Worked1!");
 			if (canActivate == true)
 			{
-				Debug.Log("Worked2!");
 				DialogueManager.NPC = NPC;
 				if (FindObjectOfType<Player>().playerAllowedToMove == true)
 				{
 					// Pause the enemy movement
 					FindObjectOfType<Player>().playerAllowedToMove = false;
 					FindObjectOfType<Player>().playerMovementAmount = Vector2.zero;
-					Debug.Log("Worked3!");
+					FindObjectOfType<Player>().ApplyPlayerMovement();
 				}
 				NPC.GetComponent<Animator>().SetBool("IsActive", true);
 				FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
