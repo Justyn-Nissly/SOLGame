@@ -72,7 +72,8 @@ public class Player : BaseCharacter
 		usingHammerAttack = false,
 		usingBlasterAttack = false,
 		canPowerUp = false,
-		canIncrementComboCounter = false;
+		canIncrementComboCounter = false,
+		usingPowerUp = false;
 
 	private PlayerControls
 		inputActions;
@@ -205,7 +206,7 @@ public class Player : BaseCharacter
 	public override void Shoot(bool createGun)
 	{
 		// dont attack if the player is not allowed to
-		if (canAttack == false || usingBlasterAttack)
+		if (canAttack == false || usingBlasterAttack || shieldIsEnabled)
 		{
 			return;
 		}
@@ -232,7 +233,7 @@ public class Player : BaseCharacter
 	private void StartHammerAnimation()
 	{
 		// dont attack if the player is not allowed to
-		if(canAttack == false)
+		if(canAttack == false || shieldIsEnabled || usingPowerUp)
 		{
 			return;
 		}
@@ -269,7 +270,7 @@ public class Player : BaseCharacter
 	private void StartSwordAnimation()
 	{
 		// dont attack if the player is not allowed to
-		if (canAttack == false)
+		if (canAttack == false || shieldIsEnabled || usingPowerUp)
 		{
 			return;
 		}
@@ -511,11 +512,11 @@ public class Player : BaseCharacter
 			powerUpsActive[PowerUp.SHIELD] = (powerUpsActive[PowerUp.SHIELD] || Input.GetButtonDown("B"));
 			powerUpsActive[PowerUp.POWER]  = (powerUpsActive[PowerUp.POWER]  || Input.GetButtonDown("Y"));
 			powerUpsActive[PowerUp.SPEED]  = (powerUpsActive[PowerUp.SPEED]  || Input.GetButtonDown("A"));
-			canAttack = false;
+			usingPowerUp = true;
 		}
 		else
 		{
-			canAttack = true;
+			usingPowerUp = false;
 		}
 	}
 
@@ -562,7 +563,7 @@ public class Player : BaseCharacter
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
 	public override void EnableShield(bool createShield)
 	{
-		if(canAttack == false)
+		if(canAttack == false || usingSwordAttack || usingHammerAttack || usingBlasterAttack || usingPowerUp)
 		{
 			return;
 		}
@@ -578,17 +579,15 @@ public class Player : BaseCharacter
 	/// <summary> override the disable shield method to re able the player to take damage because the shield is down </summary>
 	public override void DisableShield()
 	{
-		if (canAttack == false && shieldIsEnabled == false)
+		if (shieldIsEnabled == true)
 		{
-			return;
+			base.DisableShield();
+			canTakeDamage = true;
+
+			EndAttackAnimation();
+			shieldIsEnabled = false;
+			canAttack = true;
 		}
-
-		base.DisableShield();
-		canTakeDamage = true;
-
-		EndAttackAnimation();
-		shieldIsEnabled = false;
-		canAttack = true;
 	}
 
 	/// <summary> this freezes the player so that he can't move or attack</summary>
