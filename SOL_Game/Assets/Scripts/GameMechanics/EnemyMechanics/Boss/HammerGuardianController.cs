@@ -66,7 +66,7 @@ public class HammerGuardianController : Enemy
 	public override void FixedUpdate()
 	{
 		// Make the character lower down overlap the character higher up
-		Overlap();
+		RenderInOrder();
 
 		//The boss is defeated when its weak point takes sufficient damage
 		if (defeated)
@@ -287,7 +287,7 @@ public class HammerGuardianController : Enemy
 	}
 
 	/// <summary> Make the character lower down appear in front of the other character </summary>
-	private void Overlap()
+	private void RenderInOrder()
 	{
 		sprite.sortingOrder = ((player.transform.position.y < this.transform.position.y) ? 0 : 2);
 	}
