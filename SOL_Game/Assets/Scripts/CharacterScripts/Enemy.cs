@@ -121,7 +121,7 @@ public class Enemy : BaseCharacter
 	}
 
 	///<summary> Deal damage to the enemy </summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		base.TakeDamage(damage + player.extraDamage, playSwordImpactSound);
 		SetHealth(currentHealth / maxHealth.initialValue);
@@ -131,7 +131,8 @@ public class Enemy : BaseCharacter
 		// The enemy gets destroyed if it runs out of health
 		if (currentHealth <= 0)
 		{
-			enemyAudioManager.PlaySound();
+			if(enemyAudioManager != null)
+				enemyAudioManager.PlaySound();
 
 			// The enemy might drop a power up
 			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
@@ -140,7 +141,7 @@ public class Enemy : BaseCharacter
 			}
 
 			canDropPowerUp = false;
-			StartCoroutine("Die");
+			StartCoroutine(Die());
 		}
 	}
 
@@ -170,7 +171,7 @@ public class Enemy : BaseCharacter
 	#endregion
 
 	#region Coroutines
-	private IEnumerator Die()
+	public virtual IEnumerator Die()
 	{
 		float percentageComplete = 0;
 

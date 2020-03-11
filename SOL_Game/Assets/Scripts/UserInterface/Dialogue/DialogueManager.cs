@@ -29,7 +29,7 @@ public class DialogueManager : MonoBehaviour
 	#endregion
 
 	#region Private Variables
-	private GameObject
+	private Player
 		playerMovement; // A reference to the player
 	private PlayerControls
 		inputActions;
@@ -49,8 +49,10 @@ public class DialogueManager : MonoBehaviour
 		inputActions.Gameplay.Enable();
 
 		sentences      = new Queue<string>();
-		playerMovement = GameObject.FindGameObjectWithTag("Player");
+		playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		animator       = GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>();
+		playerMovement.playerAllowedToMove = false;
+
 		currentSentence = 0;
 	}
 

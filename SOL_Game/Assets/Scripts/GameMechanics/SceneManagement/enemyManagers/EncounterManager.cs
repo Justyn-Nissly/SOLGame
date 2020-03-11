@@ -48,18 +48,38 @@ public class EncounterManager : MonoBehaviour
 	/// <summary> bass spawn in enemy bass coroutine</summary>
 	protected virtual IEnumerator SpawnInEnemy()
 	{
-		enemyToSpawn.GetComponent<Enemy>().canAttack = false;
+		Enemy enemy = enemyToSpawn.GetComponent<Enemy>();
+		if(enemy != null)
+		{
+			enemy.canAttack = false;
+		}
+		else
+		{
+			enemy = enemyToSpawn.GetComponentInChildren<Enemy>();
+			if (enemy != null)
+			{
+				enemy.canAttack = false;
+			}
+		}
 
 		yield return new WaitForSeconds(2f);
 
 		enemyToSpawn.SetActive(true);
 		enemyToSpawn.transform.position = spawnPoint.transform.position;
-		enemyToSpawn.GetComponent<Enemy>().PlayTeleportEffect();
+
+		if (enemy != null)
+		{
+			enemy.PlayTeleportEffect();
+		}
 
 		yield return new WaitForSeconds(2f);
 
-		enemyToSpawn.GetComponent<Enemy>().canAttack = true;
-		enemyToSpawn.GetComponent<Enemy>().aggroRange = 100;
+		if (enemy != null)
+		{
+			enemy.canAttack = true;
+			enemy.aggro = true;
+			enemy.aggroRange = 100;
+		}
 	}
 	#endregion
 }
