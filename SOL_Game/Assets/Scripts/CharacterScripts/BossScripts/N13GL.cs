@@ -133,19 +133,11 @@ public class N13GL : Enemy
 		currentGuardianPattern = AttackPattern.finalGuardianPattern;
 		typeIsChanged = false;
 		guardianPhase = 0;
-		changething = 0;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (changething == 5)
-		{
-			changething = 0;
-			currentGuardianPattern = (AttackPattern)allGuardianPatternTypes.GetValue(guardianPhase + 1);
-			typeIsChanged = true;
-		}
-
 		// Change to the next guardian type
 		if (typeIsChanged == true)
 		{
@@ -379,7 +371,7 @@ public class N13GL : Enemy
 		{
 			if (attackCountDownTimer <= 0)
 			{
-				Shoot();
+				Shoot(true);
 				attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 			}
 			else

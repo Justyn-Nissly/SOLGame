@@ -30,6 +30,8 @@ public class EnemyMovement : MonoBehaviour
 	public float
 		evasionDistance, // How far the enemy tries to stay from the player
 		waitTime;        // Waiting time before moving in new direction and how long the enemy waits to move again after charging
+	public bool
+		canMove; // Whether the enemy can move or not
 	#endregion
 
 	#region Evade Player Variables

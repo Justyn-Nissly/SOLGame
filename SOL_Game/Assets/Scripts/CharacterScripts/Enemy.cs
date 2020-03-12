@@ -26,7 +26,8 @@ public class Enemy : BaseCharacter
 		  moveSpeed,   // Base movement speed
 			maxMoveSpeed;
     public bool
-        aggro; // The enemy has detected the player
+        aggro, // The enemy has detected the player
+		canMove;
     public Vector2[]
         patrol; // Enemy patrol points
 	public Vector2
