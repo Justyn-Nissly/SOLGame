@@ -126,7 +126,7 @@ public class ShieldGuardian : Enemy
 
 	#region Utility Methods
 	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 

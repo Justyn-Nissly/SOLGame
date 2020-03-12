@@ -20,6 +20,8 @@ public class DestructibleObject : MonoBehaviour
 	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all doors that will be unlocked when this destructible object is destroyed (this list can be empty)
 	public Sprite destroyedSprite; // the sprite that is changed to when this destructible object is destroyed 
 	public int health;
+	public bool canDropItem;
+	public GameObject itemDrop;
 	#endregion
 
 	#region Private Variables
@@ -48,6 +50,10 @@ public class DestructibleObject : MonoBehaviour
 		{
 			if(--health <= 0)
 			{
+				if (canDropItem)
+				{
+					Instantiate(itemDrop, transform.position, Quaternion.identity);
+				}
 				DestroyObject();
 			}
 			damageTimer = 0.2f;
@@ -79,7 +85,7 @@ public class DestructibleObject : MonoBehaviour
 	}
 
 	/// <summary> call this method to destroy the destructible object </summary>
-	public void DestroyObject()
+	public virtual void DestroyObject()
 	{
 		// unlock any doors that need to be unlocked
 		doorManager.UnlockDoors();

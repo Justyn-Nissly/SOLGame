@@ -12,7 +12,8 @@ public class BaseCharacter : MonoBehaviour
 		maxHealth; // Maximum possible health
 	public bool
 		canAttack = true,     // Toggle ability to attack
-		canTakeDamage = true; // Toggle vulnerability
+		canTakeDamage = true, // Toggle vulnerability
+		safeFromFireAttack = false;
 	public float
 		currentHealth; // Current health
 
@@ -91,7 +92,7 @@ public class BaseCharacter : MonoBehaviour
 
 	#region Utility Methods
 	/// <summary> Make the character take damage and become temporarily invincible </summary>
-	public virtual void TakeDamage(int damage, bool playSwordImpactSound)
+	public virtual void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		// The character must be vulnerable to take damage
 		if (canTakeDamage == true)
@@ -215,7 +216,7 @@ public class BaseCharacter : MonoBehaviour
 
 	#region Coroutines
 	/// <summary> Make a character blink for a short time after taking damage </summary>
-	IEnumerator StartBlinking()
+	protected virtual IEnumerator StartBlinking()
 	{
 		SpriteRenderer
 			spriteRenderer = GetComponent<SpriteRenderer>(); // Control character's sprite

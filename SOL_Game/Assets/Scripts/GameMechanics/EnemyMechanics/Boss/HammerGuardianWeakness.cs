@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 
-public class HammerGuardianWeakness : MonoBehaviour
+public class HammerGuardianWeakness : DestructibleObject
 {
 	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public int
-		health; // Only the weak point can take damage
-	public Sprite
-		destroyedSprite; // Sprite displayed when weak point takes sufficient damage
 	public AudioManager
 		audioManager; // 
 	#endregion
@@ -37,7 +33,7 @@ public class HammerGuardianWeakness : MonoBehaviour
 
 	#region Utility Methods
 	/// <summary> Change sprite to destroyed if applicable </summary>
-	private void DestroyObject()
+	public override void DestroyObject()
 	{
 		if (destroyedSprite != null)
 		{

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
 		{
 			gameManager = this;
 
-			/// Keep items persisting across scenes
+			// Keep items persisting across scenes
 			DontDestroyOnLoad(gameObject);
 
 			AddGameObjectsToDontDestroy("EventSystem", "AudioManager", "DialogueManager", "Player", "PlayerHealthCanvas");
@@ -31,6 +32,12 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			Destroy(this); // or gameObject
+		}
+
+		// load the menu if you are starting in the Start scene
+		if (SceneManager.GetActiveScene().name == "Start")
+		{
+			SceneManager.LoadScene("Menu");
 		}
 	}
 	#endregion

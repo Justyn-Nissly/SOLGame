@@ -379,6 +379,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: eb0f4de7bd1634706af4f09e616de45d, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  safeFromFireAttack: 0
   currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects:
@@ -428,7 +429,8 @@ MonoBehaviour:
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
   powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
-  pixelDesolveMaterial: {fileID: 0}
+  pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
+    type: 2}
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
 --- !u!114 &302527603158291442
@@ -602,7 +604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
-  enemyAnimator: {fileID: -7058851714884668645}
+  enemyAnimator: {fileID: 0}
   evasionDistance: 0
   waitTime: 0
   maxChaseTime: 0
