@@ -103,7 +103,7 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> the attack method used for the enemy and the player to swing light/heavy melee weapons</summary>
-	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool characterHasKnockback)
+	public virtual void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool characterHasKnockback)
 	{
 		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
 

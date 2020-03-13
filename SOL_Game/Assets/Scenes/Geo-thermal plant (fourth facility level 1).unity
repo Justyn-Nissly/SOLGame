@@ -431,7 +431,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 93446024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0.12999997, z: 0}
+  m_LocalPosition: {x: 0.306, y: 0.14299998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 373688893}
@@ -475,9 +475,10 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b08b8fb90dd87984d8f4ea524f1876ec, type: 3}
+  m_Sprite: {fileID: -448377469245146895, guid: 00b7e5568ada34913945ca9e12985186,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.21, y: 0.76}
@@ -17675,7 +17676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301576030}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.35, y: 0.12999997, z: 0}
+  m_LocalPosition: {x: -0.25599998, y: 0.14299998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 373688893}
@@ -17964,7 +17965,6 @@ GameObject:
   - component: {fileID: 373688895}
   - component: {fileID: 373688892}
   - component: {fileID: 373688891}
-  - component: {fileID: 373688894}
   - component: {fileID: 373688896}
   - component: {fileID: 373688897}
   m_Layer: 0
@@ -18033,17 +18033,14 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 0}
   anim: {fileID: 373688896}
-  destination: {x: 0, y: 0}
   upperLeftSpawnPointLimit: {fileID: 822557298}
   lowerRightSpawnPointLimit: {fileID: 2061221857}
-  swordSawnPoint: {fileID: 0}
-  origin: {fileID: 0}
-  sword: {fileID: 0}
-  throwSword: {fileID: 0}
-  meleeDamageToGive: {fileID: 0}
-  EncounterManager: {fileID: 0}
   moving: 0
-  returnOrigin: 0
+  meleeDamageToGive: {fileID: 0}
+  damagedShaderMaterial: {fileID: 2100000, guid: d6c44c46a1ebf754bb49357d32579b35,
+    type: 2}
+  fishEyeMaterial: {fileID: 2100000, guid: f388de08011c4bf43a1d92901b8b3145, type: 2}
+  EncounterManager: {fileID: 0}
 --- !u!212 &373688892
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18061,7 +18058,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 748140196}
+  - {fileID: 2134365612}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18110,33 +18107,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &373688894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373688890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ForceMaterial: {fileID: 0}
-  ActiveChange: 1
-  _Alpha: 1
-  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
-  _Fade: 0
-  _HDR_Intensity: 1
-  TeleportationColor: {r: 0.9490196, g: 0.42352945, b: 0.51302266, a: 1}
-  _Distortion: 1
-  _Value4: 0
-  _AutoScrollX: 0
-  _AutoScrollSpeedX: 0
-  _AutoScrollY: 0
-  _AutoScrollSpeedY: 0
-  ShaderChange: 0
-  ActiveUpdate: 1
 --- !u!58 &373688895
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -18189,6 +18159,7 @@ MonoBehaviour:
   arm: {fileID: 1012791588}
   origin: {fileID: 301576030}
   findTarget: 0
+  anim: {fileID: 373688896}
 --- !u!1 &375721618
 GameObject:
   m_ObjectHideFlags: 0
@@ -19531,49 +19502,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!21 &748140196
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation2
-  m_Shader: {fileID: 4800000, guid: 81a8c4a625e2be24abb96978d8656203, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 0.9490196, g: 0.42352945, b: 0.51302266, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &774914553
 GameObject:
   m_ObjectHideFlags: 0
@@ -25887,7 +25815,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012791588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35, y: 0.12999997, z: 0}
+  m_LocalPosition: {x: -0.306, y: 0.143, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 373688893}
@@ -25905,12 +25833,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b35f7e0aeb7e4d1c950af80b86b4355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeGuardian: {fileID: 373688891}
-  anim: {fileID: 373688896}
-  origin: {fileID: 301576030}
-  returnOrigin: 0
-  shouldThrow: 0
-  destination: {x: 0, y: 0}
 --- !u!114 &1012791591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25962,8 +25884,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ba025bd397a5bab469ef724220a7ae19, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -448377469245146895, guid: 00b7e5568ada34913945ca9e12985186,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -28774,6 +28697,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &2134365612
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1721301235746735973
 PrefabInstance:
   m_ObjectHideFlags: 0
