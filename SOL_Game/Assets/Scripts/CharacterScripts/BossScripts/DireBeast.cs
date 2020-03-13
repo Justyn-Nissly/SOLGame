@@ -81,7 +81,7 @@ public class DireBeast : Enemy
 
 	#region Utility Methods
 	/// <summary> Changes defeat functionality to Encounter Manager</summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public virtual void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
@@ -127,7 +127,7 @@ public class DireBeast : Enemy
 	}
 
 	/// <summary> the attack method used for the enemy and the player to swing light/heavy melee weapons</summary>
-	public override void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool characterHasKnockback)
+	public override void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool createWeapon)
 	{
 		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
 
