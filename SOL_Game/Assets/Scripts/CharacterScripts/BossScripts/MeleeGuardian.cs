@@ -44,7 +44,7 @@ public class MeleeGuardian : Enemy
 		}
 
 		// The guardian is constantly moving
-		if (moving == false && canAttack) 
+		if (moving == false && canAttack)
 		{
 			Move();
 		}
@@ -60,8 +60,7 @@ public class MeleeGuardian : Enemy
 	#endregion
 
 	#region Utility Methods
-    /// <summary> Changes defeat functionality to Encounter Manager</summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 

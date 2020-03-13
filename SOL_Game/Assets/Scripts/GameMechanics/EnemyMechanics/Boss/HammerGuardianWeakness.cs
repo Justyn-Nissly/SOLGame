@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class HammerGuardianWeakness : MonoBehaviour
+public class HammerGuardianWeakness : DestructibleObject
 {
 	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
-	public int
-		health;
-	public Sprite
-		destroyedSprite; // Sprite displayed when object is destroyed
+	public AudioManager
+		audioManager; // 
 	#endregion
 
 	#region Private Variables (Empty)
@@ -20,30 +15,26 @@ public class HammerGuardianWeakness : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
-
-	private void Update()
-	{
-		;
-	}
-
+	/// <summary> Check if the player has hit the guardian </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// Check if the right weapon hit this object
-		if (collision.gameObject.CompareTag("PlayerLightWeapon"))
+		// If the right weapon hit the weak point deal the guardian damage
+		if (collision.CompareTag("PlayerLightWeapon") && FindObjectOfType<HammerGuardianController>().isAttacking)
 		{
-			if (health-- < 0)
+			audioManager.PlaySound();
+			if (--health <= 0)
 			{
 				DestroyObject();
+				FindObjectOfType<HammerGuardianController>().AdvancePhase();
 			}
 		}
 	}
 	#endregion
 
 	#region Utility Methods
-	/// <summary> call this method to destroy the destructible object </summary>
-	private void DestroyObject()
+	/// <summary> Change sprite to destroyed if applicable </summary>
+	public override void DestroyObject()
 	{
-		// Change to destroyed sprite if available
 		if (destroyedSprite != null)
 		{
 			gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;

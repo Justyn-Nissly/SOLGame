@@ -32,6 +32,7 @@ public class DialogueTrigger : MonoBehaviour
 					// Pause the enemy movement
 					FindObjectOfType<Player>().playerAllowedToMove = false;
 					FindObjectOfType<Player>().playerMovementAmount = Vector2.zero;
+					FindObjectOfType<Player>().ApplyPlayerMovement();
 				}
 				NPC.GetComponent<Animator>().SetBool("IsActive", true);
 				FindObjectOfType<DialogueManager>().StartDialogue(dialogue);

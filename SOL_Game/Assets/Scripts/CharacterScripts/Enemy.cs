@@ -16,14 +16,15 @@ public class Enemy : BaseCharacter
         enemyName; // The enemy's name
 	public float
 		aggroRange,  // The max range where the enemy can detect the player
-		//duration,
+						 //duration,
 		followRange, // How far away the player must get for the enemy to deaggro
 		attackDmg,   // Base damage from an intentional attack
-        contactDmg,  // Base damage from making contact with the player
+		  contactDmg,  // Base damage from making contact with the player
 		healPerLoop,
 		MAXPOSSIBLEHEALTH,
-        maxHealOverTime,
-        moveSpeed;   // Base movement speed
+		  maxHealOverTime,
+		  moveSpeed,   // Base movement speed
+			maxMoveSpeed;
     public bool
         aggro; // The enemy has detected the player
     public Vector2[]
@@ -37,12 +38,16 @@ public class Enemy : BaseCharacter
 		enemyAudioManager;
 	public GameObject
 		powerUp; // Reference PowerUp prefab.
+
+	public Material pixelDesolveMaterial;
 	#endregion
 
 	#region Private Variables
 	private float
-    amountHealed = 0,
-    countDownTimer;
+		amountHealed = 0,
+		countDownTimer;
+	private bool
+		canDropPowerUp;
 	#endregion
 
 	// Unity Named Methods
@@ -50,8 +55,9 @@ public class Enemy : BaseCharacter
 	/// <summary> Initialize the enemy </summary>
 	public virtual void Start()
 	{
-		player        = GameObject.FindObjectOfType<Player>();
-		rb2d          = GetComponent<Rigidbody2D>();
+		canDropPowerUp = true;
+		player         = GameObject.FindObjectOfType<Player>();
+		rb2d           = GetComponent<Rigidbody2D>();
 
 		if(maxHealth != null)
 		{
@@ -64,44 +70,58 @@ public class Enemy : BaseCharacter
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	public virtual void FixedUpdate()
 	{
-		// Check if the player is close enough to aggro
-		playerPos = GameObject.FindWithTag("Player").transform.position;
-		if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
+		EnemyMovement enemyMovement = this.GetComponent<EnemyMovement>();
+
+		if (enemyMovement != null && enemyMovement.canMove == true)
 		{
-			aggro = true;
+			// Check if the player is close enough to aggro
+			playerPos = GameObject.FindWithTag("Player").transform.position;
+			if (aggro == false && Vector2.Distance(transform.position, playerPos) <= aggroRange)
+			{
+				aggro = true;
+			}
+			// Enemies that are not aggro heal over time
+			else if (Vector2.Distance(transform.position, playerPos) >= followRange)
+			{
+				aggro = false;
+				if (countDownTimer <= 0)
+				{
+					countDownTimer = maxHealOverTime; // reset the time after going to 0
+
+					if (currentHealth < maxHealth.initialValue) // only heal if health less than full
+					{
+						currentHealth += healPerLoop;
+						SetHealth(currentHealth / maxHealth.initialValue);
+						//Debug.Log("enemy CurrentHealth = " + currentHealth);
+					}
+				}
+				else
+				{
+					countDownTimer -= Time.deltaTime;
+				}
+			}
+
+			//// Enemies attack the player only if aggroed
+			//if (aggro)
+			//{
+			//	canAttack = true;
+			//}
 		}
-		// Enemies that are not aggro heal over time
-		else if (Vector2.Distance(transform.position, playerPos) >= followRange)
-		{
-			aggro = false;
-            if (countDownTimer <= 0)
-            {
-                countDownTimer = maxHealOverTime; // reset the time after going to 0
-
-                if (currentHealth < maxHealth.initialValue) // only heal if health less than full
-                {
-                    currentHealth += healPerLoop;
-                    SetHealth(currentHealth / maxHealth.initialValue);
-                    //Debug.Log("enemy CurrentHealth = " + currentHealth);
-                }
-            }
-            else
-            {
-                countDownTimer -= Time.deltaTime;
-            }
-        }
-
-		//// Enemies attack the player only if aggroed
-		//if (aggro)
-		//{
-		//	canAttack = true;
-		//}
 	}
 	#endregion
 
 	#region Utility Methods
+	/// <summary> deal damage to the passed in player </summary>
+	protected virtual void DamagePlayer(Player player, int damageToGive, bool playSwordSoundEffect = false)
+	{
+		if (player != null)
+		{
+			player.TakeDamage(damageToGive, playSwordSoundEffect);
+		}
+	}
+
 	///<summary> Deal damage to the enemy </summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		base.TakeDamage(damage + player.extraDamage, playSwordImpactSound);
 		SetHealth(currentHealth / maxHealth.initialValue);
@@ -111,15 +131,17 @@ public class Enemy : BaseCharacter
 		// The enemy gets destroyed if it runs out of health
 		if (currentHealth <= 0)
 		{
-			enemyAudioManager.PlaySound();
+			if(enemyAudioManager != null)
+				enemyAudioManager.PlaySound();
+
 			// The enemy might drop a power up
-			if (Random.Range(0.0f, 5.0f) > 4.0f)
+			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}
 
-			StartCoroutine("Die");
-			
+			canDropPowerUp = false;
+			StartCoroutine(Die());
 		}
 	}
 
@@ -148,10 +170,8 @@ public class Enemy : BaseCharacter
 	}
 	#endregion
 
-	public Material pixelDesolveMaterial;
-
 	#region Coroutines
-	private IEnumerator Die()
+	public virtual IEnumerator Die()
 	{
 		float percentageComplete = 0;
 
@@ -183,7 +203,7 @@ public class Enemy : BaseCharacter
 		Destroy(gameObject);
 	}
 
-	private IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
+	protected virtual IEnumerator TeleportInEnemy(_2dxFX_NewTeleportation2 teleportScript)
 	{
 		float percentageComplete = 0;
 

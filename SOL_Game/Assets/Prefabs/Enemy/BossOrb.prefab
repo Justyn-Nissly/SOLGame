@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7170359262935122863}
   - component: {fileID: 7170359262935122858}
-  - component: {fileID: 7170359262935122859}
   - component: {fileID: 7170359262935122857}
-  - component: {fileID: 7170359262935122862}
+  - component: {fileID: -5813817155279525360}
   - component: {fileID: 7170359262935122856}
   - component: {fileID: 6569716016761155054}
+  - component: {fileID: 3795791026913870043}
+  - component: {fileID: 4361977508684721906}
   m_Layer: 0
   m_Name: BossOrb
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 7170359262935122860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2723415732427289737, guid: dbaf69364b927e34db9955ab080d5953,
+  m_Sprite: {fileID: -342841500392956471, guid: e1ce698453699674aac89b48cf7060c1,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -86,27 +87,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7170359262935122859
-MonoBehaviour:
+--- !u!58 &7170359262935122857
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7170359262935122860}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb165f2df1ee4f44980df646d6c5a2cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clockwise: 0
-  revolutionObject: {fileID: 0}
-  angle: 0
-  maxRevolutionDistance: 6
-  minRevolutionDistance: 4
-  revolutionSpeed: 0.8
-  startAngle: 0
-  contactDamage: 1
---- !u!58 &7170359262935122857
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.08
+--- !u!58 &-5813817155279525360
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,23 +116,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.08
---- !u!114 &7170359262935122862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7170359262935122860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b6db268a7f599d4aae14514ec2cc5d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 4
-  damageTag: Projectile
+  m_Radius: 0.081
 --- !u!114 &7170359262935122856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +132,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackHP: 2
+  missileScript: {fileID: 6569716016761155054}
+  revolveScript: {fileID: 4361977508684721906}
+  destructible: {fileID: 3795791026913870043}
+  target: {fileID: 0}
 --- !u!114 &6569716016761155054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +151,44 @@ MonoBehaviour:
   effectiveRange: 15
   moveSpeed: 0
   offset: 0
-  impactDamage: 3
+  impactDamage: 2
   veerLeft: 0
   direction: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
+  target: {fileID: 0}
+--- !u!114 &3795791026913870043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7170359262935122860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf08e4c56190f442b2c6a3c4b057a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDestroysObject: 2
+  doorsUnlocked: []
+  destroyedSprite: {fileID: 0}
+  health: 2
+--- !u!114 &4361977508684721906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7170359262935122860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb165f2df1ee4f44980df646d6c5a2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 0
+  revolutionPoint: {x: 0, y: 0}
+  angle: 0
+  maxRevolutionDistance: 5
+  minRevolutionDistance: 5
+  revolutionSpeed: 1.5
+  startAngle: 0
+  contactDamage: 1

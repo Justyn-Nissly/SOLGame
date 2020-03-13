@@ -12,34 +12,25 @@ public class SplitLeviathan : Enemy
 	public FloatValue
 		damageToGive; // the bosses damage that is dealed to the player
 	public Leviathan
-		leviathan;
-	public LockOnMissile
-		lockOnProjectile;
+		leviathan; // reference to the main leviathan script
+	public LockOnProjectile
+		lockOnProjectile; // reference to the script that moves this split leviathan
 	public GameObject
-		poison;
+		poison; // the prefab of a poison spot that will get Instantiated under the enemy
 	#endregion
 
 	#region Private Variables
-	private bool
-		Moving = false;
-
 	private float
-		enemyChargeSpeed = 5, // how fast the enemy charges at the player
-		poisonTimer = .25f,
-		poisonMaxTimer = .25f;
+		poisonTimer = .10f, // the countdown timer for placing poison
+		poisonMaxTimer = .10f; // the interval time before placing a poison spot again
 
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	private void Awake()
-	{
-		lockOnProjectile.target = CreateTarget();
-	}
-
 	public override void FixedUpdate()
 	{
-		base.FixedUpdate();
+		//base.FixedUpdate();
 
 		// creates a poison spot every N seconds
 		PoisonLogic();
@@ -50,7 +41,7 @@ public class SplitLeviathan : Enemy
 		// if the boss collided with the player damage the player
 		if (collision.gameObject.CompareTag("Player")) // only damage the player when charging
 		{
-			DamagePlayer(collision.gameObject.GetComponent<Player>());
+			DamagePlayer(collision.gameObject.GetComponent<Player>(), (int)damageToGive.initialValue);
 		}
 		if(collision.gameObject.CompareTag("Enemy") && collision.gameObject.GetComponent<SplitLeviathan>() != null)
 		{
@@ -64,6 +55,7 @@ public class SplitLeviathan : Enemy
 	#endregion
 
 	#region Utility Methods
+	/// <summary> creates a poison spot every N seconds </summary>
 	private void PoisonLogic()
 	{
 		if (poisonTimer < 0)
@@ -78,54 +70,23 @@ public class SplitLeviathan : Enemy
 		}
 	}
 
-	private GameObject CreateTarget()
+	/// <summary>overridden takeDamage() method, mainly for dealing damage to the main leviathan not this split leviathan</summary>
+	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
-		GameObject targetGameObject = new GameObject("target game object");
-		targetGameObject.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-		return targetGameObject;
-	}
-
-	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
-	{
-		//base.TakeDamage(damage, playSwordImpactSound);
-		leviathan.TakeDamage(damage, playSwordImpactSound);
-	}
-
-	/// <summary> deal damage to the passed in player</summary>
-	private void DamagePlayer(Player player)
-	{
-		if (player != null)
+		// deal damage to the main leviathan not this split leviathan
+		if(leviathan != null)
 		{
-			player.TakeDamage((int)damageToGive.initialValue, false);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
+			leviathan.TakeDamage(damage, playSwordImpactSound);
 		}
+		// destroy this split leviathan if the main leviathan does not exist
+		else
+		{
+			Destroy(gameObject);
+		}
+
 	}
 	#endregion
 
 	#region Coroutines
-	/// <summary> Moves a game object in the player direction (at the time this method is called) over N seconds </summary>
-	public IEnumerator MoveInPlayersDirection()
-	{
-		// set flags
-		Moving = true;
-		canTakeDamage = false;
-
-		// get the direction the player is in
-		Vector3 targetDirection = (GameObject.FindGameObjectWithTag("Player").transform.position - transform.position).normalized;
-
-		// charge at the player
-		while (Moving == true)
-		{
-			transform.position += targetDirection * enemyChargeSpeed * Time.deltaTime;
-			yield return new WaitForEndOfFrame();
-		}
-
-		// set flags
-		canTakeDamage = true;
-	}
 	#endregion
 }

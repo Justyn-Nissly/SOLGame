@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 6841405128326533482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 6841405128845876852}
   - {fileID: 1280103477}
@@ -219,7 +219,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.21, y: 0.32}
+    oldSize: {x: 0.65625, y: 1}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -276,13 +276,13 @@ MonoBehaviour:
   audioSource: {fileID: 1341360516613873996}
   lightMeleeAttackPosition: {fileID: 6841405130317107374}
   lightMeleeAttackRange: 0.7
-  lightMeleeWeapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff,
+  lightMeleeWeapon: {fileID: 5676634083212753697, guid: e993489d14265d444b82d50dea5e588c,
     type: 3}
   lightMeleeDamageToGive: {fileID: 11400000, guid: cc79a7d840ed643deabf522b53715fbf,
     type: 2}
   heavyMeleeAttackPosition: {fileID: 6841405129432834922}
   heavyMeleeAttackRange: 1
-  heavyMeleeWeapon: {fileID: 2815377908657504138, guid: 17797fbc08e509441a046f3d92f0bd4a,
+  heavyMeleeWeapon: {fileID: 5676634083212753697, guid: e993489d14265d444b82d50dea5e588c,
     type: 3}
   heavyMeleeDamageToGive: {fileID: 11400000, guid: 407388b32b3744906a314923fdc93802,
     type: 2}
@@ -291,7 +291,7 @@ MonoBehaviour:
     m_Bits: 512
   firePoint: {fileID: 6841405128640148715}
   gunSpawnPoint: {fileID: 8285974059697146065}
-  bulletPrefab: {fileID: 5784550603847278244, guid: 47e5478c8df575141870a0d125fe1c2c,
+  bulletPrefab: {fileID: 8555885251396692954, guid: c183580d421966843a97b8acce6fd62b,
     type: 3}
   gunPrefab: {fileID: 793307337115381136, guid: 1d308175e37c6a94cb5937559dad90a1,
     type: 3}
@@ -303,9 +303,13 @@ MonoBehaviour:
   shieldBoxCollider: {fileID: 6841405128981744513}
   shieldSound: {fileID: 0}
   playerAllowedToMove: 1
+  hammerComboUnlocked: 1
+  swordComboUnlocked: 1
   playerAnimator: {fileID: 6958614015349643136}
   playerHealthSignal: {fileID: 11400000, guid: ac92ac62b06a941faa2337f33d033a24, type: 2}
   playerAttackGameObject: {fileID: 6841405128845876855}
+  dustEffect: {fileID: 4937884779979335401, guid: cd58d09687e554f4babee8489f6b94fa,
+    type: 3}
   dialogueManager: {fileID: 0}
   audioSourcePlayerMovement: {fileID: -3915480526752072787}
   shieldSoundSource: {fileID: 8065668250605309325}
@@ -342,7 +346,8 @@ AudioSource:
   m_GameObject: {fileID: 6841405128326533482}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 7374c242e1ff0834088b2534c4f9f84c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -354,9 +359,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -389,7 +394,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -438,7 +443,8 @@ AudioSource:
   m_GameObject: {fileID: 6841405128326533482}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 87f56f9c1f0a0dc419450c9f2576643e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -450,9 +456,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -485,7 +491,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -534,7 +540,8 @@ AudioSource:
   m_GameObject: {fileID: 6841405128326533482}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 4e79b178c7683384a84bdca365d5da70, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -546,9 +553,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -581,7 +588,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -672,7 +679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6841405128640148714}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.027, y: -0.24600002, z: 0}
+  m_LocalPosition: {x: -0.027, y: -0.601, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6841405128845876852}

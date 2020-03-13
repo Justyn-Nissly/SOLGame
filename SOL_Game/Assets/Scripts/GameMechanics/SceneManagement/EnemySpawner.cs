@@ -75,18 +75,26 @@ public class EnemySpawner : MonoBehaviour
 		// saves this enemy's ID number
 		enemyIDs.Add(tempEnemy.GetInstanceID());
 
-		// play the teleport shader effect if there is one on the enemy
-		//(it will find all effects on the enemy because some enemies have more than one like the shield enemy)
-		tempEnemy.GetComponent<Enemy>().PlayTeleportEffect();
+		// freeze enemy movement
+		Enemy enemyScript = tempEnemy.GetComponent<Enemy>();
+		if (enemyScript != null)
+		{
+			enemyScript.maxMoveSpeed = enemyScript.moveSpeed; // save old move speed
+			enemyScript.moveSpeed = 0;
+
+			// play the teleport shader effect if there is one on the enemy
+			//(it will find all effects on the enemy because some enemies have more than one like the shield enemy)
+			enemyScript.PlayTeleportEffect();
+		}
 	}
 
-	/// <summary> this starts the logic to check if all this spawners enemies are defeated (this is a separate method so that other scripts can call this)</summary>
+	/// <summary> this starts the logic to check if all this spawner's enemies are defeated (this is a separate method so that other scripts can call this)</summary>
 	public void StartCheckingIfEnemiesDefeated()
 	{
 		InvokeRepeating("CheckEnemies", 1f, .5f);  //1s delay, repeat every .5s
 	}
 
-	/// <summary> this method unlocks any locked doors linked to this spawner if all this spawer's enemies have been defeated</summary>
+	/// <summary> this method unlocks any locked doors linked to this spawner if all this spawner's enemies have been defeated</summary>
 	private void CheckEnemies()
 	{
 		if (CheckIfEnemiesDefeated())
@@ -175,6 +183,15 @@ public class EnemySpawner : MonoBehaviour
 		if (freezePlayer)
 		{
 			FindObjectOfType<Player>().UnFreezePlayer();
+		}
+
+		// unfreeze the enemies
+		foreach(Enemy enemy in FindObjectsOfType<Enemy>()) // find all enemies in the scene
+		{
+			if(enemyIDs.Contains(enemy.gameObject.GetInstanceID())) // check if this enemy is from this spawner
+			{
+				enemy.moveSpeed = enemy.maxMoveSpeed; // set move speed back to what it was
+			}
 		}
 	}
 	#endregion

@@ -20,10 +20,13 @@ public class DestructibleObject : MonoBehaviour
 	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all doors that will be unlocked when this destructible object is destroyed (this list can be empty)
 	public Sprite destroyedSprite; // the sprite that is changed to when this destructible object is destroyed 
 	public int health;
+	public bool canDropItem;
+	public GameObject itemDrop;
 	#endregion
 
 	#region Private Variables
-	private DoorManager doorManager = new DoorManager(); // this manager has the logic to control a list of door (in this case used to unlock them all)
+	private DoorManager doorManager = new DoorManager(); // Used to unlock doors if applicable
+	private float damageTimer;
 	#endregion
 
 	// Unity Named Methods
@@ -35,19 +38,25 @@ public class DestructibleObject : MonoBehaviour
 		doorManager.doors.AddRange(doorsUnlocked);
 	}
 
+	private void FixedUpdate()
+	{
+		damageTimer -= (damageTimer >= 0.0f) ? Time.deltaTime : 0.0f;
+	}
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// check if the right weapon is whats hitting this object
-		if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)))
+		if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)) && damageTimer <= 0.0f)
 		{
-			if(health > 0)
+			if(--health <= 0)
 			{
-				health--;
-			}
-			else
-			{
+				if (canDropItem)
+				{
+					Instantiate(itemDrop, transform.position, Quaternion.identity);
+				}
 				DestroyObject();
 			}
+			damageTimer = 0.2f;
 		}
 	}
 	#endregion
@@ -76,7 +85,7 @@ public class DestructibleObject : MonoBehaviour
 	}
 
 	/// <summary> call this method to destroy the destructible object </summary>
-	private void DestroyObject()
+	public virtual void DestroyObject()
 	{
 		// unlock any doors that need to be unlocked
 		doorManager.UnlockDoors();

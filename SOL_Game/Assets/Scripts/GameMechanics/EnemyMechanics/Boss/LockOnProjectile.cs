@@ -15,17 +15,19 @@ public class LockOnProjectile : MonoBehaviour
 	public int
 		impactDamage; // The missile deals damage when it hits the player
 	public bool
-		veerLeft; // Determines whether the projectile veers left or right
+		veerLeft, // Determines whether the projectile veers left or right
+		DestroyOnImpact = true, // Determines whether the projectile is destroyed on impact
+		playerIsTarget = true; // flag for if the target should get set to the player in start()
 	public Vector2
 		direction, // The projectile's actual direction of movement (not necessarily directly towards the target)
 		targetPos; // The target's position
+	public GameObject
+		target; // The projectile locks on to this
 	#endregion
 
 	#region Private Variables
 	private float
 		moveAngle; // Angle the projectile will move at
-	private GameObject
-		target; // The projectile locks on to this
 	private Player
 		player; // Reference the player
 	#endregion
@@ -36,7 +38,10 @@ public class LockOnProjectile : MonoBehaviour
 	void Start()
 	{
 		// Target defaults to player
-		target = GameObject.FindWithTag("Player");
+		if (playerIsTarget)
+		{
+			target = GameObject.FindWithTag("Player");
+		}
 
 		// Initial lock on
         targetPos = target.transform.position;
@@ -69,7 +74,7 @@ public class LockOnProjectile : MonoBehaviour
 		}
 
 		// The missile gets destroyed no matter what it hits
-		if (this.enabled)
+		if (this.enabled && DestroyOnImpact)
 		{
 			Destroy(gameObject);
 		}

@@ -11,51 +11,72 @@ public class DialogueManager : MonoBehaviour
 
 	#region Public Variables
 	public static GameObject
-		NPC;          // A reference to the NPC
+		NPC;             // A reference to the NPC
 	public Animator
-		animator;     // The animator controler to make the dialogue box appear
+		animator;        // The animator controler to make the dialogue box appear
 	public Text
-		dialogueText, // The text that the NPC is currently speaking
-	    nameText;     // The name of the NPC currently Speaking
-	public Queue<string> 
-		sentences;    // All sentences for the characters dialogue
+		dialogueText,    // The text that the NPC is currently speaking
+	    nameText;        // The name of the NPC currently Speaking
+	public Queue<string>
+		sentences;       // All sentences for the characters dialogue
+	public bool
+		isClosed;        // The dialogue is open and closed
+	public int
+		currentSentence; // The sentence that is currently being typed
 	public float
 		textSpeed,    // The speed at which the text will be typed on the screen
 		timer;        // The timer to remove the NPC from the scene
 	#endregion
 
 	#region Private Variables
-	private GameObject playerMovement; // A reference to the player
+	private Player
+		playerMovement; // A reference to the player
+	private PlayerControls
+		inputActions;
+	private bool
+		dialogueBoxIsActive = false;
 	#endregion
-	public int
-		currentSentence; // The sentence that is currently being typed
+
 	// Unity Named Methods
 	#region Main Methods
 	///<summary> Initialize the sentence queue for the NPC, find the player, and get the animator for the NPC</summary>
 	void Start()
 	{
+		isClosed = false;
+		NPC = GameObject.FindGameObjectWithTag("LoadStar");
+		// this sets up the players input detection
+		inputActions = new PlayerControls(); // this in the reference to the new unity input system
+		inputActions.Gameplay.Enable();
+
 		sentences      = new Queue<string>();
-		playerMovement = GameObject.FindGameObjectWithTag("Player");
+		playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		animator       = GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>();
+		playerMovement.playerAllowedToMove = false;
+
 		currentSentence = 0;
 	}
 
 	///<summary> Check if the player has pressed the return key to move to the next sentence </summary>
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
+		if (dialogueBoxIsActive && inputActions.Gameplay.MenuSelect.triggered)
 		{
-			if (dialogueText.text.Length < FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence].Length)
+
+			if (dialogueText.text != NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence])
 			{
 				StopAllCoroutines();
-				dialogueText.text = FindObjectOfType<DialogueTrigger>().dialogue.sentences[currentSentence];
-				if (currentSentence < sentences.Count)
+				if (currentSentence < NPC.GetComponent<DialogueTrigger>().dialogue.sentences.Length)
 				{
-					currentSentence += 1;
+					dialogueText.text = NPC.GetComponent<DialogueTrigger>().dialogue.sentences[currentSentence];
 				}
 			}
 			else
 			{
+				if (currentSentence < NPC.GetComponent<DialogueTrigger>().dialogue.sentences.Length)
+				{
+					currentSentence += 1;
+					Debug.Log(currentSentence);
+				}
 				DisplayNextSentence();
 			}
 		}
@@ -66,6 +87,8 @@ public class DialogueManager : MonoBehaviour
 	/// Start the dialogue with the player
 	public void StartDialogue (Dialogue dialogue)
 	{
+		dialogueBoxIsActive = true;
+
 		animator.SetBool("IsOpen", true);
 		nameText.text = dialogue.name;
 
@@ -95,12 +118,19 @@ public class DialogueManager : MonoBehaviour
 	/// End the dialogue with the player and close the dialogue box
 	public void EndDialogue()
 	{
+		dialogueBoxIsActive = false;
 		animator.SetBool("IsOpen", false);
 		NPC.GetComponent<Animator>().SetBool("IsActive", false);
+
+		// Set the player to be able to move
 		FindObjectOfType<Player>().playerAllowedToMove = true;
 		StartCoroutine(TeleportLoadstar());
+
+		// Set the dialogue trigger to not trigger again
 		NPC.GetComponent<DialogueTrigger>().canActivate = false;
+		isClosed = true;
 		Debug.Log("End of Conversation.");
+		currentSentence = 0;
 	}
 	#endregion
 

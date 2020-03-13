@@ -86,6 +86,7 @@ public class LoadPlayer : MonoBehaviour
 
 		// disable player movement
 		playerInScene.GetComponent<Player>().FreezePlayer();
+		playerInScene.transform.rotation = new Quaternion(0, 0, 0, 0);
 
 		// Pause before playing teleport effect
 		yield return new WaitForSeconds(1f);

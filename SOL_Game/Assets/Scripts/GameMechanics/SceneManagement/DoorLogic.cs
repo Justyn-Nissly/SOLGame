@@ -56,10 +56,6 @@ public class DoorLogic : MonoBehaviour
 			// open the door after a delay
 			Invoke("OpenDoor", .5f);
 		}
-		else
-		{
-			Debug.Log("This door is locked solve a puzzle to unlock it");
-		}
 	}
 
 	/// <summary> Close a door </summary>

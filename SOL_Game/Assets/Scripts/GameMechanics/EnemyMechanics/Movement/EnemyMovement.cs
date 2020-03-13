@@ -25,8 +25,8 @@ public class EnemyMovement : MonoBehaviour
 	#region Shared Variables
 	public MovementType
 		Type; // The movement pattern that the enemy uses
-	public Animator 
-		enemyAnimator; // The animator controler for the enemy
+	public Animator
+		enemyAnimator; // The animator controller for the enemy
 	public float
 		evasionDistance, // How far the enemy tries to stay from the player
 		waitTime;        // Waiting time before moving in new direction and how long the enemy waits to move again after charging
@@ -75,6 +75,8 @@ public class EnemyMovement : MonoBehaviour
 		angle,    // The angle from the enemy to the player
 		x = 0.0f, // Horizontal movement
 		y = 0.0f; // Vertical movement
+	public bool
+		canMove = true; // The enemy can move
 	#endregion
 
 	#region Evade Player Variables
@@ -134,7 +136,10 @@ public class EnemyMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Update the values in the Animator for the players animation
-		SetEnemyAnimatorValues();
+		if (enemyAnimator != null)
+		{
+			SetEnemyAnimatorValues();
+		}
 
 		// Check which movement type is being used
 		switch (Type)
@@ -337,7 +342,7 @@ public class EnemyMovement : MonoBehaviour
 	/// <summary> Find the player and persue </summary>
 	public void Pursue()
 	{
-		
+
 		//enemyMovementAmount = GetNextVector();
 		if (chaseTime <= 0.0f)
 		{
@@ -345,11 +350,15 @@ public class EnemyMovement : MonoBehaviour
 			if (Vector2.Distance((Vector2)transform.position, playerPos) > enemy.aggroRange)
 			{
 				enemy.aggro = false;
-				enemyAnimator.SetLayerWeight(1, 1);
+				if (enemyAnimator != null)
+					enemyAnimator.SetLayerWeight(1, 1);
 			}
 		}
 		// Update the values in the Animator for the players animation
-		SetEnemyAnimatorValues();
+		if (enemyAnimator != null)
+		{
+			SetEnemyAnimatorValues();
+		}
 
 		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
 													playerPos,
@@ -419,7 +428,8 @@ public class EnemyMovement : MonoBehaviour
 		// If the enemy stops moving it chooses a new direction
 		if (moveTime <= 0.0f)
 		{
-			enemyAnimator.SetLayerWeight(1, 1);
+			if(enemyAnimator != null)
+				enemyAnimator.SetLayerWeight(1, 1);
 			waiting = waitTime;
 			ChooseNewPath();
 			stopped = false;
@@ -428,14 +438,19 @@ public class EnemyMovement : MonoBehaviour
 		// The enemy delays before moving in a new direction
 		else if (waiting > 0.0f)
 		{
-			enemyAnimator.SetLayerWeight(1, 1);
+			if (enemyAnimator != null)
+				enemyAnimator.SetLayerWeight(1, 1);
 			waiting -= Time.deltaTime;
 		}
 
 		// The enemy is moving
 		else
 		{
-			enemyAnimator.SetLayerWeight(1, 0);
+			if(enemyAnimator != null)
+			{
+				enemyAnimator.SetLayerWeight(1, 0);
+			}
+
 			enemy.rb2d.MovePosition((Vector2)transform.position + path * Time.deltaTime);
 			moveTime -= Time.deltaTime;
 			// If the enemy hits an obstacle it stops and chooses a different direction
@@ -453,7 +468,10 @@ public class EnemyMovement : MonoBehaviour
 				lastDirection = -1;
 			}
 		}
-		SetEnemyAnimatorValues();
+		if(enemyAnimator != null)
+		{
+			SetEnemyAnimatorValues();
+		}
 	}
 	#endregion
 

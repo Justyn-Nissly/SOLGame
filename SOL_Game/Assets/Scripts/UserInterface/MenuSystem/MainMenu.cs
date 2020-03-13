@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -19,13 +20,19 @@ public class MainMenu : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
+	private void Start()
+	{
+		GameObject.Find("NewGameButton").GetComponent<Button>().Select();
+		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().FreezePlayer();
+	}
+
 	/// Check every frame if the user has hit the "end" key to open the developer menu
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.End))
+		/*if (Input.GetKeyDown(KeyCode.End))
 		{
 			SceneManager.LoadScene("DevMenu");
-		}
+		}*/
 	}
 	#endregion
 
@@ -35,6 +42,7 @@ public class MainMenu : MonoBehaviour
 	{
 		//FindObjectOfType<AudioManager>().StartBackground();
 		SceneManager.LoadScene("Hub");
+		LoadPlayerHub.UseBeginningPostion = true;
 	}
 
 	/// Quits the game

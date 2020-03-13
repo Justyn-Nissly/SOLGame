@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class HammerGuardianController : Enemy
 {
 	#region Enums and Defined Constants
 	public const int
-		START_PHASE  = 1,   // The guardian starts at phase 1
-		HEALTH_GUARD = 100; // Prevent the guardians health from dropping while it is invincible
+		START_PHASE = 1;  // The guardian starts at phase 1
 	#endregion
 
 	#region Public Variables
@@ -13,15 +13,20 @@ public class HammerGuardianController : Enemy
 		attackTime,      // How long the guardian checks for the player before attacking
 		restDelay,       // How long the guardian rests after an attack
 		range,           // How far away the guardian will attack from
-		attackDelayTime; // How long the guardian takes to attack
+		attackDelayTime, // How long the guardian takes to attack
+		defeatTimer;     // Time between receiving lethal damage and actual defeat
 	public GameObject
+		explosion, // Guardian explodes upon defeat
 		shockWave, // Used to create shockwaves
 		spikes;    // Used to create spikes
 	public int
+		maxSpikes,   // Spike lines spawned by end phase shockwaves
 		phase,       // The guardian's battle phase
 		phaseHealth; // The guardian's starting health at each phase
 	public SpriteRenderer
 		sprite; // The guardian's sprite
+	public bool
+		isAttacking; // Check if the guardian is attacking
 	#endregion
 
 	#region Private Variables
@@ -37,46 +42,72 @@ public class HammerGuardianController : Enemy
 	private Vector2
 		facing; // The general direction the guardian is facing
 	private bool
-		isAttacking; // Check if the guardian is attacking
+		defeated;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary> Locate the player and start the guardian facing down and moving </summary>
+	/// <summary> Locate the player and initialize the guardian </summary>
 	override public void Start()
 	{
-		isAttacking   = false;
-		restTimer     = 0.0f;
-		attackTimer   = attackTime;
-		phase         = START_PHASE;
-		player        = FindObjectOfType<Player>();
-		weakness      = FindObjectOfType<HammerGuardianWeakness>();
-		guardianMove  = FindObjectOfType<HammerGuardianMovement>();
-		currentHealth = weakness.health = phaseHealth;
+		isAttacking     = false;
+		restTimer       = 0.0f;
+		attackTimer     = attackTime;
+		phase           = START_PHASE;
+		player          = FindObjectOfType<Player>();
+		weakness        = FindObjectOfType<HammerGuardianWeakness>();
+		guardianMove    = FindObjectOfType<HammerGuardianMovement>();
+		weakness.health = phaseHealth;
+		canTakeDamage   = false;
+		defeated        = false;
 	}
 
 	/// <summary> Turn towards and chase down the player </summary>
-	override public void FixedUpdate()
+	public override void FixedUpdate()
 	{
 		// Make the character lower down overlap the character higher up
-		Overlap();
+		RenderInOrder();
 
-		// The weak point rotates with the guardian
-		RotateWeakness();
+		//The boss is defeated when its weak point takes sufficient damage
+		if (defeated)
+		{
+			if (defeatTimer > 0.0f)
+			{
+				defeatTimer -= Time.deltaTime;
+				if (defeatTimer > 0.3f && Mathf.Abs(0.3f - defeatTimer) < Time.deltaTime)
+				{
+					Instantiate(explosion, transform.position, Quaternion.identity);
+				}
+			}
+			else
+			{
+				Instantiate(powerUp, transform.position, Quaternion.identity);
+				Destroy(gameObject);
+			}
+		}
+		else
+		{
+			// The weak point rotates with the guardian
+			RotateWeakness();
 
-		// Check if the guardian has taken enough damage to end the phase
-		PhaseCheck();
+			// When attacking the player the guardian stops
+			Targeting();
+		}
+	}
 
-		// When attacking the player the guardian stops
-		Targeting();
-
-		// Check if the guardian should take damage
-		canTakeDamage = isAttacking;
-		weakness.health = ((isAttacking) ? (int) currentHealth : HEALTH_GUARD);
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.CompareTag("PlayerLightWeapon"))
+		enemyAudioManager.PlaySound();
 	}
 	#endregion
 
 	#region Utility Methods
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	{
+		;
+	}
+
 	/// <summary> Check if the player is in position to be attacked </summary>
 	public bool AttackCheck()
 	{
@@ -96,7 +127,7 @@ public class HammerGuardianController : Enemy
 	/// <summary> Attack the player </summary>
 	private void Attack()
 	{
-		// Stop moving and reset rest and attack timers
+		// Stop moving and reset the rest and attack timers
 		guardianMove.canMove = false;
 		restTimer            = restDelay;
 		attackTimer          = attackTime;
@@ -107,16 +138,19 @@ public class HammerGuardianController : Enemy
 			Instantiate(shockWave, (Vector2)transform.position + guardianMove.GetDirection() * range * 0.65f,
 						Quaternion.identity);
 		}
-		// Phase 2 emits 2 shockwaves with spikes
+		// Phase 2 emits 2 shockwaves with lines of spikes
 		else
 		{
+			// The guardian attacks on the left and right if it is facing up or down
 			if (guardianMove.GetDirection() == Vector2.up || guardianMove.GetDirection() == Vector2.down)
 			{
 				Instantiate(shockWave, (Vector2)transform.position + Vector2.left * range * 0.65f,
 				            Quaternion.identity);
 				Instantiate(shockWave, (Vector2)transform.position + Vector2.right * range * 0.65f,
 				            Quaternion.identity);
-				for (int spike = 1; spike <= 3; spike++)
+
+				// Send out spikes from the shockwaves
+				for (int spike = 1; spike <= maxSpikes; spike++)
 				{
 					Instantiate(spikes, (Vector2)transform.position + Vector2.left * range * 0.65f,
 					            Quaternion.identity);
@@ -124,13 +158,16 @@ public class HammerGuardianController : Enemy
 					            Quaternion.identity);
 				}
 			}
+			// The guardian attacks on the top and bottom if it is facing left or right
 			else
 			{
 				Instantiate(shockWave, (Vector2)transform.position + Vector2.up * range * 0.65f,
 				            Quaternion.identity);
 				Instantiate(shockWave, (Vector2)transform.position + Vector2.down * range * 0.65f,
 				            Quaternion.identity);
-				for (int spike = 1; spike <= 3; spike++)
+
+				// Send out spikes from the shockwaves
+				for (int spike = 1; spike <= maxSpikes; spike++)
 				{
 					Instantiate(spikes, (Vector2)transform.position + Vector2.up * range * 0.65f,
 					            Quaternion.identity);
@@ -141,8 +178,10 @@ public class HammerGuardianController : Enemy
 		}
 	}
 
+	/// <summary> Rotate the guardian's weak point to its front </summary>
 	private void RotateWeakness()
 	{
+		// Find what direction the guardian is facing
 		facing = guardianMove.GetDirection();
 		if (facing == Vector2.up)
 		{
@@ -161,9 +200,11 @@ public class HammerGuardianController : Enemy
 			weaknessRotation = 0.0f;
 		}
 
+		// Rotate the weakness in the direction the guardian is facing
 		weakness.transform.localRotation = Quaternion.AngleAxis(weaknessRotation + 90.0f, Vector3.forward);
 	}
 
+	/// <summary> Attack if the player is in position and then rest </summary>
 	private void Targeting()
 	{
 		if (isAttacking)
@@ -171,9 +212,6 @@ public class HammerGuardianController : Enemy
 			// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
 			sprite.color = Color.red;
 			// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
-
-			// The guardian takes damage only when it is ready to attack
-			currentHealth = weakness.health;
 
 			// The guardian pauses before striking
 			guardianMove.canMove = false;
@@ -199,7 +237,7 @@ public class HammerGuardianController : Enemy
 				// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
 			}
 
-			// The guardian can pursue the player
+			// The guardian pursues the player
 			else
 			{
 				guardianMove.canMove = true;
@@ -226,26 +264,30 @@ public class HammerGuardianController : Enemy
 		}
 	}
 
-	private void PhaseCheck()
+	/// <summary> Advance the fight to the next phase </summary>
+	public void AdvancePhase()
 	{
 		if (weakness.health <= 0)
 		{
+			// Advance to the next phase or destroy if already at the last phase
 			if (phase == START_PHASE)
 			{
 				phase++;
-				currentHealth = weakness.health = phaseHealth;
-				restTimer     = restDelay;
-				isAttacking   = false;
+				weakness.health = phaseHealth;
+				restTimer       = restDelay;
+				isAttacking     = false;
+				
 			}
 			else
 			{
-				// Play death animation and die
-				Destroy(gameObject);
+				// Hammer guardian is defeated
+				defeated = true;
 			}
 		}
 	}
 
-	private void Overlap()
+	/// <summary> Make the character lower down appear in front of the other character </summary>
+	private void RenderInOrder()
 	{
 		sprite.sortingOrder = ((player.transform.position.y < this.transform.position.y) ? 0 : 2);
 	}

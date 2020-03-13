@@ -8,14 +8,12 @@ public class Bomb : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public GameObject 
-		BlowUpAnimaiton;
+	public Animator
+		animator;
 	public int
 		bombDamage = 2;
 	public float
 		timeTillBlowUp = 1;
-	public SpriteRenderer
-		bombSpriteRenderer; // so that we can disable it when the bomb blows up
 	#endregion
 
 	#region Private Variables
@@ -29,8 +27,8 @@ public class Bomb : MonoBehaviour
 	#region Main Methods
 	private void Start()
 	{
-		// call the blow up method is N seconds
-		Invoke("BlowUp", timeTillBlowUp);
+		// call the blow up method
+		StartCoroutine(BlowUp(timeTillBlowUp));
 	}
 
 	private void OnTriggerStay2D(Collider2D collision)
@@ -44,17 +42,7 @@ public class Bomb : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	private void BlowUp()
-	{
-		bombSpriteRenderer.enabled = false;
-		canDamage = true;
 
-		GameObject explotionEffect = Instantiate(BlowUpAnimaiton, gameObject.transform.position, new Quaternion(0, 0, 0, 0));
-		explotionEffect.transform.localScale = new Vector3(50, 50, 0);
-
-		Destroy(explotionEffect, explosionDuration);
-		Destroy(gameObject, explosionDuration); // destroy this bomb game object after N seconds
-	}
 
 	/// <summary> the method deals damage to the passed in player</summary>
 	private void DamagePlayer(Player player)
@@ -69,6 +57,14 @@ public class Bomb : MonoBehaviour
 	}
 	#endregion
 
-	#region Coroutines (Empty)
+	#region Coroutines
+	private IEnumerator BlowUp(float delayTime)
+	{
+		yield return new WaitForSeconds(delayTime);
+
+		animator.SetTrigger("BlowUpBomb"); // start playing the animation
+		yield return new WaitForSeconds(.5f);
+		canDamage = true;
+	}
 	#endregion
 }

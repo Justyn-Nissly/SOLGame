@@ -262,10 +262,10 @@ GameObject:
   - component: {fileID: 8293376742899619629}
   - component: {fileID: 302527603158291442}
   - component: {fileID: 2184432884482877022}
-  - component: {fileID: 7347723363600433070}
-  - component: {fileID: 8385601126491959586}
   - component: {fileID: -3872843509878049442}
   - component: {fileID: -6790644518131648715}
+  - component: {fileID: 8238823454887686081}
+  - component: {fileID: -7058851714884668645}
   m_Layer: 9
   m_Name: HeavyMeleeEnemy
   m_TagString: Enemy
@@ -306,7 +306,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -379,6 +379,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: eb0f4de7bd1634706af4f09e616de45d, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  safeFromFireAttack: 0
   currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects:
@@ -420,12 +421,16 @@ MonoBehaviour:
   MAXPOSSIBLEHEALTH: 0
   maxHealOverTime: 0
   moveSpeed: 5
+  maxMoveSpeed: 0
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
+  enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
   powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
+  pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
+    type: 2}
   maxTimeBetweenAttacks: 2
   minTimeBetweenAttacks: 1
 --- !u!114 &302527603158291442
@@ -440,6 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shouldLookAtPlayer: 1
 --- !u!50 &2184432884482877022
 Rigidbody2D:
   serializedVersion: 4
@@ -461,36 +467,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7347723363600433070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8293376742899619616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 372e5866b75e48e448d35f8994ea5a6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackReach: 0
-  maxChaseTime: 5
-  canMoveAtPlayer: 1
---- !u!114 &8385601126491959586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8293376742899619616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94496abf717a74f4cb18d249ecf1b0fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxTime: 6
-  minTime: 6
-  waitTime: 1
 --- !u!82 &-3872843509878049442
 AudioSource:
   m_ObjectHideFlags: 0
@@ -500,7 +476,8 @@ AudioSource:
   m_GameObject: {fileID: 8293376742899619616}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -512,9 +489,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -547,7 +524,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -602,7 +579,7 @@ MonoBehaviour:
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
-  __MainTex2: {fileID: 0}
+  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
   _Fade: 0
   _HDR_Intensity: 1
   TeleportationColor: {r: 1, g: 0.0902453, b: 0, a: 1}
@@ -614,6 +591,50 @@ MonoBehaviour:
   _AutoScrollSpeedY: 0
   ShaderChange: 0
   ActiveUpdate: 1
+--- !u!114 &8238823454887686081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d72eaf6393d064c87ba8f23d3bd366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  enemyAnimator: {fileID: 0}
+  evasionDistance: 0
+  waitTime: 0
+  maxChaseTime: 0
+  canMoveAtPlayer: 1
+  maxTime: 0
+  minTime: 0
+  minEvadeTime: 0
+  maxEvadeTime: 0
+  chargeSpeed: 0
+  charging: 0
+  canMove: 1
+--- !u!95 &-7058851714884668645
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8293376743106351247
 GameObject:
   m_ObjectHideFlags: 0
