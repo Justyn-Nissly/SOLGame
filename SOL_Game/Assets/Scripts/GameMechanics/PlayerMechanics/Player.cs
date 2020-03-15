@@ -73,9 +73,10 @@ public class Player : BaseCharacter
 		usingBlasterAttack = false,
 		canPowerUp = false,
 		canIncrementComboCounter = false,
-		usingPowerUp = false;
+		usingPowerUp = false,
+		heal;
 
-	private PlayerControls
+	public PlayerControls
 		inputActions;
 	#endregion
 	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
@@ -84,8 +85,10 @@ public class Player : BaseCharacter
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
-	void Start()
+	void Awake()
 	{
+		inputActions = new PlayerControls(); // this in the reference to the new unity input system
+
 		godModeEnabled = false;
 		SetUpInputDetection();
 
@@ -116,7 +119,11 @@ public class Player : BaseCharacter
 			currentHealth = maxHealth.initialValue;
 		}
 		// Activate power ups
-		ActivatePowerUps();
+		inputActions.Gameplay.LeftTrigger.performed += _ => usingPowerUp = true;
+		if (usingPowerUp)
+		{
+			ActivatePowerUps();
+		}
 
 		// Apply power ups to the player
 		ApplyPowerUps();
@@ -167,6 +174,8 @@ public class Player : BaseCharacter
 		}
 
 		CheckIfShouldIncreaseComboCounter();
+
+		inputActions.Gameplay.LeftTrigger.canceled += _ => usingPowerUp = false;
 	}
 	#endregion
 
@@ -183,7 +192,6 @@ public class Player : BaseCharacter
 	/// <summary> this sets up the players input detection</summary>
 	private void SetUpInputDetection()
 	{
-		inputActions = new PlayerControls(); // this in the reference to the new unity input system
 		inputActions.Gameplay.Enable();
 
 		inputActions.Gameplay.Movement.performed += context => playerMovementAmount = context.ReadValue<Vector2>() * (playerMovementSpeed + extraSpeed);
@@ -217,7 +225,7 @@ public class Player : BaseCharacter
 	public override void Shoot(bool createGun)
 	{
 		// dont attack if the player is not allowed to
-		if (canAttack == false || usingBlasterAttack || shieldIsEnabled)
+		if (canAttack == false || usingBlasterAttack || shieldIsEnabled || usingPowerUp)
 		{
 			return;
 		}
@@ -518,26 +526,11 @@ public class Player : BaseCharacter
 
 	private void ActivatePowerUps()
 	{
-		if (Input.GetKey(KeyCode.Q))
-		{
-			if(inputActions.Gameplay.Equals(inputActions.Gameplay.ShieldDefense))
-			{
-				powerUpsActive[PowerUp.SHIELD] = (powerUpsActive[PowerUp.SHIELD]);
-			}
-			else if(inputActions.Gameplay.Equals(inputActions.Gameplay.HammerAttack))
-			{
-				powerUpsActive[PowerUp.POWER]  = (powerUpsActive[PowerUp.POWER]  || Input.GetButtonDown("Y"));
-			}
-			else if(inputActions.Gameplay.Equals(inputActions.Gameplay.SwordAttack))
-			{
-				powerUpsActive[PowerUp.SPEED]  = (powerUpsActive[PowerUp.SPEED]  || Input.GetButtonDown("A"));
-			}
-			usingPowerUp = true;
-		}
-		else
-		{
-			usingPowerUp = false;
-		}
+		usingPowerUp = true;
+		inputActions.Gameplay.ShieldDefense.performed += _ => powerUpsActive[PowerUp.SHIELD] = true;
+		inputActions.Gameplay.BlasterAttack.performed += _ => powerUpsActive[PowerUp.POWER] = true;
+		inputActions.Gameplay.SwordAttack.performed += _ => powerUpsActive[PowerUp.SPEED] = true;
+		inputActions.Gameplay.HammerAttack.performed += _ => heal = true;
 	}
 
 	/// <summary> Apply any power ups the player has picked up </summary>
@@ -546,27 +539,24 @@ public class Player : BaseCharacter
 		// Apply shield power up
 		if (powerUpsActive[PowerUp.SHIELD])
 		{
-			canTakeDamage = (powerUpTimers[PowerUp.SHIELD] <= 0.0f);
+			canTakeDamage = (powerUpTimers[PowerUp.SHIELD] <= 0.0f && shieldIsEnabled == false);
 		}
 
 		// Apply damage boost
-		extraDamage = (powerUpsActive[PowerUp.POWER] && powerUpTimers[PowerUp.POWER] > 0.0f) ? 1 : 0;
+		extraDamage = (powerUpsActive[PowerUp.POWER] && powerUpTimers[PowerUp.POWER] > 0.0f) ? 2 : 1;
 
 		// Apply Speed boost
 		extraSpeed = (powerUpsActive[PowerUp.SPEED] && powerUpTimers[PowerUp.SPEED] > 0.0f) ? 0.05f : 0.0f;
 
 		// Apply healing
 		healTimer -= (healTimer > 0.0f) ? Time.deltaTime : 0.0f;
-		if (Input.GetKey(KeyCode.Q) && Input.GetButtonDown("X") && medKits > 0 &&
-		    currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
+		if (heal && medKits > 0 && currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
 		{
 			maxHealth.runTimeValue = (currentHealth += 2);
 			playerHealthSignal.Raise();
 			healTimer = 1.0f;
-			maxHealth.runTimeValue = currentHealth;
-			// send a signal saying that the player has taken damage so update his health UI
-			playerHealthSignal.Raise();
 			medKits--;
+			heal = false;
 		}
 
 		// Decrease each power up timer
