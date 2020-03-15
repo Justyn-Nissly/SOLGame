@@ -114,7 +114,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ca45ae29-f94a-4ed0-958c-8b40ccecec87"",
-                    ""path"": ""<HID::USB Gamepad >/button2"",
+                    ""path"": ""<Joystick>/trigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -125,7 +125,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""85207b15-ec2e-471e-bcb5-28b8919018a8"",
-                    ""path"": ""<Joystick>/trigger"",
+                    ""path"": ""<HID::USB Gamepad >/button3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -158,7 +158,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""97444f23-de13-46b2-aee0-69705c03c026"",
-                    ""path"": ""<HID::USB Gamepad >/button4"",
+                    ""path"": ""<HID::USB Gamepad >/button2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -169,7 +169,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cc9d1253-2a09-462f-b13b-eb78d2d60675"",
-                    ""path"": ""<HID::USB Gamepad >/button3"",
+                    ""path"": ""<HID::USB Gamepad >/button4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

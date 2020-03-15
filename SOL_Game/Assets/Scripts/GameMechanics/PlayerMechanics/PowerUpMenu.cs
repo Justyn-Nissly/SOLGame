@@ -63,7 +63,7 @@ public class PowerUpMenu : MonoBehaviour
 		{
 			size += maxSize / 10.0f;
 		}
-		else if (grow == false && size > 0.0f)
+		else if (grow == false && size >= 0.0f)
 		{
 			size -= maxSize / 10.0f;
 		}

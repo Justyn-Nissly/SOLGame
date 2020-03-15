@@ -49,6 +49,8 @@ public class Player : BaseCharacter
 		powerUpTimers; // Make power ups last for a set time
 	public bool[]
 		powerUpsActive; // Check which power ups are active
+	public bool
+		usingPowerUp = false;
 	#endregion
 
 	#region Private Variables
@@ -73,7 +75,6 @@ public class Player : BaseCharacter
 		usingBlasterAttack = false,
 		canPowerUp = false,
 		canIncrementComboCounter = false,
-		usingPowerUp = false,
 		heal;
 
 	public PlayerControls
@@ -118,11 +119,16 @@ public class Player : BaseCharacter
 		{
 			currentHealth = maxHealth.initialValue;
 		}
+
 		// Activate power ups
-		inputActions.Gameplay.LeftTrigger.performed += _ => usingPowerUp = true;
 		if (usingPowerUp)
 		{
 			ActivatePowerUps();
+			inputActions.Gameplay.LeftTrigger.canceled += _ => usingPowerUp = false;
+		}
+		else
+		{
+			inputActions.Gameplay.LeftTrigger.performed += _ => usingPowerUp = true;
 		}
 
 		// Apply power ups to the player
@@ -175,7 +181,7 @@ public class Player : BaseCharacter
 
 		CheckIfShouldIncreaseComboCounter();
 
-		inputActions.Gameplay.LeftTrigger.canceled += _ => usingPowerUp = false;
+
 	}
 	#endregion
 
@@ -526,11 +532,10 @@ public class Player : BaseCharacter
 
 	private void ActivatePowerUps()
 	{
-		usingPowerUp = true;
-		inputActions.Gameplay.ShieldDefense.performed += _ => powerUpsActive[PowerUp.SHIELD] = true;
-		inputActions.Gameplay.BlasterAttack.performed += _ => powerUpsActive[PowerUp.POWER] = true;
-		inputActions.Gameplay.SwordAttack.performed += _ => powerUpsActive[PowerUp.SPEED] = true;
-		inputActions.Gameplay.HammerAttack.performed += _ => heal = true;
+		inputActions.Gameplay.ShieldDefense.performed += _ => powerUpsActive[PowerUp.SHIELD] = usingPowerUp;
+		inputActions.Gameplay.BlasterAttack.performed += _ => powerUpsActive[PowerUp.POWER] = usingPowerUp;
+		inputActions.Gameplay.SwordAttack.performed += _ => powerUpsActive[PowerUp.SPEED] = usingPowerUp;
+		inputActions.Gameplay.HammerAttack.performed += _ => heal = usingPowerUp;
 	}
 
 	/// <summary> Apply any power ups the player has picked up </summary>
