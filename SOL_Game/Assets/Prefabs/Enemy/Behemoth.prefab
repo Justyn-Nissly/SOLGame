@@ -144,6 +144,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: a18e574fe391aab4c8207af85ad6be8c, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  safeFromFireAttack: 0
   currentHealth: 0
   takeDamageSounds:
   - {fileID: 8300000, guid: 33e0958c68b928d429ec43e5e5015abe, type: 3}
@@ -180,6 +181,7 @@ MonoBehaviour:
   MAXPOSSIBLEHEALTH: 0
   maxHealOverTime: 0
   moveSpeed: 3.5
+  maxMoveSpeed: 0
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
@@ -187,7 +189,7 @@ MonoBehaviour:
   rb2d: {fileID: 8645274407220581164}
   enemyAudioManager: {fileID: 2259566401528189603, guid: 204e36eb2d958144b888173b4d3536dc,
     type: 3}
-  powerUp: {fileID: 5583976521140673498, guid: ec4f96be2928bc141a97e89d8b1779f5, type: 3}
+  powerUp: {fileID: 2708952162030986632, guid: 9f82cb0c088379341a3e7c6ab5c0c32f, type: 3}
   pixelDesolveMaterial: {fileID: 0}
   phaseChangeDelay: 5
   phaseChangeTimer: 0
@@ -222,6 +224,7 @@ MonoBehaviour:
   maxEvadeTime: 3
   chargeSpeed: 10
   charging: 0
+  canMove: 1
 --- !u!50 &8645274407220581164
 Rigidbody2D:
   serializedVersion: 4

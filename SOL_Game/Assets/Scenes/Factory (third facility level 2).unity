@@ -733,11 +733,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LockedDoor5
       objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorIsLocked
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700268, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -803,6 +798,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dfb4bc393a9323419e679fa642b87fa, type: 3}
 --- !u!4 &248743774 stripped
@@ -864,11 +864,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LockedDoor3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorIsLocked
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700268, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
@@ -935,6 +930,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700258, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Offset.y
@@ -976,6 +976,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259566401528189602, guid: 204e36eb2d958144b888173b4d3536dc,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: de322549a9e217a4390eb59781623b70, type: 3}
+    - target: {fileID: 2259566401528189602, guid: 204e36eb2d958144b888173b4d3536dc,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
         type: 3}
@@ -1030,16 +1040,6 @@ PrefabInstance:
     - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189602, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: de322549a9e217a4390eb59781623b70, type: 3}
-    - target: {fileID: 2259566401528189602, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2259566401528189603, guid: 204e36eb2d958144b888173b4d3536dc,
@@ -1391,6 +1391,8 @@ MonoBehaviour:
   destroyedSprite: {fileID: 7745097646760372477, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
     type: 3}
   health: 3
+  canDropItem: 0
+  itemDrop: {fileID: 0}
 --- !u!1 &428469283
 GameObject:
   m_ObjectHideFlags: 0
@@ -8711,11 +8713,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LockedDoor2
       objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorIsLocked
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700268, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8780,6 +8777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dfb4bc393a9323419e679fa642b87fa, type: 3}
@@ -36697,11 +36699,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LockedDoor4
       objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorIsLocked
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700268, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -36766,6 +36763,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700258, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
@@ -37116,7 +37118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229107799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -67.82, y: -72.49, z: 0}
+  m_LocalPosition: {x: 2, y: 4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -37133,11 +37135,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LockedDoor1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorIsLocked
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700268, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
@@ -37203,6 +37200,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700258, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
@@ -46019,6 +46021,8 @@ MonoBehaviour:
   destroyedSprite: {fileID: 7745097646760372477, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
     type: 3}
   health: 3
+  canDropItem: 0
+  itemDrop: {fileID: 0}
 --- !u!1 &1761146580
 GameObject:
   m_ObjectHideFlags: 0
@@ -46151,11 +46155,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LockedDoor6
       objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorIsLocked
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700268, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46220,6 +46219,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700258, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
@@ -47055,17 +47059,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossGate
       objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorBoxCollider
-      value: 
-      objectReference: {fileID: 8939903370947881162, guid: 9e5a8f39a2ba3994fbb2a10b83eadc44,
-        type: 3}
-    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: doorIsLocked
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700268, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -47131,17 +47124,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
-        type: 3}
-      propertyPath: m_Sprite
+      propertyPath: doorBoxCollider
       value: 
-      objectReference: {fileID: 7512675173795543586, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
+      objectReference: {fileID: 8939903370947881162, guid: 9e5a8f39a2ba3994fbb2a10b83eadc44,
         type: 3}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700259, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Offset.y
@@ -47167,6 +47160,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7512675173795543586, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7dfb4bc393a9323419e679fa642b87fa, type: 3}
