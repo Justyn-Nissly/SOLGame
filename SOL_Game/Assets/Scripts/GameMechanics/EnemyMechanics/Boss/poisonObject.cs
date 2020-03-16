@@ -73,14 +73,6 @@ public class poisonObject : MonoBehaviour
 			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
-
-	/// <summary>
-	/// called in the animator
-	/// </summary>
-	public void DestroyGameObject()
-	{
-		Destroy(gameObject);
-	}
 	#endregion
 
 	#region Coroutines (Empty)

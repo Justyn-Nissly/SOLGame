@@ -94,7 +94,7 @@ public class UnlockDoorObject : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// Check if its the player next to this object
-		if (collision.gameObject.CompareTag("Player") && playerHasUsedObject == false)
+		if (collision.gameObject.CompareTag("Player"))
 		{
 			// Enable the ability to use this object
 			canUseObject = true;

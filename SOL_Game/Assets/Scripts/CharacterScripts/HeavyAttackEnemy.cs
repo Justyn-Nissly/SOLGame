@@ -13,9 +13,7 @@ public class HeavyAttackEnemy : Enemy
 		minTimeBetweenAttacks = 1f;
 	#endregion
 
-	#region Private Variables
-	private float
-		countDownTimer;
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods

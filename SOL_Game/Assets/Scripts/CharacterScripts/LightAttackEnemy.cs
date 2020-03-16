@@ -10,8 +10,7 @@ public class LightAttackEnemy : Enemy
 	#region Public Variables
 	public float
 		maxTimeBetweenAttacks = 1.2f,
-		minTimeBetweenAttacks = 0.7f,
-		countDownTimer;
+		minTimeBetweenAttacks = 0.7f;
 	#endregion
 
 	#region Private Variables (Empty)

@@ -44,13 +44,16 @@ public class Player : BaseCharacter
 		powerUpTimer; // How long power ups last
 	public int
 		medKits,     // How many med kits the player is holding
-		extraDamage; // Extra damage dealt with a power up
+		extraDamage, // Extra damage dealt with a power up
+		animationDirection = 0; // return value for the animations direction
 	public float[]
 		powerUpTimers; // Make power ups last for a set time
 	public bool[]
 		powerUpsActive; // Check which power ups are active
 	public bool
 		usingPowerUp = false;
+	public PlayerControls
+		inputActions;
 	#endregion
 
 	#region Private Variables
@@ -76,9 +79,6 @@ public class Player : BaseCharacter
 		canPowerUp = false,
 		canIncrementComboCounter = false,
 		heal;
-
-	public PlayerControls
-		inputActions;
 	#endregion
 	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
 	private float fast, oldSpeed; private bool godModeEnabled;
@@ -109,6 +109,8 @@ public class Player : BaseCharacter
 		powerUpsActive = new bool[PowerUp.SPEED + 1];
 		fast = playerMovementSpeed * 2;
 		oldSpeed = playerMovementSpeed;
+
+		UnFreezePlayer();
 	}
 
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly </summary>
@@ -142,7 +144,7 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-			if (Input.GetKeyDown(KeyCode.Space))
+			/*if (Input.GetKeyDown(KeyCode.Space))
 			{
 				playerMovementSpeed = fast;
 				this.GetComponent<Rigidbody2D>().isKinematic = true;
@@ -161,7 +163,7 @@ public class Player : BaseCharacter
 				GlobalVarablesAndMethods.blasterUnlocked = true;
 				GlobalVarablesAndMethods.shieldUnlocked = true;
 				SetUpInputDetection();
-			}
+			}*/
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
@@ -189,10 +191,16 @@ public class Player : BaseCharacter
 	/// <summary> increases the combo counter if the player presses the right attack button while attacking</summary>
 	private void CheckIfShouldIncreaseComboCounter()
 	{
-		if (usingSwordAttack == true && inputActions.Gameplay.SwordAttack.triggered && swordComboCounter >= 0 && canIncrementComboCounter)
+		if (usingSwordAttack == true && inputActions.Gameplay.SwordAttack.triggered &&
+			swordComboCounter >= 0 && canIncrementComboCounter)
+		{
 			swordComboCounter++;
-		else if (usingHammerAttack == true && inputActions.Gameplay.HammerAttack.triggered && hammerComboCouter >= 0 && canIncrementComboCounter)
+		}
+		else if (usingHammerAttack == true && inputActions.Gameplay.HammerAttack.triggered &&
+				 hammerComboCouter >= 0 && canIncrementComboCounter)
+		{
 			hammerComboCouter++;
+		}
 	}
 
 	/// <summary> this sets up the players input detection</summary>
@@ -282,7 +290,7 @@ public class Player : BaseCharacter
 	public void DealPlayerHammerDamage()
 	{
 		// Deal Player hammer Damage to enemies in range
-		MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, true);
+		MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
 	}
 
 	/// <summary> shake the screen (called from in event in the hammer animation) </summary>
@@ -384,8 +392,6 @@ public class Player : BaseCharacter
 	/// <summary> this gets the direction that an animations should play based on the players idle animation state</summary>
 	private int GetAnimationDirection()
 	{
-		int animationDirection = 0; // return value for the animations direction
-
 		AnimatorClipInfo[] animatorStateInfo = playerAnimator.GetCurrentAnimatorClipInfo(0);
 
 		switch (animatorStateInfo[0].clip.name)

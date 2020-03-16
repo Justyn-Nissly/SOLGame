@@ -24,7 +24,8 @@ public class Enemy : BaseCharacter
 		MAXPOSSIBLEHEALTH,
 		  maxHealOverTime,
 		  moveSpeed,   // Base movement speed
-			maxMoveSpeed;
+			maxMoveSpeed,
+		countDownTimer;
     public bool
         aggro; // The enemy has detected the player
     public Vector2[]
@@ -44,8 +45,7 @@ public class Enemy : BaseCharacter
 
 	#region Private Variables
 	private float
-		amountHealed = 0,
-		countDownTimer;
+		amountHealed = 0;
 	private bool
 		canDropPowerUp;
 	#endregion
