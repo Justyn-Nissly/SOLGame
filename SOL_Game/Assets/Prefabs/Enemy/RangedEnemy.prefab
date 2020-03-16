@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3574510705552857505}
   - component: {fileID: 64340258783277245}
   - component: {fileID: 2665741298371999116}
+  - component: {fileID: 7086496912897851350}
   m_Layer: 9
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -363,7 +364,7 @@ MonoBehaviour:
   shieldSprite: {fileID: 0}
   shieldBoxCollider: {fileID: 0}
   shieldSound: {fileID: 0}
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 7065384366785023924}
   enemyName: 
   aggroRange: 7
   followRange: 12
@@ -383,8 +384,21 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 0}
   rangeAttackDamage: 0
-  maxTimeBetweenAttacks: 3
-  minTimeBetweenAttacks: 1
+  maxTimeBetweenAttacks: 2
+  minTimeBetweenAttacks: 0.8
+--- !u!114 &7086496912897851350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2665741298371999117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0147dbe90c99567408713ebb191969ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldUpdate: 1
 --- !u!1 &2665741298888969872
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,13 +422,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2665741298888969872}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.08, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2665741298371999111}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2999399126184184546
 GameObject:
   m_ObjectHideFlags: 0
