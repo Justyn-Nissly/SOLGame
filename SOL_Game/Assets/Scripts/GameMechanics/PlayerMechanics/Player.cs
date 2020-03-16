@@ -282,7 +282,7 @@ public class Player : BaseCharacter
 	public void DealPlayerHammerDamage()
 	{
 		// Deal Player hammer Damage to enemies in range
-		MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+		MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, true);
 	}
 
 	/// <summary> shake the screen (called from in event in the hammer animation) </summary>
