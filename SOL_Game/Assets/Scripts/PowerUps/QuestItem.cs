@@ -3,21 +3,23 @@ using UnityEngine;
 
 public class QuestItem : MonoBehaviour
 {
-	#region Enums and Defined Constants
-	public const int
-		MAX_MED_KITS = 4, // Player cannot hold moer than this many med kits
-		SHIELD = 0, // Grant temporary invulnerability
-		POWER = 1, // Boost the player's damage
-		SPEED = 2, // Boost the player's speed
-		HEAL = 3; // Heal the player
+	#region Enums
+	public enum ItemType
+	{
+		unlockSword,
+		unlockBlaster,
+		unlockShield,
+		unlockHammer,
+		shardGreen,
+		shardBlue,
+		shardYellow,
+		shardRed
+	}
 	#endregion
 
 	#region Public Variables
-	public int
-		type; // The type of the power up itself
-	public float
-		powerUpTimer, // How long power ups last
-		timer;        // Time until the power up disappears
+	public ItemType
+		type;
 	public Sprite
 		powerUp; // Power up graphic
 	public Sprite[]
@@ -26,11 +28,7 @@ public class QuestItem : MonoBehaviour
 
 	#region Private Variables
 	private Player
-		player; // Apply the power up to the player
-	private float
-		spinTimer; // Make the power up appear to spin
-	private SpriteRenderer
-		powerUpSprite; // Power up visual
+		player;
 	#endregion
 
 	// Unity Named Methods
@@ -38,22 +36,13 @@ public class QuestItem : MonoBehaviour
 	/// <summary> Determine the power up type </summary>
 	void Awake()
 	{
-		new Random();
-		player = GameObject.FindObjectOfType<Player>();
-		spinTimer = 0.0f;
-
-		// Med kits are more common than other power ups
-		type = (int)Random.Range((float)SHIELD, (float)HEAL + 1.1f);
-		if (type > HEAL)
-		{
-			type = HEAL;
-		}
+		player = FindObjectOfType<Player>();
 	}
 
 	/// <summary> Power ups eventually disappear after dropping </summary>
 	void FixedUpdate()
 	{
-
+		;
 	}
 
 	/// <summary> Apply the power up </summary>
@@ -61,10 +50,35 @@ public class QuestItem : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Player")
 		{
-			Debug.Log("Got quest item!");
+			switch (type)
+			{
+				case ItemType.shardGreen:
+					;
+					break;
+				case ItemType.shardBlue:
+					player.swordComboUnlocked = true;
+					break;
+				case ItemType.shardYellow:
+					player.hammerComboUnlocked = true;
+					break;
+				case ItemType.shardRed:
+					;
+					break;
+				case ItemType.unlockSword:
+					GlobalVarablesAndMethods.swordUnlocked = true;
+					break;
+				case ItemType.unlockBlaster:
+					GlobalVarablesAndMethods.blasterUnlocked = true;
+					break;
+				case ItemType.unlockShield:
+					GlobalVarablesAndMethods.shieldUnlocked = true;
+					break;
+				case ItemType.unlockHammer:
+					GlobalVarablesAndMethods.hammerUnlocked = true;
+					break;
+			}
 			Destroy(gameObject);
 		}
-
 	}
 	#endregion
 
