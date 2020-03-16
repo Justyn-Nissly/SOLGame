@@ -40,7 +40,7 @@ public class PauseMenu : MonoBehaviour
 		}
 
 		/// Load the development menu when 'End' is pressed
-		if (Input.GetKeyDown(KeyCode.End))
+		if (Input.GetKeyDown(KeyCode.Delete))
 		{
 			SceneManager.LoadScene("DevMenu");
 		}
