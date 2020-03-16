@@ -13,7 +13,7 @@ public class ConveyorBelt : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	[Header("250 stops without extra speed.")]
+	[Header("250 stops the male player.")]
 	public float
 		speed; // How fast the conveyor belt pushes things
 	public Direction
