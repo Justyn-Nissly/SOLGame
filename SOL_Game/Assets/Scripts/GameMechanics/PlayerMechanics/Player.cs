@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : BaseCharacter
 {
@@ -51,6 +52,10 @@ public class Player : BaseCharacter
 		powerUpsActive; // Check which power ups are active
 	public bool
 		usingPowerUp = false;
+	public Image
+		RedRing,
+		GreenRing,
+		BlueRing;
 	#endregion
 
 	#region Private Variables
@@ -538,6 +543,20 @@ public class Player : BaseCharacter
 		inputActions.Gameplay.HammerAttack.performed += _ => heal = usingPowerUp;
 	}
 
+	///<summary> Make the health bar show the current health </summary>
+	void SetAttackTimer(float percentRed, float percentBlue, float percentGreen)
+	{
+		RedRing.fillAmount = percentRed;
+		GreenRing.fillAmount = percentBlue;
+		BlueRing.fillAmount = percentGreen;
+	}
+
+	///<summary> Make the health bar show the current health </summary>
+	void SetAttackTimer(float percentHelth)
+	{
+		RedRing.fillAmount = percentHelth;
+	}
+
 	/// <summary> Apply any power ups the player has picked up </summary>
 	private void ApplyPowerUps()
 	{
@@ -577,6 +596,10 @@ public class Player : BaseCharacter
 				powerUpsActive[i] = false;
 			}
 		}
+
+		SetAttackTimer(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
+							powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME,
+							powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);
 	}
 
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
