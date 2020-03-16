@@ -28,14 +28,13 @@ public class RangedAttackEnemy : Enemy
 	private void Awake()
 	{
 		rangeAttackDamage = (int)rangedAttackDamageToGive.initialValue;
+		enemy = GetComponent<Enemy>();
 	}
 
 	///<summary> Make the enemy ready to attack </summary>
 	public override void Start()
 	{
 		base.Start();
-
-		enemy          = GetComponent<Enemy>();
 		attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 	}
 
@@ -48,8 +47,8 @@ public class RangedAttackEnemy : Enemy
 		{
 			if (attackCountDownTimer <= 0)
 			{
-					Shoot(true);
-					attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
+				Shoot(true);
+				attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 			}
 			else
 			{

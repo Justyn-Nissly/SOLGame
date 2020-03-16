@@ -123,7 +123,7 @@ public class Enemy : BaseCharacter
 	///<summary> Deal damage to the enemy </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
-		base.TakeDamage(damage + player.extraDamage, playSwordImpactSound);
+		base.TakeDamage(damage * player.extraDamage, playSwordImpactSound);
 		SetHealth(currentHealth / maxHealth.initialValue);
 
 		Debug.Log("enemy CurrentHealth = " + currentHealth);
@@ -135,7 +135,7 @@ public class Enemy : BaseCharacter
 				enemyAudioManager.PlaySound();
 
 			// The enemy might drop a power up
-			if (/*canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f*/true)
+			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
 			{
 				Instantiate(powerUp, transform.position, Quaternion.identity);
 			}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GlobalVarablesAndMethods
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
@@ -15,27 +15,27 @@ public class GlobalVarablesAndMethods
 	/// at the beginning you want to start at the top of the stairs
 	/// </summary>
 	public static bool
-		startInBeginingPosition = true,  // Allow the player to start at the initial starting point
-		swordUnlocked           = false, // Track if the sword is unlocked
-		hammerUnlocked          = false, // Track if the hammer is unlocked
-		blasterUnlocked         = false, // Track if the blaster is unlocked
-		shieldUnlocked          = false; // Track if the shield is unlocked
+		startInBeginingPosition = true, // Allow the player to start at the initial starting point
+		swordUnlocked           = true, // Track if the sword is unlocked
+		hammerUnlocked          = true, // Track if the hammer is unlocked
+		blasterUnlocked         = true, // Track if the blaster is unlocked
+		shieldUnlocked          = true; // Track if the shield is unlocked
 	public static int 
 		currentPlayerHealth, // The player's current health
 		maxPlayerHealth = 8, // The maximum health the player has
 	    bossesDefeated  = 0; // Which bosses have been defeated
 	#endregion
 
-	#region Private Variables
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
-	#region Main Methods
+	#region Main Methods (Empty)
 	#endregion
 
-	#region Utility Methods
+	#region Utility Methods (Empty)
 	#endregion
 
-	#region Coroutines
+	#region Coroutines (Empty)
 	#endregion
 }

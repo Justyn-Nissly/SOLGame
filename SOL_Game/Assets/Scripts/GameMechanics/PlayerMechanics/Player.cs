@@ -49,6 +49,8 @@ public class Player : BaseCharacter
 		powerUpTimers; // Make power ups last for a set time
 	public bool[]
 		powerUpsActive; // Check which power ups are active
+	public bool
+		usingPowerUp = false;
 	#endregion
 
 	#region Private Variables
@@ -73,19 +75,22 @@ public class Player : BaseCharacter
 		usingBlasterAttack = false,
 		canPowerUp = false,
 		canIncrementComboCounter = false,
-		usingPowerUp = false;
+		heal;
 
-	private PlayerControls
+	public PlayerControls
 		inputActions;
 	#endregion
 	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
-	private float fast, oldSpeed;
+	private float fast, oldSpeed; private bool godModeEnabled;
 	//////////////////////////////////THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
-	void Start()
+	void Awake()
 	{
+		inputActions = new PlayerControls(); // this in the reference to the new unity input system
+
+		godModeEnabled = false;
 		SetUpInputDetection();
 
 		// The player starts with max health
@@ -114,8 +119,17 @@ public class Player : BaseCharacter
 		{
 			currentHealth = maxHealth.initialValue;
 		}
+
 		// Activate power ups
-		ActivatePowerUps();
+		if (usingPowerUp)
+		{
+			ActivatePowerUps();
+			inputActions.Gameplay.LeftTrigger.canceled += _ => usingPowerUp = false;
+		}
+		else
+		{
+			inputActions.Gameplay.LeftTrigger.performed += _ => usingPowerUp = true;
+		}
 
 		// Apply power ups to the player
 		ApplyPowerUps();
@@ -128,16 +142,26 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			playerMovementSpeed = fast;
-			this.GetComponent<Rigidbody2D>().isKinematic = true;
-		}
-		if (Input.GetKeyUp(KeyCode.Space))
-		{
-			playerMovementSpeed = oldSpeed;
-			this.GetComponent<Rigidbody2D>().isKinematic = false;
-		}
+			/*if (Input.GetKeyDown(KeyCode.Space))
+			{
+				playerMovementSpeed = fast;
+				this.GetComponent<Rigidbody2D>().isKinematic = true;
+				GlobalVarablesAndMethods.swordUnlocked = true;
+				GlobalVarablesAndMethods.hammerUnlocked = true;
+				GlobalVarablesAndMethods.blasterUnlocked = true;
+				GlobalVarablesAndMethods.shieldUnlocked = true;
+				SetUpInputDetection();
+			}
+			if (Input.GetKeyDown(KeyCode.End))
+			{
+				playerMovementSpeed = oldSpeed;
+				this.GetComponent<Rigidbody2D>().isKinematic = false;
+				GlobalVarablesAndMethods.swordUnlocked = true;
+				GlobalVarablesAndMethods.hammerUnlocked = false;
+				GlobalVarablesAndMethods.blasterUnlocked = true;
+				GlobalVarablesAndMethods.shieldUnlocked = true;
+				SetUpInputDetection();
+			}*/
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
@@ -156,15 +180,8 @@ public class Player : BaseCharacter
 		}
 
 		CheckIfShouldIncreaseComboCounter();
-	}
 
-	/// <summary> The player picks up a power up </summary>
-	void OnCollisionEnter2D(Collision2D collision)
-	{
-		if (collision.gameObject.tag == "PowerUp")
-		{
-			Debug.Log("Picked up power up.");
-		}
+
 	}
 	#endregion
 
@@ -181,32 +198,40 @@ public class Player : BaseCharacter
 	/// <summary> this sets up the players input detection</summary>
 	private void SetUpInputDetection()
 	{
-		inputActions = new PlayerControls(); // this in the reference to the new unity input system
 		inputActions.Gameplay.Enable();
-
-		inputActions.Gameplay.ShieldDefense.started += _ => EnableShield(false);
-		inputActions.Gameplay.ShieldDefense.canceled += _ => DisableShield();
-
 
 		inputActions.Gameplay.Movement.performed += context => playerMovementAmount = context.ReadValue<Vector2>() * (playerMovementSpeed + extraSpeed);
 		inputActions.Gameplay.Movement.canceled += _ => playerMovementAmount = Vector2.zero;
 
+		if (GlobalVarablesAndMethods.shieldUnlocked)
+		{
+			inputActions.Gameplay.ShieldDefense.started += _ => EnableShield(false);
+			inputActions.Gameplay.ShieldDefense.canceled += _ => DisableShield();
+		}
 
+		if (GlobalVarablesAndMethods.hammerUnlocked)
+		{
+			inputActions.Gameplay.HammerAttack.started += _ => StartHammerAnimation();
+			inputActions.Gameplay.HammerAttack.canceled += _ => canIncrementComboCounter = true;
+		}
 
-		inputActions.Gameplay.HammerAttack.started += _ => StartHammerAnimation();
-		inputActions.Gameplay.HammerAttack.canceled += _ => canIncrementComboCounter = true;
+		if (GlobalVarablesAndMethods.blasterUnlocked)
+		{
+			inputActions.Gameplay.BlasterAttack.started += _ => Shoot(false);
+		}
 
-		inputActions.Gameplay.BlasterAttack.started += _ => Shoot(false);
-
-		inputActions.Gameplay.SwordAttack.started += _ => StartSwordAnimation();
-		inputActions.Gameplay.SwordAttack.canceled += _ => canIncrementComboCounter = true;
+		if (GlobalVarablesAndMethods.swordUnlocked)
+		{
+			inputActions.Gameplay.SwordAttack.started += _ => StartSwordAnimation();
+			inputActions.Gameplay.SwordAttack.canceled += _ => canIncrementComboCounter = true;
+		}
 	}
 
 	/// <summary> shoot the players blaster</summary>
 	public override void Shoot(bool createGun)
 	{
 		// dont attack if the player is not allowed to
-		if (canAttack == false || usingBlasterAttack || shieldIsEnabled)
+		if (canAttack == false || usingBlasterAttack || shieldIsEnabled || usingPowerUp)
 		{
 			return;
 		}
@@ -438,7 +463,7 @@ public class Player : BaseCharacter
 	}
 
 	/// <summary> check for player movement input and apply it to the player </summary>
-	private void ApplyPlayerMovement()
+	public void ApplyPlayerMovement()
 	{
 		
 
@@ -507,17 +532,10 @@ public class Player : BaseCharacter
 
 	private void ActivatePowerUps()
 	{
-		if (Input.GetKey(KeyCode.Q))
-		{
-			powerUpsActive[PowerUp.SHIELD] = (powerUpsActive[PowerUp.SHIELD] || Input.GetButtonDown("B"));
-			powerUpsActive[PowerUp.POWER]  = (powerUpsActive[PowerUp.POWER]  || Input.GetButtonDown("Y"));
-			powerUpsActive[PowerUp.SPEED]  = (powerUpsActive[PowerUp.SPEED]  || Input.GetButtonDown("A"));
-			usingPowerUp = true;
-		}
-		else
-		{
-			usingPowerUp = false;
-		}
+		inputActions.Gameplay.ShieldDefense.performed += _ => powerUpsActive[PowerUp.SHIELD] = usingPowerUp;
+		inputActions.Gameplay.BlasterAttack.performed += _ => powerUpsActive[PowerUp.POWER] = usingPowerUp;
+		inputActions.Gameplay.SwordAttack.performed += _ => powerUpsActive[PowerUp.SPEED] = usingPowerUp;
+		inputActions.Gameplay.HammerAttack.performed += _ => heal = usingPowerUp;
 	}
 
 	/// <summary> Apply any power ups the player has picked up </summary>
@@ -526,23 +544,24 @@ public class Player : BaseCharacter
 		// Apply shield power up
 		if (powerUpsActive[PowerUp.SHIELD])
 		{
-			canTakeDamage = (powerUpTimers[PowerUp.SHIELD] <= 0.0f);
+			canTakeDamage = (powerUpTimers[PowerUp.SHIELD] <= 0.0f && shieldIsEnabled == false);
 		}
 
 		// Apply damage boost
-		extraDamage = (powerUpsActive[PowerUp.POWER] && powerUpTimers[PowerUp.POWER] > 0.0f) ? 1 : 0;
+		extraDamage = (powerUpsActive[PowerUp.POWER] && powerUpTimers[PowerUp.POWER] > 0.0f) ? 2 : 1;
 
 		// Apply Speed boost
 		extraSpeed = (powerUpsActive[PowerUp.SPEED] && powerUpTimers[PowerUp.SPEED] > 0.0f) ? 0.05f : 0.0f;
 
 		// Apply healing
 		healTimer -= (healTimer > 0.0f) ? Time.deltaTime : 0.0f;
-		if (Input.GetKey(KeyCode.Q) && Input.GetButtonDown("X") && medKits > 0 &&
-		    currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
+		if (heal && medKits > 0 && currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
 		{
-			currentHealth += 2;
+			maxHealth.runTimeValue = (currentHealth += 2);
+			playerHealthSignal.Raise();
 			healTimer = 1.0f;
 			medKits--;
+			heal = false;
 		}
 
 		// Decrease each power up timer
