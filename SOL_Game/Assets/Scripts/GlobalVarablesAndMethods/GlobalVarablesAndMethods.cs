@@ -17,7 +17,7 @@ public class GlobalVarablesAndMethods
 	public static bool
 		startInBeginingPosition = true, // Allow the player to start at the initial starting point
 		swordUnlocked           = true, // Track if the sword is unlocked
-		hammerUnlocked          = true, // Track if the hammer is unlocked
+		hammerUnlocked          = false, // Track if the hammer is unlocked
 		blasterUnlocked         = true, // Track if the blaster is unlocked
 		shieldUnlocked          = true; // Track if the shield is unlocked
 	public static int 

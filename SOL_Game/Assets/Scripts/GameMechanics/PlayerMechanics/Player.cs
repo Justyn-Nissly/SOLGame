@@ -17,7 +17,7 @@ public class Player : BaseCharacter
 	// player movement variables
 	public bool
 		playerAllowedToMove = true, // used to disable player movement like when the player is knocked back
-		hammerComboUnlocked = true, // flag for if the player has unlocked the hammer attack combo ability
+		hammerComboUnlocked = false, // flag for if the player has unlocked the hammer attack combo ability
 		swordComboUnlocked = true; // flag for if the player has unlocked the sword attack combo ability
 	public Animator
 		playerAnimator; // used to animate the players movement
