@@ -142,7 +142,7 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-			/*if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				playerMovementSpeed = fast;
 				this.GetComponent<Rigidbody2D>().isKinematic = true;
@@ -161,7 +161,7 @@ public class Player : BaseCharacter
 				GlobalVarablesAndMethods.blasterUnlocked = true;
 				GlobalVarablesAndMethods.shieldUnlocked = true;
 				SetUpInputDetection();
-			}*/
+			}
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
