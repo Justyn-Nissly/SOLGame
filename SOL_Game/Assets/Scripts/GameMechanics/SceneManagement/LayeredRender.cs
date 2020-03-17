@@ -19,7 +19,7 @@ public class LayeredRender : MonoBehaviour
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Overlay objects further up to appear in front of them </summary>
-	void Start()
+	void Awake()
 	{
 		sprite              = GetComponent<SpriteRenderer>();
 		sprite.sortingOrder = MAX_Y - ((int) (transform.position.y * 1000.0f) >> 6);

@@ -18,34 +18,28 @@ public class QuestItem : MonoBehaviour
 	#endregion
 
 	#region Public Variables
+	public Player
+		player;
 	public ItemType
 		type;
-	public Sprite
-		powerUp; // Power up graphic
+	public SpriteRenderer
+		sprite; // Sprite graphic
 	public Sprite[]
-		powerUps; // Possible power up graphics
+		sprites; // Possible sprite graphics
 	#endregion
 
-	#region Private Variables
-	private Player
-		player;
+	#region Private Variables (Empty)
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary> Determine the power up type </summary>
-	void Awake()
+	/// <summary> Determine the Sprite type </summary>
+	public virtual void Awake()
 	{
 		player = FindObjectOfType<Player>();
 	}
 
-	/// <summary> Power ups eventually disappear after dropping </summary>
-	void FixedUpdate()
-	{
-		;
-	}
-
-	/// <summary> Apply the power up </summary>
+	/// <summary> Apply the Sprite </summary>
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
