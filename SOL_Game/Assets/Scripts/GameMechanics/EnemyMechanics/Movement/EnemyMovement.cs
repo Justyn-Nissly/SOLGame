@@ -278,6 +278,11 @@ public class EnemyMovement : MonoBehaviour
 			enemy.rb2d.position = Vector2.MoveTowards((Vector2)transform.position,
 													  (Vector2)transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
 													   enemy.moveSpeed * Time.deltaTime);
+			enemyAnimator.SetLayerWeight(1, 0);
+		}
+		else
+		{
+			enemyAnimator.SetLayerWeight(1, 1);
 		}
 	}
 
