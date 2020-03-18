@@ -30,6 +30,8 @@ public class EnemyMovement : MonoBehaviour
 	public float
 		evasionDistance, // How far the enemy tries to stay from the player
 		waitTime;        // Waiting time before moving in new direction and how long the enemy waits to move again after charging
+	public bool
+		canMove = true; // The enemy can move
 	#endregion
 
 	#region Evade Player Variables
@@ -75,8 +77,6 @@ public class EnemyMovement : MonoBehaviour
 		angle,    // The angle from the enemy to the player
 		x = 0.0f, // Horizontal movement
 		y = 0.0f; // Vertical movement
-	public bool
-		canMove = true; // The enemy can move
 	#endregion
 
 	#region Evade Player Variables
@@ -272,17 +272,19 @@ public class EnemyMovement : MonoBehaviour
 		}
 
 		// If the enemy is not the desired distance from the player it moves to the desired distance
-		if (Vector2.Distance(playerPos, transform.position) <= evasionDistance - 0.5f ||
-			Vector2.Distance(playerPos, transform.position) >= evasionDistance + 0.5f)
+		if ((Vector2.Distance(playerPos, transform.position) <= evasionDistance - 0.5f ||
+			Vector2.Distance(playerPos, transform.position) >= evasionDistance + 0.5f) && canMove)
 		{
 			enemy.rb2d.position = Vector2.MoveTowards((Vector2)transform.position,
 													  (Vector2)transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
 													   enemy.moveSpeed * Time.deltaTime);
 			enemyAnimator.SetLayerWeight(1, 0);
+			enemy.canAttack = false;
 		}
 		else
 		{
 			enemyAnimator.SetLayerWeight(1, 1);
+			enemy.canAttack = true;
 		}
 	}
 

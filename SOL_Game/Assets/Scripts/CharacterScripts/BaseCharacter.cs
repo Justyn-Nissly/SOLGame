@@ -142,12 +142,6 @@ public class BaseCharacter : MonoBehaviour
 		}
 	}
 
-	/// <summary> Find the player (not needed after fixing the knock back effect)</summary>
-	private Player GetPlayer(GameObject gameObject)
-	{
-		return gameObject.GetComponent<Player>();
-	}
-
 	/// <summary> Gets random sound effect from a list </summary>
 	private AudioClip GetRandomSoundEffect(List<AudioClip> SoundEffectList)
 	{
@@ -155,13 +149,8 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> Instantiates the gun and a bullet (both need to be assigned in the inspector to work)</summary>
-	public virtual void Shoot(bool createGun)
+	public virtual void Shoot()
 	{
-		if (createGun)
-		{
-			InstantiateAndDestroyGun();
-		}
-
 		// Play the blaster firing sound
 		if (audioSource != null && blasterSound != null)
 		{
@@ -171,15 +160,6 @@ public class BaseCharacter : MonoBehaviour
 
 		// Launch the bullet
 		StartCoroutine(InstantiateBullet());
-	}
-
-	/// <summary> Temporarily spawn the gun </summary>
-	private void InstantiateAndDestroyGun()
-	{
-		GameObject gunInstance = Instantiate(gunPrefab, gunSpawnPoint.position, gunSpawnPoint.rotation);
-		gunInstance.transform.SetParent(gunSpawnPoint);
-
-		Destroy(gunInstance, .5f);
 	}
 
 	/// <summary> Turn on the shield </summary>

@@ -234,7 +234,7 @@ public class Player : BaseCharacter
 
 		if (GlobalVarablesAndMethods.blasterUnlocked)
 		{
-			inputActions.Gameplay.BlasterAttack.started += _ => Shoot(false);
+			inputActions.Gameplay.BlasterAttack.started += _ => Shoot();
 		}
 
 		if (GlobalVarablesAndMethods.swordUnlocked)
@@ -245,7 +245,7 @@ public class Player : BaseCharacter
 	}
 
 	/// <summary> shoot the players blaster</summary>
-	public override void Shoot(bool createGun)
+	public override void Shoot()
 	{
 		// dont attack if the player is not allowed to
 		if (canAttack == false || usingBlasterAttack || shieldIsEnabled || usingPowerUp)
@@ -253,7 +253,7 @@ public class Player : BaseCharacter
 			return;
 		}
 
-		base.Shoot(createGun);
+		base.Shoot();
 
 		StartShootAnimation();
 

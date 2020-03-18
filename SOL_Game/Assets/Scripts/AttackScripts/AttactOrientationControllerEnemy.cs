@@ -20,6 +20,7 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 		enemy; // Reference en enemy
 	private float
 		offsetVaule = -30; // offset to make it aim in the right direction if its to look directly at the player
+
 	#endregion
 
 	// Unity Named Methods
@@ -37,15 +38,7 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 		// Make sure a target is assigned before trying to face it
 		if(shouldLookAtPlayer && target != null) // make sure a target is assigned
 		{
-			// Face the player if he is within detection range
-			if (enemy != null && enemy.aggro)
-			{
-				LookInEightDirectionOfGameObject();
-			}
-			else if (enemy == null)
-			{
-				LookInEightDirectionOfGameObject();
-			}
+			LookInEightDirectionOfGameObject();
 		}
 	}
 	#endregion
@@ -73,7 +66,7 @@ public class AttactOrientationControllerEnemy : MonoBehaviour
 		// Make the object face orthagonally or diagonally towards the target
 		if(lookDirectlyAtPlayer == false)
 		{
-			angle = (float)(((int)angle) / 45) * 45.0f;
+			angle = (float)(((int)angle) / 45) * 45;
 		}
 		else
 		{
