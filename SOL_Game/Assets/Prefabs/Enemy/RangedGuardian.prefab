@@ -55,8 +55,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 4255507307742249802}
   - component: {fileID: 8831441691504646685}
   - component: {fileID: 2359227356052906426}
+  - component: {fileID: 1090242688}
   m_Layer: 9
   m_Name: RangedGuardian
   m_TagString: Enemy
@@ -137,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 5184558088362625358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 5}
+  m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children:
   - {fileID: 5184558087730219952}
   - {fileID: 5184558089056415121}
@@ -162,7 +163,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,7 +184,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: ba75c9b520b528346a4ac6b81dcf0382, type: 3}
+  m_Sprite: {fileID: -1902479227687025855, guid: 0bec9d5c12ccce7428ef2eabaa8d2468,
+    type: 3}
   m_Color: {r: 0.050418302, g: 0.9716981, b: 0.1349397, a: 1}
   m_FlipX: 0
   m_FlipY: 1
@@ -211,14 +213,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1.85, y: 1.67}
   m_EdgeRadius: 0
 --- !u!114 &5184558088362625352
 MonoBehaviour:
@@ -230,8 +232,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   shouldLookAtPlayer: 1
 --- !u!50 &3870721919833104840
 Rigidbody2D:
@@ -361,11 +363,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebe579a16114c714ea9d5f180b393237, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 11400000, guid: a4c7dc28fc0ae2648a17c507397831fb, type: 2}
   canAttack: 0
   canTakeDamage: 1
+  safeFromFireAttack: 0
   currentHealth: 0
   takeDamageSounds:
   - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
@@ -397,7 +400,7 @@ MonoBehaviour:
   shieldBoxCollider: {fileID: 0}
   shieldSound: {fileID: 0}
   healthBar: {fileID: 9208770773466699509}
-  enemyName:
+  enemyName: 
   aggroRange: 20
   followRange: 20
   attackDmg: 0
@@ -408,6 +411,7 @@ MonoBehaviour:
   moveSpeed: 5
   maxMoveSpeed: 0
   aggro: 0
+  canMove: 0
   patrol: []
   playerPos: {x: 0, y: 0}
   enemyVector: {x: 0, y: 0}
@@ -438,8 +442,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eea8b97ed8809304b82a82aa9edd48ff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxTime: 3
   minTime: 1
   waitTime: 1
@@ -454,12 +458,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
-  __MainTex2: {fileID: 0}
+  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
   _Fade: 0
   _HDR_Intensity: 1
   TeleportationColor: {r: 1, g: 0.09019608, b: 0, a: 1}
@@ -471,6 +475,25 @@ MonoBehaviour:
   _AutoScrollSpeedY: 0
   ShaderChange: 0
   ActiveUpdate: 1
+--- !u!95 &1090242688
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184558088362625358}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5a6781a05997b2469579e6e8adac9ac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5184558089056415126
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +518,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5184558089056415126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.094, y: 0.298, z: 0}
+  m_LocalPosition: {x: -0.094, y: 1.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5184558088362625348}
@@ -571,8 +594,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -593,8 +616,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -656,8 +679,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1

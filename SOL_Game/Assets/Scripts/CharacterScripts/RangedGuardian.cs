@@ -121,7 +121,7 @@ public class RangedGuardian : Enemy
 		if (teleporterPositions.Count <= 0)
 		{
 			// error, no game objects in the teleporter list
-			Debug.LogError("There are no telporter locations to teleport too!");
+			Debug.LogError("There are no teleporter locations to teleport too!");
 			return Vector3.zero; 
 		}
 		else if (teleporterPositions.Count > 0)

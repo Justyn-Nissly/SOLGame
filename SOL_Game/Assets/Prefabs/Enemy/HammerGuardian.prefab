@@ -141,6 +141,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: 419b4a6b4cb200d40872b2a2fcaf994f, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  safeFromFireAttack: 0
   currentHealth: 10000
   takeDamageSounds:
   - {fileID: 8300000, guid: 2d6e19d571d86ee419380022b720f70c, type: 3}
@@ -182,6 +183,7 @@ MonoBehaviour:
   moveSpeed: 0
   maxMoveSpeed: 0
   aggro: 0
+  canMove: 0
   patrol: []
   playerPos: {x: 0, y: 0}
   enemyVector: {x: 0, y: 0}
@@ -691,7 +693,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -10.2125}
+  m_AnchoredPosition: {x: -0.05, y: -0.03}
   m_SizeDelta: {x: 2.3661, y: 1.9858}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1298481425530435709

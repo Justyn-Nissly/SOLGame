@@ -129,26 +129,26 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-			/*if (Input.GetKeyDown(KeyCode.Space))
-			{
-				playerMovementSpeed = fast;
-				this.GetComponent<Rigidbody2D>().isKinematic = true;
-				GlobalVarablesAndMethods.swordUnlocked = true;
-				GlobalVarablesAndMethods.hammerUnlocked = true;
-				GlobalVarablesAndMethods.blasterUnlocked = true;
-				GlobalVarablesAndMethods.shieldUnlocked = true;
-				SetUpInputDetection();
-			}
-			if (Input.GetKeyDown(KeyCode.End))
-			{
-				playerMovementSpeed = oldSpeed;
-				this.GetComponent<Rigidbody2D>().isKinematic = false;
-				GlobalVarablesAndMethods.swordUnlocked = true;
-				GlobalVarablesAndMethods.hammerUnlocked = false;
-				GlobalVarablesAndMethods.blasterUnlocked = true;
-				GlobalVarablesAndMethods.shieldUnlocked = true;
-				SetUpInputDetection();
-			}*/
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			playerMovementSpeed = fast;
+			this.GetComponent<Rigidbody2D>().isKinematic = true;
+			GlobalVarablesAndMethods.swordUnlocked = true;
+			GlobalVarablesAndMethods.hammerUnlocked = true;
+			GlobalVarablesAndMethods.blasterUnlocked = true;
+			GlobalVarablesAndMethods.shieldUnlocked = true;
+			SetUpInputDetection();
+		}
+		if (Input.GetKeyDown(KeyCode.End))
+		{
+			playerMovementSpeed = oldSpeed;
+			this.GetComponent<Rigidbody2D>().isKinematic = false;
+			GlobalVarablesAndMethods.swordUnlocked = true;
+			GlobalVarablesAndMethods.hammerUnlocked = false;
+			GlobalVarablesAndMethods.blasterUnlocked = true;
+			GlobalVarablesAndMethods.shieldUnlocked = true;
+			SetUpInputDetection();
+		}
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************

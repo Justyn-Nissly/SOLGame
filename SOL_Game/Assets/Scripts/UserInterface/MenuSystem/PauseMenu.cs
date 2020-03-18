@@ -40,10 +40,10 @@ public class PauseMenu : MonoBehaviour
 		}
 
 		/// Load the development menu when 'End' is pressed
-		if (Input.GetKeyDown(KeyCode.End))
-		{
-			SceneManager.LoadScene("DevMenu");
-		}
+		//if (Input.GetKeyDown(KeyCode.End))
+		//{
+		//	SceneManager.LoadScene("DevMenu");
+		//}
 	}
 	#endregion
 
