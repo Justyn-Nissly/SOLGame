@@ -209,7 +209,9 @@ public class EnemyMovement : MonoBehaviour
 							waitTime = 0.4f;
 							charging = true;
 							chargeTime = Vector2.Distance(enemy.rb2d.position, playerPos);
-						}
+							enemyAnimator.SetLayerWeight(0, 1);
+							enemyAnimator.SetLayerWeight(1, 0);
+							}
 					}
 					// The enemy is waiting
 					else if (isWaiting)
@@ -500,6 +502,10 @@ public class EnemyMovement : MonoBehaviour
 		if (chargeTime <= 0.0f)
 		{
 			charging = false;
+			enemyAnimator.SetLayerWeight(0, 0);
+			enemyAnimator.SetLayerWeight(1, 1);
+			enemyAnimator.SetLayerWeight(2, 2);
+			enemy.canTakeDamage = false;
 			isWaiting = true;
 			waitTime = 1.0f;
 			enemy.aggro = false;
@@ -518,6 +524,8 @@ public class EnemyMovement : MonoBehaviour
 		if (waitTime <= 0.0f)
 		{
 			isWaiting = false;
+			enemyAnimator.SetLayerWeight(2, 0);
+			enemy.canTakeDamage = true;
 			evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
 		}
 	}

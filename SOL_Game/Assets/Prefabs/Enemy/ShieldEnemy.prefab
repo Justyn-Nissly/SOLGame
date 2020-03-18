@@ -260,12 +260,10 @@ GameObject:
   - component: {fileID: 5073558193283732434}
   - component: {fileID: 5073558193283732435}
   - component: {fileID: 5073558193283732428}
-  - component: {fileID: 5073558193283732429}
-  - component: {fileID: 4308309794557253121}
-  - component: {fileID: 4925452052291255808}
   - component: {fileID: -1494527648047725511}
   - component: {fileID: 3222643362638217863}
   - component: {fileID: 1518059970}
+  - component: {fileID: 758991165}
   m_Layer: 9
   m_Name: ShieldEnemy
   m_TagString: Enemy
@@ -427,57 +425,10 @@ MonoBehaviour:
   powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
   pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
     type: 2}
-  maxTimeBetweenAttacks: 2
-  minTimeBetweenAttacks: 0.8
+  enemyAnimator: {fileID: 1518059970}
   shieldEnemyDamageToGive: {fileID: 11400000, guid: defea4fe047dd46e899819e4de2d6168,
     type: 2}
---- !u!114 &5073558193283732429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5073558193283732431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shouldLookAtPlayer: 1
-  lookDirectlyAtPlayer: 0
---- !u!114 &4308309794557253121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5073558193283732431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94496abf717a74f4cb18d249ecf1b0fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxTime: 6
-  minTime: 3
-  waitTime: 1
---- !u!114 &4925452052291255808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5073558193283732431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f0aeeb8b9cec2b46ba45875c0ba6069, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  evasionDistance: 6
-  minEvadeTime: 4
-  maxEvadeTime: 8
-  chargeSpeed: 18
-  waitTime: 1.2
-  charging: 0
+  enemyMovement: {fileID: 758991165}
 --- !u!50 &-1494527648047725511
 Rigidbody2D:
   serializedVersion: 4
@@ -606,7 +557,7 @@ Animator:
   m_GameObject: {fileID: 5073558193283732431}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 32ee2450b6b914902a01363c3806eecd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -615,3 +566,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &758991165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5073558193283732431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d72eaf6393d064c87ba8f23d3bd366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 3
+  enemyAnimator: {fileID: 1518059970}
+  evasionDistance: 5
+  waitTime: 4
+  canMove: 1
+  maxChaseTime: 5
+  canMoveAtPlayer: 1
+  maxTime: 4
+  minTime: 5
+  minEvadeTime: 4
+  maxEvadeTime: 5
+  chargeSpeed: 5
+  charging: 0
