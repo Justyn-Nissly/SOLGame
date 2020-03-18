@@ -21,6 +21,7 @@ public class Shard : QuestItem
 	{
 		sprite = GetComponent<SpriteRenderer>();
 		player = FindObjectOfType<Player>();
+		sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
 	}
 
 	/// <summary> Power ups eventually disappear after dropping </summary>
