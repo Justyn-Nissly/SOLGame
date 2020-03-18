@@ -18,8 +18,8 @@ public class Player : BaseCharacter
 	// player movement variables
 	public bool
 		playerAllowedToMove = true, // used to disable player movement like when the player is knocked back
-		hammerComboUnlocked = false, // flag for if the player has unlocked the hammer attack combo ability
-		swordComboUnlocked = true; // flag for if the player has unlocked the sword attack combo ability
+		hammerComboUnlocked, // flag for if the player has unlocked the hammer attack combo ability
+		swordComboUnlocked; // flag for if the player has unlocked the sword attack combo ability
 	public Animator
 		playerAnimator; // used to animate the players movement
 	public Signal
@@ -73,7 +73,7 @@ public class Player : BaseCharacter
 
 	private int
 		swordComboCounter, // this counts how many times the player presses the sword attack button and is for knowing if the sword attack animator should play the next attack
-		hammerComboCouter; // this counts how many times the player presses the hammer attack button and is for knowing if the hammer attack animator should play the next attack
+		hammerComboCounter; // this counts how many times the player presses the hammer attack button and is for knowing if the hammer attack animator should play the next attack
 	private bool
 		usingSwordAttack = false, // flags for whether the player is using an attack so that it only plays once
 		usingHammerAttack = false,
@@ -114,6 +114,9 @@ public class Player : BaseCharacter
 		powerUpsActive = new bool[PowerUp.SPEED + 1];
 		fast = playerMovementSpeed * 2;
 		oldSpeed = playerMovementSpeed;
+
+		swordComboUnlocked = false;
+		hammerComboUnlocked = false;
 	}
 
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly </summary>
@@ -147,7 +150,7 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-			if (Input.GetKeyDown(KeyCode.Space))
+/*			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				playerMovementSpeed = fast;
 				this.GetComponent<Rigidbody2D>().isKinematic = true;
@@ -162,11 +165,11 @@ public class Player : BaseCharacter
 				playerMovementSpeed = oldSpeed;
 				this.GetComponent<Rigidbody2D>().isKinematic = false;
 				GlobalVarablesAndMethods.swordUnlocked = true;
-				GlobalVarablesAndMethods.hammerUnlocked = false;
+				GlobalVarablesAndMethods.hammerUnlocked = true;
 				GlobalVarablesAndMethods.blasterUnlocked = true;
 				GlobalVarablesAndMethods.shieldUnlocked = true;
 				SetUpInputDetection();
-			}
+			}*/
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
@@ -183,7 +186,6 @@ public class Player : BaseCharacter
 		{
 			ApplyPlayerMovement();
 		}
-
 		CheckIfShouldIncreaseComboCounter();
 
 
@@ -194,14 +196,16 @@ public class Player : BaseCharacter
 	/// <summary> increases the combo counter if the player presses the right attack button while attacking</summary>
 	private void CheckIfShouldIncreaseComboCounter()
 	{
-		if (usingSwordAttack == true && inputActions.Gameplay.SwordAttack.triggered && swordComboCounter >= 0 && canIncrementComboCounter)
+		if (swordComboUnlocked && usingSwordAttack == true && inputActions.Gameplay.SwordAttack.triggered &&
+		    swordComboCounter >= 0 && canIncrementComboCounter)
 			swordComboCounter++;
-		else if (usingHammerAttack == true && inputActions.Gameplay.HammerAttack.triggered && hammerComboCouter >= 0 && canIncrementComboCounter)
-			hammerComboCouter++;
+		else if (hammerComboUnlocked && usingHammerAttack == true && inputActions.Gameplay.HammerAttack.triggered &&
+		         hammerComboCounter >= 0 && canIncrementComboCounter)
+			hammerComboCounter++;
 	}
 
 	/// <summary> this sets up the players input detection</summary>
-	private void SetUpInputDetection()
+	public void SetUpInputDetection()
 	{
 		inputActions.Gameplay.Enable();
 
@@ -272,7 +276,7 @@ public class Player : BaseCharacter
 		if (usingHammerAttack == false)
 		{
 			// set combo flags
-			hammerComboCouter++;
+			hammerComboCounter += (hammerComboUnlocked) ? 1 : 0;
 			usingHammerAttack = true;
 
 			playerAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
@@ -305,7 +309,7 @@ public class Player : BaseCharacter
 			return;
 		}
 
-		swordComboCounter++;
+		swordComboCounter += (swordComboUnlocked) ? 1 : 0;
 
 		// increase the sword combo counter if the sword is already being used
 		if (usingSwordAttack == false)
@@ -342,7 +346,7 @@ public class Player : BaseCharacter
 	{
 		if (usingSwordAttack)
 		{
-			swordComboCounter--; // decrement counter
+			swordComboCounter -= (swordComboUnlocked) ? 1 : swordComboCounter; // decrement counter
 
 			if (swordComboCounter <= 0)
 			{
@@ -351,9 +355,9 @@ public class Player : BaseCharacter
 		}
 		else if (usingHammerAttack)
 		{
-			hammerComboCouter--; // decrement counter
+			hammerComboCounter -= (hammerComboUnlocked) ? 1 : hammerComboCounter; // decrement counter
 
-			if (hammerComboCouter <= 0)
+			if (hammerComboCounter <= 0)
 			{
 				EndAttackAnimation();
 			}
@@ -378,7 +382,7 @@ public class Player : BaseCharacter
 
 		// reset the attack counters
 		swordComboCounter = 0;
-		hammerComboCouter = 0;
+		hammerComboCounter = 0;
 
 		// reset attack flags
 		usingSwordAttack = false;
@@ -543,8 +547,8 @@ public class Player : BaseCharacter
 		inputActions.Gameplay.HammerAttack.performed += _ => heal = usingPowerUp;
 	}
 
-	///<summary> Make the health bar show the current health </summary>
-	void SetAttackTimer(float percentRed, float percentBlue, float percentGreen)
+/*	///<summary> Make the health bar show the current health </summary>
+	void SetAttackTimer(float percentRed, float percentGreen, float percentBlue)
 	{
 		RedRing.fillAmount = percentRed;
 		GreenRing.fillAmount = percentBlue;
@@ -555,7 +559,7 @@ public class Player : BaseCharacter
 	void SetAttackTimer(float percentHelth)
 	{
 		RedRing.fillAmount = percentHelth;
-	}
+	}*/
 
 	/// <summary> Apply any power ups the player has picked up </summary>
 	private void ApplyPowerUps()
@@ -597,9 +601,9 @@ public class Player : BaseCharacter
 			}
 		}
 
-		SetAttackTimer(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
+/*		SetAttackTimer(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
 							powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME,
-							powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);
+							powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);*/
 	}
 
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>

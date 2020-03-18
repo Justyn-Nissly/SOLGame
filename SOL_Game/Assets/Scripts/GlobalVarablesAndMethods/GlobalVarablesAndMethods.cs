@@ -16,10 +16,10 @@ public class GlobalVarablesAndMethods
 	/// </summary>
 	public static bool
 		startInBeginingPosition = true, // Allow the player to start at the initial starting point
-		swordUnlocked           = true, // Track if the sword is unlocked
+		swordUnlocked           = false, // Track if the sword is unlocked
 		hammerUnlocked          = false, // Track if the hammer is unlocked
-		blasterUnlocked         = true, // Track if the blaster is unlocked
-		shieldUnlocked          = true; // Track if the shield is unlocked
+		blasterUnlocked         = false, // Track if the blaster is unlocked
+		shieldUnlocked          = false; // Track if the shield is unlocked
 	public static int 
 		currentPlayerHealth, // The player's current health
 		maxPlayerHealth = 8, // The maximum health the player has

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class QuestItem : MonoBehaviour
 {
-	#region Enums
+	#region Enums and Defined Constants
 	public enum ItemType
 	{
 		unlockSword,
@@ -15,6 +15,7 @@ public class QuestItem : MonoBehaviour
 		shardYellow,
 		shardRed
 	}
+	protected const float DESPAWN_TIME = 7.0f;
 	#endregion
 
 	#region Public Variables
@@ -28,7 +29,9 @@ public class QuestItem : MonoBehaviour
 		sprites; // Possible sprite graphics
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private and Protected Variables
+	protected float
+		despawnTimer;
 	#endregion
 
 	// Unity Named Methods
@@ -36,7 +39,22 @@ public class QuestItem : MonoBehaviour
 	/// <summary> Determine the Sprite type </summary>
 	public virtual void Awake()
 	{
-		player = FindObjectOfType<Player>();
+		despawnTimer = 1000000.0f;
+		sprite = GetComponent<SpriteRenderer>();
+	}
+
+	protected virtual void FixedUpdate()
+	{
+		if (despawnTimer <= DESPAWN_TIME)
+		{
+			player.FreezePlayer();
+		}
+		if ((despawnTimer -= Time.deltaTime) <= 0.0f)
+		{
+			player.playerAnimator.SetBool("AcquiredQuestItem", false);
+			player.UnFreezePlayer();
+			Destroy(gameObject);
+		}
 	}
 
 	/// <summary> Apply the Sprite </summary>
@@ -44,6 +62,8 @@ public class QuestItem : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Player")
 		{
+			GetComponent<AudioSource>().Play();
+			player = FindObjectOfType<Player>();
 			switch (type)
 			{
 				case ItemType.shardGreen:
@@ -71,7 +91,12 @@ public class QuestItem : MonoBehaviour
 					GlobalVarablesAndMethods.hammerUnlocked = true;
 					break;
 			}
-			Destroy(gameObject);
+			player.SetUpInputDetection();
+			player.playerAnimator.SetBool("AcquiredQuestItem", true);
+			transform.position = GameObject.FindGameObjectWithTag("Arm").transform.position;
+			GetComponent<BoxCollider2D>().enabled = false;
+			despawnTimer = DESPAWN_TIME;
+			sprite.sortingOrder = LayeredRender.MAX_Y * 2;
 		}
 	}
 	#endregion

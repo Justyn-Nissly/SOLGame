@@ -3,7 +3,7 @@
 public class LayeredRender : MonoBehaviour
 {
 	#region Enums and Defined Constants
-	readonly int MAX_Y = 1000; // Prevent the layer order form being negative
+	public const int MAX_Y = 10000; // Prevent the layer order form being negative
 	#endregion
 
 	#region Public Variables
