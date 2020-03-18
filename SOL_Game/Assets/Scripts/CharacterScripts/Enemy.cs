@@ -40,6 +40,8 @@ public class Enemy : BaseCharacter
 		powerUp; // Reference PowerUp prefab.
 
 	public Material pixelDesolveMaterial;
+	public Animator
+		enemyAnimator;
 	#endregion
 
 	#region Private Variables
