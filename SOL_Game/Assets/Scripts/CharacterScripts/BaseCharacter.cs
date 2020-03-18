@@ -116,6 +116,7 @@ public class BaseCharacter : MonoBehaviour
 		// Enable the attack to damage multiple objects
 		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
 
+
 		// Each object hit can take damage
 		foreach (Collider2D collider in enemiesToDamage)
 		{
@@ -136,7 +137,7 @@ public class BaseCharacter : MonoBehaviour
 
 		if (createWeapon && meleeWeapon != null)
 		{
-			GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition.transform);
+			GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition);
 			Destroy(weaponInstance, .5f);
 		}
 	}

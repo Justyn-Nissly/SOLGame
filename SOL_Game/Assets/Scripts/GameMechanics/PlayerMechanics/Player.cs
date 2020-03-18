@@ -188,6 +188,18 @@ public class Player : BaseCharacter
 
 
 	}
+
+	/// <summary>
+	/// debug code to see the players melee attack ranges
+	/// </summary>
+	//private void OnDrawGizmosSelected()
+	//{
+	//	Gizmos.color = Color.red;
+	//	Gizmos.DrawSphere(heavyMeleeAttackPosition.position, heavyMeleeAttackRange);
+
+	//	Gizmos.color = Color.yellow;
+	//	Gizmos.DrawSphere(lightMeleeAttackPosition.position, lightMeleeAttackRange);
+	//}
 	#endregion
 
 	#region Utility Methods
@@ -544,11 +556,11 @@ public class Player : BaseCharacter
 	}
 
 	///<summary> Make the health bar show the current health </summary>
-	void SetAttackTimer(float percentRed, float percentBlue, float percentGreen)
+	void SetPowerUpFillAmounts(float percentRed, float percentBlue, float percentGreen)
 	{
 		RedRing.fillAmount = percentRed;
-		GreenRing.fillAmount = percentBlue;
-		BlueRing.fillAmount = percentGreen;
+		BlueRing.fillAmount = percentBlue;
+		GreenRing.fillAmount = percentGreen;
 	}
 
 	///<summary> Make the health bar show the current health </summary>
@@ -597,9 +609,12 @@ public class Player : BaseCharacter
 			}
 		}
 
-		SetAttackTimer(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
-							powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME,
-							powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);
+		if(RedRing != null && BlueRing != null && GreenRing != null)
+		{
+			SetPowerUpFillAmounts(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
+										 powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME,
+										 powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);
+		}
 	}
 
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
@@ -610,7 +625,11 @@ public class Player : BaseCharacter
 			return;
 		}
 
-		base.EnableShield(createShield);
+		// Play shield sound
+		if (shieldSound != null)
+		{
+			shieldSound.Play();
+		}
 
 		canTakeDamage = false;
 		StartShieldAnimation();
@@ -623,7 +642,11 @@ public class Player : BaseCharacter
 	{
 		if (shieldIsEnabled == true)
 		{
-			base.DisableShield();
+			// Stop playing shield sound
+			if (shieldSound != null)
+			{
+				shieldSound.Stop();
+			}
 			canTakeDamage = true;
 
 			EndAttackAnimation();

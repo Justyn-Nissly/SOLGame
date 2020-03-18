@@ -409,8 +409,8 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   healthBar: {fileID: 1485113867}
   enemyName: 
-  aggroRange: 20
-  followRange: 20
+  aggroRange: 100
+  followRange: 100
   attackDmg: 0
   contactDmg: 2
   healPerLoop: 0
@@ -444,6 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldLookAtPlayer: 1
+  lookDirectlyAtPlayer: 0
 --- !u!114 &4308309794557253121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +490,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 1
   m_AngularDrag: 1
   m_GravityScale: 0
