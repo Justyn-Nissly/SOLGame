@@ -10,18 +10,33 @@ public class PowerUp : MonoBehaviour
 		POWER = 1, // Boost the player's damage
 		SPEED = 2, // Boost the player's speed
 		HEAL = 3; // Heal the player
+	public const float
+		POWER_UP_TIME = 15.0f; // How long power up effects last
 	#endregion
 
 	#region Public Variables
 	public int
 		type; // The type of the power up itself
 	public float
-		powerUpTimer, // How long power ups last
-		timer;        // Time until the power up disappears
+		timer; // Time for the power up to disappear
+	[HideInInspector]
+	public float
+		timeLeft,     // Time until the power up disappears
+		powerUpTimer; // How long power ups last
+	[HideInInspector]
+	public BoxCollider2D
+		boxCollider;
+	[HideInInspector]
 	public Sprite
 		powerUp; // Power up graphic
+	[HideInInspector]
 	public Sprite[]
 		powerUps; // Possible power up graphics
+	[HideInInspector]
+	public SpriteRenderer
+		powerUpSprite; // Power up visual
+	public bool
+		setType;
 	#endregion
 
 	#region Private Variables
@@ -29,8 +44,6 @@ public class PowerUp : MonoBehaviour
 		player; // Apply the power up to the player
 	private float
 		spinTimer; // Make the power up appear to spin
-	private SpriteRenderer
-		powerUpSprite; // Power up visual
 	#endregion
 
 	// Unity Named Methods
@@ -39,11 +52,17 @@ public class PowerUp : MonoBehaviour
 	void Awake()
 	{
 		new Random();
-		player = GameObject.FindObjectOfType<Player>();
-		spinTimer = 0.0f;
+		boxCollider  = GetComponent<BoxCollider2D>();
+		player       = GameObject.FindObjectOfType<Player>();
+		spinTimer    = 0.0f;
+		timeLeft     = timer;
+		powerUpTimer = POWER_UP_TIME;
 
 		// Med kits are more common than other power ups
-		type = (int)Random.Range((float)SHIELD, (float)HEAL + 1.1f);
+		if (setType == false)
+		{
+			type = (int)Random.Range((float)SHIELD, (float)HEAL + 1.1f);
+		}
 		if (type > HEAL)
 		{
 			type = HEAL;
@@ -57,13 +76,13 @@ public class PowerUp : MonoBehaviour
 		spinTimer += Time.deltaTime * 8.0f;
 		powerUpSprite.sprite = powerUps[(int)(spinTimer % 4.0f) + type * (HEAL + 1)];
 
-		if (timer <= 0.0f)
+		if (timeLeft <= 0.0f)
 		{
 			Destroy(gameObject);
 		}
 
 		StartCoroutine("StartBlinking");
-		timer -= Time.deltaTime;
+		timeLeft -= Time.deltaTime;
 	}
 
 	/// <summary> Apply the power up </summary>

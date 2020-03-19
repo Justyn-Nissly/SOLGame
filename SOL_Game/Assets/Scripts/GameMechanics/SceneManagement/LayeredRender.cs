@@ -3,7 +3,7 @@
 public class LayeredRender : MonoBehaviour
 {
 	#region Enums and Defined Constants
-	readonly int MAX_Y = 1000; // Prevent the layer order form being negative
+	public const int MAX_Y = 10000; // Prevent the layer order form being negative
 	#endregion
 
 	#region Public Variables
@@ -19,7 +19,7 @@ public class LayeredRender : MonoBehaviour
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Overlay objects further up to appear in front of them </summary>
-	void Start()
+	void Awake()
 	{
 		sprite              = GetComponent<SpriteRenderer>();
 		sprite.sortingOrder = MAX_Y - ((int) (transform.position.y * 1000.0f) >> 6);

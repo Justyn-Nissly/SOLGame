@@ -16,8 +16,7 @@ public class Wyrm : Enemy
 	public GameObject
 		headGameobject,
 		breathAttack,     // The prefab of a breath attack game object that creates a line of fire (more then one is used to create the fire breath attack)
-		bigBreathBlast,
-		bigBreathBlastSpawnPoint;
+		bigBreathBlast;
 
 	public List<Transform>
 		breathAttackTargets; // Reference to all points that a line of fire should go to
@@ -32,7 +31,7 @@ public class Wyrm : Enemy
 
 
 	private float
-		attackCountdownTimer = 5,        // The countdown timer for the attacks
+		attackCountdownTimer = 6,        // The countdown timer for the attacks
 		attackIntervalTime = 5,          // The interval time before attacking again
 		shackSpeed = 50.0f,              // How fast it shakes
 		shackAmount = .01f;              // How much it shakes
@@ -79,7 +78,6 @@ public class Wyrm : Enemy
 		if(Random.Range(1,3) == 1)
 		{
 			BreathAttack();
-			
 		}
 		else
 		{
@@ -113,7 +111,8 @@ public class Wyrm : Enemy
 	{
 		StartCoroutine(SpawningEnemiesActions(duration));
 
-		Destroy(Instantiate(bigBreathBlast, bigBreathBlastSpawnPoint.transform.position, new Quaternion(0, 0, 0, 0)), duration + .2f);
+		// create a lazer breath attack (it will destroy itself when finished)
+		Instantiate(bigBreathBlast, headGameobject.transform.position, new Quaternion(0, 0, 0, 0));
 	}
 
 
@@ -169,14 +168,14 @@ public class Wyrm : Enemy
 		// set flags for disabling attacking, enabling enemy shacking, take no damage, and stop the enemy from moving
 		canAttack = false;
 		enemyIsShacking = true;
-		canTakeDamage = false;
+		//canTakeDamage = false;
 		aggro = false;
 
 		yield return new WaitForSeconds(delayTime);
 
 		canAttack = true;
 		enemyIsShacking = false;
-		canTakeDamage = true;
+		//canTakeDamage = true;
 		aggro = true;
 	}
 

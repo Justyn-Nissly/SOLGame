@@ -4,67 +4,100 @@ using UnityEngine;
 public class QuestItem : MonoBehaviour
 {
 	#region Enums and Defined Constants
-	public const int
-		MAX_MED_KITS = 4, // Player cannot hold moer than this many med kits
-		SHIELD = 0, // Grant temporary invulnerability
-		POWER = 1, // Boost the player's damage
-		SPEED = 2, // Boost the player's speed
-		HEAL = 3; // Heal the player
+	public enum ItemType
+	{
+		unlockSword,
+		unlockBlaster,
+		unlockShield,
+		unlockHammer,
+		shardGreen,
+		shardBlue,
+		shardYellow,
+		shardRed
+	}
+	protected const float DESPAWN_TIME = 7.0f;
 	#endregion
 
 	#region Public Variables
-	public int
-		type; // The type of the power up itself
-	public float
-		powerUpTimer, // How long power ups last
-		timer;        // Time until the power up disappears
-	public Sprite
-		powerUp; // Power up graphic
+	public Player
+		player;
+	public ItemType
+		type;
+	public SpriteRenderer
+		sprite; // Sprite graphic
 	public Sprite[]
-		powerUps; // Possible power up graphics
+		sprites; // Possible sprite graphics
 	#endregion
 
-	#region Private Variables
-	private Player
-		player; // Apply the power up to the player
-	private float
-		spinTimer; // Make the power up appear to spin
-	private SpriteRenderer
-		powerUpSprite; // Power up visual
+	#region Private and Protected Variables
+	protected float
+		despawnTimer;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	/// <summary> Determine the power up type </summary>
-	void Awake()
+	/// <summary> Determine the Sprite type </summary>
+	public virtual void Awake()
 	{
-		new Random();
-		player = GameObject.FindObjectOfType<Player>();
-		spinTimer = 0.0f;
+		despawnTimer = 1000000.0f;
+		sprite = GetComponent<SpriteRenderer>();
+	}
 
-		// Med kits are more common than other power ups
-		type = (int)Random.Range((float)SHIELD, (float)HEAL + 1.1f);
-		if (type > HEAL)
+	protected virtual void FixedUpdate()
+	{
+		if (despawnTimer <= DESPAWN_TIME)
 		{
-			type = HEAL;
+			player.FreezePlayer();
+		}
+		if ((despawnTimer -= Time.deltaTime) <= 0.0f)
+		{
+			player.playerAnimator.SetBool("AcquiredQuestItem", false);
+			player.UnFreezePlayer();
+			Destroy(gameObject);
 		}
 	}
 
-	/// <summary> Power ups eventually disappear after dropping </summary>
-	void FixedUpdate()
-	{
-
-	}
-
-	/// <summary> Apply the power up </summary>
+	/// <summary> Apply the Sprite </summary>
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
 		{
-			Debug.Log("Got quest item!");
-			Destroy(gameObject);
+			GetComponent<AudioSource>().Play();
+			player = FindObjectOfType<Player>();
+			switch (type)
+			{
+				case ItemType.shardGreen:
+					;
+					break;
+				case ItemType.shardBlue:
+					player.swordComboUnlocked = true;
+					break;
+				case ItemType.shardYellow:
+					player.hammerComboUnlocked = true;
+					break;
+				case ItemType.shardRed:
+					;
+					break;
+				case ItemType.unlockSword:
+					GlobalVarablesAndMethods.swordUnlocked = true;
+					break;
+				case ItemType.unlockBlaster:
+					GlobalVarablesAndMethods.blasterUnlocked = true;
+					break;
+				case ItemType.unlockShield:
+					GlobalVarablesAndMethods.shieldUnlocked = true;
+					break;
+				case ItemType.unlockHammer:
+					GlobalVarablesAndMethods.hammerUnlocked = true;
+					break;
+			}
+			player.SetUpInputDetection();
+			player.playerAnimator.SetBool("AcquiredQuestItem", true);
+			transform.position = GameObject.FindGameObjectWithTag("Arm").transform.position;
+			GetComponent<BoxCollider2D>().enabled = false;
+			despawnTimer = DESPAWN_TIME;
+			sprite.sortingOrder = LayeredRender.MAX_Y * 2;
 		}
-
 	}
 	#endregion
 

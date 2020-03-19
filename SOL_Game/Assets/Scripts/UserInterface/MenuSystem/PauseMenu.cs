@@ -34,7 +34,7 @@ public class PauseMenu : MonoBehaviour
 	void Update()
 	{
 
-		if (inputActions.Gameplay.PauseMenu.triggered)
+		if (inputActions.Gameplay.PauseMenu.triggered && SceneManager.GetActiveScene().name != "Menu")
 		{
 			PauseButtonPressed();
 		}
@@ -77,7 +77,7 @@ public class PauseMenu : MonoBehaviour
 		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UnFreezePlayer();
 		Destroy(GameObject.Find("PauseMenuCanvas(Clone)"));
 		Time.timeScale = 1.0f;
-		isPaused = false;	
+		isPaused = false;
 	}
 
 	/// Pause the game
