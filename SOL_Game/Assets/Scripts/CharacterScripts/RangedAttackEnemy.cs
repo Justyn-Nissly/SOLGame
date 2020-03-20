@@ -5,11 +5,6 @@ using UnityEngine;
 public class RangedAttackEnemy : Enemy
 {
 	#region Enums
-	private const int
-		WEST = 0,
-		NORTH = 1,
-		EAST = 2,
-		SOUTH = 3;
 	#endregion
 
 	#region Public Variables
@@ -77,8 +72,8 @@ public class RangedAttackEnemy : Enemy
 		attackCountDownTimer = attackInterval;
 	}
 
-	/// <summary> this gets the direction that an animations should play based on the players idle animation state</summary>
-	private int GetAnimationDirection()
+	/// <summary> this gets the direction that an animations should play based on the characters idle animation state</summary>
+	protected override int GetAnimationDirection()
 	{
 		int animationDirection = 0; // return value for the animations direction
 

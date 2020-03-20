@@ -164,25 +164,29 @@ public class EnemyMovement : MonoBehaviour
 			}
 			case MovementType.FreeRoam:
 			{
-				if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
+				if (canMove)
 				{
-					Roam();
-				}
-				else
-				{
-					waiting = waitTime;
-				}
+					if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
+					{
+						Roam();
+					}
+					else
+					{
+						waiting = waitTime;
+					}
 
-				// if the enemy is the ranged guardian roam even if aggro
-				if (enemy is RangedGuardian)
-				{
-					Roam();
+					// if the enemy is the ranged guardian roam even if aggro
+					if (enemy is RangedGuardian)
+					{
+						Roam();
+					}
+					if (enemy.aggro && canMoveAtPlayer)
+					{
+						playerPos = GameObject.FindWithTag("Player").transform.position;
+						Pursue();
+					}
 				}
-				if (enemy.aggro && canMoveAtPlayer)
-				{
-					playerPos = GameObject.FindWithTag("Player").transform.position;
-					Pursue();
-				}
+				
 				break;
 			}
 			case MovementType.EvasiveStrike:
@@ -235,24 +239,37 @@ public class EnemyMovement : MonoBehaviour
 				break;
 			}
 		};
+
+		if (canMove)
+		{
+			enemyAnimator.SetLayerWeight(1, 0);
+			enemyAnimator.SetLayerWeight(0, 1);
+		}
+		else
+		{
+			enemyAnimator.SetLayerWeight(1, 1);
+			enemyAnimator.SetLayerWeight(0, 0);
+		}
 	}
 	#region Persue Player Unity Methods
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (Type == MovementType.PersuePlayer)
+		if (collision.gameObject.CompareTag("Player"))
 		{
-			if (collision.gameObject.CompareTag("Player"))
-				canMoveAtPlayer = false;
+			canMove = false;
+			canMoveAtPlayer = false;
 		}
+			
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (Type == MovementType.PersuePlayer)
+
+		if (collision.gameObject.CompareTag("Player"))
 		{
-			if (collision.gameObject.CompareTag("Player"))
-				canMoveAtPlayer = true;
+			canMove = true;
+			canMoveAtPlayer = true;
 		}
 	}
 	#endregion
@@ -359,14 +376,18 @@ public class EnemyMovement : MonoBehaviour
 			if (Vector2.Distance((Vector2)transform.position, playerPos) > enemy.aggroRange)
 			{
 				enemy.aggro = false;
-				if (enemyAnimator != null)
-					enemyAnimator.SetLayerWeight(1, 1);
 			}
+
 		}
-		// Update the values in the Animator for the players animation
-		if (enemyAnimator != null)
+		else
 		{
-			SetEnemyAnimatorValues();
+			// Update the values in the Animator for the players animation
+			if (enemyAnimator != null)
+			{
+				SetEnemyAnimatorValues();
+				enemyAnimator.SetLayerWeight(1, 0);
+				enemyAnimator.SetLayerWeight(0, 1);
+			}
 		}
 
 		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
@@ -438,7 +459,11 @@ public class EnemyMovement : MonoBehaviour
 		if (moveTime <= 0.0f)
 		{
 			if(enemyAnimator != null)
-				enemyAnimator.SetLayerWeight(1, 1);
+			{
+				enemyAnimator.SetLayerWeight(1, 0);
+				enemyAnimator.SetLayerWeight(0, 1);
+			}
+
 			waiting = waitTime;
 			ChooseNewPath();
 			stopped = false;
@@ -448,7 +473,11 @@ public class EnemyMovement : MonoBehaviour
 		else if (waiting > 0.0f)
 		{
 			if (enemyAnimator != null)
+			{
 				enemyAnimator.SetLayerWeight(1, 1);
+				enemyAnimator.SetLayerWeight(0, 0);
+			}
+
 			waiting -= Time.deltaTime;
 		}
 
@@ -458,6 +487,7 @@ public class EnemyMovement : MonoBehaviour
 			if(enemyAnimator != null)
 			{
 				enemyAnimator.SetLayerWeight(1, 0);
+				enemyAnimator.SetLayerWeight(0, 1);
 			}
 
 			enemy.rb2d.MovePosition((Vector2)transform.position + path * Time.deltaTime);

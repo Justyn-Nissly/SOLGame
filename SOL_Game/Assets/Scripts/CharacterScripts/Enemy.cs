@@ -6,7 +6,12 @@ using UnityEngine.UI;
 
 public class Enemy : BaseCharacter
 {
-	#region Enums (Empty)
+	#region Enums
+	protected const int
+	WEST = 0,
+	NORTH = 1,
+	EAST = 2,
+	SOUTH = 3;
 	#endregion
 
 	#region Public Variables
@@ -169,6 +174,32 @@ public class Enemy : BaseCharacter
 				StartCoroutine(TeleportInEnemy(enemyTeleportScript));
 			}
 		}
+	}
+
+	/// <summary> this gets the direction that an animations should play based on the characters idle animation state</summary>
+	protected virtual int GetAnimationDirection()
+	{
+		int animationDirection = 0; // return value for the animations direction
+
+		AnimatorClipInfo[] animatorStateInfo = enemyAnimator.GetCurrentAnimatorClipInfo(1);
+
+		switch (animatorStateInfo[0].clip.name)
+		{
+			case "IdleLeft":
+				animationDirection = WEST;
+				break;
+			case "IdleUp":
+				animationDirection = NORTH;
+				break;
+			case "IdleRight":
+				animationDirection = EAST;
+				break;
+			case "IdleDown":
+				animationDirection = SOUTH;
+				break;
+		}
+
+		return animationDirection;
 	}
 	#endregion
 

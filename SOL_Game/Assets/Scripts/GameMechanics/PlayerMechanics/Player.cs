@@ -188,18 +188,6 @@ public class Player : BaseCharacter
 
 
 	}
-
-	/// <summary>
-	/// debug code to see the players melee attack ranges
-	/// </summary>
-	//private void OnDrawGizmosSelected()
-	//{
-	//	Gizmos.color = Color.red;
-	//	Gizmos.DrawSphere(heavyMeleeAttackPosition.position, heavyMeleeAttackRange);
-
-	//	Gizmos.color = Color.yellow;
-	//	Gizmos.DrawSphere(lightMeleeAttackPosition.position, lightMeleeAttackRange);
-	//}
 	#endregion
 
 	#region Utility Methods
