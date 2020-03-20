@@ -276,7 +276,7 @@ public class HammerGuardianController : Enemy
 				weakness.health = phaseHealth;
 				restTimer       = restDelay;
 				isAttacking     = false;
-				
+
 			}
 			else
 			{
