@@ -75,13 +75,20 @@ public class Wyrm : Enemy
 	/// <summary> this will do an attack based on the situation </summary>
 	private void DoAnAttack()
 	{
-		if(Random.Range(1,3) == 1)
+		if(canDoQuarterHealthEvent == false) // if the wyrm is below quarter health chance to do a special attack
 		{
-			BreathAttack();
+			if (Random.Range(1, 3) == 1)
+			{
+				BreathAttack();
+			}
+			else
+			{
+				BigBreathBlast(2);
+			}
 		}
 		else
 		{
-			BigBreathBlast(2);
+			BreathAttack();
 		}
 
 		attackCountdownTimer = attackIntervalTime;
@@ -125,6 +132,8 @@ public class Wyrm : Enemy
 		{
 			canAttack = false;
 			aggro = false;
+
+			print("you won the game!!!");
 		}
 		else
 		{
@@ -132,17 +141,17 @@ public class Wyrm : Enemy
 			if (currentHealth <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoThreeQuarterHealthEvent = false; // this flag is here so this only can happen once
-				StartCoroutine(StartHealthEvent(1)); // start health event
+				StartCoroutine(StartHealthEvent(4)); // start health event
 			}
 			else if (currentHealth <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
 			{
 				canDoHalfHealthEvent = false; // this flag is here so this only can happen once
-				StartCoroutine(StartHealthEvent(2)); // start health event
+				StartCoroutine(StartHealthEvent(6)); // start health event
 			}
 			else if (currentHealth <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
-				StartCoroutine(StartHealthEvent(1)); // start health event
+				StartCoroutine(StartHealthEvent(4)); // start health event
 			}
 		}
 	}
@@ -153,8 +162,6 @@ public class Wyrm : Enemy
 	{
 		// start doing boss spawning logic
 		StartCoroutine(SpawningEnemiesActions(numOfEnemiesToSpawn + 2));
-
-		attackIntervalTime--; // decrease the time between each attack
 
 		// spawn in enemies
 		StartCoroutine(enemySpawner.SpawnInEnemies(false, numOfEnemiesToSpawn));

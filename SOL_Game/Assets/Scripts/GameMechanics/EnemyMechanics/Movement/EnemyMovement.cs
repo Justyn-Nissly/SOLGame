@@ -30,6 +30,8 @@ public class EnemyMovement : MonoBehaviour
 	public float
 		evasionDistance, // How far the enemy tries to stay from the player
 		waitTime;        // Waiting time before moving in new direction and how long the enemy waits to move again after charging
+	public bool
+		canMove = true; // The enemy can move
 	#endregion
 
 	#region Evade Player Variables
@@ -75,8 +77,6 @@ public class EnemyMovement : MonoBehaviour
 		angle,    // The angle from the enemy to the player
 		x = 0.0f, // Horizontal movement
 		y = 0.0f; // Vertical movement
-	public bool
-		canMove = true; // The enemy can move
 	#endregion
 
 	#region Evade Player Variables
@@ -164,25 +164,29 @@ public class EnemyMovement : MonoBehaviour
 			}
 			case MovementType.FreeRoam:
 			{
-				if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
+				if (canMove)
 				{
-					Roam();
-				}
-				else
-				{
-					waiting = waitTime;
-				}
+					if (enemy.aggro == false && GameObject.FindObjectOfType<DialogueManager>().GetComponentInChildren<Animator>().GetBool("IsOpen") == false)
+					{
+						Roam();
+					}
+					else
+					{
+						waiting = waitTime;
+					}
 
-				// if the enemy is the ranged guardian roam even if aggro
-				if (enemy is RangedGuardian)
-				{
-					Roam();
+					// if the enemy is the ranged guardian roam even if aggro
+					if (enemy is RangedGuardian)
+					{
+						Roam();
+					}
+					if (enemy.aggro && canMoveAtPlayer)
+					{
+						playerPos = GameObject.FindWithTag("Player").transform.position;
+						Pursue();
+					}
 				}
-				if (enemy.aggro && canMoveAtPlayer)
-				{
-					playerPos = GameObject.FindWithTag("Player").transform.position;
-					Pursue();
-				}
+				
 				break;
 			}
 			case MovementType.EvasiveStrike:
@@ -209,7 +213,9 @@ public class EnemyMovement : MonoBehaviour
 							waitTime = 0.4f;
 							charging = true;
 							chargeTime = Vector2.Distance(enemy.rb2d.position, playerPos);
-						}
+							enemyAnimator.SetLayerWeight(0, 1);
+							enemyAnimator.SetLayerWeight(1, 0);
+							}
 					}
 					// The enemy is waiting
 					else if (isWaiting)
@@ -233,24 +239,37 @@ public class EnemyMovement : MonoBehaviour
 				break;
 			}
 		};
+
+		if (canMove)
+		{
+			enemyAnimator.SetLayerWeight(1, 0);
+			enemyAnimator.SetLayerWeight(0, 1);
+		}
+		else
+		{
+			enemyAnimator.SetLayerWeight(1, 1);
+			enemyAnimator.SetLayerWeight(0, 0);
+		}
 	}
 	#region Persue Player Unity Methods
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (Type == MovementType.PersuePlayer)
+		if (collision.gameObject.CompareTag("Player"))
 		{
-			if (collision.gameObject.CompareTag("Player"))
-				canMoveAtPlayer = false;
+			canMove = false;
+			canMoveAtPlayer = false;
 		}
+			
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (Type == MovementType.PersuePlayer)
+
+		if (collision.gameObject.CompareTag("Player"))
 		{
-			if (collision.gameObject.CompareTag("Player"))
-				canMoveAtPlayer = true;
+			canMove = true;
+			canMoveAtPlayer = true;
 		}
 	}
 	#endregion
@@ -272,12 +291,19 @@ public class EnemyMovement : MonoBehaviour
 		}
 
 		// If the enemy is not the desired distance from the player it moves to the desired distance
-		if (Vector2.Distance(playerPos, transform.position) <= evasionDistance - 0.5f ||
-			Vector2.Distance(playerPos, transform.position) >= evasionDistance + 0.5f)
+		if ((Vector2.Distance(playerPos, transform.position) <= evasionDistance - 0.5f ||
+			Vector2.Distance(playerPos, transform.position) >= evasionDistance + 0.5f) && canMove)
 		{
 			enemy.rb2d.position = Vector2.MoveTowards((Vector2)transform.position,
 													  (Vector2)transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
 													   enemy.moveSpeed * Time.deltaTime);
+			enemyAnimator.SetLayerWeight(1, 0);
+			enemy.canAttack = false;
+		}
+		else
+		{
+			enemyAnimator.SetLayerWeight(1, 1);
+			enemy.canAttack = true;
 		}
 	}
 
@@ -350,14 +376,18 @@ public class EnemyMovement : MonoBehaviour
 			if (Vector2.Distance((Vector2)transform.position, playerPos) > enemy.aggroRange)
 			{
 				enemy.aggro = false;
-				if (enemyAnimator != null)
-					enemyAnimator.SetLayerWeight(1, 1);
 			}
+
 		}
-		// Update the values in the Animator for the players animation
-		if (enemyAnimator != null)
+		else
 		{
-			SetEnemyAnimatorValues();
+			// Update the values in the Animator for the players animation
+			if (enemyAnimator != null)
+			{
+				SetEnemyAnimatorValues();
+				enemyAnimator.SetLayerWeight(1, 0);
+				enemyAnimator.SetLayerWeight(0, 1);
+			}
 		}
 
 		enemy.rb2d.position = Vector2.MoveTowards(enemy.rb2d.position,
@@ -429,7 +459,11 @@ public class EnemyMovement : MonoBehaviour
 		if (moveTime <= 0.0f)
 		{
 			if(enemyAnimator != null)
-				enemyAnimator.SetLayerWeight(1, 1);
+			{
+				enemyAnimator.SetLayerWeight(1, 0);
+				enemyAnimator.SetLayerWeight(0, 1);
+			}
+
 			waiting = waitTime;
 			ChooseNewPath();
 			stopped = false;
@@ -439,7 +473,11 @@ public class EnemyMovement : MonoBehaviour
 		else if (waiting > 0.0f)
 		{
 			if (enemyAnimator != null)
+			{
 				enemyAnimator.SetLayerWeight(1, 1);
+				enemyAnimator.SetLayerWeight(0, 0);
+			}
+
 			waiting -= Time.deltaTime;
 		}
 
@@ -449,6 +487,7 @@ public class EnemyMovement : MonoBehaviour
 			if(enemyAnimator != null)
 			{
 				enemyAnimator.SetLayerWeight(1, 0);
+				enemyAnimator.SetLayerWeight(0, 1);
 			}
 
 			enemy.rb2d.MovePosition((Vector2)transform.position + path * Time.deltaTime);
@@ -493,6 +532,10 @@ public class EnemyMovement : MonoBehaviour
 		if (chargeTime <= 0.0f)
 		{
 			charging = false;
+			enemyAnimator.SetLayerWeight(0, 0);
+			enemyAnimator.SetLayerWeight(1, 1);
+			enemyAnimator.SetLayerWeight(2, 2);
+			enemy.canTakeDamage = false;
 			isWaiting = true;
 			waitTime = 1.0f;
 			enemy.aggro = false;
@@ -511,6 +554,8 @@ public class EnemyMovement : MonoBehaviour
 		if (waitTime <= 0.0f)
 		{
 			isWaiting = false;
+			enemyAnimator.SetLayerWeight(2, 0);
+			enemy.canTakeDamage = true;
 			evadeTime = Random.Range(minEvadeTime, maxEvadeTime);
 		}
 	}

@@ -229,7 +229,7 @@ public class Player : BaseCharacter
 
 		if (GlobalVarablesAndMethods.blasterUnlocked)
 		{
-			inputActions.Gameplay.BlasterAttack.started += _ => Shoot(false);
+			inputActions.Gameplay.BlasterAttack.started += _ => Shoot();
 		}
 
 		if (GlobalVarablesAndMethods.swordUnlocked)
@@ -240,7 +240,7 @@ public class Player : BaseCharacter
 	}
 
 	/// <summary> shoot the players blaster</summary>
-	public override void Shoot(bool createGun)
+	public override void Shoot()
 	{
 		// dont attack if the player is not allowed to
 		if (canAttack == false || usingBlasterAttack || shieldIsEnabled || usingPowerUp)
@@ -248,7 +248,7 @@ public class Player : BaseCharacter
 			return;
 		}
 
-		base.Shoot(createGun);
+		base.Shoot();
 
 		StartShootAnimation();
 
@@ -603,9 +603,12 @@ public class Player : BaseCharacter
 			}
 		}
 
-/*		SetAttackTimer(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
-							powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME,
-							powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);*/
+		if(RedRing != null && BlueRing != null && GreenRing != null)
+		{
+			SetPowerUpFillAmounts(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
+										 powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME,
+										 powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);
+		}
 	}
 
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
@@ -616,7 +619,11 @@ public class Player : BaseCharacter
 			return;
 		}
 
-		base.EnableShield(createShield);
+		// Play shield sound
+		if (shieldSound != null)
+		{
+			shieldSound.Play();
+		}
 
 		canTakeDamage = false;
 		StartShieldAnimation();
@@ -629,7 +636,11 @@ public class Player : BaseCharacter
 	{
 		if (shieldIsEnabled == true)
 		{
-			base.DisableShield();
+			// Stop playing shield sound
+			if (shieldSound != null)
+			{
+				shieldSound.Stop();
+			}
 			canTakeDamage = true;
 
 			EndAttackAnimation();
