@@ -57,11 +57,11 @@ public class MeleeAttackEnemy : Enemy
 		// set up the attack animation to play
 		if (hasExtraAttacks)
 		{
-			enemyAnimator.SetInteger("AttackSeed", Random.Range(0, 3)); // randomly play an attack animations, nothing will happen if attack seed is not a animator parameter
+			characterAnimator.SetInteger("AttackSeed", Random.Range(0, 3)); // randomly play an attack animations, nothing will happen if attack seed is not a animator parameter
 		}
-		enemyAnimator.SetBool("Attacking", true); // set bool flag attacking to true
-		enemyAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right attacking direction animation
-		enemyAnimator.SetLayerWeight(2, 2); // increase the attack layer priority
+		characterAnimator.SetBool("Attacking", true); // set bool flag attacking to true
+		characterAnimator.SetInteger("attackDirection", GetAnimationDirection(1)); // set the value that plays the right attacking direction animation
+		characterAnimator.SetLayerWeight(2, 2); // increase the attack layer priority
 	}
 
 	/// <summary> deal damage called in an animation event</summary>
@@ -93,8 +93,8 @@ public class MeleeAttackEnemy : Enemy
 		canAttack = true; // set can attack flag
 
 		// end the attack animation
-		enemyAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
-		enemyAnimator.SetBool("Attacking", false); // set flag attacking to false
+		characterAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
+		characterAnimator.SetBool("Attacking", false); // set flag attacking to false
 
 		attackCountDownTimer = attackInterval; // reset the countdown timer
 	}

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
 {
-	#region Enums (Empty)
+	#region Enums
+	public const int
+	WEST = 0,
+	NORTH = 1,
+	EAST = 2,
+	SOUTH = 3;
 	#endregion
 
 	#region Public Variables
@@ -61,20 +66,14 @@ public class BaseCharacter : MonoBehaviour
 		blasterSound;
 
 	// Shield variables
-	public SpriteRenderer
-		shieldSprite; // Shield graphics
-	public BoxCollider2D
-		shieldBoxCollider; // The shield itself
 	public AudioSource
 		shieldSound; // Sound of the shield while active
+	public Animator
+		characterAnimator;
 	#endregion
 
 	#region Private Variables
-	protected float
-		thrust = 7,      // Apply knock back
-		knockTime = .2f; // Time of knock back
 	protected bool
-		characterHasKnockback = false, // Used for knock back
 		shieldIsEnabled = false;       // Check if shield is on or off
 	// NOT NEEDED; REMOVE LATER
 	// NOT NEEDED; REMOVE LATER
@@ -103,6 +102,32 @@ public class BaseCharacter : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// <summary> this gets the direction that an animations should play based on the characters idle animation state</summary>
+	protected virtual int GetAnimationDirection(int idleLayerIndex)
+	{
+		int animationDirection = 0; // return value for the animations direction
+
+		AnimatorClipInfo[] animatorStateInfo = characterAnimator.GetCurrentAnimatorClipInfo(idleLayerIndex);
+
+		switch (animatorStateInfo[0].clip.name)
+		{
+			case "IdleLeft":
+				animationDirection = WEST;
+				break;
+			case "IdleUp":
+				animationDirection = NORTH;
+				break;
+			case "IdleRight":
+				animationDirection = EAST;
+				break;
+			case "IdleDown":
+				animationDirection = SOUTH;
+				break;
+		}
+
+		return animationDirection;
+	}
+
 	/// <summary> Make the character take damage and become temporarily invincible </summary>
 	public virtual void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
@@ -174,16 +199,9 @@ public class BaseCharacter : MonoBehaviour
 		StartCoroutine(InstantiateBullet());
 	}
 
-	/// <summary> Turn on the shield </summary>
-	public virtual void EnableShield(bool createShield)
+	/// <summary> Turn on the shield sound </summary>
+	public virtual void EnableShield()
 	{
-		if (createShield)
-		{
-			shieldSprite.enabled = true;
-		}
-
-		shieldBoxCollider.enabled = true;
-
 		// Play shield sound
 		if (shieldSound != null)
 		{
@@ -191,13 +209,9 @@ public class BaseCharacter : MonoBehaviour
 		}
 	}
 
-	/// <summary> Deactivate shield </summary>
+	/// <summary> Deactivate shield sound </summary>
 	public virtual void DisableShield()
 	{
-		// Make the shield invisible and unable to block
-		shieldSprite.enabled = false;
-		shieldBoxCollider.enabled = false;
-
 		// Stop playing shield sound
 		if (shieldSound != null)
 		{

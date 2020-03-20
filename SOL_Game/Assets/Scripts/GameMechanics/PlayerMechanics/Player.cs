@@ -6,12 +6,8 @@ using UnityEngine.UI;
 
 public class Player : BaseCharacter
 {
-	#region Enums (Empty)
-	private const int
-		WEST = 0,
-		NORTH = 1,
-		EAST = 2,
-		SOUTH = 3;
+	#region Enums
+
 	#endregion
 
 	#region Public Variables
@@ -20,8 +16,6 @@ public class Player : BaseCharacter
 		playerAllowedToMove = true, // used to disable player movement like when the player is knocked back
 		hammerComboUnlocked = false, // flag for if the player has unlocked the hammer attack combo ability
 		swordComboUnlocked = true; // flag for if the player has unlocked the sword attack combo ability
-	public Animator
-		playerAnimator; // used to animate the players movement
 	public Signal
 		playerHealthSignal; // used to signal the health UI system that the player has taken damage
 	public
@@ -210,7 +204,7 @@ public class Player : BaseCharacter
 
 		if (GlobalVarablesAndMethods.shieldUnlocked)
 		{
-			inputActions.Gameplay.ShieldDefense.started += _ => EnableShield(false);
+			inputActions.Gameplay.ShieldDefense.started += _ => EnableShield();
 			inputActions.Gameplay.ShieldDefense.canceled += _ => DisableShield();
 		}
 
@@ -253,10 +247,10 @@ public class Player : BaseCharacter
 	{
 		usingBlasterAttack = true;
 
-		playerAnimator.SetBool("blasting", true); // set bool flag blasting to true
+		characterAnimator.SetBool("blasting", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
-		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
-		playerAnimator.SetLayerWeight(2, 2); // increase the blaster layer priority
+		characterAnimator.SetInteger("attackDirection", GetAnimationDirection(0)); // set the value that plays the right blaster direction animation
+		characterAnimator.SetLayerWeight(2, 2); // increase the blaster layer priority
 	}
 
 	/// <summary> this method starts playing the hammer animation </summary>
@@ -275,10 +269,10 @@ public class Player : BaseCharacter
 			hammerComboCouter++;
 			usingHammerAttack = true;
 
-			playerAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
+			characterAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
 			FreezePlayer(); // don't let the player move
-			playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
-			playerAnimator.SetLayerWeight(4, 2); // increase the blaster layer priority
+			characterAnimator.SetInteger("attackDirection", GetAnimationDirection(0)); // set the value that plays the right blaster direction animation
+			characterAnimator.SetLayerWeight(4, 2); // increase the blaster layer priority
 			canIncrementComboCounter = false;
 		}
 	}
@@ -313,10 +307,10 @@ public class Player : BaseCharacter
 			// set combo flags
 			usingSwordAttack = true;
 
-			playerAnimator.SetBool("isSwordAttacking", true); // set bool flag blasting to true
+			characterAnimator.SetBool("isSwordAttacking", true); // set bool flag blasting to true
 			FreezePlayer(); // don't let the player move
-			playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
-			playerAnimator.SetLayerWeight(3, 2); // increase the blaster layer priority
+			characterAnimator.SetInteger("attackDirection", GetAnimationDirection(0)); // set the value that plays the right blaster direction animation
+			characterAnimator.SetLayerWeight(3, 2); // increase the blaster layer priority
 			canIncrementComboCounter = false;
 		}
 	}
@@ -331,10 +325,10 @@ public class Player : BaseCharacter
 	/// <summary> this method starts playing the sword animation </summary>
 	private void StartShieldAnimation()
 	{
-		playerAnimator.SetBool("isShieldUp", true); // set bool flag blasting to true
+		characterAnimator.SetBool("isShieldUp", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
-		playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
-		playerAnimator.SetLayerWeight(5, 2); // increase the blaster layer priority
+		characterAnimator.SetInteger("attackDirection", GetAnimationDirection(0)); // set the value that plays the right blaster direction animation
+		characterAnimator.SetLayerWeight(5, 2); // increase the blaster layer priority
 	}
 
 	/// <summary> ends an attack animation (called with an event in the attack animation)</summary>
@@ -364,15 +358,15 @@ public class Player : BaseCharacter
 	/// <summary> ends an attack animation (called with an event in the attack animation)</summary>
 	public void EndAttackAnimation()
 	{
-		playerAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
-		playerAnimator.SetLayerWeight(3, 0); // lowers the sword layer priority
-		playerAnimator.SetLayerWeight(4, 0); // lowers the hammer layer priority
-		playerAnimator.SetLayerWeight(5, 0); // lowers the shield layer priority
+		characterAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
+		characterAnimator.SetLayerWeight(3, 0); // lowers the sword layer priority
+		characterAnimator.SetLayerWeight(4, 0); // lowers the hammer layer priority
+		characterAnimator.SetLayerWeight(5, 0); // lowers the shield layer priority
 
-		playerAnimator.SetBool("blasting", false); // set flag blasting to false
-		playerAnimator.SetBool("isSwordAttacking", false); // set flag isSwordAttacking to false
-		playerAnimator.SetBool("isHammerAttacking", false); // set flag isHammerAttacking to true
-		playerAnimator.SetBool("isShieldUp", false); // set flag isHammerAttacking to true
+		characterAnimator.SetBool("blasting", false); // set flag blasting to false
+		characterAnimator.SetBool("isSwordAttacking", false); // set flag isSwordAttacking to false
+		characterAnimator.SetBool("isHammerAttacking", false); // set flag isHammerAttacking to true
+		characterAnimator.SetBool("isShieldUp", false); // set flag isHammerAttacking to true
 
 		UnFreezePlayer(); // let the player move again
 
@@ -384,32 +378,6 @@ public class Player : BaseCharacter
 		usingSwordAttack = false;
 		usingHammerAttack = false;
 		usingBlasterAttack = false;
-	}
-
-	/// <summary> this gets the direction that an animations should play based on the players idle animation state</summary>
-	private int GetAnimationDirection()
-	{
-		int animationDirection = 0; // return value for the animations direction
-
-		AnimatorClipInfo[] animatorStateInfo = playerAnimator.GetCurrentAnimatorClipInfo(0);
-
-		switch (animatorStateInfo[0].clip.name)
-		{
-			case "IdleLeft":
-				animationDirection = WEST;
-				break;
-			case "IdleUp":
-				animationDirection = NORTH;
-				break;
-			case "IdleRight":
-				animationDirection = EAST;
-				break;
-			case "IdleDown":
-				animationDirection = SOUTH;
-				break;
-		}
-
-		return animationDirection;
 	}
 
 	/// <summary> this method is for the player to take damage
@@ -447,7 +415,7 @@ public class Player : BaseCharacter
 		float rotationValue = 0;
 
 		// get the direction the player is facing
-		switch (GetAnimationDirection())
+		switch (GetAnimationDirection(0))
 		{
 			case WEST:
 				rotationValue = -90f;
@@ -475,7 +443,7 @@ public class Player : BaseCharacter
 		if (dialogueManager != null && dialogueManager.GetComponentInChildren<Animator>().GetBool("IsOpen") == true)
 		{
 			playerMovementAmount = Vector2.zero;
-			playerAnimator.SetLayerWeight(1, 0);
+			characterAnimator.SetLayerWeight(1, 0);
 			audioSourcePlayerMovement.volume = 0;
 			return;
 		}
@@ -493,13 +461,13 @@ public class Player : BaseCharacter
 		// Check if the player is moving or is idle
 		if (playerMovementAmount.x != 0 || playerMovementAmount.y != 0)
 		{
-			playerAnimator.SetLayerWeight(1, 1);
+			characterAnimator.SetLayerWeight(1, 1);
 
 			DoDustEffectLogic();
 		}
 		else
 		{
-			playerAnimator.SetLayerWeight(1, 0);
+			characterAnimator.SetLayerWeight(1, 0);
 			dustCountdownTimer = -.1f; // set the countdown timer less than zero so that dust will be created right when the player next moves
 		}
 
@@ -530,9 +498,9 @@ public class Player : BaseCharacter
 	/// <summary> Update the values in the Animator for the players animations </summary>
 	private void SetPlayerAnimatorValues()
 	{
-		playerAnimator.SetFloat("Horizontal", playerMovementAmount.x);
-		playerAnimator.SetFloat("Vertical", playerMovementAmount.y);
-		playerAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);
+		characterAnimator.SetFloat("Horizontal", playerMovementAmount.x);
+		characterAnimator.SetFloat("Vertical", playerMovementAmount.y);
+		characterAnimator.SetFloat("Magnitude", playerMovementAmount.magnitude);
 	}
 
 	private void ActivatePowerUps()
@@ -606,7 +574,7 @@ public class Player : BaseCharacter
 	}
 
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>
-	public override void EnableShield(bool createShield)
+	public override void EnableShield()
 	{
 		if(canAttack == false || usingSwordAttack || usingHammerAttack || usingBlasterAttack || usingPowerUp)
 		{
@@ -614,10 +582,7 @@ public class Player : BaseCharacter
 		}
 
 		// Play shield sound
-		if (shieldSound != null)
-		{
-			shieldSound.Play();
-		}
+		base.EnableShield();
 
 		canTakeDamage = false;
 		StartShieldAnimation();
@@ -631,10 +596,8 @@ public class Player : BaseCharacter
 		if (shieldIsEnabled == true)
 		{
 			// Stop playing shield sound
-			if (shieldSound != null)
-			{
-				shieldSound.Stop();
-			}
+			base.DisableShield();
+
 			canTakeDamage = true;
 
 			EndAttackAnimation();
@@ -649,7 +612,7 @@ public class Player : BaseCharacter
 		playerMovementAmount = Vector2.zero;
 		if(playerRigidbody != null)
 			playerRigidbody.isKinematic = true;
-		playerAnimator.SetLayerWeight(1, 0);
+		characterAnimator.SetLayerWeight(1, 0);
 		audioSourcePlayerMovement.volume = 0;
 		playerAllowedToMove = false;
 		canAttack = false;
