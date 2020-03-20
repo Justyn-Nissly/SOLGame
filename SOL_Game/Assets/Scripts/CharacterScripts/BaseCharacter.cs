@@ -98,7 +98,7 @@ public class BaseCharacter : MonoBehaviour
 	//		Gizmos.DrawSphere(heavyMeleeAttackPosition.position, heavyMeleeAttackRange);
 
 	//	Gizmos.color = Color.yellow;
-	//	if(lightMeleeAttackPosition != null)
+	//	if (lightMeleeAttackPosition != null)
 	//		Gizmos.DrawSphere(lightMeleeAttackPosition.position, lightMeleeAttackRange);
 	//}
 	#endregion
