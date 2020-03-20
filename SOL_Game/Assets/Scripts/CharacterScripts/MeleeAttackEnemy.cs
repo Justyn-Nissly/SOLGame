@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeavyAttackEnemy : Enemy
+public class MeleeAttackEnemy : Enemy
 {
 	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
 	public EnemyMovement
-		enemyMovement;
+		enemyMovement;// referance to the enemy movement logic
+	public bool
+		hasExtraAttacks = false; // set this flag to true if the enemy has more than one attack in each direction that you want to randomly chose from
 	#endregion
 
 	#region Private Variables
 	private bool
-		usingWeapon = false;
+		usingWeapon = false; // a flag for knowing if the enemy is using its weapon/attacking
 	private float
-		attackCountDownTimer = 1,
-		attackInterval = .5f;
+		attackCountDownTimer = 1, // countdown timer between attacks
+		attackInterval = .5f; // pause time interval between attacks
 	#endregion
 
 	// Unity Named Methods
@@ -28,7 +30,7 @@ public class HeavyAttackEnemy : Enemy
 		// call the logic that is in the base script Enemy first
 		base.FixedUpdate();
 
-		// attack with the heavy melee weapon every couple seconds if the enemy is aggro
+		// attack with the melee weapon every couple seconds if the enemy is aggro
 		if (enemyMovement.canMoveAtPlayer == false &&  // this makes the enemy only attack when next to the player
 			 aggro && // is the player in the enemys sight range
 			 canAttack && // is the enemy allowed to attack
@@ -50,9 +52,13 @@ public class HeavyAttackEnemy : Enemy
 		// set flags
 		usingWeapon = true;
 		enemyMovement.canMove = false;
+		canAttack = false;
 
 		// set up the attack animation to play
-		enemyAnimator.SetInteger("AttackSeed", Random.Range(0, 3)); // randomly play an attack animations
+		if (hasExtraAttacks)
+		{
+			enemyAnimator.SetInteger("AttackSeed", Random.Range(0, 3)); // randomly play an attack animations, nothing will happen if attack seed is not a animator parameter
+		}
 		enemyAnimator.SetBool("Attacking", true); // set bool flag attacking to true
 		enemyAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right attacking direction animation
 		enemyAnimator.SetLayerWeight(2, 2); // increase the attack layer priority
@@ -61,7 +67,16 @@ public class HeavyAttackEnemy : Enemy
 	/// <summary> deal damage called in an animation event</summary>
 	public void DealDamage()
 	{
-		MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+		// use the heavy attack logic if its not null
+		if(heavyMeleeAttackPosition != null && heavyMeleeDamageToGive != null)
+		{
+			MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+		}
+		// use the light attack logic if its not null
+		else if (lightMeleeAttackPosition != null && lightMeleeDamageToGive != null)
+		{
+			MeleeAttack(lightMeleeWeapon, lightMeleeAttackPosition, lightMeleeAttackRange, lightMeleeDamageToGive, false);
+		}
 	}
 
 
@@ -70,13 +85,17 @@ public class HeavyAttackEnemy : Enemy
 	{
 		// set flag that the enemy is not using the attack anymore
 		usingWeapon = false;
-		if(enemyMovement.canMoveAtPlayer)
+
+		// set flag that lets the enemy move again at the player
+		if (enemyMovement.canMoveAtPlayer)
 			enemyMovement.canMove = true;
+
+		canAttack = true; // set can attack flag
 
 		// end the attack animation
 		enemyAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
 		enemyAnimator.SetBool("Attacking", false); // set flag attacking to false
 
-		attackCountDownTimer = attackInterval;
+		attackCountDownTimer = attackInterval; // reset the countdown timer
 	}
 }

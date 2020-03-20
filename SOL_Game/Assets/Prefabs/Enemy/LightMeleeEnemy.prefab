@@ -215,7 +215,6 @@ GameObject:
   - component: {fileID: 8519565967622166660}
   - component: {fileID: 8519565967622166667}
   - component: {fileID: 8519565967622166666}
-  - component: {fileID: 8519565967622166665}
   - component: {fileID: 644280149640877879}
   - component: {fileID: 9032792422870042038}
   - component: {fileID: 261646755035634606}
@@ -223,6 +222,7 @@ GameObject:
   - component: {fileID: 5918183537993178558}
   - component: {fileID: 1314200257}
   - component: {fileID: 1391753090}
+  - component: {fileID: 1391753091}
   m_Layer: 9
   m_Name: LightMeleeEnemy
   m_TagString: Enemy
@@ -322,77 +322,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
---- !u!114 &8519565967622166665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8519565967622166670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c72e42af9d55f04b8b94c36cc3da2c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: {fileID: 11400000, guid: 256734c5805f748699a8fa5e76776bf4, type: 2}
-  canAttack: 1
-  canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
-  takeDamageSounds:
-  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
-  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
-  meleeSwingSoundEffects:
-  - {fileID: 8300000, guid: 8f4b89ff8d31e444e814795900c017e4, type: 3}
-  - {fileID: 8300000, guid: 375cb2f4baca0454bb24ecac6fc33e6a, type: 3}
-  - {fileID: 8300000, guid: 4be1e5c8d979d8f44b578ac012d6b8cb, type: 3}
-  - {fileID: 8300000, guid: 5319c979bc4ad7d4d81cedd332813668, type: 3}
-  audioSource: {fileID: 9032792422870042038}
-  lightMeleeAttackPosition: {fileID: 8519565967468061580}
-  lightMeleeAttackRange: 1.3
-  lightMeleeWeapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff,
-    type: 3}
-  lightMeleeDamageToGive: {fileID: 11400000, guid: defea4fe047dd46e899819e4de2d6168,
-    type: 2}
-  heavyMeleeAttackPosition: {fileID: 0}
-  heavyMeleeAttackRange: 0
-  heavyMeleeWeapon: {fileID: 0}
-  heavyMeleeDamageToGive: {fileID: 0}
-  willDamageLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  firePoint: {fileID: 0}
-  gunSpawnPoint: {fileID: 0}
-  bulletPrefab: {fileID: 0}
-  gunPrefab: {fileID: 0}
-  rangedAttackDamageToGive: {fileID: 0}
-  BulletShootingDelay: 0.2
-  blasterSound: {fileID: 0}
-  shieldSprite: {fileID: 0}
-  shieldBoxCollider: {fileID: 0}
-  shieldSound: {fileID: 0}
-  healthBar: {fileID: 3515130051651478199}
-  enemyName: 
-  aggroRange: 100
-  followRange: 100
-  attackDmg: 1
-  contactDmg: 0
-  healPerLoop: 0
-  MAXPOSSIBLEHEALTH: 0
-  maxHealOverTime: 0
-  moveSpeed: 2
-  maxMoveSpeed: 2
-  aggro: 0
-  patrol: []
-  playerPos: {x: 0, y: 0}
-  enemyVector: {x: 0, y: 0}
-  rb2d: {fileID: 0}
-  enemyAudioManager: {fileID: 0}
-  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
-  pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
-    type: 2}
-  enemyAnimator: {fileID: 5918183537993178558}
-  enemyMovement: {fileID: 7160229734958396578}
 --- !u!50 &644280149640877879
 Rigidbody2D:
   serializedVersion: 4
@@ -621,6 +550,78 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.35, y: 0.35}
   m_EdgeRadius: 0
+--- !u!114 &1391753091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519565967622166670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c08f38fc7eaeb4495b63de7add7c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: {fileID: 11400000, guid: 256734c5805f748699a8fa5e76776bf4, type: 2}
+  canAttack: 1
+  canTakeDamage: 1
+  safeFromFireAttack: 0
+  currentHealth: 0
+  takeDamageSounds:
+  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
+  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
+  meleeSwingSoundEffects:
+  - {fileID: 8300000, guid: 8f4b89ff8d31e444e814795900c017e4, type: 3}
+  - {fileID: 8300000, guid: 375cb2f4baca0454bb24ecac6fc33e6a, type: 3}
+  - {fileID: 8300000, guid: 4be1e5c8d979d8f44b578ac012d6b8cb, type: 3}
+  - {fileID: 8300000, guid: 5319c979bc4ad7d4d81cedd332813668, type: 3}
+  audioSource: {fileID: 9032792422870042038}
+  lightMeleeAttackPosition: {fileID: 8519565967468061580}
+  lightMeleeAttackRange: 1.3
+  lightMeleeWeapon: {fileID: 3626625641593799657, guid: 51252c226cecf97488852a9bc5b365ff,
+    type: 3}
+  lightMeleeDamageToGive: {fileID: 11400000, guid: defea4fe047dd46e899819e4de2d6168,
+    type: 2}
+  heavyMeleeAttackPosition: {fileID: 0}
+  heavyMeleeAttackRange: 0
+  heavyMeleeWeapon: {fileID: 0}
+  heavyMeleeDamageToGive: {fileID: 0}
+  willDamageLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  firePoint: {fileID: 0}
+  gunSpawnPoint: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  gunPrefab: {fileID: 0}
+  rangedAttackDamageToGive: {fileID: 0}
+  BulletShootingDelay: 0.2
+  blasterSound: {fileID: 0}
+  shieldSprite: {fileID: 0}
+  shieldBoxCollider: {fileID: 0}
+  shieldSound: {fileID: 0}
+  healthBar: {fileID: 3515130051651478199}
+  enemyName: 
+  aggroRange: 100
+  followRange: 100
+  attackDmg: 1
+  contactDmg: 0
+  healPerLoop: 0
+  MAXPOSSIBLEHEALTH: 0
+  maxHealOverTime: 0
+  moveSpeed: 2
+  maxMoveSpeed: 2
+  aggro: 0
+  patrol: []
+  playerPos: {x: 0, y: 0}
+  enemyVector: {x: 0, y: 0}
+  rb2d: {fileID: 644280149640877879}
+  enemyAudioManager: {fileID: 0}
+  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
+  pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
+    type: 2}
+  enemyAnimator: {fileID: 5918183537993178558}
+  enemyMovement: {fileID: 7160229734958396578}
+  hasExtraAttacks: 0
 --- !u!1 &8891521907010971617
 GameObject:
   m_ObjectHideFlags: 0

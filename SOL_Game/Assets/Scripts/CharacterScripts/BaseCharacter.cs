@@ -49,8 +49,7 @@ public class BaseCharacter : MonoBehaviour
 
 	// Ranged attack variables (fill in the inspector only if using ranged attack)
 	public Transform
-		firePoint,
-		gunSpawnPoint;
+		firePoint;
 	public GameObject
 		bulletPrefab,
 		gunPrefab;
