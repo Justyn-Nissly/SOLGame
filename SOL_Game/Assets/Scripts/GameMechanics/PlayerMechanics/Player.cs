@@ -188,7 +188,10 @@ public class Player : BaseCharacter
 		}
 		CheckIfShouldIncreaseComboCounter();
 
-
+		// Update the power ups HUD
+		UpdateHud(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
+		          powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME,
+		          powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME);
 	}
 	#endregion
 
@@ -276,10 +279,11 @@ public class Player : BaseCharacter
 		if (usingHammerAttack == false)
 		{
 			// set combo flags
-			hammerComboCounter += (hammerComboUnlocked) ? 1 : 0;
+			hammerComboCounter++;
 			usingHammerAttack = true;
 
-			playerAnimator.SetBool("isHammerAttacking", true); // set bool flag blasting to true
+			// set bool flag blasting to true
+			playerAnimator.SetBool("isHammerAttacking", hammerComboUnlocked || hammerComboCounter <= 1);
 			FreezePlayer(); // don't let the player move
 			playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
 			playerAnimator.SetLayerWeight(4, 2); // increase the blaster layer priority
@@ -309,7 +313,7 @@ public class Player : BaseCharacter
 			return;
 		}
 
-		swordComboCounter += (swordComboUnlocked) ? 1 : 0;
+		swordComboCounter++;
 
 		// increase the sword combo counter if the sword is already being used
 		if (usingSwordAttack == false)
@@ -317,7 +321,8 @@ public class Player : BaseCharacter
 			// set combo flags
 			usingSwordAttack = true;
 
-			playerAnimator.SetBool("isSwordAttacking", true); // set bool flag blasting to true
+			// set bool flag blasting to true
+			playerAnimator.SetBool("isSwordAttacking", swordComboUnlocked || swordComboCounter <= 1);
 			FreezePlayer(); // don't let the player move
 			playerAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
 			playerAnimator.SetLayerWeight(3, 2); // increase the blaster layer priority
@@ -346,7 +351,7 @@ public class Player : BaseCharacter
 	{
 		if (usingSwordAttack)
 		{
-			swordComboCounter -= (swordComboUnlocked) ? 1 : swordComboCounter; // decrement counter
+			swordComboCounter--; // decrement counter
 
 			if (swordComboCounter <= 0)
 			{
@@ -355,7 +360,7 @@ public class Player : BaseCharacter
 		}
 		else if (usingHammerAttack)
 		{
-			hammerComboCounter -= (hammerComboUnlocked) ? 1 : hammerComboCounter; // decrement counter
+			hammerComboCounter--; // decrement counter
 
 			if (hammerComboCounter <= 0)
 			{
@@ -541,25 +546,22 @@ public class Player : BaseCharacter
 
 	private void ActivatePowerUps()
 	{
-		inputActions.Gameplay.ShieldDefense.performed += _ => powerUpsActive[PowerUp.SHIELD] = usingPowerUp;
-		inputActions.Gameplay.BlasterAttack.performed += _ => powerUpsActive[PowerUp.POWER] = usingPowerUp;
-		inputActions.Gameplay.SwordAttack.performed += _ => powerUpsActive[PowerUp.SPEED] = usingPowerUp;
+		inputActions.Gameplay.ShieldDefense.performed += _ => powerUpsActive[PowerUp.SHIELD] =
+			usingPowerUp || powerUpsActive[PowerUp.SHIELD];
+		inputActions.Gameplay.BlasterAttack.performed += _ => powerUpsActive[PowerUp.POWER] =
+			usingPowerUp || powerUpsActive[PowerUp.POWER];
+		inputActions.Gameplay.SwordAttack.performed += _ => powerUpsActive[PowerUp.SPEED] =
+			usingPowerUp || powerUpsActive[PowerUp.SPEED];
 		inputActions.Gameplay.HammerAttack.performed += _ => heal = usingPowerUp;
 	}
 
-/*	///<summary> Make the health bar show the current health </summary>
-	void SetAttackTimer(float percentRed, float percentGreen, float percentBlue)
+	///<summary> Make the health bar show the current health </summary>
+	void UpdateHud(float percentRed, float percentGreen, float percentBlue)
 	{
 		RedRing.fillAmount = percentRed;
-		GreenRing.fillAmount = percentBlue;
-		BlueRing.fillAmount = percentGreen;
+		GreenRing.fillAmount = percentGreen;
+		BlueRing.fillAmount = percentBlue;
 	}
-
-	///<summary> Make the health bar show the current health </summary>
-	void SetAttackTimer(float percentHelth)
-	{
-		RedRing.fillAmount = percentHelth;
-	}*/
 
 	/// <summary> Apply any power ups the player has picked up </summary>
 	private void ApplyPowerUps()
