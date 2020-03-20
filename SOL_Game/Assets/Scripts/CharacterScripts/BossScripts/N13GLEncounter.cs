@@ -47,8 +47,8 @@ public class N13GLEncounter : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		fadeTime = fadeToClearTime;
-		fadeToWhite = true;
+		fadeTime      = fadeToClearTime;
+		fadeToWhite   = true;
 		buildGuardian = false;
 		isSpawned     = true;
     }
@@ -88,9 +88,12 @@ public class N13GLEncounter : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(buildGuardian == false)
+		if(collision.CompareTag("Player"))
 		{
-			n13glAnimator.SetBool("IsActive", true);
+			if(buildGuardian == false)
+			{
+				n13glAnimator.SetBool("IsActive", true);
+			}
 		}
 	}
 	#endregion

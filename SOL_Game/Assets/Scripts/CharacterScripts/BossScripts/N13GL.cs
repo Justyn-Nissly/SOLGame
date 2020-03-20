@@ -19,7 +19,7 @@ public class N13GL : Enemy
 
 	#region Public Variables
 	#region Custom Editor
-	public bool
+	public bool // May be removed not sure yet
 		isShield,
 		isGun,
 		isHammer,
@@ -53,8 +53,8 @@ public class N13GL : Enemy
 		roomCenterTransform, // A transform at the center of the room used for some of the bosses movement calculation
 		shootingPointLeft,   // The left point at which a blaster bullet will be instantiated
 		shootingPointRight,  // The right point at which a blaster bullet will be instantiated
-		LeftShootingLaneLimit,
-		RightShootingLaneLimit;
+		LeftShootingLaneLimit,  // May need to be removed ***********************************
+		RightShootingLaneLimit; // May need to be removed ***********************************
 	public EnemySpawner
 		ShieldGuardianEnemySpawner; // A reference to the bosses enemy spawner
 	public SpriteRenderer
@@ -130,14 +130,14 @@ public class N13GL : Enemy
 
 	#region Shield Guardian
 	private bool
-		isCharging = false, // Flag for if the enemy is charging at the player
-		isStunned = false, // Flag for if the enemy is stunned
-		isHittingPlayer = false, // Flag fir is the enemy is colliding with the player right now
-		canDoHalfHealthEvent = true,  // Flag so that this health event only happens once
-		canDoQuarterHealthEvent = true,  // Flag so that this health event only happens once
+		isCharging                   = false, // Flag for if the enemy is charging at the player
+		isStunned                    = false, // Flag for if the enemy is stunned
+		isHittingPlayer              = false, // Flag for is the enemy is colliding with the player right now
+		canDoHalfHealthEvent         = true,  // Flag so that this health event only happens once
+		canDoQuarterHealthEvent      = true,  // Flag so that this health event only happens once
 		canDoThreeQuarterHealthEvent = true,  // Flag so that this health event only happens once
-		enemyIsShacking = false, // For making the enemy look "mad"
-		canShoot = true;
+		enemyIsShacking              = false, // For making the enemy look "mad"
+		canShoot                     = true;  // Flag for checking if the guardian can shoot
 
 	private float
 		enemyChargeSpeed = 15, // how fast the enemy charges at the player
@@ -184,20 +184,17 @@ public class N13GL : Enemy
 	override public void Start()
 	{
 		allGuardianPatternTypes = Enum.GetValues(typeof(AttackPattern));
-		currentGuardianPattern = AttackPattern.finalGuardianPattern;
-		typeIsChanged = false;
-		guardianPhase = 0;
-
-		isAttacking = false;
-		restTimer = 0.0f;
-		attackTimer = attackTime;
-		phase = 1;
-		player = FindObjectOfType<Player>();
-		//weakness = FindObjectOfType<HammerGuardianWeakness>();
-		guardianMove = FindObjectOfType<HammerGuardianMovement>();
-		//weakness.health = phaseHealth;
-		canTakeDamage = false;
-		defeated = false;
+		currentGuardianPattern  = AttackPattern.finalGuardianPattern;
+		typeIsChanged           = false;
+		guardianPhase           = 0;
+		isAttacking             = false;
+		restTimer               = 0.0f;
+		attackTimer             = attackTime;
+		phase                   = 1;
+		player                  = FindObjectOfType<Player>();
+		guardianMove            = FindObjectOfType<HammerGuardianMovement>();
+		canTakeDamage           = false;
+		defeated                = false;
 	}
 
 	// Update is called once per frame
@@ -460,9 +457,6 @@ public class N13GL : Enemy
 	/// <summary> The attack pattern for the hammer guardian </summary>
 	public void HammerGuardianAttackPattern()
 	{
-		// Make the character lower down overlap the character higher up
-		//RenderInOrder();
-
 		//The boss is defeated when its weak point takes sufficient damage
 		if (defeated)
 		{
@@ -482,9 +476,6 @@ public class N13GL : Enemy
 		}
 		else
 		{
-			// The weak point rotates with the guardian
-			//RotateWeakness();
-
 			// When attacking the player the guardian stops
 			Targeting();
 		}
@@ -511,8 +502,8 @@ public class N13GL : Enemy
 	{
 		// Stop moving and reset the rest and attack timers
 		guardianMove.canMove = false;
-		restTimer = restDelay;
-		attackTimer = attackTime;
+		restTimer            = restDelay;
+		attackTimer          = attackTime;
 
 		// Phase 1 emits 1 shockwave
 		if (phase == 1)
@@ -565,10 +556,6 @@ public class N13GL : Enemy
 	{
 		if (isAttacking)
 		{
-			// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
-			//sprite.color = Color.red;
-			// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
-
 			// The guardian pauses before striking
 			guardianMove.canMove = false;
 			if (attackDelay > 0.0f)
@@ -578,7 +565,7 @@ public class N13GL : Enemy
 			else
 			{
 				Attack();
-				restTimer = restDelay;
+				restTimer   = restDelay;
 				isAttacking = false;
 			}
 		}
@@ -588,9 +575,6 @@ public class N13GL : Enemy
 			if (restTimer > 0.0f)
 			{
 				restTimer -= Time.deltaTime;
-				// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
-				//sprite.color = Color.green;
-				// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
 			}
 
 			// The guardian pursues the player
@@ -601,10 +585,6 @@ public class N13GL : Enemy
 				// If the player is in position to be attacked long enough the guardian attacks
 				if (AttackCheck())
 				{
-					// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
-					//sprite.color = new Vector4(1.0f - (attackTimer / attackTime), 0.0f, attackTimer / attackTime, 1.0f);
-					// TEMPORARY COLOR CHANGE WILL BE REPLACED WITH ANIMATION
-
 					attackTimer -= Time.deltaTime;
 					if (attackTimer <= 0.0f)
 					{
@@ -644,17 +624,6 @@ public class N13GL : Enemy
 	#region Shared Coroutines
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endingPosition, float seconds)
 	{
-		/*basiliskCollider.enabled = false; // disable the collider so it wont hit the player while under ground
-
-		// trigger the under ground animation
-		animator.SetTrigger("UnderGround");
-		GetComponent<SpriteRenderer>().sortingOrder--; // change that the basilsik is rendered under other sprites like the player while under ground
-
-		yield return new WaitForSeconds(secondsAboveGround / 2); // wait for the animation to fully play
-
-		// spawn some bombs
-		SpawnBomb();*/
-
 		float elapsedTime = 0;
 		Vector3 startingPosition = objectToMove.transform.position; // save the starting position
 
@@ -666,14 +635,6 @@ public class N13GL : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
-		// trigger pop out of ground animation
-		/*animator.SetTrigger("PopUp");
-		GetComponent<SpriteRenderer>().sortingOrder++; // change the render layer
-		basiliskCollider.enabled = true; // enable the collider so it will hit the player while not under ground
-
-		// wait for N seconds above the ground
-		yield return new WaitForSeconds(secondsAboveGround / 2);*/
-
 		moving = false;
 	}
 	#endregion
@@ -683,9 +644,9 @@ public class N13GL : Enemy
 	public IEnumerator MoveInPlayersDirection()
 	{
 		// set flags
-		isCharging = true;
+		isCharging    = true;
 		canTakeDamage = false;
-		canAttack = false;
+		canAttack     = false;
 		//animator.SetBool("isCharging", true);
 
 		yield return new WaitForSeconds(1);
@@ -754,17 +715,17 @@ public class N13GL : Enemy
 	/// <summary> for enabling the shield, and disabling attacking then after a delay disabling the shield, and enabling attacking again</summary>
 	private IEnumerator SpawningEnemiesActions(float delayTime)
 	{
-		canAttack = false;
+		canAttack                = false;
 		bossShieldSprite.enabled = true;
-		enemyIsShacking = true;
-		canTakeDamage = false;
+		enemyIsShacking          = true;
+		canTakeDamage            = false;
 
 		yield return new WaitForSeconds(delayTime);
 
-		canAttack = true;
+		canAttack                = true;
 		bossShieldSprite.enabled = false;
-		enemyIsShacking = false;
-		canTakeDamage = true;
+		enemyIsShacking          = false;
+		canTakeDamage            = true;
 	}
 
 	/// <summary> this method stuns the enemy and after a N second delay unstuns that enemy</summary>
