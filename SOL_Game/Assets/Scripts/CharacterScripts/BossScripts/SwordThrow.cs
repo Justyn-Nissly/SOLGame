@@ -12,6 +12,8 @@ public class SwordThrow : MonoBehaviour
 		origin; // Starting point
 	public bool
 		findTarget; // The target is not set
+	public Animator
+		anim; // Reference to change animation states
 	#endregion
 
 	#region Private Variables
@@ -40,7 +42,6 @@ public class SwordThrow : MonoBehaviour
 		guadianCanMove = FindObjectOfType<MeleeGuardian>();
 		spinAngle  = 0.0f;
 		player     = FindObjectOfType<Player>();
-		//findTarget = false;
 		isThrowing = false;
 	}
 
@@ -49,15 +50,16 @@ public class SwordThrow : MonoBehaviour
 	{
 		ThrowSword(Throwtype);
 	}
+
+    public void CanAttack()
+    {
+		findTarget = true;
+    }
 	#endregion
 
 	#region Utility Functions
 	public void ThrowSword(int type)
 	{
-		if (isThrowing || spinAngle > 15.0f)
-		{
-			arm.transform.localRotation = Quaternion.AngleAxis(spinAngle = ((spinAngle + 15.0f) % 360.0f), Vector3.forward);
-		}
 
 		if (findTarget)
 		{
@@ -75,6 +77,7 @@ public class SwordThrow : MonoBehaviour
 			if (Vector2.Distance(arm.transform.position, targetPos) <= 0.05f)
 			{
 				returnOrigin = true;
+				anim.SetTrigger("Return");
 			}
 			else if (Vector2.Distance(arm.transform.position, origin.transform.position) <= 0.05f)
 			{
@@ -84,7 +87,9 @@ public class SwordThrow : MonoBehaviour
 				{
 					arm.transform.position = origin.transform.position;
 			        guadianCanMove.moving = false;
-				    returnOrigin = false;
+					anim.SetTrigger("Patrol");
+					returnOrigin = false;
+					isThrowing = false;
 				}
 			}
 			if (isThrowing)
@@ -104,4 +109,5 @@ public class SwordThrow : MonoBehaviour
 		}
 	}
 	#endregion
+
 }

@@ -7,22 +7,24 @@ public class BossBlastAttack : MonoBehaviour
 
 	#region Public Variables
 	public int
-		blastCompactness, // Affects how  many blasts appear; lower numbers cause more blasts
-		maxHeight,        // How high a blast can appear
-		minHeight,        // How low a blast can appear
-		maxWidth,         // How far right a blast can appear
-		minWidth;         // How far left a blast can appear
+		blastCompactness; // Affects how  many blasts appear; lower numbers cause more blasts
 	public float
 		activationTime; // Time before the blasts start
 	public GameObject
 		blast; // Used to instantiate the blast objects
+	public Transform
+		upperLeftSpawnPointLimit,  // used to get a random position between these two limits
+		lowerRightSpawnPointLimit; // Location you wish the enemy to move to
 	#endregion
 
 	#region Private Variables
 	private float
-		activationTimer; // Track how much time remains before the blasts appear
-	private int
-		blasts; // How many blasts will appear
+		activationTimer, // Track how much time remains before the blasts appear
+		blasts,           // How many blasts will appear
+		maxHeight,        // How high a blast can appear
+		minHeight,        // How low a blast can appear
+		maxWidth,         // How far right a blast can appear
+		minWidth;         // How far left a blast can appear
 	private bool
 		isBlasting; // Track if the blasts are appearing or not
 	#endregion
@@ -35,6 +37,10 @@ public class BossBlastAttack : MonoBehaviour
 		new Random();
 		activationTimer = activationTime;
 		isBlasting      = false;
+		maxHeight = upperLeftSpawnPointLimit.transform.position.y;
+		minHeight = lowerRightSpawnPointLimit.transform.position.y;
+		maxWidth = lowerRightSpawnPointLimit.transform.position.x;
+		minWidth = upperLeftSpawnPointLimit.transform.position.x;
 	}
 
 	/// <summary> Count down to when the blasts will appear then create them </summary>

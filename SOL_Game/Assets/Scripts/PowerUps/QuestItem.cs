@@ -41,6 +41,7 @@ public class QuestItem : MonoBehaviour
 	{
 		despawnTimer = 1000000.0f;
 		sprite = GetComponent<SpriteRenderer>();
+		player = FindObjectOfType<Player>();
 	}
 
 	protected virtual void FixedUpdate()
@@ -63,7 +64,6 @@ public class QuestItem : MonoBehaviour
 		if (collision.gameObject.tag == "Player")
 		{
 			GetComponent<AudioSource>().Play();
-			player = FindObjectOfType<Player>();
 			switch (type)
 			{
 				case ItemType.shardGreen:

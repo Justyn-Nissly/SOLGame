@@ -9,6 +9,8 @@ public class Shard : QuestItem
 	#region Public Variables
 	public SpriteRenderer
 		shine;
+	public AudioSource
+		shimmer;
 	#endregion
 
 	#region Private Variables
@@ -32,6 +34,19 @@ public class Shard : QuestItem
 		if (despawnTimer <= DESPAWN_TIME)
 		{
 			shine.sortingOrder = LayeredRender.MAX_Y * 2 - 1;
+			if (shimmer.volume > 0.0f)
+			{
+				shimmer.volume -= Time.deltaTime * 0.25f;
+			}
+		}
+		else
+		{
+			shimmer.volume =
+				1.0f / (Mathf.Pow(Vector2.Distance(transform.position, player.transform.position), 0.6f) + 0.01f) - 0.2f;
+			if (shimmer.volume < 0.0f)
+			{
+				shimmer.volume = 0.0f;
+			}
 		}
 	}
 	#endregion

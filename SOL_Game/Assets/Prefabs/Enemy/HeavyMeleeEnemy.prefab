@@ -413,15 +413,15 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   healthBar: {fileID: 768497864}
   enemyName: 
-  aggroRange: 6
-  followRange: 1
+  aggroRange: 100
+  followRange: 100
   attackDmg: 0
   contactDmg: 0
   healPerLoop: 0
   MAXPOSSIBLEHEALTH: 0
   maxHealOverTime: 0
-  moveSpeed: 5
-  maxMoveSpeed: 0
+  moveSpeed: 1
+  maxMoveSpeed: 1
   aggro: 0
   patrol: []
   playerPos: {x: 0, y: 0}
@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldLookAtPlayer: 1
+  lookDirectlyAtPlayer: 0
 --- !u!50 &2184432884482877022
 Rigidbody2D:
   serializedVersion: 4
@@ -458,7 +459,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 1
   m_AngularDrag: 1
   m_GravityScale: 0

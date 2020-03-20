@@ -87,7 +87,20 @@ public class BaseCharacter : MonoBehaviour
 	#endregion
 
 	// Unity Named Methods
-	#region Main Methods (Empty)
+	#region Main Methods
+	/// <summary>
+	/// debug code to see the melee attack ranges
+	/// </summary>
+	//private void OnDrawGizmosSelected()
+	//{
+	//	Gizmos.color = Color.red;
+	//	if (heavyMeleeAttackPosition != null)
+	//		Gizmos.DrawSphere(heavyMeleeAttackPosition.position, heavyMeleeAttackRange);
+
+	//	Gizmos.color = Color.yellow;
+	//	if(lightMeleeAttackPosition != null)
+	//		Gizmos.DrawSphere(lightMeleeAttackPosition.position, lightMeleeAttackRange);
+	//}
 	#endregion
 
 	#region Utility Methods
@@ -111,10 +124,11 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> the attack method used for the enemy and the player to swing light/heavy melee weapons</summary>
-	public void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool createWeapon)
+	public virtual void MeleeAttack(GameObject meleeWeapon, Transform attackPosition, float attackRange, FloatValue damageToGive, bool createWeapon)
 	{
 		// Enable the attack to damage multiple objects
 		Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, willDamageLayer);
+
 
 		// Each object hit can take damage
 		foreach (Collider2D collider in enemiesToDamage)
@@ -136,15 +150,9 @@ public class BaseCharacter : MonoBehaviour
 
 		if (createWeapon && meleeWeapon != null)
 		{
-			GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition.transform);
+			GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition);
 			Destroy(weaponInstance, .5f);
 		}
-	}
-
-	/// <summary> Find the player (not needed after fixing the knock back effect)</summary>
-	private Player GetPlayer(GameObject gameObject)
-	{
-		return gameObject.GetComponent<Player>();
 	}
 
 	/// <summary> Gets random sound effect from a list </summary>
@@ -154,13 +162,8 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> Instantiates the gun and a bullet (both need to be assigned in the inspector to work)</summary>
-	public virtual void Shoot(bool createGun)
+	public virtual void Shoot()
 	{
-		if (createGun)
-		{
-			InstantiateAndDestroyGun();
-		}
-
 		// Play the blaster firing sound
 		if (audioSource != null && blasterSound != null)
 		{
@@ -170,15 +173,6 @@ public class BaseCharacter : MonoBehaviour
 
 		// Launch the bullet
 		StartCoroutine(InstantiateBullet());
-	}
-
-	/// <summary> Temporarily spawn the gun </summary>
-	private void InstantiateAndDestroyGun()
-	{
-		GameObject gunInstance = Instantiate(gunPrefab, gunSpawnPoint.position, gunSpawnPoint.rotation);
-		gunInstance.transform.SetParent(gunSpawnPoint);
-
-		Destroy(gunInstance, .5f);
 	}
 
 	/// <summary> Turn on the shield </summary>

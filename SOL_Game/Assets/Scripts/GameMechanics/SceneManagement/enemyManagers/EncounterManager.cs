@@ -11,6 +11,7 @@ public class EncounterManager : MonoBehaviour
 	public GameObject
 		enemyToSpawn,
 		spawnPoint;
+	public bool panCamera = true;
 	#endregion
 
 	#region Private Variables
@@ -28,7 +29,10 @@ public class EncounterManager : MonoBehaviour
 			GetComponent<DoorManager>().LockDoors(); // lock all doors so the player cant leave this boss fight
 
 			// start panning the camera to the bosses spawn point
-			GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(spawnPoint, 2, 1, 1f);
+			if (panCamera)
+			{
+				GameObject.Find("Main Camera").GetComponent<cameraMovement>().PanCameraToLocation(spawnPoint, 2, 1, 1f);
+			}
 
 			// spawn in the boss
 			StartCoroutine(SpawnInEnemy());

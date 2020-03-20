@@ -42,7 +42,7 @@ public class RangedGuardian : Enemy
 		{
 			if (attackCountDownTimer <= 0)
 			{
-				Shoot(true);
+				Shoot();
 				attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 			}
 			else
