@@ -48,7 +48,7 @@ public class BulletLogic : MonoBehaviour
 				// DEBUG CODE, REMOVE LATER
 				// DEBUG CODE, REMOVE LATER
 				// DEBUG CODE, REMOVE LATER
-				Debug.Log("players CurrentHealth = " + player.currentHealth);
+				Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
 				// DEBUG CODE, REMOVE LATER
 				// DEBUG CODE, REMOVE LATER
 				// DEBUG CODE, REMOVE LATER
@@ -61,7 +61,7 @@ public class BulletLogic : MonoBehaviour
 				// DEBUG CODE, REMOVE LATER
 				// DEBUG CODE, REMOVE LATER
 				// DEBUG CODE, REMOVE LATER
-				Debug.Log("enemy's CurrentHealth = " + enemy.currentHealth);
+				Debug.Log("enemy's CurrentHealth = " + enemy.maxHealth.runTimeValue);
 				// DEBUG CODE, REMOVE LATER
 				// DEBUG CODE, REMOVE LATER
 				// DEBUG CODE, REMOVE LATER

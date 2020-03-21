@@ -73,7 +73,7 @@ public class Leviathan : Enemy
 			PoisonLogic();
 
 		// Only try and do an attack if the timer countdown is zero and the enemy is allowed to attack
-		if (attackCountdownTimer < 0 && canAttack && currentHealth > 0)
+		if (attackCountdownTimer < 0 && canAttack && maxHealth.runTimeValue > 0)
 		{
 			DoAnAttack();
 		}
@@ -111,7 +111,7 @@ public class Leviathan : Enemy
 				attackCountdownTimer = attackIntervalTime;
 			}
 			// check is the enemy has less than half health, if true it will do all attacks that are allowed below half health
-			else if (currentHealth <= maxHealth.initialValue / 2) // do this attack if bellow half health
+			else if (maxHealth.runTimeValue <= maxHealth.initialValue / 2) // do this attack if bellow half health
 			{
 				// do a random attack weighted to doing the breath attack more often
 				switch (Random.Range(1, 5))
@@ -267,11 +267,11 @@ public class Leviathan : Enemy
 	}
 
 	/// <summary> overridden takeDamage() method, mainly for doing things at curtain health points</summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if (currentHealth <= 0)
+		if (maxHealth.runTimeValue <= 0)
 		{
 			canAttack = false;
 			aggro = false;
@@ -279,17 +279,17 @@ public class Leviathan : Enemy
 		else
 		{
 			// check if the enemy should start a health event
-			if (currentHealth <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
+			if (maxHealth.runTimeValue <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoThreeQuarterHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(1)); // start health event
 			}
-			else if (currentHealth <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
+			else if (maxHealth.runTimeValue <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
 			{
 				canDoHalfHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(2)); // start health event
 			}
-			else if (currentHealth <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
+			else if (maxHealth.runTimeValue <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(3)); // start health event

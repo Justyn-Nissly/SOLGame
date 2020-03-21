@@ -54,16 +54,16 @@ public class RangedGuardian : Enemy
 	#endregion
 
 	#region Utility Methods
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if(currentHealth <= 0)
+		if(maxHealth.runTimeValue <= 0)
 		{
 			encounterManager.EndEncounter();
 		}
 
-		if (currentHealth <= maxHealth.initialValue / 2 && canSpawnEnemies)
+		if (maxHealth.runTimeValue <= maxHealth.initialValue / 2 && canSpawnEnemies)
 		{
 			// spawn enemies
 			canSpawnEnemies = false;

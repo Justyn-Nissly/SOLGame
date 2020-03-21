@@ -17,10 +17,7 @@ public class BaseCharacter : MonoBehaviour
 		maxHealth; // Maximum possible health
 	public bool
 		canAttack = true,     // Toggle ability to attack
-		canTakeDamage = true, // Toggle vulnerability
-		safeFromFireAttack = false;
-	public float
-		currentHealth; // Current health
+		canTakeDamage = true; // Toggle vulnerability
 
 	public List<AudioClip>
 		takeDamageSounds,       // Play injured sound
@@ -129,7 +126,7 @@ public class BaseCharacter : MonoBehaviour
 	}
 
 	/// <summary> Make the character take damage and become temporarily invincible </summary>
-	public virtual void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public virtual void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		// The character must be vulnerable to take damage
 		if (canTakeDamage == true)
@@ -142,7 +139,7 @@ public class BaseCharacter : MonoBehaviour
 			}
 
 			// Reduce the character's health and grant it temporary invincibility
-			currentHealth -= damage;
+			maxHealth.runTimeValue -= damage;
 			StartCoroutine("StartBlinking");
 		}
 	}

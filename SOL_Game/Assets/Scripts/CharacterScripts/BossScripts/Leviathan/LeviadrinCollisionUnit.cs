@@ -19,7 +19,7 @@ public class LeviadrinCollisionUnit : Enemy
 
 	// Unity Named Methods
 	#region Unity Main Methods
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		leviadrin.TakeDamage(damage, playSwordImpactSound);
 	}
@@ -43,7 +43,7 @@ public class LeviadrinCollisionUnit : Enemy
 			player.TakeDamage((int)DamageToGive.initialValue, false);
 
 			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
+			Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
 		}
 	}
 	#endregion

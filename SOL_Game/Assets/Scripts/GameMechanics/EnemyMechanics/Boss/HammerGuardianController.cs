@@ -103,7 +103,7 @@ public class HammerGuardianController : Enemy
 	#endregion
 
 	#region Utility Methods
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		;
 	}

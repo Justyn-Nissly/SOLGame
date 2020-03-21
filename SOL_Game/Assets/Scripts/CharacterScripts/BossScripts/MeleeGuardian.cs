@@ -68,11 +68,11 @@ public class MeleeGuardian : Enemy
 	#endregion
 
 	#region Utility Methods
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if (currentHealth <= 0)
+		if (maxHealth.runTimeValue <= 0)
 		{
 			EncounterManager.EndEncounter();
 		}
@@ -86,7 +86,7 @@ public class MeleeGuardian : Enemy
 			player.TakeDamage((int)meleeDamageToGive.initialValue, false);
 
 			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
+			Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
 		}
 	}
 

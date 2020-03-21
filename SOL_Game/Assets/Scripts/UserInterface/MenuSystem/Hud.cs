@@ -24,7 +24,7 @@ public class Hud : MonoBehaviour
 	// Unity Named Methods
 	#region Main Methods
 	// Start is called before the first frame update
-	void Start()
+	private void Start()
 	{
 		for (int i = 0; i < heartContainers.initialValue; i++)
 		{
@@ -32,13 +32,14 @@ public class Hud : MonoBehaviour
 			hearts[i].sprite = fullHeart;
 		}
 	}
+
 	#endregion
 
 	#region Utility Methods
 	public void UpdateHearts()
 	{
 		float tempHealth = playerCurrentHealth.runTimeValue / 2;
-		for (int i = 0; i < heartContainers.initialValue; i++)
+		for (int i = 0; i < heartContainers.runTimeValue; i++)
 		{
 			if (i <= tempHealth - 1)
 			{
@@ -53,6 +54,18 @@ public class Hud : MonoBehaviour
 				hearts[i].sprite = halfHeart;
 			}
 		}
+	}
+
+	public void ChangeNumberOfHearts()
+	{
+		for(int i = 0; i < heartContainers.runTimeValue; i++)
+		{
+			hearts[i].gameObject.SetActive(true);
+			hearts[i].sprite = fullHeart;
+		}
+
+		playerCurrentHealth.runTimeValue = heartContainers.runTimeValue * 2;
+		playerCurrentHealth.initialValue = heartContainers.runTimeValue * 2;
 	}
 	#endregion
 

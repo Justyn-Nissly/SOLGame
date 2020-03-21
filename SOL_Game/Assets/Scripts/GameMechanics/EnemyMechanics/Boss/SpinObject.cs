@@ -53,7 +53,7 @@ public class SpinObject : MonoBehaviour
 			player.TakeDamage((int)DamageToGive.initialValue, false);
 
 			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
+			Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
 		}
 	}
 	#endregion

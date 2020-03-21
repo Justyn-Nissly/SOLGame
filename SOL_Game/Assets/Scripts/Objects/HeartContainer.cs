@@ -8,14 +8,14 @@ public class HeartContainer : PowerUps
     public FloatValue playerHealth;
 
 
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.CompareTag("Player") && !other.isTrigger)
-        {
-            heartContainers.runTimeValue += 1;
-            playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
-            powerUpSignal.Raise();
-            Destroy(this.gameObject);
-        }
-    }
+   public void OnTriggerEnter2D(Collider2D other)
+   {
+      if(other.CompareTag("Player") && !other.isTrigger)
+      {
+         heartContainers.runTimeValue += 1;
+         playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
+         other.transform.GetComponent<Player>().playerHealthHUD.ChangeNumberOfHearts();
+         Destroy(this.gameObject);
+      }
+   }
 }

@@ -12,7 +12,6 @@ public class poisonObject : MonoBehaviour
 		DamageToGive; // the damage that will be dealed to the player
 	public List<Sprite> 
 		poisonSprites = new List<Sprite>(); // list of poison sprites
-	public bool isFireBreathAttack = false;
 	#endregion
 
 	#region Private Variables
@@ -67,10 +66,10 @@ public class poisonObject : MonoBehaviour
 	{
 		if (player != null)
 		{
-			player.TakeDamage((int)DamageToGive.initialValue, false, isFireBreathAttack);
+			player.TakeDamage((int)DamageToGive.initialValue, false);
 
 			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
+			Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
 		}
 	}
 

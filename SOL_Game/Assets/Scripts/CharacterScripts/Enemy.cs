@@ -61,7 +61,7 @@ public class Enemy : BaseCharacter
 
 		if(maxHealth != null)
 		{
-			currentHealth = maxHealth.initialValue;
+			maxHealth.runTimeValue = maxHealth.initialValue;
 		}
 
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
@@ -88,10 +88,10 @@ public class Enemy : BaseCharacter
 				{
 					countDownTimer = maxHealOverTime; // reset the time after going to 0
 
-					if (currentHealth < maxHealth.initialValue) // only heal if health less than full
+					if (maxHealth.runTimeValue < maxHealth.initialValue) // only heal if health less than full
 					{
-						currentHealth += healPerLoop;
-						SetHealth(currentHealth / maxHealth.initialValue);
+						maxHealth.runTimeValue += healPerLoop;
+						SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
 						//Debug.Log("enemy CurrentHealth = " + currentHealth);
 					}
 				}
@@ -121,15 +121,15 @@ public class Enemy : BaseCharacter
 	}
 
 	///<summary> Deal damage to the enemy </summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage * player.extraDamage, playSwordImpactSound);
-		SetHealth(currentHealth / maxHealth.initialValue);
+		SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
 
-		Debug.Log("enemy CurrentHealth = " + currentHealth);
+		Debug.Log("enemy CurrentHealth = " + maxHealth.runTimeValue);
 
 		// The enemy gets destroyed if it runs out of health
-		if (currentHealth <= 0)
+		if (maxHealth.runTimeValue <= 0)
 		{
 			if(enemyAudioManager != null)
 				enemyAudioManager.PlaySound();

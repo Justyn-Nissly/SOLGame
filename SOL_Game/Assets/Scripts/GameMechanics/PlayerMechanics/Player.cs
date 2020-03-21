@@ -50,6 +50,8 @@ public class Player : BaseCharacter
 		RedRing,
 		GreenRing,
 		BlueRing;
+	public Hud
+		playerHealthHUD;
 	#endregion
 
 	#region Private Variables
@@ -93,7 +95,7 @@ public class Player : BaseCharacter
 		SetUpInputDetection();
 
 		// The player starts with max health
-		currentHealth = maxHealth.initialValue;
+		maxHealth.runTimeValue = maxHealth.initialValue;
 		BulletShootingDelay = 0;
 
 		// Set the players movement speed
@@ -114,9 +116,9 @@ public class Player : BaseCharacter
 	private void FixedUpdate()
 	{
 		// Prevent the player's health from exceeding its maximum
-		if (currentHealth > maxHealth.initialValue)
+		if (maxHealth.runTimeValue > maxHealth.initialValue)
 		{
-			currentHealth = maxHealth.initialValue;
+			maxHealth.runTimeValue = maxHealth.initialValue;
 		}
 
 		// Activate power ups
@@ -382,13 +384,8 @@ public class Player : BaseCharacter
 
 	/// <summary> this method is for the player to take damage
 	/// and send a signal to the UI to update it with the players new health </summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		if (fireBreathAttack && safeFromFireAttack)
-		{
-			return;
-		}
-
 		// only take damage if the player is allowed to take damage at the moment
 		if (canTakeDamage)
 		{
@@ -397,15 +394,13 @@ public class Player : BaseCharacter
 
 			StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.1f, .25f));
 
-			// set the float value varable to the players current health after taking damage
-			// the float value is used for updating the players health bar
-			maxHealth.runTimeValue = currentHealth;
-
 			// send a signal saying that the player has taken damage so update his health UI
-			playerHealthSignal.Raise();
+			//playerHealthSignal.Raise();
+
+			playerHealthHUD.UpdateHearts();
 
 			// print the players current heath to the console for debugging
-			Debug.Log("player CurrentHealth = " + currentHealth);
+			Debug.Log("player CurrentHealth = " + maxHealth.runTimeValue);
 		}
 	}
 
@@ -542,9 +537,9 @@ public class Player : BaseCharacter
 
 		// Apply healing
 		healTimer -= (healTimer > 0.0f) ? Time.deltaTime : 0.0f;
-		if (heal && medKits > 0 && currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
+		if (heal && medKits > 0 && maxHealth.runTimeValue < maxHealth.initialValue && healTimer <= 0.0f)
 		{
-			maxHealth.runTimeValue = (currentHealth += 2);
+			maxHealth.runTimeValue = (maxHealth.runTimeValue += 2);
 			playerHealthSignal.Raise();
 			healTimer = 1.0f;
 			medKits--;
