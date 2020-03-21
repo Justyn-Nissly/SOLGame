@@ -28,6 +28,8 @@ public class DoorLogic : MonoBehaviour
 		doorIsOpen = false;
 	private SpriteRenderer
 		doorSpriteRenderer;
+	private Animator
+		doorAnimator; // if null it will use the public sprites
 	#endregion
 
 	// Unity Named Methods
@@ -37,6 +39,7 @@ public class DoorLogic : MonoBehaviour
 	{
 		doorSpriteRenderer        = GetComponent<SpriteRenderer>();
 		doorSpriteRenderer.sprite = GetDoorClosedSprite();
+		doorAnimator = GetComponent<Animator>();
 	}
 
 	/// <summary> Open an unlocked door </summary>
@@ -101,7 +104,14 @@ public class DoorLogic : MonoBehaviour
 	/// <summary> Close the door </summary>
 	public void CloseDoor()
 	{
-		doorSpriteRenderer.sprite = GetDoorClosedSprite();
+		if (doorAnimator != null)
+		{
+			doorAnimator.SetBool("doorOpen", false);
+		}
+		else
+		{
+			doorSpriteRenderer.sprite = GetDoorClosedSprite();
+		}
 
 		// Prevent the player from walking through the door
 		doorBoxCollider.enabled = true;
@@ -111,7 +121,14 @@ public class DoorLogic : MonoBehaviour
 	/// <summary> Open the door </summary>
 	public void OpenDoor()
 	{
-		doorSpriteRenderer.sprite = doorOpenSprite;
+		if(doorAnimator != null)
+		{
+			doorAnimator.SetBool("doorOpen", true);
+		}
+		else
+		{
+			doorSpriteRenderer.sprite = doorOpenSprite;
+		}
 
 		// Allow the player to walk through the door
 		doorBoxCollider.enabled = false;
