@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 327607906}
   - component: {fileID: 327607905}
   - component: {fileID: 327607904}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FinalWalls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2815,7 +2815,7 @@ GameObject:
   - component: {fileID: 635725916}
   - component: {fileID: 635725918}
   - component: {fileID: 635725917}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GameObject
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2920,75 +2920,6 @@ Transform:
   m_Father: {fileID: 297302811}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &695170570
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1807541390469371993, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_Name
-      value: BigBlast
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 118.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 59
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807541390469371997, guid: f80263714994bbf49a4cde00a32601a1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -45
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f80263714994bbf49a4cde00a32601a1, type: 3}
 --- !u!1 &729818591
 GameObject:
   m_ObjectHideFlags: 0
@@ -3128,7 +3059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3277,7 +3208,7 @@ Transform:
   - {fileID: 1235875491}
   - {fileID: 1764603859}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &865867781
 GameObject:
@@ -3310,7 +3241,7 @@ Transform:
   - {fileID: 1824434515}
   - {fileID: 924792464}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &907832646
 GameObject:
@@ -3597,15 +3528,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   firePoint: {fileID: 0}
-  gunSpawnPoint: {fileID: 0}
   bulletPrefab: {fileID: 0}
   gunPrefab: {fileID: 0}
   rangedAttackDamageToGive: {fileID: 0}
   BulletShootingDelay: 0.2
   blasterSound: {fileID: 0}
-  shieldSprite: {fileID: 0}
-  shieldBoxCollider: {fileID: 0}
   shieldSound: {fileID: 0}
+  characterAnimator: {fileID: 0}
   healthBar: {fileID: 460432415}
   enemyName: 
   aggroRange: 100
@@ -3631,7 +3560,7 @@ MonoBehaviour:
   headGameobject: {fileID: 297302810}
   breathAttack: {fileID: 2227812456453043493, guid: 01e7824d4e8b8454ca5ea1ad74ca154e,
     type: 3}
-  bigBreathBlast: {fileID: 1807541390469371993, guid: f80263714994bbf49a4cde00a32601a1,
+  bigBreathBlast: {fileID: 5772835844330301653, guid: 27612b44ba42cb24491b2cc1d99fecb9,
     type: 3}
   breathAttackTargets:
   - {fileID: 1709702333}
@@ -4077,7 +4006,7 @@ GameObject:
   - component: {fileID: 1060440913}
   - component: {fileID: 1060440912}
   - component: {fileID: 1060440911}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collum (1)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4103,7 +4032,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060440910}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -4353,7 +4282,7 @@ GameObject:
   - component: {fileID: 1109423413}
   - component: {fileID: 1109423412}
   - component: {fileID: 1109423411}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collum
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4379,7 +4308,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109423410}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -4911,7 +4840,7 @@ GameObject:
   - component: {fileID: 1633926233}
   - component: {fileID: 1633926235}
   - component: {fileID: 1633926234}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GameObject
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -7998,7 +7927,7 @@ GameObject:
   - component: {fileID: 1649622045}
   - component: {fileID: 1649622047}
   - component: {fileID: 1649622046}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GameObject
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -8075,7 +8004,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1668453047}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Columns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8097,7 +8026,7 @@ Transform:
   - {fileID: 1060440915}
   - {fileID: 1898480636}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1701026448
 GameObject:
@@ -8589,7 +8518,7 @@ GameObject:
   - component: {fileID: 1898480634}
   - component: {fileID: 1898480633}
   - component: {fileID: 1898480632}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Collum (2)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -8615,7 +8544,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898480631}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
