@@ -150,10 +150,10 @@ public class BehemothController : Enemy
 		{
 			// The fight goes to the next phase if the boss runs out of health
 			canTakeDamage = true;
-			if (currentHealth <= 1)
+			if (maxHealth.runTimeValue <= 1)
 			{
 				phaseChangeTimer = phaseChangeDelay;
-				currentHealth    = phaseHealth;
+				maxHealth.runTimeValue = phaseHealth;
 				base.TakeDamage(0, false);
 			}
 			else
@@ -181,13 +181,13 @@ public class BehemothController : Enemy
 		// Get ready for the next phase
 		else
 		{
-			currentHealth = phaseHealth;
+			maxHealth.runTimeValue = phaseHealth;
 			SpawnOrbs();
 
 			// In the final phase double the health, start using the tractor beam, and orbs deal more damage
 			if (phase == END_PHASE)
 			{
-				currentHealth     *= 2.0f;
+				maxHealth.runTimeValue *= 2.0f;
 				tractorBeamCharge  = tractorBeamChargeTime;
 				foreach (OrbController orb in outerOrbs)
 				{

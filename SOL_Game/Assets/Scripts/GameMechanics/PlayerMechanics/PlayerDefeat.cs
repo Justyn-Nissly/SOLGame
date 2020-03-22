@@ -30,8 +30,9 @@ public class PlayerDefeat : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		Debug.Log("Player HP == " + player.currentHealth);
-		defeated     = (player.currentHealth <= 0.0f || defeated);
+		// uncommenting this debug print statement will kill performance
+		//Debug.Log("Player HP == " + player.currentHealth);
+		defeated     = (player.maxHealth.runTimeValue <= 0.0f || defeated);
 		sprite.color = (defeated) ? Color.black : sprite.color;
 	}
 	#endregion

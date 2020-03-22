@@ -59,11 +59,11 @@ public class Basilisk : Enemy
 	#endregion
 
 	#region Utility Methods
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if (currentHealth <= 0)
+		if (maxHealth.runTimeValue <= 0)
 		{
 			basiliskEncounterManager.EndEncounter();
 		}

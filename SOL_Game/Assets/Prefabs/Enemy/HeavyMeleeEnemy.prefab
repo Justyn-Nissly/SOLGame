@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.108}
   m_SizeDelta: {x: 2.3661, y: 1.9858}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &200602661
@@ -58,7 +58,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &200602660
 MonoBehaviour:
@@ -208,7 +208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.874}
+  m_AnchoredPosition: {x: 0, y: 0.87}
   m_SizeDelta: {x: 1.6929, y: 0.228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1625374691
@@ -259,13 +259,13 @@ GameObject:
   - component: {fileID: 8293376742899619626}
   - component: {fileID: 8293376742899619627}
   - component: {fileID: 8293376742899619628}
-  - component: {fileID: 8293376742899619629}
-  - component: {fileID: 302527603158291442}
   - component: {fileID: 2184432884482877022}
   - component: {fileID: -3872843509878049442}
   - component: {fileID: -6790644518131648715}
   - component: {fileID: 8238823454887686081}
   - component: {fileID: -7058851714884668645}
+  - component: {fileID: 2092211929}
+  - component: {fileID: 2092211925}
   m_Layer: 9
   m_Name: HeavyMeleeEnemy
   m_TagString: Enemy
@@ -282,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 8293376742899619616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 4, y: 4, z: 5}
   m_Children:
   - {fileID: 8293376743106351246}
   - {fileID: 200602658}
@@ -327,10 +327,11 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: ba75c9b520b528346a4ac6b81dcf0382, type: 3}
-  m_Color: {r: 1, g: 0.031170346, b: 0, a: 1}
+  m_Sprite: {fileID: -5357207727390403315, guid: cc943e82bf46668489f6ec3510ba8b15,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 1
+  m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
@@ -351,102 +352,19 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.06}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 0.71, y: 0.86}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.5, y: 0.62}
   m_EdgeRadius: 0
---- !u!114 &8293376742899619629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8293376742899619616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96ffc3add78bd1e40a2ab6f8f3a02cea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: {fileID: 11400000, guid: eb0f4de7bd1634706af4f09e616de45d, type: 2}
-  canAttack: 1
-  canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
-  takeDamageSounds: []
-  meleeSwingSoundEffects:
-  - {fileID: 8300000, guid: 8f4b89ff8d31e444e814795900c017e4, type: 3}
-  - {fileID: 8300000, guid: 375cb2f4baca0454bb24ecac6fc33e6a, type: 3}
-  - {fileID: 8300000, guid: 4be1e5c8d979d8f44b578ac012d6b8cb, type: 3}
-  - {fileID: 8300000, guid: 5319c979bc4ad7d4d81cedd332813668, type: 3}
-  audioSource: {fileID: -3872843509878049442}
-  lightMeleeAttackPosition: {fileID: 0}
-  lightMeleeAttackRange: 0
-  lightMeleeWeapon: {fileID: 0}
-  lightMeleeDamageToGive: {fileID: 0}
-  heavyMeleeAttackPosition: {fileID: 8293376743106351246}
-  heavyMeleeAttackRange: 1
-  heavyMeleeWeapon: {fileID: 1422757091534899275, guid: 40fc86e0cf97b244e969a384edc45ef7,
-    type: 3}
-  heavyMeleeDamageToGive: {fileID: 11400000, guid: 8a910d7db67024ca0a00932cc2b76129,
-    type: 2}
-  willDamageLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  firePoint: {fileID: 0}
-  gunSpawnPoint: {fileID: 0}
-  bulletPrefab: {fileID: 0}
-  gunPrefab: {fileID: 0}
-  rangedAttackDamageToGive: {fileID: 0}
-  BulletShootingDelay: 0.2
-  blasterSound: {fileID: 0}
-  shieldSprite: {fileID: 0}
-  shieldBoxCollider: {fileID: 0}
-  shieldSound: {fileID: 0}
-  healthBar: {fileID: 768497864}
-  enemyName: 
-  aggroRange: 100
-  followRange: 100
-  attackDmg: 0
-  contactDmg: 0
-  healPerLoop: 0
-  MAXPOSSIBLEHEALTH: 0
-  maxHealOverTime: 0
-  moveSpeed: 1
-  maxMoveSpeed: 1
-  aggro: 0
-  patrol: []
-  playerPos: {x: 0, y: 0}
-  enemyVector: {x: 0, y: 0}
-  rb2d: {fileID: 0}
-  enemyAudioManager: {fileID: 0}
-  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
-  pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
-    type: 2}
-  maxTimeBetweenAttacks: 2
-  minTimeBetweenAttacks: 1
---- !u!114 &302527603158291442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8293376742899619616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shouldLookAtPlayer: 1
-  lookDirectlyAtPlayer: 0
 --- !u!50 &2184432884482877022
 Rigidbody2D:
   serializedVersion: 4
@@ -459,7 +377,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 200
   m_LinearDrag: 1
   m_AngularDrag: 1
   m_GravityScale: 0
@@ -604,10 +522,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d72eaf6393d064c87ba8f23d3bd366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
-  enemyAnimator: {fileID: 0}
+  Type: 1
+  enemyAnimator: {fileID: -7058851714884668645}
   evasionDistance: 0
   waitTime: 0
+  canMove: 1
   maxChaseTime: 0
   canMoveAtPlayer: 1
   maxTime: 0
@@ -616,7 +535,6 @@ MonoBehaviour:
   maxEvadeTime: 0
   chargeSpeed: 0
   charging: 0
-  canMove: 1
 --- !u!95 &-7058851714884668645
 Animator:
   serializedVersion: 3
@@ -627,7 +545,7 @@ Animator:
   m_GameObject: {fileID: 8293376742899619616}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d6ec4ab8d20bbd1408a88594d77f73b0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -636,6 +554,101 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &2092211929
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.71, y: 0.86}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.57, y: 0.79}
+  m_EdgeRadius: 0
+--- !u!114 &2092211925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293376742899619616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c08f38fc7eaeb4495b63de7add7c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: {fileID: 11400000, guid: eb0f4de7bd1634706af4f09e616de45d, type: 2}
+  canAttack: 1
+  canTakeDamage: 1
+  safeFromFireAttack: 0
+  currentHealth: 0
+  takeDamageSounds:
+  - {fileID: 8300000, guid: 3a2a9e4467fbb1d42beb4643aed2e48b, type: 3}
+  - {fileID: 8300000, guid: 1fe588696c91e074ebf57896b925955f, type: 3}
+  meleeSwingSoundEffects:
+  - {fileID: 8300000, guid: 8f4b89ff8d31e444e814795900c017e4, type: 3}
+  - {fileID: 8300000, guid: 375cb2f4baca0454bb24ecac6fc33e6a, type: 3}
+  - {fileID: 8300000, guid: 4be1e5c8d979d8f44b578ac012d6b8cb, type: 3}
+  - {fileID: 8300000, guid: 5319c979bc4ad7d4d81cedd332813668, type: 3}
+  audioSource: {fileID: -3872843509878049442}
+  lightMeleeAttackPosition: {fileID: 0}
+  lightMeleeAttackRange: 0
+  lightMeleeWeapon: {fileID: 0}
+  lightMeleeDamageToGive: {fileID: 0}
+  heavyMeleeAttackPosition: {fileID: 8293376743106351246}
+  heavyMeleeAttackRange: 2
+  heavyMeleeWeapon: {fileID: 1422757091534899275, guid: 40fc86e0cf97b244e969a384edc45ef7,
+    type: 3}
+  heavyMeleeDamageToGive: {fileID: 11400000, guid: 8a910d7db67024ca0a00932cc2b76129,
+    type: 2}
+  willDamageLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  firePoint: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  gunPrefab: {fileID: 0}
+  rangedAttackDamageToGive: {fileID: 0}
+  BulletShootingDelay: 0.2
+  blasterSound: {fileID: 0}
+  shieldSound: {fileID: 0}
+  characterAnimator: {fileID: -7058851714884668645}
+  healthBar: {fileID: 768497864}
+  enemyName: 
+  aggroRange: 100
+  followRange: 100
+  attackDmg: 0
+  contactDmg: 0
+  healPerLoop: 0
+  MAXPOSSIBLEHEALTH: 0
+  maxHealOverTime: 0
+  moveSpeed: 1
+  maxMoveSpeed: 1
+  aggro: 0
+  patrol: []
+  playerPos: {x: 0, y: 0}
+  enemyVector: {x: 0, y: 0}
+  rb2d: {fileID: 0}
+  enemyAudioManager: {fileID: 0}
+  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
+  pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
+    type: 2}
+  enemyMovement: {fileID: 8238823454887686081}
+  hasExtraAttacks: 1
 --- !u!1 &8293376743106351247
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +673,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8293376743106351247}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0.002, y: 0.085, z: 0}
+  m_LocalPosition: {x: -0.004, y: -0.161, z: 0}
   m_LocalScale: {x: 0.333333, y: 0.33333, z: 1}
   m_Children: []
   m_Father: {fileID: 8293376742899619626}

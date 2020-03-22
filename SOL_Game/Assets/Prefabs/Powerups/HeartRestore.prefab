@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2203373664936614710}
   - component: {fileID: 2203373664936614711}
-  - component: {fileID: 2203373664936614708}
   - component: {fileID: 2203373664936614712}
-  - component: {fileID: 2203373664936614713}
+  - component: {fileID: 691888477210270257}
   m_Layer: 0
-  m_Name: HealthIncrease
+  m_Name: HeartRestore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,25 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2203373664936614708
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2203373664936614709}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4e3160d54ac76491cb1b509bc405a7cd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &2203373664936614712
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -120,7 +100,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16015641, y: 0.16}
+    oldSize: {x: 0.13012709, y: 0.13}
     newSize: {x: 0.16015641, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -129,7 +109,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.084953785, y: 0.085489154}
   m_EdgeRadius: 0
---- !u!114 &2203373664936614713
+--- !u!114 &691888477210270257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,10 +118,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2203373664936614709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8bc413d4d77b4a6686b766ee80795b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fdd968b45d664a59a432ac10203fb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSignal: {fileID: 11400000, guid: ac92ac62b06a941faa2337f33d033a24, type: 2}
   playerHealth: {fileID: 11400000, guid: f14b1a1b671224a198bad7265575b949, type: 2}
   heartContainers: {fileID: 11400000, guid: 755250ec6489b4fa2a53168a72144f5d, type: 2}
-  amountToIncrease: 2
+  amountToIncrease: 16

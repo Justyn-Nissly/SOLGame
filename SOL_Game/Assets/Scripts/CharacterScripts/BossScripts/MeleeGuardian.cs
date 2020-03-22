@@ -10,41 +10,49 @@ public class MeleeGuardian : Enemy
 
 	#region Public Variables
 	public Animator
-		anim; // Reference to change animation states
+		anim;
+	public Vector2
+		destination;
 	public Transform
 		upperLeftSpawnPointLimit,  // used to get a random position between these two limits
-		lowerRightSpawnPointLimit; // Location you wish the enemy to move to
-	public bool
-	    moving = false; // Check if the character is currently moving
+		lowerRightSpawnPointLimit, // Location you wish the enemy to move to
+		swordSawnPoint;            // The obejct that the enemy will throw at the player
+	public GameObject
+	    origin,
+        sword;
+	public testthrow
+		throwSword;
+
 	public FloatValue
 		meleeDamageToGive;
-	public Material
-        damagedShaderMaterial,
-        fishEyeMaterial;
 
 	public EncounterManager EncounterManager; // this reference is used to send a signal when the basilisk dies
 	#endregion
 
 	#region Private Variables
-	private float
-        movemntSpeed = 1f; // The higher the number the slower he moves
+	public bool
+		moving = false,
+		returnOrigin = false;
+	private Vector3
+         targetGameObject;
+	private SwordThrow
+		shouldThrow;
 
-	#endregion
+    #endregion
 
-	// Unity Named Methods
-	#region Main Methods
-	public override void FixedUpdate()
+    // Unity Named Methods
+    #region Main Methods
+   /* public void Awake()
+    {
+		moving = true;
+
+	}
+    */
+    public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 
-        // Stage 2 after half health
-		if (currentHealth == maxHealth.initialValue / 2)
-		{
-			StateEnrage();
-		}
-
-		// The guardian is constantly moving
-		if (moving == false && canAttack)
+		if (moving == false && canAttack) // the basilisk is constantly moving
 		{
 			Move();
 		}
@@ -60,17 +68,17 @@ public class MeleeGuardian : Enemy
 	#endregion
 
 	#region Utility Methods
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if (currentHealth <= 0)
+		if (maxHealth.runTimeValue <= 0)
 		{
 			EncounterManager.EndEncounter();
 		}
 	}
 
-	/// <summary> The method deals damage to the passed in player</summary>
+	/// <summary> the method deals damage to the passed in player</summary>
 	private void DamagePlayer(Player player)
 	{
 		if (player != null)
@@ -78,98 +86,58 @@ public class MeleeGuardian : Enemy
 			player.TakeDamage((int)meleeDamageToGive.initialValue, false);
 
 			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
+			Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
 		}
 	}
 
-	/// <summary> Sets trigger to know boss is moving then moves</summary>
 	private void Move()
 	{
 		// Prevents coroutine from running again if the boss is already running
 		if (moving == false)
 		{
+
 			moving = true;
-			StartCoroutine(MoveOverSeconds(gameObject, GetRandomPositionBeweenLimits(), movemntSpeed));
+			StartCoroutine(MoveOverSeconds(gameObject, GetRandomPositionBeweenLimits(), 1f));
+
+
+
 		}
 	}
 
-	/// <summary> Gets a random gameobject from the list of pop up positions</summary>
+	/// <summary> gets a random gameobject from the list of pop up positions</summary>
 	private Vector2 GetRandomPositionBeweenLimits()
 	{
 		Vector2 randomPosition = new Vector2();
 
-		// Set the random psition to be in the range of the set limits
+		// set the random psition to be in the range of the set limits
 		randomPosition.x = Random.Range(upperLeftSpawnPointLimit.position.x, lowerRightSpawnPointLimit.position.x);
 		randomPosition.y = Random.Range(upperLeftSpawnPointLimit.position.y, lowerRightSpawnPointLimit.position.y);
 
 		return randomPosition;
 	}
-
-	/// <summary> Changes animator states to enraged</summary>
-	private void StateEnrage()
-    {
-        anim.SetTrigger("Enrage");
-    }
-
-	/// <summary> Add fish eye shader to enemy</summary>
-	private void AddFishEye()
+    /*
+	private void Throw()
 	{
-		moving = true;
-		float percentageComplete = 0;
+		//StartCoroutine(HomingSword());
+		//StartCoroutine(HomingSword());
 
-		// freeze the enemy because they are dead...
-		canAttack = false;
-
-		if (fishEyeMaterial != null)
+		if ((Vector2)sword.transform.position == destination)
 		{
-			foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
-			{
-				renderer.material = fishEyeMaterial;
-			}
-
-			fishEyeMaterial.SetFloat("Shader_Value", 0); // Set starting value
-
-			// play the pixel die effect from start(0) to finish(1)
-			while (percentageComplete < 1)
-			{
-				fishEyeMaterial.SetFloat("Shader_Value", Mathf.Lerp(0f, 1f, percentageComplete));
-				percentageComplete += Time.deltaTime / 2;
-			}
-
-			fishEyeMaterial.SetFloat("Shader_Value", 1); // Set ending value
+			returnOrigin = true;
 		}
+		else if (sword.transform.position == origin.transform.position)
+		{
+			destination = (Vector2)GameObject.FindGameObjectWithTag("Player").transform.position;
+			returnOrigin = false;
+		}
+		sword.transform.position = (returnOrigin == true) ? Vector2.Lerp(sword.transform.position, origin.transform.position, 10 * Time.deltaTime) :
+													  Vector2.Lerp(sword.transform.position, destination, 10 * Time.deltaTime);
+
 		moving = false;
 		anim.SetTrigger("Patrol");
+
 	}
-
-	/// <summary> Add fish eye shader to enemy</summary>
-	private void AddDamagedShader()
-	{
-		moving = true;
-		float percentageComplete = 0;
-
-
-		if (damagedShaderMaterial != null)
-		{
-			foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
-			{
-				renderer.material = damagedShaderMaterial;
-			}
-
-			damagedShaderMaterial.SetFloat("Shader_Value", 0); // Set starting value
-
-			// play the pixel die effect from start(0) to finish(1)
-			while (percentageComplete < 1)
-			{
-				damagedShaderMaterial.SetFloat("Shader_Value", Mathf.Lerp(0f, 1f, percentageComplete));
-				percentageComplete += Time.deltaTime / 2;
-			}
-
-			damagedShaderMaterial.SetFloat("Shader_Value", 1); // Set ending value
-		}
-
-		moving = false;
-	}
+    */
 	#endregion
 
 	#region Coroutines
@@ -177,8 +145,10 @@ public class MeleeGuardian : Enemy
 	/// <summary> Moves a game object to a location over N seconds </summary>
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endingPosition, float seconds)
 	{
+		shouldThrow = FindObjectOfType<SwordThrow>();
+
 		float elapsedTime = 0; // Amount of time an enemy is waiting in one position
-	    Vector3 startingPosition = objectToMove.transform.position; // Save the starting position
+	    Vector3 startingPosition = objectToMove.transform.position; // save the starting position
 
 		// Move the guardian a little each frame based on how many seconds it should take to get the ending position
 		while (elapsedTime < seconds)
@@ -188,9 +158,13 @@ public class MeleeGuardian : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
-        // Wait in one spot then go to attack
-        yield return new WaitForSeconds(3);
-		anim.SetTrigger("Attack");
+		//anim.SetTrigger("Attack");
+		//yield return new WaitForSeconds(1.5f);
+		//throwSword.shouldThrow = true;
+		//anim.SetTrigger("Patrol");
+		yield return new WaitForSeconds(3);
+		shouldThrow.findTarget = true;
+		//moving = false;
 	}
 
 

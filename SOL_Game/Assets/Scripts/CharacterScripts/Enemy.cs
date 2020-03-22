@@ -7,11 +7,6 @@ using UnityEngine.UI;
 public class Enemy : BaseCharacter
 {
 	#region Enums
-	protected const int
-	WEST = 0,
-	NORTH = 1,
-	EAST = 2,
-	SOUTH = 3;
 	#endregion
 
 	#region Public Variables
@@ -44,9 +39,11 @@ public class Enemy : BaseCharacter
 	public GameObject
 		powerUp; // Reference PowerUp prefab.
 
-	public Material pixelDesolveMaterial;
-	public Animator
-		enemyAnimator;
+	public Material
+		pixelDesolveMaterial;
+
+	public bool
+		dropPowerUpOnDeath = false; // if this is true this enemy will always drop the power up game object
 	#endregion
 
 	#region Private Variables
@@ -54,7 +51,8 @@ public class Enemy : BaseCharacter
 		amountHealed = 0,
 		countDownTimer;
 	private bool
-		canDropPowerUp;
+		canDropPowerUp,
+		isDead = false;
 	#endregion
 
 	// Unity Named Methods
@@ -68,7 +66,7 @@ public class Enemy : BaseCharacter
 
 		if(maxHealth != null)
 		{
-			currentHealth = maxHealth.initialValue;
+			maxHealth.runTimeValue = maxHealth.initialValue;
 		}
 
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
@@ -95,10 +93,10 @@ public class Enemy : BaseCharacter
 				{
 					countDownTimer = maxHealOverTime; // reset the time after going to 0
 
-					if (currentHealth < maxHealth.initialValue) // only heal if health less than full
+					if (maxHealth.runTimeValue < maxHealth.initialValue) // only heal if health less than full
 					{
-						currentHealth += healPerLoop;
-						SetHealth(currentHealth / maxHealth.initialValue);
+						maxHealth.runTimeValue += healPerLoop;
+						SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
 						//Debug.Log("enemy CurrentHealth = " + currentHealth);
 					}
 				}
@@ -128,27 +126,31 @@ public class Enemy : BaseCharacter
 	}
 
 	///<summary> Deal damage to the enemy </summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		base.TakeDamage(damage * player.extraDamage, playSwordImpactSound);
-		SetHealth(currentHealth / maxHealth.initialValue);
-
-		Debug.Log("enemy CurrentHealth = " + currentHealth);
-
-		// The enemy gets destroyed if it runs out of health
-		if (currentHealth <= 0)
+		if(isDead == false)
 		{
-			if(enemyAudioManager != null)
-				enemyAudioManager.PlaySound();
+			base.TakeDamage(damage * player.extraDamage, playSwordImpactSound);
+			SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
 
-			// The enemy might drop a power up
-			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
+			Debug.Log("enemy CurrentHealth = " + maxHealth.runTimeValue);
+
+			// The enemy gets destroyed if it runs out of health
+			if (maxHealth.runTimeValue <= 0)
 			{
-				Instantiate(powerUp, transform.position, Quaternion.identity);
-			}
+				if (enemyAudioManager != null)
+					enemyAudioManager.PlaySound();
 
-			canDropPowerUp = false;
-			StartCoroutine(Die());
+				// The enemy might drop a power up
+				if ((canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f) || dropPowerUpOnDeath)
+				{
+					Instantiate(powerUp, transform.position, Quaternion.identity);
+				}
+
+				canDropPowerUp = false;
+				isDead = true;
+				StartCoroutine(Die());
+			}
 		}
 	}
 
@@ -176,31 +178,7 @@ public class Enemy : BaseCharacter
 		}
 	}
 
-	/// <summary> this gets the direction that an animations should play based on the characters idle animation state</summary>
-	protected virtual int GetAnimationDirection()
-	{
-		int animationDirection = 0; // return value for the animations direction
 
-		AnimatorClipInfo[] animatorStateInfo = enemyAnimator.GetCurrentAnimatorClipInfo(1);
-
-		switch (animatorStateInfo[0].clip.name)
-		{
-			case "IdleLeft":
-				animationDirection = WEST;
-				break;
-			case "IdleUp":
-				animationDirection = NORTH;
-				break;
-			case "IdleRight":
-				animationDirection = EAST;
-				break;
-			case "IdleDown":
-				animationDirection = SOUTH;
-				break;
-		}
-
-		return animationDirection;
-	}
 	#endregion
 
 	#region Coroutines

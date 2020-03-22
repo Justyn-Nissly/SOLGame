@@ -26,11 +26,11 @@ public class Heart : PowerUps
         if(other.CompareTag("Player") && !other.isTrigger)
         {
             playerHealth.runTimeValue += amountToIncrease;
-            if (playerHealth.initialValue > heartContainers.runTimeValue * 2f)
+            if (playerHealth.runTimeValue > heartContainers.runTimeValue * 2f)
             {
-                playerHealth.initialValue = heartContainers.runTimeValue * 2f;
+                playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
             }
-            powerUpSignal.Raise();
+         other.transform.GetComponent<Player>().playerHealthHUD.UpdateHearts();
             Destroy(this.gameObject);
         }
     }

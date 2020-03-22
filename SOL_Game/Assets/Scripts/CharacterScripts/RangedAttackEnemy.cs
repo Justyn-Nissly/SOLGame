@@ -52,9 +52,9 @@ public class RangedAttackEnemy : Enemy
 		enemyMovement.canMove = false;
 
 		// set up the attack animation to play
-		enemyAnimator.SetBool("blasting", true); // set bool flag blasting to true
-		enemyAnimator.SetInteger("attackDirection", GetAnimationDirection()); // set the value that plays the right blaster direction animation
-		enemyAnimator.SetLayerWeight(2, 2); // increase the blaster layer priority
+		characterAnimator.SetBool("blasting", true); // set bool flag blasting to true
+		characterAnimator.SetInteger("attackDirection", GetAnimationDirection(1)); // set the value that plays the right blaster direction animation
+		characterAnimator.SetLayerWeight(2, 2); // increase the blaster layer priority
 	}
 
 
@@ -66,18 +66,18 @@ public class RangedAttackEnemy : Enemy
 		enemyMovement.canMove = true;
 
 		// end the attack animation
-		enemyAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
-		enemyAnimator.SetBool("blasting", false); // set flag blasting to false
+		characterAnimator.SetLayerWeight(2, 0); // lowers the blaster layer priority
+		characterAnimator.SetBool("blasting", false); // set flag blasting to false
 
 		attackCountDownTimer = attackInterval;
 	}
 
 	/// <summary> this gets the direction that an animations should play based on the characters idle animation state</summary>
-	protected override int GetAnimationDirection()
+	protected override int GetAnimationDirection(int idleLayerIndex)
 	{
 		int animationDirection = 0; // return value for the animations direction
 
-		AnimatorClipInfo[] animatorStateInfo = enemyAnimator.GetCurrentAnimatorClipInfo(1);
+		AnimatorClipInfo[] animatorStateInfo = characterAnimator.GetCurrentAnimatorClipInfo(idleLayerIndex);
 
 		switch (animatorStateInfo[0].clip.name)
 		{

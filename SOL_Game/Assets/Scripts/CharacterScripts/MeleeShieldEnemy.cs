@@ -23,7 +23,7 @@ public class MeleeShieldEnemy : Enemy
 	///<summary> Initialize the enemy </summary>
 	private void Awake()
 	{
-		EnableShield(true);
+		EnableShield();
 		shieldIsEnabled = true;
 		shieldDownTimer = shieldDropTime;
 	}
@@ -56,7 +56,7 @@ public class MeleeShieldEnemy : Enemy
 	///<summary> Turn the shield on </summary>
 	public void ReEnableShield()
 	{
-		EnableShield(true);
+		EnableShield();
 		shieldIsEnabled = true;
 	}
 

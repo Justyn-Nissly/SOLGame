@@ -127,28 +127,28 @@ public class ShieldGuardian : Enemy
 
 	#region Utility Methods
 	/// <summary> shield guardians overridden takeDamage() method, mainly for doing things at curtain health points</summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if (currentHealth <= 0)
+		if (maxHealth.runTimeValue <= 0)
 		{
 			canAttack = false;
 			Charging = false;
 		}
 
 		// check if the enemy should start a health event
-		if (currentHealth <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
+		if (maxHealth.runTimeValue <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
 		{
 			canDoThreeQuarterHealthEvent = false; // this flag is here so this only can happen once
 			StartCoroutine(StartHealthEvent(1)); // start health event
 		}
-		else if (currentHealth <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
+		else if (maxHealth.runTimeValue <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
 		{
 			canDoHalfHealthEvent = false; // this flag is here so this only can happen once
 			StartCoroutine(StartHealthEvent(2)); // start health event
 		}
-		else if (currentHealth <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
+		else if (maxHealth.runTimeValue <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
 		{
 			canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
 			StartCoroutine(StartHealthEvent(3)); // start health event

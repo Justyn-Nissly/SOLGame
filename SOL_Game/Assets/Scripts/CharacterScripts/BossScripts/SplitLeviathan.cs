@@ -71,7 +71,7 @@ public class SplitLeviathan : Enemy
 	}
 
 	/// <summary>overridden takeDamage() method, mainly for dealing damage to the main leviathan not this split leviathan</summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		// deal damage to the main leviathan not this split leviathan
 		if(leviathan != null)

@@ -52,7 +52,7 @@ public class Bomb : MonoBehaviour
 			player.TakeDamage(bombDamage, false);
 
 			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
+			Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
 		}
 	}
 	#endregion

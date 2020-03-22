@@ -53,7 +53,7 @@ public class Wyrm : Enemy
 		base.FixedUpdate();
 
 		// Only try and do an attack if the timer countdown is zero and the enemy is allowed to attack
-		if (attackCountdownTimer < 0 && canAttack && currentHealth > 0)
+		if (attackCountdownTimer < 0 && canAttack && maxHealth.runTimeValue > 0)
 		{
 			DoAnAttack();
 		}
@@ -124,11 +124,11 @@ public class Wyrm : Enemy
 
 
 	/// <summary> overridden takeDamage() method, mainly for doing things at curtain health points</summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if (currentHealth <= 0)
+		if (maxHealth.runTimeValue <= 0)
 		{
 			canAttack = false;
 			aggro = false;
@@ -138,17 +138,17 @@ public class Wyrm : Enemy
 		else
 		{
 			// check if the enemy should start a health event
-			if (currentHealth <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
+			if (maxHealth.runTimeValue <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoThreeQuarterHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(4)); // start health event
 			}
-			else if (currentHealth <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
+			else if (maxHealth.runTimeValue <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
 			{
 				canDoHalfHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(6)); // start health event
 			}
-			else if (currentHealth <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
+			else if (maxHealth.runTimeValue <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(4)); // start health event
