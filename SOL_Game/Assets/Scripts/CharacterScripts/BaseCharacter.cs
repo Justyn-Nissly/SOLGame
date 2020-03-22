@@ -140,6 +140,12 @@ public class BaseCharacter : MonoBehaviour
 
 			// Reduce the character's health and grant it temporary invincibility
 			maxHealth.runTimeValue -= damage;
+
+			if(maxHealth.runTimeValue < 0)
+			{
+				maxHealth.runTimeValue = 0;
+			}
+
 			StartCoroutine("StartBlinking");
 		}
 	}
