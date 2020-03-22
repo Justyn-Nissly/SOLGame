@@ -55,7 +55,7 @@ public class Lazer : MonoBehaviour
 
 	#region Utility Functions
 	/// <summary> deal damage to the passed in player </summary>
-	protected virtual void DamagePlayer(Player player, int damageToGive, bool playSwordSoundEffect = false)
+	private void DamagePlayer(Player player, int damageToGive, bool playSwordSoundEffect = false)
 	{
 		if (player != null)
 		{

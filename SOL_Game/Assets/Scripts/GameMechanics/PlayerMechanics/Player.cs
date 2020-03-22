@@ -11,16 +11,13 @@ public class Player : BaseCharacter
 	#endregion
 
 	#region Public Variables
-	// player movement variables
 	public bool
 		playerAllowedToMove = true, // used to disable player movement like when the player is knocked back
 		hammerComboUnlocked = false, // flag for if the player has unlocked the hammer attack combo ability
 		swordComboUnlocked = true; // flag for if the player has unlocked the sword attack combo ability
-	public Signal
-		playerHealthSignal; // used to signal the health UI system that the player has taken damage
 	public
 		Vector2 playerMovementAmount; // used to store the amount that the player will move this frame
-		                              // player attack origination variables
+
 	public GameObject
 		playerAttackGameObject, // this is where the players weapons get instantiated
 		dustEffect; // this effect is created when the player walks around
@@ -52,6 +49,8 @@ public class Player : BaseCharacter
 		BlueRing;
 	public Hud
 		playerHealthHUD;
+	public FloatValue
+		heartContainers;
 	#endregion
 
 	#region Private Variables
@@ -116,9 +115,9 @@ public class Player : BaseCharacter
 	private void FixedUpdate()
 	{
 		// Prevent the player's health from exceeding its maximum
-		if (maxHealth.runTimeValue > maxHealth.initialValue)
+		if (maxHealth.runTimeValue > heartContainers.runTimeValue * 2)
 		{
-			maxHealth.runTimeValue = maxHealth.initialValue;
+			maxHealth.runTimeValue = heartContainers.runTimeValue * 2;
 		}
 
 		// Activate power ups
@@ -506,18 +505,12 @@ public class Player : BaseCharacter
 		inputActions.Gameplay.HammerAttack.performed += _ => heal = usingPowerUp;
 	}
 
-	///<summary> Make the health bar show the current health </summary>
+	///<summary> Set the PowerUp rings Fill Amounts </summary>
 	void SetPowerUpFillAmounts(float percentRed, float percentBlue, float percentGreen)
 	{
 		RedRing.fillAmount = percentRed;
 		BlueRing.fillAmount = percentBlue;
 		GreenRing.fillAmount = percentGreen;
-	}
-
-	///<summary> Make the health bar show the current health </summary>
-	void SetAttackTimer(float percentHelth)
-	{
-		RedRing.fillAmount = percentHelth;
 	}
 
 	/// <summary> Apply any power ups the player has picked up </summary>
@@ -540,7 +533,7 @@ public class Player : BaseCharacter
 		if (heal && medKits > 0 && maxHealth.runTimeValue < maxHealth.initialValue && healTimer <= 0.0f)
 		{
 			maxHealth.runTimeValue = (maxHealth.runTimeValue += 2);
-			playerHealthSignal.Raise();
+			playerHealthHUD.UpdateHearts();
 			healTimer = 1.0f;
 			medKits--;
 			heal = false;

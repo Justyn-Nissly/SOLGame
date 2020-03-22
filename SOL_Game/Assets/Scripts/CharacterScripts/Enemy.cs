@@ -39,7 +39,11 @@ public class Enemy : BaseCharacter
 	public GameObject
 		powerUp; // Reference PowerUp prefab.
 
-	public Material pixelDesolveMaterial;
+	public Material
+		pixelDesolveMaterial;
+
+	public bool
+		dropPowerUpOnDeath = false; // if this is true this enemy will always drop the power up game object
 	#endregion
 
 	#region Private Variables
@@ -47,7 +51,8 @@ public class Enemy : BaseCharacter
 		amountHealed = 0,
 		countDownTimer;
 	private bool
-		canDropPowerUp;
+		canDropPowerUp,
+		isDead = false;
 	#endregion
 
 	// Unity Named Methods
@@ -123,25 +128,29 @@ public class Enemy : BaseCharacter
 	///<summary> Deal damage to the enemy </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		base.TakeDamage(damage * player.extraDamage, playSwordImpactSound);
-		SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
-
-		Debug.Log("enemy CurrentHealth = " + maxHealth.runTimeValue);
-
-		// The enemy gets destroyed if it runs out of health
-		if (maxHealth.runTimeValue <= 0)
+		if(isDead == false)
 		{
-			if(enemyAudioManager != null)
-				enemyAudioManager.PlaySound();
+			base.TakeDamage(damage * player.extraDamage, playSwordImpactSound);
+			SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
 
-			// The enemy might drop a power up
-			if (canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f)
+			Debug.Log("enemy CurrentHealth = " + maxHealth.runTimeValue);
+
+			// The enemy gets destroyed if it runs out of health
+			if (maxHealth.runTimeValue <= 0)
 			{
-				Instantiate(powerUp, transform.position, Quaternion.identity);
-			}
+				if (enemyAudioManager != null)
+					enemyAudioManager.PlaySound();
 
-			canDropPowerUp = false;
-			StartCoroutine(Die());
+				// The enemy might drop a power up
+				if ((canDropPowerUp && Random.Range(0.0f, 5.0f) > 4.0f) || dropPowerUpOnDeath)
+				{
+					Instantiate(powerUp, transform.position, Quaternion.identity);
+				}
+
+				canDropPowerUp = false;
+				isDead = true;
+				StartCoroutine(Die());
+			}
 		}
 	}
 

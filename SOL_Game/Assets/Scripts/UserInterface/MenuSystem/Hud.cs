@@ -16,6 +16,14 @@ public class Hud : MonoBehaviour
 	public Sprite emptyHeart;
 	public FloatValue heartContainers;
 	public FloatValue playerCurrentHealth;
+
+	// these game objects change the background of the health bar based on how many hearts the player has
+	public GameObject 
+		fourHearts,
+		fiveHearts,
+		SixHearts,
+		SevenHearts,
+		EightHearts;
 	#endregion
 
 	#region Private Variables
@@ -36,6 +44,7 @@ public class Hud : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// <summary> update the health HUD to the players current health</summary>
 	public void UpdateHearts()
 	{
 		float tempHealth = playerCurrentHealth.runTimeValue / 2;
@@ -56,16 +65,43 @@ public class Hud : MonoBehaviour
 		}
 	}
 
+	/// <summary> changed the number of hearts the players health bar has</summary>
 	public void ChangeNumberOfHearts()
 	{
-		for(int i = 0; i < heartContainers.runTimeValue; i++)
+		// increase the players hearts
+		for (int i = 0; i < heartContainers.runTimeValue; i++)
 		{
 			hearts[i].gameObject.SetActive(true);
 			hearts[i].sprite = fullHeart;
 		}
 
-		playerCurrentHealth.runTimeValue = heartContainers.runTimeValue * 2;
-		playerCurrentHealth.initialValue = heartContainers.runTimeValue * 2;
+		// set the health bar background to match the number of hearts
+		SetBackgroundHealthBar();
+
+		// make the health bar match the current health amount
+		UpdateHearts();
+	}
+
+	private void SetBackgroundHealthBar()
+	{
+		switch (heartContainers.runTimeValue)
+		{
+			case 8:
+				EightHearts.SetActive(true);
+				break;
+			case 7:
+				SevenHearts.SetActive(true);
+				break;
+			case 6:
+				SixHearts.SetActive(true);
+				break;
+			case 5:
+				fiveHearts.SetActive(true);
+				break;
+			case 4:
+				fourHearts.SetActive(true);
+				break;
+		}
 	}
 	#endregion
 
