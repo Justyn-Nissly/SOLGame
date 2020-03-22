@@ -86,6 +86,7 @@ public class QuestItem : MonoBehaviour
 					break;
 				case ItemType.unlockShield:
 					GlobalVarablesAndMethods.shieldUnlocked = true;
+					player.shieldAnimator.SetBool("ShieldUnlocked", true);
 					break;
 				case ItemType.unlockHammer:
 					GlobalVarablesAndMethods.hammerUnlocked = true;
@@ -93,6 +94,7 @@ public class QuestItem : MonoBehaviour
 			}
 			player.SetUpInputDetection();
 			player.playerAnimator.SetBool("AcquiredQuestItem", true);
+			player.FreezePlayer();
 			transform.position = GameObject.FindGameObjectWithTag("Arm").transform.position;
 			GetComponent<BoxCollider2D>().enabled = false;
 			despawnTimer = DESPAWN_TIME;

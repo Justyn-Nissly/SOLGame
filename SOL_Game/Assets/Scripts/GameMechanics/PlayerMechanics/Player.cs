@@ -21,7 +21,8 @@ public class Player : BaseCharacter
 		hammerComboUnlocked, // flag for if the player has unlocked the hammer attack combo ability
 		swordComboUnlocked; // flag for if the player has unlocked the sword attack combo ability
 	public Animator
-		playerAnimator; // used to animate the players movement
+		playerAnimator, // used to animate the players movement
+		shieldAnimator;
 	public Signal
 		playerHealthSignal; // used to signal the health UI system that the player has taken damage
 	public
@@ -56,6 +57,12 @@ public class Player : BaseCharacter
 		RedRing,
 		GreenRing,
 		BlueRing;
+	public Image[]
+		medKitImages;
+	public SpriteRenderer
+		playerShield;
+	public CircleCollider2D
+		shieldCollider;
 	#endregion
 
 	#region Private Variables
@@ -98,6 +105,8 @@ public class Player : BaseCharacter
 		godModeEnabled = false;
 		SetUpInputDetection();
 
+
+
 		// The player starts with max health
 		currentHealth = maxHealth.initialValue;
 		BulletShootingDelay = 0;
@@ -117,6 +126,20 @@ public class Player : BaseCharacter
 
 		swordComboUnlocked = false;
 		hammerComboUnlocked = false;
+
+		if (medKitImages != null)
+		{
+			for (int i = 0; i < PowerUp.MAX_MED_KITS; i++)
+			{
+				medKitImages[i].enabled = (i < medKits);
+			}
+		}
+
+		if (playerShield != null && shieldAnimator != null)
+		{
+			shieldAnimator.SetBool("ShieldUnlocked", false);
+			playerShield.color = new Color(playerShield.color.r, playerShield.color.g, playerShield.color.b, 0.0f);
+		}
 	}
 
 	/// <summary> Fixed update is called a fixed amount of times per second and if for logic that needs to be done constantly </summary>
@@ -136,7 +159,9 @@ public class Player : BaseCharacter
 		}
 		else
 		{
-			inputActions.Gameplay.LeftTrigger.performed += _ => usingPowerUp = true;
+			inputActions.Gameplay.LeftTrigger.performed += _ => usingPowerUp =
+				((playerAllowedToMove || canAttack) && usingBlasterAttack == false && usingHammerAttack == false &&
+				                                       usingSwordAttack   == false && shieldIsEnabled   == false);
 		}
 
 		// Apply power ups to the player
@@ -192,6 +217,9 @@ public class Player : BaseCharacter
 		UpdateHud(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
 		          powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME,
 		          powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME);
+
+		// Show the player's shield when it is active
+		ActivateForceField();
 	}
 	#endregion
 
@@ -552,7 +580,8 @@ public class Player : BaseCharacter
 			usingPowerUp || powerUpsActive[PowerUp.POWER];
 		inputActions.Gameplay.SwordAttack.performed += _ => powerUpsActive[PowerUp.SPEED] =
 			usingPowerUp || powerUpsActive[PowerUp.SPEED];
-		inputActions.Gameplay.HammerAttack.performed += _ => heal = usingPowerUp;
+		inputActions.Gameplay.HammerAttack.performed += _ => heal = true;
+		inputActions.Gameplay.HammerAttack.canceled += _ => heal = false;
 	}
 
 	///<summary> Make the health bar show the current health </summary>
@@ -580,13 +609,20 @@ public class Player : BaseCharacter
 
 		// Apply healing
 		healTimer -= (healTimer > 0.0f) ? Time.deltaTime : 0.0f;
-		if (heal && medKits > 0 && currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
+		if (heal && usingPowerUp && medKits > 0 && currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
 		{
 			maxHealth.runTimeValue = (currentHealth += 2);
 			playerHealthSignal.Raise();
 			healTimer = 1.0f;
 			medKits--;
 			heal = false;
+			if (medKitImages != null)
+			{
+				for (int i = 0; i < PowerUp.MAX_MED_KITS; i++)
+				{
+					medKitImages[i].enabled = (i < medKits);
+				}
+			}
 		}
 
 		// Decrease each power up timer
@@ -603,11 +639,11 @@ public class Player : BaseCharacter
 			}
 		}
 
-		if(RedRing != null && BlueRing != null && GreenRing != null)
+		if(RedRing != null && GreenRing != null && BlueRing != null)
 		{
-			SetPowerUpFillAmounts(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
-										 powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME,
-										 powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);
+			UpdateHud(powerUpTimers[PowerUp.POWER]  / PowerUp.POWER_UP_TIME,
+			          powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME,
+			          powerUpTimers[PowerUp.SPEED]  / PowerUp.POWER_UP_TIME);
 		}
 	}
 
@@ -659,6 +695,7 @@ public class Player : BaseCharacter
 		audioSourcePlayerMovement.volume = 0;
 		playerAllowedToMove = false;
 		canAttack = false;
+		usingPowerUp = false;
 	}
 
 	/// <summary> this unfreezes the player so that he can move and attack</summary>
@@ -668,6 +705,24 @@ public class Player : BaseCharacter
 		canAttack = true;
 		if (playerRigidbody != null)
 			playerRigidbody.isKinematic = false;
+	}
+
+	private void ActivateForceField()
+	{
+		if (playerShield != null)
+		{
+			if (shieldIsEnabled && playerShield.color.a < 1.0f)
+			{
+				playerShield.color = new Color(playerShield.color.r, playerShield.color.g,
+				                               playerShield.color.b, playerShield.color.a + Time.deltaTime * 4.0f);
+			}
+			else if (shieldIsEnabled == false && playerShield.color.a > 0.0f)
+			{
+				playerShield.color = new Color(playerShield.color.r, playerShield.color.g,
+				                               playerShield.color.b, playerShield.color.a - Time.deltaTime * 4.0f);
+			}
+			shieldCollider.enabled = (playerShield.color.a > 0.0f);
+		}
 	}
 	#endregion
 

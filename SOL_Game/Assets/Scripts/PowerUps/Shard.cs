@@ -42,7 +42,7 @@ public class Shard : QuestItem
 		else
 		{
 			shimmer.volume =
-				1.0f / (Mathf.Pow(Vector2.Distance(transform.position, player.transform.position), 0.6f) + 0.01f) - 0.2f;
+				0.8f / (Mathf.Pow(Vector2.Distance(transform.position, player.transform.position), 0.6f) + 0.01f) - 0.2f;
 			if (shimmer.volume < 0.0f)
 			{
 				shimmer.volume = 0.0f;

@@ -11,7 +11,7 @@ public class PowerUp : MonoBehaviour
 		SPEED = 2, // Boost the player's speed
 		HEAL = 3; // Heal the player
 	public const float
-		POWER_UP_TIME = 15.0f; // How long power up effects last
+		POWER_UP_TIME = 25.0f; // How long power up effects last
 	#endregion
 
 	#region Public Variables
@@ -95,9 +95,19 @@ public class PowerUp : MonoBehaviour
 			{
 				player.powerUpTimers[type] = powerUpTimer;
 			}
-			else if (player.medKits < MAX_MED_KITS)
+			else
 			{
-				player.medKits++;
+				if (player.medKits < MAX_MED_KITS)
+				{
+					player.medKits++;
+				}
+				if (player.medKitImages != null)
+				{
+					for (int i = 0; i < MAX_MED_KITS; i++)
+					{
+						player.medKitImages[i].enabled = (i < player.medKits);
+					}
+				}
 			}
 
 			// Power up disappears atfer being picked up

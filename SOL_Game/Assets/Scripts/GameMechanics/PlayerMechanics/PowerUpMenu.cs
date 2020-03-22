@@ -38,9 +38,6 @@ public class PowerUpMenu : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		inputActions.Gameplay.LeftTrigger.performed += _ => GrowMenu();
-		inputActions.Gameplay.LeftTrigger.canceled  += _ => ShrinkMenu();
-
 		for (int i = 0; i < PowerUp.HEAL; i++)
 		{
 			if (powerUps[i].powerUpSprite.enabled = (size > 0.0f))
@@ -59,28 +56,19 @@ public class PowerUpMenu : MonoBehaviour
 		}
 		sprite.enabled = (size > 0.0f);
 
-		if (grow && size < maxSize)
+		if ((grow = player.usingPowerUp) && size < maxSize)
 		{
-			size += maxSize / 10.0f;
+			size += maxSize * 0.1f;
 		}
 		else if (grow == false && size >= 0.0f)
 		{
-			size -= maxSize / 10.0f;
+			size -= maxSize * 0.1f;
 		}
 
 	}
 	#endregion
 
 	#region Utility Methods (Empty)
-	void GrowMenu()
-	{
-		grow = true;
-	}
-
-	void ShrinkMenu()
-	{
-		grow = false;
-	}
 	#endregion
 
 	#region Coroutines (Empty)
