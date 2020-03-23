@@ -603,12 +603,12 @@ public class Player : BaseCharacter
 			}
 		}
 
-		if(RedRing != null && BlueRing != null && GreenRing != null)
+		/*if(RedRing != null && BlueRing != null && GreenRing != null)
 		{
-			SetPowerUpFillAmounts(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
-										 powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME,
-										 powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);
-		}
+			SetPowerUpFillAmounts(powerUpTimers[PowerUp.POWER]  / PowerUp.POWER_UP_TIME,
+								  powerUpTimers[PowerUp.SPEED]  / PowerUp.POWER_UP_TIME,
+								  powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME);
+		}*/
 	}
 
 	/// <summary> override the enable shield method to disable the player from taking damage while the shield is up </summary>

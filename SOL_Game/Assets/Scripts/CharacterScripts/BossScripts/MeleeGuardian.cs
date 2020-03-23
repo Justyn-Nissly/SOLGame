@@ -22,7 +22,7 @@ public class MeleeGuardian : Enemy
         damagedShaderMaterial,
         fishEyeMaterial;
 
-	public EncounterManager EncounterManager; // this reference is used to send a signal when the basilisk dies
+	public EncounterManager EncounterManager; 
 	#endregion
 
 	#region Private Variables

@@ -105,6 +105,15 @@ public class N13GL : Enemy
 	#endregion
 
 	#region Sword Guardian
+	public Animator
+		anim; // Reference to change animation states
+	public FloatValue
+		meleeDamageToGive;
+	public Material
+		damagedShaderMaterial,
+		fishEyeMaterial;
+
+	public EncounterManager EncounterManager;
 	#endregion
 
 	#region Final Guardian
@@ -174,6 +183,8 @@ public class N13GL : Enemy
 	#endregion
 
 	#region Final Guardian
+	private float
+		movemntSpeed = 1f; // The higher the number the slower he moves
 	#endregion
 
 	#endregion
@@ -375,7 +386,7 @@ public class N13GL : Enemy
 	{
 		Vector2 randomPosition = new Vector2();
 
-		// set the random psition to be in the range of the set limits
+		// set the random position to be in the range of the set limits
 		randomPosition.x = Random.Range(upperLeftSpawnPointLimit.position.x, lowerRightSpawnPointLimit.position.x);
 		randomPosition.y = Random.Range(upperLeftSpawnPointLimit.position.y, lowerRightSpawnPointLimit.position.y);
 
@@ -442,7 +453,7 @@ public class N13GL : Enemy
 		{
 			if (attackCountDownTimer <= 0)
 			{
-				Shoot(true);
+				Shoot();
 				attackCountDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks);
 			}
 			else
@@ -605,7 +616,13 @@ public class N13GL : Enemy
 	/// <summary> The attack pattern for the shield guardian </summary>
 	public void SwordGuardianAttackPattern()
 	{
-		Debug.Log("Sword Attack");
+		base.FixedUpdate();
+
+		// The guardian is constantly moving
+		if (moving == false && canAttack)
+		{
+			Move();
+		}
 	}
 	#endregion
 
