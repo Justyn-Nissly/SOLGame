@@ -86,7 +86,7 @@ public class Player : BaseCharacter
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
-	void Awake()
+	protected override void Awake()
 	{
 		inputActions = new PlayerControls(); // this in the reference to the new unity input system
 

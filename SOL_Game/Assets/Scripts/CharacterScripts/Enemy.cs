@@ -51,7 +51,8 @@ public class Enemy : BaseCharacter
 		amountHealed = 0,
 		countDownTimer;
 	private bool
-		canDropPowerUp,
+		canDropPowerUp;
+	protected bool
 		isDead = false;
 	#endregion
 

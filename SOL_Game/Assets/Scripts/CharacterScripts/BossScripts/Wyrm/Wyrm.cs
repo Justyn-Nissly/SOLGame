@@ -6,6 +6,12 @@ public class Wyrm : Enemy
 {
 
 	#region Enums (Empty)
+	private enum AttackType
+	{
+		breathAttack,
+		meleeAttack,
+		lazerBreathAttack,
+	}
 	#endregion
 
 	#region Public Variables
@@ -16,10 +22,13 @@ public class Wyrm : Enemy
 	public GameObject
 		headGameobject,
 		breathAttack,     // The prefab of a breath attack game object that creates a line of fire (more then one is used to create the fire breath attack)
-		bigBreathBlast;
+		lazerBreathBlast;
 
 	public List<Transform>
 		breathAttackTargets; // Reference to all points that a line of fire should go to
+
+	public Transform
+		StartMeleeAttackPoint; // is the players position is higher on the y axis than this transform the Wyrm will use a melee attack
 	#endregion
 
 	#region Private Variables
@@ -31,8 +40,8 @@ public class Wyrm : Enemy
 
 
 	private float
-		attackCountdownTimer = 6,        // The countdown timer for the attacks
-		attackIntervalTime = 5,          // The interval time before attacking again
+		attackCountdownTimer = 2,        // The countdown timer for the attacks
+		attackIntervalTime = 2,          // The interval time before attacking again
 		shackSpeed = 50.0f,              // How fast it shakes
 		shackAmount = .01f;              // How much it shakes
 	#endregion
@@ -75,30 +84,26 @@ public class Wyrm : Enemy
 	/// <summary> this will do an attack based on the situation </summary>
 	private void DoAnAttack()
 	{
-		if(canDoQuarterHealthEvent == false) // if the wyrm is below quarter health chance to do a special attack
+		// do melee attack if the player is close enough
+		if (player.transform.position.y > StartMeleeAttackPoint.position.y)
 		{
-			if (Random.Range(1, 3) == 1)
-			{
-				BreathAttack();
-			}
-			else
-			{
-				BigBreathBlast(2);
-			}
+			StartAttackAnimation(AttackType.meleeAttack);
 		}
+		// N% chance to do a lazer attack if below quarter health
+		else if (Random.Range(1, 3) >= 1 && canDoQuarterHealthEvent == false)
+		{
+			StartAttackAnimation(AttackType.lazerBreathAttack);
+		}
+		// do default breath attack
 		else
 		{
-			BreathAttack();
+			StartAttackAnimation(AttackType.breathAttack);
 		}
-
-		attackCountdownTimer = attackIntervalTime;
 	}
 
 	/// <summary>  create a line of fire to each fire point in the list of breath target points </summary>
-	private void BreathAttack()
+	public void BreathAttack()
 	{
-		StartCoroutine(SpawningEnemiesActions(2));
-
 		foreach (Transform attactTarget in breathAttackTargets)
 		{
 			// create the line of fire game object
@@ -113,13 +118,73 @@ public class Wyrm : Enemy
 		}
 	}
 
-	/// <summary>  create a line of fire to each fire point in the list of breath target points </summary>
-	private void BigBreathBlast(float duration)
-	{
-		StartCoroutine(SpawningEnemiesActions(duration));
 
+	/// <summary> triggers the Wyrm's attack animations</summary>
+	private void StartAttackAnimation(AttackType attackType)
+	{
+		// set flags for disabling attacking, enabling enemy shacking, take no damage, and stop the enemy from moving
+		canAttack = false;
+		enemyIsShacking = true;
+		aggro = false;
+
+		// trigger the right attack animation
+		if (attackType == AttackType.meleeAttack)
+		{
+			// trigger the melee attack animation
+			characterAnimator.SetBool("MeleeAttack", true);
+		}
+		else if(attackType == AttackType.breathAttack)
+		{
+			// trigger the breath attack animation
+			characterAnimator.SetBool("BreathAttack", true);
+		}
+		else
+		{
+			// trigger the laser breath attack animation
+			characterAnimator.SetBool("LazerBreathAttack", true);
+		}
+	}
+
+	/// <summary>stops any playing attack animations and returns to the idle animation (called with an animation event)</summary>
+	private void EndAttackAnimation()
+	{
+		// stop any attack animations
+		characterAnimator.SetBool("BreathAttack", false);
+		characterAnimator.SetBool("MeleeAttack", false);
+		characterAnimator.SetBool("LazerBreathAttack", false);
+
+		if (isDead)
+		{
+			// trigger death animations
+			characterAnimator.SetBool("Dead", true);
+		}
+		else
+		{
+			// set flags for disabling attacking, enabling enemy shacking, take no damage, and stop the enemy from moving
+			canAttack = true;
+			enemyIsShacking = false;
+			aggro = true;
+
+			// reset the countdown timer
+			attackCountdownTimer = attackIntervalTime;
+		}
+	}
+
+	/// <summary>  create a line of fire to each fire point in the list of breath target points </summary>
+	public void LazerBreathBlast()
+	{
 		// create a lazer breath attack (it will destroy itself when finished)
-		Instantiate(bigBreathBlast, headGameobject.transform.position, new Quaternion(0, 0, 0, 0));
+		Instantiate(lazerBreathBlast, headGameobject.transform.position, new Quaternion(0, 0, 0, 0));
+	}
+
+	/// <summary> deal melee damage (called in an animation event)</summary>
+	public void DealMeleeDamage()
+	{
+		// use the heavy attack logic if its not null
+		if (heavyMeleeAttackPosition != null && heavyMeleeDamageToGive != null)
+		{
+			MeleeAttack(heavyMeleeWeapon, heavyMeleeAttackPosition, heavyMeleeAttackRange, heavyMeleeDamageToGive, false);
+		}
 	}
 
 
@@ -128,14 +193,7 @@ public class Wyrm : Enemy
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if (maxHealth.runTimeValue <= 0)
-		{
-			canAttack = false;
-			aggro = false;
-
-			print("you won the game!!!");
-		}
-		else
+		if (maxHealth.runTimeValue > 0)
 		{
 			// check if the enemy should start a health event
 			if (maxHealth.runTimeValue <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
@@ -154,6 +212,20 @@ public class Wyrm : Enemy
 				StartCoroutine(StartHealthEvent(4)); // start health event
 			}
 		}
+	}
+
+	/// <summary> override the die method to do nothing (don't play dissolve effect)</summary>
+	public override IEnumerator Die()
+	{
+		print("you won the game!!!");
+
+		yield return null;
+	}
+
+	/// <summary> called after the death animations play</summary>
+	public void DestroyGameObject()
+	{
+		Destroy(gameObject);
 	}
 
 
