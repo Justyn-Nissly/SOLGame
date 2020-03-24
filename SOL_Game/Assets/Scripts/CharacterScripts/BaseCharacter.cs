@@ -83,19 +83,27 @@ public class BaseCharacter : MonoBehaviour
 
 	// Unity Named Methods
 	#region Main Methods
+	protected virtual void Awake()
+	{
+		// we do not want all enemies of the same type to reference the same health veritable
+		FloatValue temp = maxHealth;
+		maxHealth = new FloatValue();
+		maxHealth.initialValue = temp.initialValue;
+		maxHealth.runTimeValue = temp.runTimeValue;
+	}
 	/// <summary>
 	/// debug code to see the melee attack ranges
 	/// </summary>
-	//private void OnDrawGizmosSelected()
-	//{
-	//	Gizmos.color = Color.red;
-	//	if (heavyMeleeAttackPosition != null)
-	//		Gizmos.DrawSphere(heavyMeleeAttackPosition.position, heavyMeleeAttackRange);
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.red;
+		if (heavyMeleeAttackPosition != null)
+			Gizmos.DrawSphere(heavyMeleeAttackPosition.position, heavyMeleeAttackRange);
 
-	//	Gizmos.color = Color.yellow;
-	//	if (lightMeleeAttackPosition != null)
-	//		Gizmos.DrawSphere(lightMeleeAttackPosition.position, lightMeleeAttackRange);
-	//}
+		Gizmos.color = Color.yellow;
+		if (lightMeleeAttackPosition != null)
+			Gizmos.DrawSphere(lightMeleeAttackPosition.position, lightMeleeAttackRange);
+	}
 	#endregion
 
 	#region Utility Methods
