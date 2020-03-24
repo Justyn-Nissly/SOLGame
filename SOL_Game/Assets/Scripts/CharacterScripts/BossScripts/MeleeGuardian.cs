@@ -20,7 +20,7 @@ public class MeleeGuardian : Enemy
 	public GameObject
 	    origin,
         sword;
-	public testthrow
+	public SwordThrow
 		throwSword;
 
 	public FloatValue

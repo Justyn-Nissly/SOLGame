@@ -424,7 +424,7 @@ public class Player : BaseCharacter
 
 	/// <summary> this method is for the player to take damage
 	/// and send a signal to the UI to update it with the players new health </summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	public override void TakeDamage(int damage, bool playSwordImpactSound = false)
 	{
 		// only take damage if the player is allowed to take damage at the moment
 		if (canTakeDamage)
@@ -438,9 +438,6 @@ public class Player : BaseCharacter
 			//playerHealthSignal.Raise();
 
 			playerHealthHUD.UpdateHearts();
-
-			// print the players current heath to the console for debugging
-			Debug.Log("player CurrentHealth = " + maxHealth.runTimeValue);
 		}
 	}
 
@@ -575,9 +572,12 @@ public class Player : BaseCharacter
 
 		// Apply healing
 		healTimer -= (healTimer > 0.0f) ? Time.deltaTime : 0.0f;
-		if (heal && usingPowerUp && medKits > 0 && currentHealth < maxHealth.initialValue && healTimer <= 0.0f)
+		if (heal && usingPowerUp && medKits > 0 && maxHealth.runTimeValue < maxHealth.initialValue && healTimer <= 0.0f)
 		{
-			maxHealth.runTimeValue = (maxHealth.runTimeValue += 2);
+			if ((maxHealth.runTimeValue += 2) > maxHealth.initialValue)
+			{
+				maxHealth.runTimeValue = maxHealth.initialValue;
+			}
 			playerHealthHUD.UpdateHearts();
 			healTimer = 1.0f;
 			medKits--;

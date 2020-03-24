@@ -48,7 +48,7 @@ public class DireBeast : Enemy
 		bossBlastAttack = FindObjectOfType<BossBlastAttack>();
 
 		// Stage 2 after half health
-		if (currentHealth == maxHealth.initialValue / 2)
+		if (maxHealth.runTimeValue == maxHealth.initialValue * 0.5f)
 		{
 			//StateEnrage();
 			Move();
@@ -85,7 +85,7 @@ public class DireBeast : Enemy
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
 
-		if (currentHealth <= 0)
+		if (maxHealth.runTimeValue <= 0)
 		{
 			EncounterManager.EndEncounter();
 		}
@@ -97,9 +97,6 @@ public class DireBeast : Enemy
 		if (player != null)
 		{
 			player.TakeDamage((int)meleeDamageToGive.initialValue, false);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.currentHealth);
 		}
 	}
 
