@@ -20,7 +20,7 @@ public class MeleeGuardian : Enemy
 	public GameObject
 	    origin,
         sword;
-	public testthrow
+	public SwordThrow
 		throwSword;
 
 	public FloatValue
@@ -42,7 +42,7 @@ public class MeleeGuardian : Enemy
 
     // Unity Named Methods
     #region Main Methods
-   /* public void Awake()  
+   /* public void Awake()
     {
 		moving = true;
 
@@ -95,10 +95,10 @@ public class MeleeGuardian : Enemy
 		// Prevents coroutine from running again if the boss is already running
 		if (moving == false)
 		{
-			
+
 			moving = true;
 			StartCoroutine(MoveOverSeconds(gameObject, GetRandomPositionBeweenLimits(), 1f));
-            
+
 
 
 		}

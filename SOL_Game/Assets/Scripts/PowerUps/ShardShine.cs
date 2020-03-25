@@ -23,7 +23,6 @@ public class ShardShine : MonoBehaviour
 	{
 		sprite = GetComponent<SpriteRenderer>();
 		sprite.sortingOrder = shardSprite.sortingOrder - 1;
-		/*sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.6f);*/
 	}
 	#endregion
 
