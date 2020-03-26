@@ -13,7 +13,8 @@ public class loadSceneOnTrigger : MonoBehaviour
 	public string
 		sceneToLoad; // The name of the scene to load when triggered
 	public bool
-		onTeleportStartInBeginingPosition = true; // Rename "teleportToStart"?
+		onTeleportStartInBeginingPosition = true, // Rename "teleportToStart"?
+		playPlayersTeleportAnimation = true;
 	public Image
 		canvasFadeImage; // Fades the whole screen to black
 	#endregion
@@ -31,13 +32,27 @@ public class loadSceneOnTrigger : MonoBehaviour
 		// Change scenes if the player enters a scene-change trigger
 		if (collision.CompareTag("Player"))
 		{
-			teleportScript = collision.gameObject.GetComponent<_2dxFX_NewTeleportation2>();
-			StartCoroutine(TeleportOutPlayer());
+			TriggerLoadScene(collision);
+
 		}
 	}
 	#endregion
 
 	#region Utility Methods
+	public void TriggerLoadScene(Collider2D collision = null)
+	{
+		if (playPlayersTeleportAnimation && collision != null)
+		{
+			teleportScript = collision.gameObject.GetComponent<_2dxFX_NewTeleportation2>();
+			StartCoroutine(TeleportOutPlayer());
+		}
+		else
+		{
+			// start fading the screen to black
+			StartCoroutine(FadeToBlackCoroutine());
+		}
+	}
+
 	/// <summary> Fade slowly to black </summary>
 	private void FadeToBlack()
 	{

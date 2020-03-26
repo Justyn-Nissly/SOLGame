@@ -139,6 +139,12 @@ public class Enemy : BaseCharacter
 			// The enemy gets destroyed if it runs out of health
 			if (maxHealth.runTimeValue <= 0)
 			{
+				// this stops all collisions with this enemy
+				DisableColliders();
+
+				canAttack = false;
+
+
 				if (enemyAudioManager != null)
 					enemyAudioManager.PlaySound();
 
@@ -152,6 +158,16 @@ public class Enemy : BaseCharacter
 				isDead = true;
 				StartCoroutine(Die());
 			}
+		}
+	}
+
+	/// <summary> removes all collider on this enemy (called when the enemy dies)</summary>
+	private void DisableColliders()
+	{
+		// disable all colliders
+		foreach(Collider2D collider2D in GetComponentsInChildren<Collider2D>())
+		{
+			collider2D.enabled = false;
 		}
 	}
 

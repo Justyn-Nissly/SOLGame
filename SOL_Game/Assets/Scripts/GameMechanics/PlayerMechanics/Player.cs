@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : BaseCharacter
 {
@@ -33,9 +34,6 @@ public class Player : BaseCharacter
 	public AudioSource
 		audioSourcePlayerMovement;
 
-	public AudioSource
-		shieldSoundSource;
-
 	public float
 		extraSpeed,   // Extra speed gained from a power up
 		powerUpTimer; // How long power ups last
@@ -62,6 +60,10 @@ public class Player : BaseCharacter
 		playerHealthHUD;
 	public FloatValue
 		heartContainers;
+	public AudioClip
+		gameOverSound; // the game over sound effect
+	public Image
+		canvasFadeImage; // used to Fade the whole screen to black
 	#endregion
 
 	#region Private Variables
@@ -104,7 +106,7 @@ public class Player : BaseCharacter
 		godModeEnabled = false;
 		SetUpInputDetection();
 
-
+		canvasFadeImage.color = Color.clear; // make image transparent
 
 		// The player starts with max health
 		maxHealth.runTimeValue = maxHealth.initialValue;
@@ -174,7 +176,7 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-/*			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				playerMovementSpeed = fast;
 				this.GetComponent<Rigidbody2D>().isKinematic = true;
@@ -193,7 +195,7 @@ public class Player : BaseCharacter
 				GlobalVarablesAndMethods.blasterUnlocked = true;
 				GlobalVarablesAndMethods.shieldUnlocked = true;
 				SetUpInputDetection();
-			}*/
+			}
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
@@ -432,12 +434,20 @@ public class Player : BaseCharacter
 			// call the parents TakeDamage()
 			base.TakeDamage(damage, playSwordImpactSound);
 
-			StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.1f, .25f));
 
-			// send a signal saying that the player has taken damage so update his health UI
-			//playerHealthSignal.Raise();
-
+			// the player has taken damage so update his health UI
 			playerHealthHUD.UpdateHearts();
+
+			// kill the player...
+			if(maxHealth.runTimeValue <= 0 && GlobalVarablesAndMethods.playerCanDie)
+			{
+				StartCoroutine(PlayerDied());
+			}
+			// just shake the camera
+			else
+			{
+				StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.1f, .25f));
+			}
 		}
 	}
 
@@ -685,8 +695,56 @@ public class Player : BaseCharacter
 			shieldCollider.enabled = (playerShield.color.a > 0.0f);
 		}
 	}
+
+	/// <summary> Fade slowly to black </summary>
+	private void FadeToBlack()
+	{
+		canvasFadeImage.color = Color.Lerp(canvasFadeImage.color, Color.black, 10.0f * Time.deltaTime);
+	}
 	#endregion
 
-	#region Coroutines (Empty)
+	#region Coroutines
+	/// <summary> this plays the game over sound then loads the game over menu</summary>
+	private IEnumerator PlayerDied()
+	{
+		// save the name of the scene the player died in
+		GlobalVarablesAndMethods.sceneToLoad = SceneManager.GetActiveScene().name;
+
+		// stop player movement
+		FreezePlayer();
+		Time.timeScale = 0.1f;
+
+		// play the game over sound
+		audioSource.clip = gameOverSound;
+		audioSource.Play();
+
+		// wait till the sound has played
+		yield return new WaitForSecondsRealtime(audioSource.clip.length + .5f);
+
+		StartCoroutine(FadeToBlackCoroutine());
+	}
+
+	/// <summary> Load the scene after fading to black </summary>
+	public IEnumerator FadeToBlackCoroutine()
+	{
+		canvasFadeImage.color = Color.clear; // make image transparent
+
+		while (canvasFadeImage.color.a <= 0.99f)
+		{
+			FadeToBlack();
+
+			yield return null; // wait to the next frame to continue
+		}
+
+		canvasFadeImage.color = Color.black; // make image transparent
+
+		Time.timeScale = 1.0f;
+
+		// heal the player to full health then update his health UI
+		maxHealth.runTimeValue = heartContainers.runTimeValue * 2f;
+		playerHealthHUD.UpdateHearts();
+
+		SceneManager.LoadScene("GameOverMenu");
+	}
 	#endregion
 }

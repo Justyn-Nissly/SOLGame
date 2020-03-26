@@ -172,7 +172,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 554273959}
+  - {fileID: 844982561}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -252,8 +252,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -279,13 +279,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -309,7 +307,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -328,6 +326,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1001 &30702565
@@ -415,25 +414,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -454,8 +453,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &40009800
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,25 +682,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -736,7 +735,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67615973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.82, y: 5.57, z: 0}
+  m_LocalPosition: {x: 6.82, y: 7.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1687360608}
@@ -771,8 +770,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -788,8 +787,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -834,7 +833,7 @@ RectTransform:
   m_Children:
   - {fileID: 250919562}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -851,8 +850,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &86314609
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,7 +908,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 956517251}
+  - {fileID: 595998913}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -989,8 +988,8 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f4ceda29c9009f4db4a49edce695ab6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   snakeManager: {fileID: 262978121}
   bodyParts:
   - {fileID: 86314610}
@@ -1021,8 +1020,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -1048,13 +1047,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -1078,7 +1075,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -1097,6 +1094,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!114 &86314617
@@ -1109,8 +1107,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f4ceda29c9009f4db4a49edce695ab6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   snakeManager: {fileID: 262978121}
   bodyParts:
   - {fileID: 86314610}
@@ -1154,44 +1152,10 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!21 &90737720
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &95080089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,7 +1208,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2125614056}
+  - {fileID: 693565562}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1324,8 +1288,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -1351,13 +1315,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -1381,7 +1343,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -1400,6 +1362,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &99851757
@@ -1510,6 +1473,75 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &123100433
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2203373664936614709, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_Name
+      value: HeartRestore (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.2557287
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 74.795044
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: de2d8d64f8ce64b2592eab5a4ee91e21, type: 3}
 --- !u!1 &156473657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,6 +1572,40 @@ Transform:
   m_Father: {fileID: 312339397}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &175134953
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &178468550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1625,25 +1691,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -1664,8 +1730,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &192936953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,83 +1840,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!21 &234336890
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &244817581
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation2
-  m_Shader: {fileID: 4800000, guid: 81a8c4a625e2be24abb96978d8656203, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0.0902453, b: 0, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &245272494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,16 +1868,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8776898446335598728, guid: a6481d440f75445eaa3b4b2a367b8d07,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 889e5dae6fb69634e8c9d183ea7d5b17, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1923,7 +1911,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 200}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &250363858
 GameObject:
@@ -2002,8 +1990,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
@@ -2028,40 +2016,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250919561}
   m_CullTransparentMesh: 0
---- !u!21 &255592975
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &256679038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2147,25 +2101,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -2333,13 +2287,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f679c83f9a78e7547b80897574398650, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  maxHealth: {fileID: 11400000, guid: a18e574fe391aab4c8207af85ad6be8c, type: 2}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: {fileID: 11400000, guid: c5447a22ee30aba43b6ad253b01610e3, type: 2}
   canAttack: 0
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 262978119}
@@ -2363,7 +2315,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 245272495}
-  enemyName:
+  enemyName: 
   aggroRange: 100
   followRange: 100
   attackDmg: 0
@@ -2379,9 +2331,10 @@ MonoBehaviour:
   enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
-  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
+  powerUp: {fileID: 2708952162030986632, guid: 3cc0561716b1f7a4491d7cb762d28088, type: 3}
   pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
     type: 2}
+  dropPowerUpOnDeath: 1
   snakeManager: {fileID: 262978121}
   damageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   LeviathanEnemySpawner: {fileID: 562610288}
@@ -2406,8 +2359,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdf07e1f006d9aa46805846024ded43e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   FullSnake: {fileID: 86314617}
   HalfSnakeHead: {fileID: 86314614}
   HalfSnakeBody: {fileID: 1920908632}
@@ -2501,25 +2454,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -2530,6 +2483,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 267562474}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &269252440
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &276572516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,7 +2667,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 836099688}
+  - {fileID: 1755190390}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2760,8 +2747,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -2787,13 +2774,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -2817,7 +2802,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -2836,6 +2821,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1001 &352510512
@@ -2923,25 +2909,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -2962,8 +2948,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &368713416
 GameObject:
   m_ObjectHideFlags: 0
@@ -3008,12 +2994,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd7c77d95dd3002479e0fda2aec035ec, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemiesToSpawn:
+  - {fileID: 8519565967622166670, guid: f1eca1112838fe24cb66670739160314, type: 3}
   - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
-  - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
-  - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
+  - {fileID: 2665741298371999117, guid: 5445f56fa853daa4886860a2b27ad830, type: 3}
   enemySpawnPoints:
   - {fileID: 473080730}
   - {fileID: 838728270}
@@ -3065,8 +3051,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 826d0699d3954e24ea2aa9c8e7069931, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   shouldLookAtPlayer: 1
   lookDirectlyAtPlayer: 0
 --- !u!1 &385014738
@@ -3331,11 +3317,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd7c77d95dd3002479e0fda2aec035ec, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemiesToSpawn:
   - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
-  - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
+  - {fileID: 8519565967622166670, guid: f1eca1112838fe24cb66670739160314, type: 3}
   enemySpawnPoints:
   - {fileID: 250363858}
   - {fileID: 1034169985}
@@ -3356,13 +3342,13 @@ PrefabInstance:
     - target: {fileID: 8808381513113877302, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
       propertyPath: m_Icon
-      value:
+      value: 
       objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
         type: 0}
     - target: {fileID: 8808381513113877302, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8018298359730820023, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
@@ -3422,7 +3408,7 @@ PrefabInstance:
     - target: {fileID: 950839640925407622, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
       propertyPath: canvisFadeImage
-      value:
+      value: 
       objectReference: {fileID: 250919563}
     - target: {fileID: 950839640925407622, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
@@ -3432,7 +3418,7 @@ PrefabInstance:
     - target: {fileID: 950839640925407622, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
       propertyPath: canvasFadeImage
-      value:
+      value: 
       objectReference: {fileID: 250919563}
     - target: {fileID: 4691436508938559705, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
@@ -3453,6 +3439,109 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9050617770791773340}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &443653868
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1001 &461486685
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2203373664936614709, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_Name
+      value: HeartRestore
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.9438076
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 29.55915
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: de2d8d64f8ce64b2592eab5a4ee91e21, type: 3}
 --- !u!1 &473080730
 GameObject:
   m_ObjectHideFlags: 0
@@ -3483,6 +3572,40 @@ Transform:
   m_Father: {fileID: 368713417}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &485298573
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &485672276
 GameObject:
   m_ObjectHideFlags: 0
@@ -3510,7 +3633,7 @@ RectTransform:
   m_GameObject: {fileID: 485672276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
   - {fileID: 1062292836}
   m_Father: {fileID: 1709394589}
@@ -3518,8 +3641,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 772, y: 495}
-  m_SizeDelta: {x: 300, y: 300}
+  m_AnchoredPosition: {x: 706.1, y: 445.9}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &485672278
 MonoBehaviour:
@@ -3531,16 +3654,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6000970410546899442, guid: a6481d440f75445eaa3b4b2a367b8d07,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: fdf8d33c623929e47bce47d901e35625, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3588,6 +3710,75 @@ Transform:
   m_Father: {fileID: 1620838265}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &537458226
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2203373664936614709, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_Name
+      value: HeartRestore (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -39.48294
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 37.841644
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203373664936614710, guid: de2d8d64f8ce64b2592eab5a4ee91e21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: de2d8d64f8ce64b2592eab5a4ee91e21, type: 3}
 --- !u!1 &553561225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3696,40 +3887,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!21 &554273959
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &562610286
 GameObject:
   m_ObjectHideFlags: 0
@@ -3774,8 +3931,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd7c77d95dd3002479e0fda2aec035ec, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemiesToSpawn:
   - {fileID: 8519565967622166670, guid: f1eca1112838fe24cb66670739160314, type: 3}
   - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
@@ -3840,7 +3997,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1477442140}
+  - {fileID: 944889221}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3920,8 +4077,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -3947,13 +4104,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -3977,7 +4132,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -3996,6 +4151,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &566382982
@@ -4088,6 +4244,40 @@ Transform:
   m_Father: {fileID: 2089566823}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &595998913
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &596780388
 GameObject:
   m_ObjectHideFlags: 0
@@ -4196,15 +4386,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!21 &599378492
+--- !u!21 &613849329
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation2
-  m_Shader: {fileID: 4800000, guid: 81a8c4a625e2be24abb96978d8656203, type: 3}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -4215,30 +4405,21 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
     m_Colors:
-    - TeleportationColor: {r: 1, g: 0.044800427, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &626555829
 GameObject:
   m_ObjectHideFlags: 0
@@ -4399,13 +4580,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438345ccb85e27e4e9e9eec7d493f38f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 11400000, guid: a4c7dc28fc0ae2648a17c507397831fb, type: 2}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 653737491}
@@ -4431,7 +4610,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 1062292834}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -4447,9 +4626,10 @@ MonoBehaviour:
   enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
-  powerUp: {fileID: 2708952162030986632, guid: d727c5f7b38677144a26c95d2e3d70d9, type: 3}
+  powerUp: {fileID: 7241853341607022146, guid: 354e64762ff0bb54a8235d233142738e, type: 3}
   pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
     type: 2}
+  dropPowerUpOnDeath: 1
   damageToGive: {fileID: 11400000, guid: 8a910d7db67024ca0a00932cc2b76129, type: 2}
   roomCenterTransform: {fileID: 1720742673}
   shootingPointLeft: {fileID: 1519350083}
@@ -4512,7 +4692,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 599378492}
+  - {fileID: 1635201584}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4574,8 +4754,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -4627,7 +4807,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -4739,41 +4919,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!21 &678677480
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &712638176
+--- !u!21 &693565562
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -4892,25 +5038,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -4931,8 +5077,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!21 &731305068
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &751264173
 GameObject:
   m_ObjectHideFlags: 0
@@ -5013,6 +5193,40 @@ Transform:
   m_Father: {fileID: 653737495}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &765874591
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &804497843
 GameObject:
   m_ObjectHideFlags: 0
@@ -5065,7 +5279,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1382240304}
+  - {fileID: 731305068}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5145,8 +5359,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -5172,13 +5386,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -5202,7 +5414,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -5221,76 +5433,9 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
---- !u!21 &836099688
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &837095696
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &838728270
 GameObject:
   m_ObjectHideFlags: 0
@@ -5351,6 +5496,40 @@ Transform:
   m_Father: {fileID: 1620838265}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &844982561
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &848683077
 GameObject:
   m_ObjectHideFlags: 0
@@ -5382,8 +5561,42 @@ Transform:
   - {fileID: 1122686148}
   - {fileID: 410313450}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &875920231
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &880913400
 GameObject:
   m_ObjectHideFlags: 0
@@ -5719,7 +5932,7 @@ RectTransform:
   m_GameObject: {fileID: 882315544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
   - {fileID: 245272497}
   m_Father: {fileID: 979858369}
@@ -5727,8 +5940,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 643, y: 439.97}
-  m_SizeDelta: {x: 400, y: 200}
+  m_AnchoredPosition: {x: 705.9, y: 445.8}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &882315546
 MonoBehaviour:
@@ -5740,16 +5953,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6000970410546899442, guid: a6481d440f75445eaa3b4b2a367b8d07,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: fdf8d33c623929e47bce47d901e35625, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5935,7 +6147,7 @@ Transform:
   m_Father: {fileID: 1474695904}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &954174494
+--- !u!21 &944889221
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -5969,6 +6181,36 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &948793794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 948793795}
+  m_Layer: 0
+  m_Name: SpawnPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &948793795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948793794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.99, y: 0.61, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1687360608}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &956154607
 GameObject:
   m_ObjectHideFlags: 0
@@ -12094,7 +12336,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!21 &956517251
+--- !u!21 &979008616
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -12177,8 +12419,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -12194,8 +12436,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -12420,25 +12662,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -12459,42 +12701,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
---- !u!21 &992400612
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1033595738
 GameObject:
   m_ObjectHideFlags: 0
@@ -12618,8 +12826,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd7c77d95dd3002479e0fda2aec035ec, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemiesToSpawn:
   - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
   enemySpawnPoints:
@@ -12686,16 +12894,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8776898446335598728, guid: a6481d440f75445eaa3b4b2a367b8d07,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 889e5dae6fb69634e8c9d183ea7d5b17, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -12730,7 +12937,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 300}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1116729400
 PrefabInstance:
@@ -12817,25 +13024,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -12861,7 +13068,7 @@ PrefabInstance:
     - target: {fileID: 8808381513113877302, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
       propertyPath: m_Icon
-      value:
+      value: 
       objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
         type: 0}
     - target: {fileID: 8018298359730820023, guid: 561528470f83b6e4688ca38d8882b1b8,
@@ -12922,7 +13129,7 @@ PrefabInstance:
     - target: {fileID: 950839640925407622, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
       propertyPath: canvisFadeImage
-      value:
+      value: 
       objectReference: {fileID: 250919563}
     - target: {fileID: 950839640925407622, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
@@ -12932,7 +13139,7 @@ PrefabInstance:
     - target: {fileID: 950839640925407622, guid: 561528470f83b6e4688ca38d8882b1b8,
         type: 3}
       propertyPath: canvasFadeImage
-      value:
+      value: 
       objectReference: {fileID: 250919563}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 561528470f83b6e4688ca38d8882b1b8, type: 3}
@@ -12942,6 +13149,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1122686147}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1130657072
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1145039522
 GameObject:
   m_ObjectHideFlags: 0
@@ -12987,8 +13228,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f1b3df2d37d61a41ac6758ea5b3f3a7, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemyToSpawn: {fileID: 262978116}
   spawnPoint: {fileID: 940944661}
   panCamera: 1
@@ -13054,8 +13295,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ec8c28ce18dfa64c9c5b06dd883d81e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   doors:
   - {fileID: 352510514}
   - {fileID: 30702567}
@@ -13096,8 +13337,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1152630858
 GameObject:
   m_ObjectHideFlags: 0
@@ -24243,7 +24484,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1177537870
 GameObject:
@@ -24420,25 +24661,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -24609,7 +24850,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 992400612}
+  - {fileID: 175134953}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24689,8 +24930,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -24716,13 +24957,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -24746,7 +24985,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -24765,6 +25004,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &1291763653
@@ -24819,7 +25059,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1500519721}
+  - {fileID: 1370321211}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24899,8 +25139,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -24926,13 +25166,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -24956,7 +25194,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -24975,6 +25213,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &1291799237
@@ -25059,7 +25298,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 837095696}
+  - {fileID: 443653868}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25139,8 +25378,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -25166,13 +25405,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -25196,7 +25433,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -25215,6 +25452,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &1303974781
@@ -25249,7 +25487,7 @@ Transform:
   - {fileID: 2089566823}
   - {fileID: 1687360608}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1304658150
 PrefabInstance:
@@ -25608,7 +25846,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1715308254}
+  - {fileID: 765874591}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25688,8 +25926,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -25715,13 +25953,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -25745,7 +25981,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -25764,9 +26000,44 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
---- !u!21 &1382240304
+--- !u!21 &1334057429
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!21 &1370321211
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -25833,40 +26104,6 @@ Transform:
   m_Father: {fileID: 43958106}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1477442140
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1499318944
 GameObject:
   m_ObjectHideFlags: 0
@@ -26032,40 +26269,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.6}
   m_EdgeRadius: 0
---- !u!21 &1500519721
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1512964482
 GameObject:
   m_ObjectHideFlags: 0
@@ -26118,7 +26321,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 234336890}
+  - {fileID: 1702390256}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26198,8 +26401,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -26225,13 +26428,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -26255,7 +26456,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -26274,6 +26475,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &1514429089
@@ -26383,6 +26585,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 13.937
       objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7954913359123053958, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
+        type: 3}
     - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: doorsUnlocked.Array.size
@@ -26391,7 +26599,7 @@ PrefabInstance:
     - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: doorsUnlocked.Array.data[0]
-      value:
+      value: 
       objectReference: {fileID: 1866738031}
     - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
@@ -26401,14 +26609,8 @@ PrefabInstance:
     - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: health
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
-        type: 3}
-      propertyPath: m_Sprite
-      value:
-      objectReference: {fileID: 7954913359123053958, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b657c25ce175a694c8ddada51b9b1d11, type: 3}
 --- !u!4 &1516554017 stripped
@@ -26477,51 +26679,8 @@ Transform:
   - {fileID: 290192016}
   - {fileID: 43958106}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1584795989
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation2
-  m_Shader: {fileID: 4800000, guid: 81a8c4a625e2be24abb96978d8656203, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0.09019608, b: 0, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1589679896
 GameObject:
   m_ObjectHideFlags: 0
@@ -26742,6 +26901,49 @@ Transform:
   m_Father: {fileID: 86314610}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1635201584
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation2
+  m_Shader: {fileID: 4800000, guid: 81a8c4a625e2be24abb96978d8656203, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0.044800427, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1668832516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26822,7 +27024,7 @@ PrefabInstance:
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -33487,6 +33689,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 67615974}
+  - {fileID: 948793795}
   m_Father: {fileID: 1303974782}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
@@ -33578,16 +33781,52 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd7c77d95dd3002479e0fda2aec035ec, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemiesToSpawn:
   - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
+  - {fileID: 8519565967622166670, guid: f1eca1112838fe24cb66670739160314, type: 3}
   enemySpawnPoints:
   - {fileID: 67615973}
+  - {fileID: 948793794}
   doors:
   - {fileID: 2048429877}
   - {fileID: 992143200}
   panCamera: 1
+--- !u!21 &1702390256
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1709394588
 GameObject:
   m_ObjectHideFlags: 0
@@ -33637,8 +33876,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -33654,8 +33893,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -33687,7 +33926,37 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!21 &1715308254
+--- !u!1 &1720742672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720742673}
+  m_Layer: 0
+  m_Name: RoomCenterPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1720742673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720742672}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10, y: 37.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 290192016}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1755190390
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -33721,36 +33990,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!1 &1720742672
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1720742673}
-  m_Layer: 0
-  m_Name: RoomCenterPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1720742673
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720742672}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 37.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 290192016}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1777244531
 GameObject:
   m_ObjectHideFlags: 0
@@ -33801,7 +34040,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 1334057429}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -33877,12 +34116,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
-  __MainTex2: {fileID: 0}
+  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
   _Fade: 0
   _HDR_Intensity: 1
   TeleportationColor: {r: 1, g: 0, b: 0, a: 1}
@@ -33990,8 +34229,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c6c7f8c20bbc8143864624873b3eb2c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1777837056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34002,8 +34241,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03418e731bc6c1d42b0d341f416a1578, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   canvasFadeImage: {fileID: 250919563}
 --- !u!114 &1777837057
 MonoBehaviour:
@@ -34015,8 +34254,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8701bfd60013a4a408cf3e9201fa7286, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   defaultPlayerStartingPosition: {fileID: 385014739}
   altStartingPosition: {fileID: 0}
   playerPrefab: {fileID: 6841405128326533482, guid: 5afa98b79fcbd434b819ed5125726ca2,
@@ -34067,7 +34306,7 @@ Transform:
   - {fileID: 880913401}
   - {fileID: 1310959682}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1783438348
 GameObject:
@@ -47667,7 +47906,7 @@ Transform:
   - {fileID: 419291969}
   - {fileID: 1516554017}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1795902960
 GameObject:
@@ -47898,8 +48137,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f1b3df2d37d61a41ac6758ea5b3f3a7, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemyToSpawn: {fileID: 653737490}
   spawnPoint: {fileID: 1720742672}
   panCamera: 1
@@ -47965,8 +48204,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ec8c28ce18dfa64c9c5b06dd883d81e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   doors:
   - {fileID: 723293832}
   - {fileID: 178468552}
@@ -48077,7 +48316,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 979008616}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -48153,12 +48392,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
-  __MainTex2: {fileID: 0}
+  __MainTex2: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
   _Fade: 0
   _HDR_Intensity: 1
   TeleportationColor: {r: 1, g: 0, b: 0, a: 1}
@@ -48285,25 +48524,25 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorOpenSprite
-      value:
+      value: 
       objectReference: {fileID: -7220454435289636511, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorLockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 8771628578818244714, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorUnlockedClosedSprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     - target: {fileID: 8847381732684700269, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 1294752327462339622, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
@@ -48324,8 +48563,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1879219103
 GameObject:
   m_ObjectHideFlags: 0
@@ -48591,7 +48830,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 255592975}
+  - {fileID: 875920231}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -48671,8 +48910,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -48698,13 +48937,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -48728,7 +48965,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -48747,6 +48984,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &1920908627
@@ -48802,7 +49040,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 954174494}
+  - {fileID: 269252440}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -48882,8 +49120,8 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f4ceda29c9009f4db4a49edce695ab6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   snakeManager: {fileID: 262978121}
   bodyParts:
   - {fileID: 1920908628}
@@ -48913,8 +49151,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -48940,13 +49178,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -48970,7 +49206,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -48989,6 +49225,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &1925517888
@@ -49043,7 +49280,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 678677480}
+  - {fileID: 1130657072}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -49123,8 +49360,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -49150,13 +49387,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -49180,7 +49415,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -49199,6 +49434,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &1933996058
@@ -49273,7 +49509,7 @@ Transform:
   - {fileID: 352510513}
   - {fileID: 30702566}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982347647
 GameObject:
@@ -49306,7 +49542,7 @@ Transform:
   - {fileID: 1304658151}
   - {fileID: 1895583358}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2001916500
 GameObject:
@@ -49336,8 +49572,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -49355,8 +49591,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
@@ -49372,8 +49608,42 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &2009509841
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2013918998
 GameObject:
   m_ObjectHideFlags: 0
@@ -49456,7 +49726,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 712638176}
+  - {fileID: 485298573}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -49536,8 +49806,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -49563,13 +49833,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -49593,7 +49861,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -49612,6 +49880,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!1 &2028937766
@@ -49666,7 +49935,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2060282184}
+  - {fileID: 2009509841}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -49746,8 +50015,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -49773,13 +50042,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -49803,7 +50070,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -49822,6 +50089,7 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
 --- !u!114 &2048429877 stripped
@@ -49834,42 +50102,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
---- !u!21 &2060282184
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2089566822
 GameObject:
   m_ObjectHideFlags: 0
@@ -49995,11 +50229,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd7c77d95dd3002479e0fda2aec035ec, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemiesToSpawn:
   - {fileID: 8519565967622166670, guid: f1eca1112838fe24cb66670739160314, type: 3}
-  - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
+  - {fileID: 2665741298371999117, guid: 5445f56fa853daa4886860a2b27ad830, type: 3}
   - {fileID: 5073558193283732431, guid: 777d64f2aed0e2b46afcec5a32a31381, type: 3}
   enemySpawnPoints:
   - {fileID: 276572516}
@@ -50230,7 +50464,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 90737720}
+  - {fileID: 613849329}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -50310,8 +50544,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d4c1f1c688928418b0924f3a1e08bc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ForceMaterial: {fileID: 0}
   ActiveChange: 1
   _Alpha: 1
@@ -50337,13 +50571,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60d2e747f2705c48bd9a7318cff5d46, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: {fileID: 0}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -50367,7 +50599,7 @@ MonoBehaviour:
   shieldSound: {fileID: 0}
   characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
-  enemyName:
+  enemyName: 
   aggroRange: 0
   followRange: 0
   attackDmg: 0
@@ -50386,42 +50618,9 @@ MonoBehaviour:
   powerUp: {fileID: 0}
   pixelDesolveMaterial: {fileID: 2100000, guid: 65206cb3ecd08a647878d97388c2b146,
     type: 2}
+  dropPowerUpOnDeath: 0
   DamageToGive: {fileID: 11400000, guid: 572dc1cd70a0f464282e2e48dcee03df, type: 2}
   leviadrin: {fileID: 262978120}
---- !u!21 &2125614056
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2132612929
 GameObject:
   m_ObjectHideFlags: 0
@@ -50465,7 +50664,7 @@ Transform:
   - {fileID: 1152630859}
   - {fileID: 1681864541}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2134042488
 GameObject:
@@ -50630,7 +50829,7 @@ PrefabInstance:
     - target: {fileID: 3762538076746101561, guid: 63cd0379ee5f46d47a317f73e0d5ef6a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3762538076746101561, guid: 63cd0379ee5f46d47a317f73e0d5ef6a,
         type: 3}
@@ -50705,7 +50904,7 @@ PrefabInstance:
     - target: {fileID: 3762538076746101565, guid: 63cd0379ee5f46d47a317f73e0d5ef6a,
         type: 3}
       propertyPath: m_Sprite
-      value:
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3762538076746101565, guid: 63cd0379ee5f46d47a317f73e0d5ef6a,
         type: 3}
@@ -50784,7 +50983,7 @@ PrefabInstance:
     - target: {fileID: 9050617770750200980, guid: ad58cd19889039c4b8526ec12be1b59f,
         type: 3}
       propertyPath: connectedDoor
-      value:
+      value: 
       objectReference: {fileID: 992143200}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad58cd19889039c4b8526ec12be1b59f, type: 3}

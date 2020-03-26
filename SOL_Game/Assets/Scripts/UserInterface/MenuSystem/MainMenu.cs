@@ -45,6 +45,14 @@ public class MainMenu : MonoBehaviour
 		LoadPlayerHub.UseBeginningPostion = true;
 	}
 
+	/// continues the game from the last scene the player was in before dying
+	public void ContinueGame()
+	{
+		//FindObjectOfType<AudioManager>().StartBackground();
+		SceneManager.LoadScene(GlobalVarablesAndMethods.sceneToLoad);
+		LoadPlayerHub.UseBeginningPostion = true;
+	}
+
 	/// Quits the game
 	public void QuitGame()
 	{

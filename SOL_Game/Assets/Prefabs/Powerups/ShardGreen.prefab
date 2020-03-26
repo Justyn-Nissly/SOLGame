@@ -104,7 +104,8 @@ AudioSource:
   m_GameObject: {fileID: 1336587549638959082}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: fdbfcfd63257af448ac96eb1d0b2d7b6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
@@ -116,9 +117,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -151,7 +152,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -348,10 +349,11 @@ AudioSource:
   m_GameObject: {fileID: 7008464727875206130}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 31875e9d593e34e40a7afe0f2e6ed951, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -360,9 +362,9 @@ AudioSource:
   Priority: 0
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -395,7 +397,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

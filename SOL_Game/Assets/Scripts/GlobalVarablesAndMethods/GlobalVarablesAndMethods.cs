@@ -16,14 +16,17 @@ public class GlobalVarablesAndMethods
 	/// </summary>
 	public static bool
 		startInBeginingPosition = true, // Allow the player to start at the initial starting point
-		swordUnlocked           = false, // Track if the sword is unlocked
-		hammerUnlocked          = false, // Track if the hammer is unlocked
-		blasterUnlocked         = false, // Track if the blaster is unlocked
-		shieldUnlocked          = false; // Track if the shield is unlocked
+		swordUnlocked = false, // Track if the sword is unlocked
+		hammerUnlocked = false, // Track if the hammer is unlocked
+		blasterUnlocked = false, // Track if the blaster is unlocked
+		shieldUnlocked = false, // Track if the shield is unlocked
+		playerCanDie = true; // This flag enables and disables the players ability to die when getting to zero health
 	public static int 
 		currentPlayerHealth, // The player's current health
 		maxPlayerHealth = 8, // The maximum health the player has
 	    bossesDefeated  = 0; // Which bosses have been defeated
+	public static string
+		sceneToLoad; // this is the name of the scene that will be loaded if you click continue in the game over scene (and the scene that will be loaded when clicking load in main menu?)
 	#endregion
 
 	#region Private Variables (Empty)
