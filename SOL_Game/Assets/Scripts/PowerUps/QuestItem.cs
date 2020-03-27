@@ -59,7 +59,7 @@ public class QuestItem : MonoBehaviour
 	}
 
 	/// <summary> Apply the Sprite </summary>
-	void OnTriggerEnter2D(Collider2D collision)
+	public virtual void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
 		{
@@ -90,6 +90,8 @@ public class QuestItem : MonoBehaviour
 					break;
 				case ItemType.unlockHammer:
 					GlobalVarablesAndMethods.hammerUnlocked = true;
+					break;
+				default:
 					break;
 			}
 			player.SetUpInputDetection();

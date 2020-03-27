@@ -10,21 +10,29 @@ public class ConveyorBelt : MonoBehaviour
 		Left,
 		Right
 	}
+	private const int
+		SPRITES = 5;
 	#endregion
 
 	#region Public Variables
-	[Header("250 stops the male player.")]
+	[Header("250 stops the player.")]
 	public float
 		speed; // How fast the conveyor belt pushes things
 	public Direction
 		direction; // The conveyor belt's direction to push
 	public Vector2
 		movement; // The force vector to push objects
+	public Sprite []
+		sprites;
+	public bool
+		isMoving; // Check if the conveyor belt is actually moving
 	#endregion
 
 	#region Private Variables
-	private bool
-		isMoving; // Check if the conveyor belt is actually moving
+	private SpriteRenderer
+		sprite;
+	private float
+		moveTime;
 	#endregion
 
 	// Unity Named Methods
@@ -32,13 +40,20 @@ public class ConveyorBelt : MonoBehaviour
 	/// <summary> Turn on the conveyor belt </summary>
 	void Start()
 	{
+		moveTime = 0.0f;
 		isMoving = true;
+		sprite = GetComponent<SpriteRenderer>();
 	}
 
 	/// <summary> Turn on the conveyor belt </summary>
 	void Update()
 	{
-		GetDirection();
+		if (isMoving)
+		{
+			GetDirection();
+			moveTime = (moveTime + 20.0f * Time.deltaTime) % SPRITES;
+			sprite.sprite = sprites[(int) ((movement == Vector2.up || movement == Vector2.left) ? SPRITES - moveTime - 1 : moveTime)];
+		}
 	}
 
 	/// <summary> Push objects on the conveyor belt </summary>
@@ -47,7 +62,7 @@ public class ConveyorBelt : MonoBehaviour
 		// Only characters and items get affected by conveyor belts
 		if (isMoving && (collider.tag == "Player" || collider.tag == "Enemy" || collider.tag == "PuzzleItem"))
 		{
-			collider.attachedRigidbody.AddRelativeForce(movement * speed, ForceMode2D.Force);
+			collider.attachedRigidbody.AddRelativeForce(movement * speed * collider.attachedRigidbody.mass, ForceMode2D.Force);
 		}
 	}
 	#endregion
