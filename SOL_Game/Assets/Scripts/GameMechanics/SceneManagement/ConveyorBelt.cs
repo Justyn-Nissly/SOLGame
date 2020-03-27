@@ -51,8 +51,11 @@ public class ConveyorBelt : MonoBehaviour
 		if (isMoving)
 		{
 			GetDirection();
-			moveTime = (moveTime + 20.0f * Time.deltaTime) % SPRITES;
-			sprite.sprite = sprites[(int) ((movement == Vector2.up || movement == Vector2.left) ? SPRITES - moveTime - 1 : moveTime)];
+			if (sprites.Length > 0)
+			{
+				moveTime = (moveTime + 20.0f * Time.deltaTime) % SPRITES;
+				sprite.sprite = sprites[(int)((movement == Vector2.up || movement == Vector2.left) ? SPRITES - moveTime - 1 : moveTime)];
+			}
 		}
 	}
 
