@@ -23,7 +23,13 @@ public class MainMenu : MonoBehaviour
 	private void Start()
 	{
 		GameObject.Find("NewGameButton").GetComponent<Button>().Select();
-		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().FreezePlayer();
+
+		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		if(player != null)
+		{
+			player.FreezePlayer();
+			player.canvasFadeImage.color = Color.clear; // make image transparent
+		}
 	}
 
 	/// Check every frame if the user has hit the "end" key to open the developer menu

@@ -141,8 +141,6 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: 419b4a6b4cb200d40872b2a2fcaf994f, type: 2}
   canAttack: 1
   canTakeDamage: 1
-  safeFromFireAttack: 0
-  currentHealth: 10000
   takeDamageSounds:
   - {fileID: 8300000, guid: 2d6e19d571d86ee419380022b720f70c, type: 3}
   - {fileID: 8300000, guid: b61a13920e949e74d867df4c542bb93f, type: 3}
@@ -162,15 +160,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   firePoint: {fileID: 0}
-  gunSpawnPoint: {fileID: 0}
   bulletPrefab: {fileID: 0}
   gunPrefab: {fileID: 0}
   rangedAttackDamageToGive: {fileID: 0}
   BulletShootingDelay: 0.2
   blasterSound: {fileID: 0}
-  shieldSprite: {fileID: 0}
-  shieldBoxCollider: {fileID: 0}
   shieldSound: {fileID: 0}
+  characterAnimator: {fileID: 0}
   healthBar: {fileID: 0}
   enemyName: 
   aggroRange: 0
@@ -190,7 +186,9 @@ MonoBehaviour:
   enemyAudioManager: {fileID: 2259566401528189603, guid: 204e36eb2d958144b888173b4d3536dc,
     type: 3}
   powerUp: {fileID: 5920347357568972683, guid: fdd5c6594f2534c4dbd9ccc6d18b54be, type: 3}
-  pixelDesolveMaterial: {fileID: 0}
+  pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
+    type: 2}
+  dropPowerUpOnDeath: 1
   attackTime: 2
   restDelay: 3
   range: 5
