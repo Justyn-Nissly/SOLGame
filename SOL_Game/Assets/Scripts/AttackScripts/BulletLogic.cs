@@ -44,27 +44,20 @@ public class BulletLogic : MonoBehaviour
 			if (collision.gameObject.CompareTag("Player"))
 			{
 				Player player = collision.gameObject.GetComponent<Player>();
-				player.TakeDamage(bulletDamage, false);
-				// DEBUG CODE, REMOVE LATER
-				// DEBUG CODE, REMOVE LATER
-				// DEBUG CODE, REMOVE LATER
-				Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
-				// DEBUG CODE, REMOVE LATER
-				// DEBUG CODE, REMOVE LATER
-				// DEBUG CODE, REMOVE LATER
+				if(player != null)
+				{
+					player.TakeDamage(bulletDamage, false);
+				}
+				
 			}
 			// Player bullet hits an enemy
 			else if (collision.gameObject.CompareTag("Enemy"))
 			{
 				Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-				enemy.TakeDamage(bulletDamage, false);
-				// DEBUG CODE, REMOVE LATER
-				// DEBUG CODE, REMOVE LATER
-				// DEBUG CODE, REMOVE LATER
-				Debug.Log("enemy's CurrentHealth = " + enemy.maxHealth.runTimeValue);
-				// DEBUG CODE, REMOVE LATER
-				// DEBUG CODE, REMOVE LATER
-				// DEBUG CODE, REMOVE LATER
+				if(enemy != null)
+				{
+					enemy.TakeDamage(bulletDamage, false);
+				}
 			}
 		}
 			

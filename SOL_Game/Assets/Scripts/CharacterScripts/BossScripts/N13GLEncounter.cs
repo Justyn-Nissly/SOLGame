@@ -47,6 +47,8 @@ public class N13GLEncounter : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+		n13glDialogue = GameObject.FindObjectOfType<DialogueManager>();
+
 		fadeTime = fadeToClearTime;
 		fadeToWhite = true;
 		buildGuardian = false;
