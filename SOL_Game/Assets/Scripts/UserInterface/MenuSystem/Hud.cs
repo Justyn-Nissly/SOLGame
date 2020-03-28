@@ -48,7 +48,7 @@ public class Hud : MonoBehaviour
 	public void UpdateHearts()
 	{
 		float tempHealth = playerCurrentHealth.runTimeValue * 0.5f;
-		for (int i = 0; i < MaxHealthIncrease.MAX_HEARTS && i < heartContainers.runTimeValue; i++)
+		for (int i = 0; i < Globals.MAX_PLAYER_HEALTH && i < heartContainers.runTimeValue; i++)
 		{
 			if (i <= tempHealth - 1)
 			{
@@ -69,7 +69,7 @@ public class Hud : MonoBehaviour
 	public void ChangeNumberOfHearts()
 	{
 		// increase the players hearts
-		for (int i = 0; i < MaxHealthIncrease.MAX_HEARTS && i < heartContainers.runTimeValue; i++)
+		for (int i = 0; i < Globals.MAX_PLAYER_HEALTH && i < heartContainers.runTimeValue; i++)
 		{
 			hearts[i].gameObject.SetActive(true);
 			hearts[i].sprite = fullHeart;

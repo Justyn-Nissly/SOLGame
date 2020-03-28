@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalVarablesAndMethods
+public class Globals
 {
 	#region Enums (Empty)
+	public const int
+		MAX_PLAYER_HEALTH = 8;
 	#endregion
 
 	#region Public Variables
@@ -22,8 +24,8 @@ public class GlobalVarablesAndMethods
 		shieldUnlocked          = false; // Track if the shield is unlocked
 	public static int 
 		currentPlayerHealth, // The player's current health
-		maxPlayerHealth = 8, // The maximum health the player has
-	    bossesDefeated  = 0; // Which bosses have been defeated
+		bossesDefeated    = 0, // Which bosses have been defeated
+		guardiansDefeated = 0;
 	#endregion
 
 	#region Private Variables (Empty)

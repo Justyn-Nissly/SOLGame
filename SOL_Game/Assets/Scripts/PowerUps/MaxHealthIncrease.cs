@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MaxHealthIncrease : QuestItem
 {
-	public const int MAX_HEARTS = 8;
-
     public FloatValue heartContainers;
     public FloatValue playerHealth;
 	private float spinTimer;
@@ -30,7 +28,7 @@ public class MaxHealthIncrease : QuestItem
 		base.OnTriggerEnter2D(other);
       if(other.CompareTag("Player") && !other.isTrigger)
       {
-		if (heartContainers.runTimeValue < MAX_HEARTS)
+		if (heartContainers.runTimeValue < Globals.MAX_PLAYER_HEALTH)
 		{
 			heartContainers.runTimeValue += 1;
 		}

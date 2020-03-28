@@ -59,7 +59,7 @@ public class loadSceneOnTrigger : MonoBehaviour
 		}
 
 		// Set the player's starting position
-		GlobalVarablesAndMethods.startInBeginingPosition = onTeleportStartInBeginingPosition;
+		Globals.startInBeginingPosition = onTeleportStartInBeginingPosition;
 
 		// Load the new scene after the screen fades to black
 		SceneManager.LoadScene(sceneToLoad);
