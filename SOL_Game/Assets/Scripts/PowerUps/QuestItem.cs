@@ -79,17 +79,17 @@ public class QuestItem : MonoBehaviour
 					;
 					break;
 				case ItemType.unlockSword:
-					GlobalVarablesAndMethods.swordUnlocked = true;
+					Globals.swordUnlocked = true;
 					break;
 				case ItemType.unlockBlaster:
-					GlobalVarablesAndMethods.blasterUnlocked = true;
+					Globals.blasterUnlocked = true;
 					break;
 				case ItemType.unlockShield:
-					GlobalVarablesAndMethods.shieldUnlocked = true;
+					Globals.shieldUnlocked = true;
 					player.shieldAnimator.SetBool("ShieldUnlocked", true);
 					break;
 				case ItemType.unlockHammer:
-					GlobalVarablesAndMethods.hammerUnlocked = true;
+					Globals.hammerUnlocked = true;
 					break;
 			}
 			player.SetUpInputDetection();

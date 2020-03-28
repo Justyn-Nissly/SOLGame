@@ -98,4 +98,11 @@ public class MeleeAttackEnemy : Enemy
 
 		attackCountDownTimer = attackInterval; // reset the countdown timer
 	}
+
+	public override IEnumerator Die()
+	{
+		enemyMovement.enabled = false;
+
+		return base.Die();
+	}
 }

@@ -48,7 +48,7 @@ public class LoadPlayer : MonoBehaviour
 		playerInScene = GameObject.FindGameObjectWithTag("Player");
 
 		// Assign the starting position
-		if (GlobalVarablesAndMethods.startInBeginingPosition == false && altStartingPosition != null)
+		if (Globals.startInBeginingPosition == false && altStartingPosition != null)
 		{
 			startingPosition = altStartingPosition;
 		}

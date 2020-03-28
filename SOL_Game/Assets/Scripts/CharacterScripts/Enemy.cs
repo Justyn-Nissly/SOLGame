@@ -206,6 +206,7 @@ public class Enemy : BaseCharacter
 		// freeze the enemy because they are dead...
 		canAttack = false;
 		moveSpeed = 0;
+		
 
 		if(pixelDesolveMaterial != null)
 		{
@@ -220,7 +221,7 @@ public class Enemy : BaseCharacter
 			while (percentageComplete < 1)
 			{
 				pixelDesolveMaterial.SetFloat("Disolve_Value", Mathf.Lerp(0f, 1f, percentageComplete));
-				percentageComplete += Time.deltaTime /2;
+				percentageComplete += Time.deltaTime / 1.5f;
 				yield return null;
 			}
 

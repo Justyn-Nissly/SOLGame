@@ -55,7 +55,7 @@ public class MainMenu : MonoBehaviour
 	public void ContinueGame()
 	{
 		//FindObjectOfType<AudioManager>().StartBackground();
-		SceneManager.LoadScene(GlobalVarablesAndMethods.sceneToLoad);
+		SceneManager.LoadScene(Globals.sceneToLoad);
 		LoadPlayerHub.UseBeginningPostion = true;
 	}
 

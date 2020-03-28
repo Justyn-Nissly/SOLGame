@@ -32,7 +32,7 @@ public class RangedAttackEnemy : Enemy
 	{
 		base.FixedUpdate();
 
-		if (aggro && canAttack && usingBlaster == false && attackCountDownTimer <= 0)
+		if (aggro && canAttack && usingBlaster == false && attackCountDownTimer <= 0 && maxHealth.runTimeValue > 0)
 		{
 			StartAttackAnimation();
 		}

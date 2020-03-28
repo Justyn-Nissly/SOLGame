@@ -113,7 +113,7 @@ public class Player : BaseCharacter
 		BulletShootingDelay = 0;
 
 		// Set the players movement speed
-		playerMovementSpeed = .1f;
+		playerMovementSpeed = .13f;
 
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
@@ -180,20 +180,20 @@ public class Player : BaseCharacter
 			{
 				playerMovementSpeed = fast;
 				this.GetComponent<Rigidbody2D>().isKinematic = true;
-				GlobalVarablesAndMethods.swordUnlocked = true;
-				GlobalVarablesAndMethods.hammerUnlocked = true;
-				GlobalVarablesAndMethods.blasterUnlocked = true;
-				GlobalVarablesAndMethods.shieldUnlocked = true;
+				Globals.swordUnlocked = true;
+				Globals.hammerUnlocked = true;
+				Globals.blasterUnlocked = true;
+				Globals.shieldUnlocked = true;
 				SetUpInputDetection();
 			}
 			if (Input.GetKeyDown(KeyCode.End))
 			{
 				playerMovementSpeed = oldSpeed;
 				this.GetComponent<Rigidbody2D>().isKinematic = false;
-				GlobalVarablesAndMethods.swordUnlocked = true;
-				GlobalVarablesAndMethods.hammerUnlocked = true;
-				GlobalVarablesAndMethods.blasterUnlocked = true;
-				GlobalVarablesAndMethods.shieldUnlocked = true;
+				Globals.swordUnlocked = true;
+				Globals.hammerUnlocked = true;
+				Globals.blasterUnlocked = true;
+				Globals.shieldUnlocked = true;
 				SetUpInputDetection();
 			}
 		/*************************************************************************************************************************************************************
@@ -244,24 +244,24 @@ public class Player : BaseCharacter
 		inputActions.Gameplay.Movement.performed += context => playerMovementAmount = context.ReadValue<Vector2>() * (playerMovementSpeed + extraSpeed);
 		inputActions.Gameplay.Movement.canceled += _ => playerMovementAmount = Vector2.zero;
 
-		if (GlobalVarablesAndMethods.shieldUnlocked)
+		if (Globals.shieldUnlocked)
 		{
 			inputActions.Gameplay.ShieldDefense.started += _ => EnableShield();
 			inputActions.Gameplay.ShieldDefense.canceled += _ => DisableShield();
 		}
 
-		if (GlobalVarablesAndMethods.hammerUnlocked)
+		if (Globals.hammerUnlocked)
 		{
 			inputActions.Gameplay.HammerAttack.started += _ => StartHammerAnimation();
 			inputActions.Gameplay.HammerAttack.canceled += _ => canIncrementComboCounter = true;
 		}
 
-		if (GlobalVarablesAndMethods.blasterUnlocked)
+		if (Globals.blasterUnlocked)
 		{
 			inputActions.Gameplay.BlasterAttack.started += _ => Shoot();
 		}
 
-		if (GlobalVarablesAndMethods.swordUnlocked)
+		if (Globals.swordUnlocked)
 		{
 			inputActions.Gameplay.SwordAttack.started += _ => StartSwordAnimation();
 			inputActions.Gameplay.SwordAttack.canceled += _ => canIncrementComboCounter = true;
@@ -439,7 +439,7 @@ public class Player : BaseCharacter
 			playerHealthHUD.UpdateHearts();
 
 			// kill the player...
-			if(maxHealth.runTimeValue <= 0 && GlobalVarablesAndMethods.playerCanDie)
+			if(maxHealth.runTimeValue <= 0 && Globals.playerCanDie)
 			{
 				StartCoroutine(PlayerDied());
 			}
@@ -708,7 +708,7 @@ public class Player : BaseCharacter
 	private IEnumerator PlayerDied()
 	{
 		// save the name of the scene the player died in
-		GlobalVarablesAndMethods.sceneToLoad = SceneManager.GetActiveScene().name;
+		Globals.sceneToLoad = SceneManager.GetActiveScene().name;
 
 		// stop player movement
 		FreezePlayer();

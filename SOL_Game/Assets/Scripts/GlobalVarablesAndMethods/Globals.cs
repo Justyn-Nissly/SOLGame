@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalVarablesAndMethods
+public class Globals
 {
 	#region Enums (Empty)
 	#endregion
