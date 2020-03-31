@@ -124,7 +124,6 @@ public class DialogueManager : MonoBehaviour
 
 		// Set the player to be able to move
 		FindObjectOfType<Player>().playerAllowedToMove = true;
-		StartCoroutine(TeleportLoadstar());
 
 		// Set the dialogue trigger to not trigger again
 		NPC.GetComponent<DialogueTrigger>().canActivate = false;
@@ -145,11 +144,6 @@ public class DialogueManager : MonoBehaviour
 			dialogueText.text += letter;
 			yield return null;
 		}
-	}
-	IEnumerator TeleportLoadstar()
-	{
-		timer = 100;
-		yield return new WaitForSeconds(timer);
 	}
 	#endregion
 }
