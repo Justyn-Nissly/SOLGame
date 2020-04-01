@@ -203,7 +203,7 @@ public class N13GL : Enemy
 		phaseHealth             = 10;
 		player                  = FindObjectOfType<Player>                ();
 		guardianMove            = FindObjectOfType<HammerGuardianMovement>();
-		canTakeDamage           = false;
+		//canTakeDamage           = false;
 		defeated                = false;
 		currentHealth           = maxHealth.initialValue;
 	}
