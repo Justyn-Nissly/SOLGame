@@ -25,7 +25,7 @@ public class GuardianMoveBehaviour : StateMachineBehaviour
 		if (timeToWait == 150)
 		{
 			timeToWait = 0;
-			animator.SetTrigger("Attack");
+			/*animator.SetTrigger("Attack");*/
 		}
 		else
 		{

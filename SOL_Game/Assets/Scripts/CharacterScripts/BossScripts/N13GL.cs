@@ -30,6 +30,8 @@ public class N13GL : Enemy
 	#region Shared Variables
 	public AttackPattern
 		currentGuardianPattern; // The current guardian attack pattern type
+	public Animator
+		animator; // Reference to the animation controller
 	public GameObject
 		guardianArm; // The arm of the guardian
 	public Sprite
@@ -48,11 +50,11 @@ public class N13GL : Enemy
 
 	#region Shield Guardian
 	public FloatValue
-		damageToGive; // The bosses damage that is dealed to the player
+		damageToGive; // The bosses damage that is dealt to the player
 	public Transform
-		roomCenterTransform, // A transform at the center of the room used for some of the bosses movement calculation
-		shootingPointLeft,   // The left point at which a blaster bullet will be instantiated
-		shootingPointRight,  // The right point at which a blaster bullet will be instantiated
+		roomCenterTransform,    // A transform at the center of the room used for some of the bosses movement calculation
+		shootingPointLeft,      // The left point at which a blaster bullet will be instantiated
+		shootingPointRight,     // The right point at which a blaster bullet will be instantiated
 		LeftShootingLaneLimit,  // May need to be removed ***********************************
 		RightShootingLaneLimit; // May need to be removed ***********************************
 	public EnemySpawner
@@ -61,8 +63,6 @@ public class N13GL : Enemy
 		bossShieldSprite; // A reference to the bosses shield sprite renderer
 	public AttactOrientationControllerEnemy
 		armsRotationController; // This is a reference to the script that rotates the arms
-	public Animator
-		animator; // This is a reference to the animation controller
 	#endregion
 
 	#region Gun Guardian
@@ -105,8 +105,6 @@ public class N13GL : Enemy
 	#endregion
 
 	#region Sword Guardian
-	public Animator
-		anim; // Reference to change animation states
 	public FloatValue
 		meleeDamageToGive;
 	public Material
@@ -149,9 +147,9 @@ public class N13GL : Enemy
 		canShoot                     = true;  // Flag for checking if the guardian can shoot
 
 	private float
-		enemyChargeSpeed = 15, // how fast the enemy charges at the player
-		shackSpeed = 50.0f, //how fast it shakes
-		shackAmount = .01f; //how much it shakes
+		enemyChargeSpeed = 15, // How fast the enemy charges at the player
+		shackSpeed = 50.0f,    // How fast it shakes
+		shackAmount = .01f;    // How much it shakes
 	#endregion
 
 	#region Gun Guardian
@@ -202,24 +200,32 @@ public class N13GL : Enemy
 		restTimer               = 0.0f;
 		attackTimer             = attackTime;
 		phase                   = 1;
-		player                  = FindObjectOfType<Player>();
+		phaseHealth             = 10;
+		player                  = FindObjectOfType<Player>                ();
 		guardianMove            = FindObjectOfType<HammerGuardianMovement>();
 		canTakeDamage           = false;
 		defeated                = false;
+		currentHealth           = maxHealth.initialValue;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		// Change to the next guardian type
-		if (typeIsChanged == true)
+		if (currentHealth <= 0)
 		{
-			ChangeAttackPattern();
-			if(guardianPhase < allGuardianPatternTypes.Length)
+			guardianPhase += 1;
+			if (typeIsChanged == true)
 			{
-				guardianPhase += 1;
+				if(guardianPhase < allGuardianPatternTypes.Length)
+				{
+					guardianPhase += 1;
+					currentHealth  = phaseHealth;
+				}
+				ChangeAttackPattern();
 			}
 		}
+
+		// Change to the next guardian type
 
 		// Check which attack pattern should be used
 		switch (currentGuardianPattern)
@@ -232,11 +238,13 @@ public class N13GL : Enemy
 			}
 			case AttackPattern.shieldGuardianPattern:
 			{
+				// Execute the shield guardian attack pattern
 				ShieldGuardianAttackPattern();
 				break;
 			}
 			case AttackPattern.gunGuardianPattern:
 			{
+				// Execute the gun guardian attack pattern
 				GunGuardianAttackPattern();
 				break;
 			}
@@ -325,26 +333,29 @@ public class N13GL : Enemy
 				// Set the attack type to the shield guardian
 				typeIsChanged = false;
 				nextArmSprite = shieldArmSprite;
+				animator.SetBool("IsShield", true);
 				break;
 			}
 			case AttackPattern.gunGuardianPattern:
 			{
 				// Spawn in the gun guardian arm
 				typeIsChanged = false;
-				//gunGuardianArm.SetActive(true);
 				nextArmSprite = gunArmSprite;
-				/*shieldGuardianArm.GetComponent<_2dxFX_NewTeleportation2>().TeleportationColor = guardianColour;*/
-				/*StartCoroutine(SpawnNewArm(gunGuardianArm, shieldGuardianArm));*/
+				animator.SetBool("IsShield", true);
 				break;
 			}
 			case AttackPattern.hammerGuardianPattern:
 			{
+				typeIsChanged = false;
 				nextArmSprite = hammerArmSprite;
+				animator.SetBool("IsShield", true);
 				break;
 			}
 			case AttackPattern.swordGuardianPattern:
 			{
+				typeIsChanged = false;
 				nextArmSprite = swordArmSprite;
+				animator.SetBool("IsShield", true);
 				break;
 			}
 		};

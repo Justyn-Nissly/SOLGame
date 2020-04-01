@@ -558,9 +558,9 @@ public class Player : BaseCharacter
 	///<summary> Make the health bar show the current health </summary>
 	void UpdateHud(float percentRed, float percentGreen, float percentBlue)
 	{
-		RedRing.fillAmount = percentRed;
-		GreenRing.fillAmount = percentGreen;
-		BlueRing.fillAmount = percentBlue;
+	//	RedRing.fillAmount = percentRed;
+	//	GreenRing.fillAmount = percentGreen;
+	//	BlueRing.fillAmount = percentBlue;
 	}
 
 	/// <summary> Apply any power ups the player has picked up </summary>
