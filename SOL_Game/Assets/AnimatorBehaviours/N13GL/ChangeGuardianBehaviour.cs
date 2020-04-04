@@ -53,7 +53,6 @@ public class ChangeGuardianBehaviour : StateMachineBehaviour
 		{
 			animator.SetBool ("IsSword", false);
 		}
-		animator.SetTrigger  ("Idle");
 		animator.ResetTrigger("Idle");
 	}
 }

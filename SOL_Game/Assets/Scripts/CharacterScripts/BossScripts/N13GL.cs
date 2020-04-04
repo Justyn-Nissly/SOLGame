@@ -193,40 +193,25 @@ public class N13GL : Enemy
 	override public void Start()
 	{
 		allGuardianPatternTypes = Enum.GetValues(typeof(AttackPattern));
+		attackTimer             = attackTime;
+		canAttack               = false;
+		canMove                 = false;
 		currentGuardianPattern  = AttackPattern.finalGuardianPattern;
-		typeIsChanged           = false;
+		currentHealth           = maxHealth.initialValue;
+		defeated                = false;
+		guardianMove            = FindObjectOfType<HammerGuardianMovement>();
 		guardianPhase           = 0;
 		isAttacking             = false;
-		restTimer               = 0.0f;
-		attackTimer             = attackTime;
+		player                  = FindObjectOfType<Player>                ();
 		phase                   = 1;
 		phaseHealth             = 10;
-		player                  = FindObjectOfType<Player>                ();
-		guardianMove            = FindObjectOfType<HammerGuardianMovement>();
-		//canTakeDamage           = false;
-		defeated                = false;
-		currentHealth           = maxHealth.initialValue;
+		restTimer               = 0.0f;
+		typeIsChanged           = false;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (currentHealth <= 0)
-		{
-			guardianPhase += 1;
-			if (typeIsChanged == true)
-			{
-				if(guardianPhase < allGuardianPatternTypes.Length)
-				{
-					guardianPhase += 1;
-					currentHealth  = phaseHealth;
-				}
-				ChangeAttackPattern();
-			}
-		}
-
-		// Change to the next guardian type
-
 		// Check which attack pattern should be used
 		switch (currentGuardianPattern)
 		{
@@ -261,6 +246,17 @@ public class N13GL : Enemy
 				break;
 			}
 		};
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		// If the right weapon hit the weak point deal the guardian damage
+		if (collision.CompareTag("PlayerLightWeapon"))
+		{
+			///////////////////////////currentHealth -= collision.GetComponent<BaseCharacter>().
+		}
+
+		
 	}
 
 	#region Shield Guardian
@@ -320,6 +316,7 @@ public class N13GL : Enemy
 	public void ChangeAttackPattern()
 	{
 		currentGuardianPattern = (AttackPattern)allGuardianPatternTypes.GetValue(guardianPhase);
+		animator.SetTrigger("Idle");
 		switch (currentGuardianPattern)
 		{
 			case AttackPattern.finalGuardianPattern:
@@ -333,7 +330,6 @@ public class N13GL : Enemy
 				// Set the attack type to the shield guardian
 				typeIsChanged = false;
 				nextArmSprite = shieldArmSprite;
-				animator.SetBool("IsShield", true);
 				break;
 			}
 			case AttackPattern.gunGuardianPattern:
@@ -341,21 +337,18 @@ public class N13GL : Enemy
 				// Spawn in the gun guardian arm
 				typeIsChanged = false;
 				nextArmSprite = gunArmSprite;
-				animator.SetBool("IsShield", true);
 				break;
 			}
 			case AttackPattern.hammerGuardianPattern:
 			{
 				typeIsChanged = false;
 				nextArmSprite = hammerArmSprite;
-				animator.SetBool("IsShield", true);
 				break;
 			}
 			case AttackPattern.swordGuardianPattern:
 			{
 				typeIsChanged = false;
 				nextArmSprite = swordArmSprite;
-				animator.SetBool("IsShield", true);
 				break;
 			}
 		};
@@ -371,13 +364,22 @@ public class N13GL : Enemy
 	/// <summary> Take damage from the player </summary>
 	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
-		base.TakeDamage(damage, playSwordImpactSound);
-
+		base.StartCoroutine("StartBlinking");
+		currentHealth -= damage;
+		SetHealth(currentHealth / maxHealth.initialValue);
 		if (currentHealth <= 0)
 		{
-			encounterManager.EndEncounter();
+			if (currentGuardianPattern == AttackPattern.swordGuardianPattern && currentHealth <= 0)
+			{
+				GameObject.FindObjectOfType<N13GL>();
+			}
+			if (guardianPhase < allGuardianPatternTypes.Length - 1)
+			{
+				guardianPhase += 1;
+				currentHealth = phaseHealth;
+			}
+			ChangeAttackPattern();
 		}
-
 	}
 
 	/// <summary> starts moving the basilisk to a random point if the basilisk is not moving</summary>
@@ -662,7 +664,7 @@ public class N13GL : Enemy
 			elapsedTime += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
-
+		yield return new WaitForSeconds(3);
 		moving = false;
 	}
 	#endregion

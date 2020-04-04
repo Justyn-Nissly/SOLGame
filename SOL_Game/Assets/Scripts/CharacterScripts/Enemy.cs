@@ -154,7 +154,7 @@ public class Enemy : BaseCharacter
 	}
 
 	///<summary> Make the health bar show the current health </summary>
-	void SetHealth(float percentHelth)
+	public void SetHealth(float percentHelth)
 	{
 		healthBar.fillAmount = percentHelth;
 	}

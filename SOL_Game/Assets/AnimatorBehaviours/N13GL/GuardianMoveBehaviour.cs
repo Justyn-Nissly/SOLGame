@@ -29,10 +29,13 @@ public class GuardianMoveBehaviour : StateMachineBehaviour
 		}
 		else
 		{
-			Vector2 target = new Vector2(player.position.x, player.position.y);
-			Vector2 newPos = Vector2.Lerp(guardianRB.position, target, speed * Time.fixedDeltaTime);
-			guardianRB.MovePosition(newPos);
-			timeToWait += 1;
+			if(animator.GetComponent<N13GL>().canMove == true)
+			{
+				Vector2 target = new Vector2(player.position.x, player.position.y);
+				Vector2 newPos = Vector2.Lerp(guardianRB.position, target, speed * Time.fixedDeltaTime);
+				guardianRB.MovePosition(newPos);
+				timeToWait += 1;
+			}
 		}
 	}
 
