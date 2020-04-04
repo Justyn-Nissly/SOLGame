@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b42791de9f5d84abf6af7337c8b3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackHP: 2
+  attackHP: 1
   missileScript: {fileID: 6569716016761155054}
   revolveScript: {fileID: 4361977508684721906}
   destructible: {fileID: 3795791026913870043}
@@ -168,10 +168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf08e4c56190f442b2c6a3c4b057a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDestroysObject: 2
+  weaponDestroysObject: 3
   doorsUnlocked: []
   destroyedSprite: {fileID: 0}
-  health: 2
+  health: 1
+  canDropItem: 0
+  itemDrop: {fileID: 0}
 --- !u!114 &4361977508684721906
 MonoBehaviour:
   m_ObjectHideFlags: 0

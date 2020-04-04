@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414898474904141517}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: -0.397, z: 0}
+  m_LocalPosition: {x: 0, y: -0.471, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5184558088362625348}
@@ -204,7 +204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2233740187687669622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.001, y: 0.399, z: 0}
+  m_LocalPosition: {x: 0.001, y: 0.491, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5184558088362625348}
@@ -531,7 +531,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_Sprite: {fileID: 3035877653643526117, guid: 00045bc6319a30b4282d7fa65dc3583b,
     type: 3}
-  m_Color: {r: 0.050418302, g: 0.9716981, b: 0.1349397, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -717,7 +717,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   firePoint: {fileID: 5184558089056415121}
-  bulletPrefab: {fileID: 7101393434273090049, guid: be1895b549bc025439fcfa346604b7bb,
+  bulletPrefab: {fileID: 8510846143181308640, guid: fa4dea84847976e43b5fb7c57677b657,
     type: 3}
   gunPrefab: {fileID: 793307337115381136, guid: 1d308175e37c6a94cb5937559dad90a1,
     type: 3}
@@ -752,8 +752,10 @@ MonoBehaviour:
     type: 3}
   teleportAnimaiton: {fileID: 4427221070863624914, guid: f74538149d8286f44b9d817eda2f9702,
     type: 3}
-  canonBullet: {fileID: 0}
-  shotGunBullet: {fileID: 0}
+  canonBullet: {fileID: 8572943945024932014, guid: a0fe5514512ce3f4b822ab4c67b7632a,
+    type: 3}
+  shotGunBullet: {fileID: 7101393434273090049, guid: be1895b549bc025439fcfa346604b7bb,
+    type: 3}
   teleporterPositions:
   - {fileID: 0}
   - {fileID: 0}
@@ -767,14 +769,14 @@ MonoBehaviour:
   firePointEast: {fileID: 3731573154103571161}
   firePointSouth: {fileID: 1967186850556957567}
   firePointWest: {fileID: 7898866999146731933}
-  canonFirePointNorth: {fileID: 0}
-  canonFirePointEast: {fileID: 0}
-  canonFirePointSouth: {fileID: 0}
-  canonFirePointWest: {fileID: 0}
-  parentShotgunFirePointNorth: {fileID: 0}
-  parentShotgunFirePointEast: {fileID: 0}
-  parentShotgunFirePointWest: {fileID: 0}
-  parentShotgunFirePointSouth: {fileID: 0}
+  canonFirePointNorth: {fileID: 4893144846279401521}
+  canonFirePointEast: {fileID: 7711337001592602735}
+  canonFirePointSouth: {fileID: 4984642203018490987}
+  canonFirePointWest: {fileID: 493036216605056031}
+  parentShotgunFirePointNorth: {fileID: 4561171869757986819}
+  parentShotgunFirePointEast: {fileID: 7932164839005117181}
+  parentShotgunFirePointWest: {fileID: 5444914613037574139}
+  parentShotgunFirePointSouth: {fileID: 1006628773903054753}
 --- !u!114 &8831441691504646685
 MonoBehaviour:
   m_ObjectHideFlags: 0

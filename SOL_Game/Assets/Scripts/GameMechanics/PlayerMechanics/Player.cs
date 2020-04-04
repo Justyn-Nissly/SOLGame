@@ -371,6 +371,7 @@ public class Player : BaseCharacter
 	{
 		characterAnimator.SetBool("isShieldUp", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
+		playerRigidbody.isKinematic = false;
 		characterAnimator.SetInteger("attackDirection", GetAnimationDirection(0)); // set the value that plays the right blaster direction animation
 		characterAnimator.SetLayerWeight(5, 2); // increase the blaster layer priority
 	}
@@ -692,7 +693,7 @@ public class Player : BaseCharacter
 				playerShield.color = new Color(playerShield.color.r, playerShield.color.g,
 				                               playerShield.color.b, playerShield.color.a - Time.deltaTime * 4.0f);
 			}
-			shieldCollider.enabled = (playerShield.color.a > 0.0f);
+			//shieldCollider.enabled = (playerShield.color.a > 0.0f);
 		}
 	}
 
