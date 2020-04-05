@@ -43,7 +43,20 @@ public class DialogueTrigger : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// <summary>
+	/// 
+	/// </summary>
+	public void disableParentSpriteRenderer()
+	{
+		SpriteRenderer spriteRenderer;
 
+		spriteRenderer = transform.parent.transform.gameObject.GetComponent<SpriteRenderer>();
+
+		if (spriteRenderer != null)
+		{
+			spriteRenderer.enabled = false;
+		}
+	}
 	#endregion
 
 	#region Coroutines

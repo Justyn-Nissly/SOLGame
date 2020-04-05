@@ -12,6 +12,7 @@ public class DestructibleObject : MonoBehaviour
 		HeavyMelee,
 		LightMelee,
 		Ranged,
+		Any,
 	}
 	#endregion
 
@@ -47,24 +48,34 @@ public class DestructibleObject : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// check if the right weapon is whats hitting this object
-		if ((collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)) ||
-		    (weaponDestroysObject == WeaponTag.LightMelee && collision.gameObject.CompareTag("PlayerHeavyWeapon"))) &&
-		     damageTimer          <= 0.0f)
+		if (weaponDestroysObject == WeaponTag.Any && 
+			 (collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.HeavyMelee)) || 
+			  collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.LightMelee)) || 
+			  collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.Ranged))))		  
 		{
-			if(--health <= 0)
-			{
-				if (itemDrop != null && UnityEngine.Random.Range(0.0f, 100.0f) <= percentDropChance)
-				{
-					Instantiate(itemDrop, transform.position, Quaternion.identity);
-				}
-				DestroyObject();
-			}
-			damageTimer = 0.2f;
+			damageObject();
+		}
+		else if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)) && damageTimer <= 0.0f)
+		{
+			damageObject();
 		}
 	}
 	#endregion
 
 	#region Utility Methods (Empty)
+	private void damageObject()
+	{
+		if (--health <= 0)
+		{
+			if (canDropItem)
+			{
+				Instantiate(itemDrop, transform.position, Quaternion.identity);
+			}
+			DestroyObject();
+		}
+		damageTimer = 0.2f;
+	}
+
 	/// <summary> converts a tag to its string value for string comparing</summary>
 	private string ConvertTagToString(WeaponTag weaponTag)
 	{

@@ -17,7 +17,7 @@ public class Basilisk : Enemy
 		lowerRightSpawnPointLimit, // used to get a random position between these two limits
 		bombSpawnPoint; // the point that bombs with be instantiated
 
-	public CircleCollider2D
+	public Collider2D
 		basiliskCollider; // referance to the basilisk's Collider
 
 	public FloatValue
@@ -100,6 +100,16 @@ public class Basilisk : Enemy
 		GameObject bombGameObject = Instantiate(bomb, gameObject.transform.position, new Quaternion(0, 0, 0, 0));
 		bombGameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100.0f, 100.0f), Random.Range(-100.0f, 100.0f)));
 	}
+
+	public void DecreaseSortingLayer()
+	{
+		GetComponent<SpriteRenderer>().sortingOrder--; // change that the basilsik is rendered under other sprites like the player while under ground
+	}
+
+	public void IncreaseSortingLayer()
+	{
+		GetComponent<SpriteRenderer>().sortingOrder++; // change the render layer
+	}
 	#endregion
 
 	#region Coroutines
@@ -110,8 +120,7 @@ public class Basilisk : Enemy
 
 		// trigger the under ground animation
 		animator.SetTrigger("UnderGround");
-		GetComponent<SpriteRenderer>().sortingOrder--; // change that the basilsik is rendered under other sprites like the player while under ground
-
+		
 		yield return new WaitForSeconds(secondsAboveGround / 2); // wait for the animation to fully play
 
 		// spawn some bombs
@@ -130,7 +139,6 @@ public class Basilisk : Enemy
 
 		// trigger pop out of ground animation
 		animator.SetTrigger("PopUp");
-		GetComponent<SpriteRenderer>().sortingOrder++; // change the render layer
 		basiliskCollider.enabled = true; // enable the collider so it will hit the player while not under ground
 
 		// wait for N seconds above the ground

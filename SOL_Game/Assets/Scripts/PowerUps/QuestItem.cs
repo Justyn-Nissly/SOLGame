@@ -102,8 +102,6 @@ public class QuestItem : MonoBehaviour
 				case ItemType.unlockHammer:
 					Globals.hammerUnlocked = true;
 					break;
-				default:
-					break;
 			}
 			player.SetUpInputDetection();
 			player.playerAnimator.SetFloat("Horizontal", 0.0f);

@@ -139,6 +139,12 @@ public class Enemy : BaseCharacter
 			// The enemy gets destroyed if it runs out of health
 			if (maxHealth.runTimeValue <= 0)
 			{
+				// this stops all collisions with this enemy
+				DisableColliders();
+
+				canAttack = false;
+
+
 				if (enemyAudioManager != null)
 					enemyAudioManager.PlaySound();
 
@@ -155,8 +161,18 @@ public class Enemy : BaseCharacter
 		}
 	}
 
+	/// <summary> removes all collider on this enemy (called when the enemy dies)</summary>
+	private void DisableColliders()
+	{
+		// disable all colliders
+		foreach(Collider2D collider2D in GetComponentsInChildren<Collider2D>())
+		{
+			collider2D.enabled = false;
+		}
+	}
+
 	///<summary> Make the health bar show the current health </summary>
-	void SetHealth(float percentHelth)
+	protected void SetHealth(float percentHelth)
 	{
 		healthBar.fillAmount = percentHelth;
 	}
@@ -190,6 +206,7 @@ public class Enemy : BaseCharacter
 		// freeze the enemy because they are dead...
 		canAttack = false;
 		moveSpeed = 0;
+		
 
 		if(pixelDesolveMaterial != null)
 		{
@@ -204,7 +221,7 @@ public class Enemy : BaseCharacter
 			while (percentageComplete < 1)
 			{
 				pixelDesolveMaterial.SetFloat("Disolve_Value", Mathf.Lerp(0f, 1f, percentageComplete));
-				percentageComplete += Time.deltaTime /2;
+				percentageComplete += Time.deltaTime / 1.5f;
 				yield return null;
 			}
 

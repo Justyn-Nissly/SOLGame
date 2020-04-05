@@ -66,6 +66,11 @@ public class Wyrm : Enemy
 		{
 			DoAnAttack();
 		}
+		else if (isDead && canAttack) // trigger the death animation if the enemy is not attacking
+		{
+			// trigger death animations
+			characterAnimator.SetBool("Dead", true);
+		}
 		else
 		{
 			attackCountdownTimer -= Time.deltaTime;
@@ -153,7 +158,7 @@ public class Wyrm : Enemy
 		characterAnimator.SetBool("MeleeAttack", false);
 		characterAnimator.SetBool("LazerBreathAttack", false);
 
-		if (isDead)
+		if (isDead) // trigger the enemies death after the attack
 		{
 			// trigger death animations
 			characterAnimator.SetBool("Dead", true);

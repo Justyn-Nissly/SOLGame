@@ -105,7 +105,8 @@ public class HammerGuardianController : Enemy
 	#region Utility Methods
 	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
-		;
+		//SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
+		SetHealth(weakness.health / maxHealth.initialValue);
 	}
 
 	/// <summary> Check if the player is in position to be attacked </summary>
