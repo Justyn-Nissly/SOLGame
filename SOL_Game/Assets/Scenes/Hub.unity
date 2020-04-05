@@ -5240,12 +5240,12 @@ PrefabInstance:
     - target: {fileID: 7241853341607022150, guid: 354e64762ff0bb54a8235d233142738e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.3
       objectReference: {fileID: 0}
     - target: {fileID: 7241853341607022150, guid: 354e64762ff0bb54a8235d233142738e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -11.7
       objectReference: {fileID: 0}
     - target: {fileID: 7241853341607022150, guid: 354e64762ff0bb54a8235d233142738e,
         type: 3}
@@ -5501,6 +5501,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShardBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708952162030986632, guid: 3cc0561716b1f7a4491d7cb762d28088,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2708952162030986636, guid: 3cc0561716b1f7a4491d7cb762d28088,
         type: 3}
@@ -16031,17 +16036,17 @@ PrefabInstance:
       propertyPath: canvasFadeImage
       value: 
       objectReference: {fileID: 1402548364}
-    - target: {fileID: 9116370587446910118, guid: 0f9d5ce00936e344283a18939936073d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1966756544985338713, guid: 0f9d5ce00936e344283a18939936073d,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d1320bee304e74e40802a556401ac721,
         type: 3}
+    - target: {fileID: 9116370587446910118, guid: 0f9d5ce00936e344283a18939936073d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9116370587446910118, guid: 0f9d5ce00936e344283a18939936073d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0f9d5ce00936e344283a18939936073d, type: 3}
@@ -16840,6 +16845,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShardRed
       objectReference: {fileID: 0}
+    - target: {fileID: 30495507930171091, guid: 4ba9fcf4bda3884429d523a3bdb56204,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 30495507930171095, guid: 4ba9fcf4bda3884429d523a3bdb56204,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17532,12 +17542,12 @@ PrefabInstance:
     - target: {fileID: 2708952162030986636, guid: 9c6bd208b1f8f6d43a5e3d922ea5be0f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 2708952162030986636, guid: 9c6bd208b1f8f6d43a5e3d922ea5be0f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -4.3
       objectReference: {fileID: 0}
     - target: {fileID: 2708952162030986636, guid: 9c6bd208b1f8f6d43a5e3d922ea5be0f,
         type: 3}
@@ -17844,6 +17854,7 @@ GameObject:
   - component: {fileID: 1160765196}
   - component: {fileID: 1160765197}
   - component: {fileID: 1160765195}
+  - component: {fileID: 1160765198}
   m_Layer: 0
   m_Name: HubThemeAreas
   m_TagString: Untagged
@@ -17920,6 +17931,32 @@ MonoBehaviour:
   playThisSong: 1
   muteLocation: {fileID: 1579573161}
   songObject: {fileID: 1487029075}
+--- !u!61 &1160765198
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160765194}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -30.5, y: -22.18}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.2, y: 13.18}
+  m_EdgeRadius: 0
 --- !u!1001 &1180434106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18271,36 +18308,6 @@ PrefabInstance:
     - target: {fileID: 4178740523661423942, guid: 91586af8ff6be494387b514c38f1f746,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178740523661423936, guid: 91586af8ff6be494387b514c38f1f746,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178740523661423936, guid: 91586af8ff6be494387b514c38f1f746,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178740523661423936, guid: 91586af8ff6be494387b514c38f1f746,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7051965311818682175, guid: 91586af8ff6be494387b514c38f1f746,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4531ffa2362affb46b160d2507f62f46, type: 2}
-    - target: {fileID: 1324062109, guid: 91586af8ff6be494387b514c38f1f746, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
-        type: 2}
-    - target: {fileID: 7066726555742440687, guid: 91586af8ff6be494387b514c38f1f746,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -18941,6 +18948,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShardYellow
       objectReference: {fileID: 0}
+    - target: {fileID: 6554014725283078511, guid: b349427c04fcca841952f229420d2b71,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6554014725283078507, guid: b349427c04fcca841952f229420d2b71,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19141,12 +19153,12 @@ PrefabInstance:
     - target: {fileID: 4178740523661423942, guid: 91586af8ff6be494387b514c38f1f746,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -6.3
       objectReference: {fileID: 0}
     - target: {fileID: 4178740523661423942, guid: 91586af8ff6be494387b514c38f1f746,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 4178740523661423942, guid: 91586af8ff6be494387b514c38f1f746,
         type: 3}
@@ -19443,6 +19455,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShardGreen
       objectReference: {fileID: 0}
+    - target: {fileID: 7008464727875206130, guid: cc85ee26517299b43895d40ec213669c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7008464727875206134, guid: cc85ee26517299b43895d40ec213669c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19636,12 +19653,12 @@ PrefabInstance:
     - target: {fileID: 5920347357568972687, guid: fdd5c6594f2534c4dbd9ccc6d18b54be,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 8.3
       objectReference: {fileID: 0}
     - target: {fileID: 5920347357568972687, guid: fdd5c6594f2534c4dbd9ccc6d18b54be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6.1
       objectReference: {fileID: 0}
     - target: {fileID: 5920347357568972687, guid: fdd5c6594f2534c4dbd9ccc6d18b54be,
         type: 3}

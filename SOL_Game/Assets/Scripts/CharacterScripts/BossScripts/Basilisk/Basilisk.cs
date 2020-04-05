@@ -65,6 +65,7 @@ public class Basilisk : Enemy
 
 		if (maxHealth.runTimeValue <= 0)
 		{
+			Globals.bossesDefeated = 1;
 			basiliskEncounterManager.EndEncounter();
 		}
 	}

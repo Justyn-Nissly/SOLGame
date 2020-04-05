@@ -25,13 +25,16 @@ public class QuestItem : MonoBehaviour
 		type;
 	public SpriteRenderer
 		sprite; // Sprite graphic
-	public Sprite[]
-		sprites; // Possible sprite graphics
 	#endregion
 
 	#region Private and Protected Variables
 	protected float
 		despawnTimer;
+	private bool
+		isWeapon,
+		spinPositive;
+	private float
+		spin;
 	#endregion
 
 	// Unity Named Methods
@@ -39,13 +42,21 @@ public class QuestItem : MonoBehaviour
 	/// <summary> Determine the Sprite type </summary>
 	public virtual void Awake()
 	{
+		spin = 0.0f;
 		despawnTimer = 1000000.0f;
 		sprite = GetComponent<SpriteRenderer>();
 		player = FindObjectOfType<Player>();
+		isWeapon = (type == ItemType.unlockSword   || type == ItemType.unlockShield ||
+		            type == ItemType.unlockBlaster || type == ItemType.unlockHammer);
 	}
 
 	protected virtual void FixedUpdate()
 	{
+		if (isWeapon)
+		{
+			transform.localScale = new Vector3(Mathf.Cos((spin += Time.deltaTime) * 0.5f * Mathf.PI), 1.0f, 1.0f);
+		}
+
 		if (despawnTimer <= DESPAWN_TIME)
 		{
 			player.FreezePlayer();
@@ -95,14 +106,11 @@ public class QuestItem : MonoBehaviour
 					break;
 			}
 			player.SetUpInputDetection();
+			player.playerAnimator.SetFloat("Horizontal", 0.0f);
+			player.playerAnimator.SetFloat("Vertical", -1.0f);
 			player.playerAnimator.SetBool("AcquiredQuestItem", true);
 			player.FreezePlayer();
 			transform.position = GameObject.FindGameObjectWithTag("Arm").transform.position;
-			if (type == ItemType.unlockBlaster || type == ItemType.unlockHammer ||
-			    type == ItemType.unlockShield  || type == ItemType.unlockSword)
-			{
-				transform.position += new Vector3(-0.3f, 0.3f, 0.0f);
-			}
 			GetComponent<BoxCollider2D>().enabled = false;
 			despawnTimer = DESPAWN_TIME;
 			sprite.sortingOrder = LayeredRender.MAX_Y * 2;

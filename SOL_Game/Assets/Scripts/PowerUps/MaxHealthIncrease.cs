@@ -8,21 +8,6 @@ public class MaxHealthIncrease : QuestItem
     public FloatValue playerHealth;
 	private float spinTimer;
 
-	public override void Awake()
-	{
-		despawnTimer = 1000000.0f;
-		sprite = GetComponent<SpriteRenderer>();
-		player = GameObject.FindObjectOfType<Player>();
-		spinTimer = 0.0f;
-	}
-
-	protected override void FixedUpdate()
-	{
-		base.FixedUpdate();
-		spinTimer += Time.deltaTime * 8.0f;
-		sprite.sprite = sprites[(int)(spinTimer % 4.0f)];
-	}
-
 	public override void OnTriggerEnter2D(Collider2D other)
    {
 		base.OnTriggerEnter2D(other);

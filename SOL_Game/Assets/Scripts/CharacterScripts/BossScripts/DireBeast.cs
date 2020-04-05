@@ -87,6 +87,7 @@ public class DireBeast : Enemy
 
 		if (maxHealth.runTimeValue <= 0)
 		{
+			Globals.bossesDefeated = 4;
 			EncounterManager.EndEncounter();
 		}
 	}

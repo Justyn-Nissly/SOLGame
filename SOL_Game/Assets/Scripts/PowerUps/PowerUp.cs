@@ -11,7 +11,7 @@ public class PowerUp : MonoBehaviour
 		SPEED = 2, // Boost the player's speed
 		HEAL = 3; // Heal the player
 	public const float
-		POWER_UP_TIME = 25.0f; // How long power up effects last
+		POWER_UP_TIME = 1000.0f; // How long power up effects last
 	#endregion
 
 	#region Public Variables

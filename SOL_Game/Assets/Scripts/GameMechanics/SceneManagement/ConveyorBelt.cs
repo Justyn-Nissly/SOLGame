@@ -53,7 +53,7 @@ public class ConveyorBelt : MonoBehaviour
 			GetDirection();
 			if (sprites.Length > 0)
 			{
-				moveTime = (moveTime + 20.0f * Time.deltaTime) % SPRITES;
+				moveTime = (moveTime + speed * 0.08f * Time.deltaTime) % SPRITES;
 				sprite.sprite = sprites[(int)((movement == Vector2.up || movement == Vector2.left) ? SPRITES - moveTime - 1 : moveTime)];
 			}
 		}
@@ -65,7 +65,8 @@ public class ConveyorBelt : MonoBehaviour
 		// Only characters and items get affected by conveyor belts
 		if (isMoving && (collider.tag == "Player" || collider.tag == "Enemy" || collider.tag == "PuzzleItem"))
 		{
-			collider.attachedRigidbody.AddRelativeForce(movement * speed * collider.attachedRigidbody.mass, ForceMode2D.Force);
+			collider.attachedRigidbody.AddRelativeForce(movement * speed * (Mathf.Log(collider.attachedRigidbody.mass + 1.0f) + 1.0f),
+			                                            ForceMode2D.Force);
 		}
 	}
 	#endregion

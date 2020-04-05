@@ -2558,10 +2558,10 @@ MonoBehaviour:
   enemyVector: {x: 0, y: 0}
   rb2d: {fileID: 0}
   enemyAudioManager: {fileID: 0}
-  powerUp: {fileID: 2708952162030986632, guid: 451efc66732bc724e93821023defb447, type: 3}
+  powerUp: {fileID: 7008464727875206130, guid: cc85ee26517299b43895d40ec213669c, type: 3}
   pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
     type: 2}
-  dropPowerUpOnDeath: 0
+  dropPowerUpOnDeath: 1
   popUpAnimaiton: {fileID: 0}
   bomb: {fileID: 5761485101666751387, guid: 3788fa84d13cb694eaa26ac9665564cc, type: 3}
   upperLeftSpawnPointLimit: {fileID: 453335081}
@@ -43827,6 +43827,17 @@ PrefabInstance:
       propertyPath: encounterManager
       value: 
       objectReference: {fileID: 1917897404}
+    - target: {fileID: 4255507307742249802, guid: 945811758f1fe834299630a7d003567d,
+        type: 3}
+      propertyPath: dropPowerUpOnDeath
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255507307742249802, guid: 945811758f1fe834299630a7d003567d,
+        type: 3}
+      propertyPath: powerUp
+      value: 
+      objectReference: {fileID: 2708952162030986632, guid: 9c6bd208b1f8f6d43a5e3d922ea5be0f,
+        type: 3}
     - target: {fileID: 5184558089056415121, guid: 945811758f1fe834299630a7d003567d,
         type: 3}
       propertyPath: m_LocalPosition.y

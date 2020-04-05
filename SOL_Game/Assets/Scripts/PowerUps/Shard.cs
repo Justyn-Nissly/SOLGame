@@ -7,10 +7,12 @@ public class Shard : QuestItem
 	#endregion
 
 	#region Public Variables
-	public SpriteRenderer
-		shine;
 	public AudioSource
 		shimmer;
+	public SpriteRenderer
+		shine;
+	public Sprite[]
+		sprites; // Possible sprite graphics
 	#endregion
 
 	#region Private Variables

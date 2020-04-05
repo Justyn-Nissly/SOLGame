@@ -160,6 +160,7 @@ public class Leviadrin : Enemy
 
 		if (maxHealth.runTimeValue <= 0)
 		{
+			Globals.bossesDefeated = 2;
 			canAttack = false;
 			aggro = false;
 			snakeManager.canMove = false;

@@ -30,8 +30,8 @@ public class TeleporterStation : MonoBehaviour
 	/// <summary> Turn on the conveyor belt </summary>
 	void Awake()
 	{
-		portal.enabled = (teleporterOrder <= Globals.bossesDefeated || spawnHere);
-		tractorField.GetComponent<BoxCollider2D>().isTrigger = teleporterOrder <= Globals.bossesDefeated || spawnHere;
+		portal.enabled = (teleporterOrder == Globals.bossesDefeated || spawnHere);
+		tractorField.GetComponent<BoxCollider2D>().isTrigger = teleporterOrder == Globals.bossesDefeated || spawnHere;
 		teleportPoint.enabled = false;
 		canReturn = false;
 		tractorField.direction = ConveyorBelt.Direction.Up;
@@ -52,8 +52,9 @@ public class TeleporterStation : MonoBehaviour
 			if (returnTimer <= 1.0f)
 			{
 				teleportPoint.enabled = true;
+				tractorField.GetComponent<BoxCollider2D>().isTrigger = (teleporterOrder == Globals.bossesDefeated);
 			}
-			if (returnTimer <= 0.0f && teleporterOrder <= Globals.bossesDefeated)
+			if (returnTimer <= 0.0f && teleporterOrder == Globals.bossesDefeated)
 			{
 				canReturn = true;
 				tractorField.direction = ConveyorBelt.Direction.Up;
