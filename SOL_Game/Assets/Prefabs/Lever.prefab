@@ -97,12 +97,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598801953cd1abe4ea5e0a1167947a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchType: 0
   unusedSprite: {fileID: 4742719212441471997, guid: aecc7c25f113b460a87ef3b7b9fdb431,
     type: 3}
   usedSprite: {fileID: -8086995983514025172, guid: aecc7c25f113b460a87ef3b7b9fdb431,
     type: 3}
   connectedDoor: {fileID: 0}
+  allDoors: {fileID: 0}
+  spawner: {fileID: 0}
+  pressurePlate: {fileID: 0}
   intractableSpriteRenderer: {fileID: 9050617770899311193}
+  isPowerSwitch: 0
+  isUnlockSwitch: 0
 --- !u!61 &9050617770750200987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -223,7 +229,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 32767
   m_Sprite: {fileID: -6274607833073127828, guid: aecc7c25f113b460a87ef3b7b9fdb431,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
