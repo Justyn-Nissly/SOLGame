@@ -33,7 +33,8 @@ public class N13GL : Enemy
 	public Animator
 		animator; // Reference to the animation controller
 	public GameObject
-		guardianArm; // The arm of the guardian
+		guardianArm, // The arm of the guardian
+		swordArm;
 	public Sprite
 		finalArmSprite,  // The sprite for the final guardian arm
 		gunArmSprite,    // The sprite for the gun guardian arm
@@ -81,6 +82,8 @@ public class N13GL : Enemy
 
 	public EncounterManager
 		encounterManager;
+	public N13GLEncounter
+		n13GLEncounter;
 	#endregion
 
 	#region Hammer Guardian
@@ -194,7 +197,7 @@ public class N13GL : Enemy
 	{
 		allGuardianPatternTypes = Enum.GetValues(typeof(AttackPattern));
 		attackTimer             = attackTime;
-		canAttack               = false;
+		//canAttack               = false;
 		canMove                 = false;
 		currentGuardianPattern  = AttackPattern.finalGuardianPattern;
 		currentHealth           = maxHealth.initialValue;
@@ -330,6 +333,8 @@ public class N13GL : Enemy
 				// Set the attack type to the shield guardian
 				typeIsChanged = false;
 				nextArmSprite = shieldArmSprite;
+				SwitchArms();
+				gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1);
 				break;
 			}
 			case AttackPattern.gunGuardianPattern:
@@ -337,18 +342,25 @@ public class N13GL : Enemy
 				// Spawn in the gun guardian arm
 				typeIsChanged = false;
 				nextArmSprite = gunArmSprite;
+				SwitchArms();
+				gameObject.transform.localScale = new Vector3(2, 2, 1);
 				break;
 			}
 			case AttackPattern.hammerGuardianPattern:
 			{
 				typeIsChanged = false;
 				nextArmSprite = hammerArmSprite;
+				SwitchArms();
+				gameObject.transform.localScale = new Vector3(10, 10, 1);
 				break;
 			}
 			case AttackPattern.swordGuardianPattern:
 			{
 				typeIsChanged = false;
 				nextArmSprite = swordArmSprite;
+				SwitchArms();
+				gameObject.transform.localScale = new Vector3(5, 5, 1);
+				swordArm.SetActive(true);
 				break;
 			}
 		};
@@ -359,6 +371,8 @@ public class N13GL : Enemy
 	public void SwitchArms()
 	{
 		guardianArm.GetComponent<SpriteRenderer>().sprite = nextArmSprite; // Take this and set this to "nextSprite" rather than just shieldSprite....It is 3:37...go to bed...
+
+		StartCoroutine(ResetColliders());
 	}
 
 	/// <summary> Take damage from the player </summary>
@@ -372,6 +386,8 @@ public class N13GL : Enemy
 			if (currentGuardianPattern == AttackPattern.swordGuardianPattern && currentHealth <= 0)
 			{
 				GameObject.FindObjectOfType<N13GL>();
+
+				StartCoroutine(Die());
 			}
 			if (guardianPhase < allGuardianPatternTypes.Length - 1)
 			{
@@ -379,6 +395,8 @@ public class N13GL : Enemy
 				currentHealth = phaseHealth;
 			}
 			ChangeAttackPattern();
+
+			
 		}
 	}
 
@@ -427,7 +445,6 @@ public class N13GL : Enemy
 			// make the boss charge at the player
 			StartCoroutine(MoveInPlayersDirection());
 		}
-
 
 
 		// if the enemy should be shacking start shacking the enemy
@@ -652,6 +669,24 @@ public class N13GL : Enemy
 	#region Coroutines
 
 	#region Shared Coroutines
+	/// <summary>
+	/// creates a new collider that will form to the new shape of the guardian
+	/// </summary>
+	private IEnumerator ResetColliders()
+	{
+		yield return new WaitForSecondsRealtime(.25f); // this is to give time for the sprite to change first
+
+		Destroy(GetComponent<PolygonCollider2D>());
+		gameObject.AddComponent<PolygonCollider2D>();
+	}
+
+	public override IEnumerator Die()
+	{
+		n13GLEncounter.FadeAndLoadWyrmScene();
+
+		return base.Die();
+	}
+
 	public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endingPosition, float seconds)
 	{
 		float elapsedTime = 0;

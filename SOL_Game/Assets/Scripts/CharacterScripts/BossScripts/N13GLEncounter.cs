@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class N13GLEncounter : MonoBehaviour
@@ -141,11 +142,16 @@ public class N13GLEncounter : MonoBehaviour
 			guardian.SetActive(true);
 		}
 	}
+
+	public void FadeAndLoadWyrmScene()
+	{
+		StartCoroutine(FadeToWhite(true));
+	}
 	#endregion
 
 	#region Coroutines
 	/// <summary> Fade the screen to white </summary>
-	public IEnumerator FadeToWhite()
+	public IEnumerator FadeToWhite(bool loadWyrmScene = false)
 	{
 		float timer = fadeToClearTime;
 
@@ -162,6 +168,11 @@ public class N13GLEncounter : MonoBehaviour
 			timer -= Time.deltaTime;
 			fadeTime = timer;
 			yield return null;
+		}
+
+		if (loadWyrmScene)
+		{
+			SceneManager.LoadScene("FinalWyrmFight");
 		}
 	}
 

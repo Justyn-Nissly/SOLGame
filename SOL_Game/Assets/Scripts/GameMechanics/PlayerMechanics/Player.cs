@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : BaseCharacter
@@ -169,6 +170,10 @@ public class Player : BaseCharacter
 			GlobalVarablesAndMethods.blasterUnlocked = true;
 			GlobalVarablesAndMethods.shieldUnlocked = true;
 			SetUpInputDetection();
+		}
+		if (Input.GetKeyDown(KeyCode.Delete))
+		{
+			SceneManager.LoadScene("DevMenu");
 		}
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
