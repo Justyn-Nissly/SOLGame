@@ -13,7 +13,7 @@ public class DireBeast : Enemy
 	public Transform
 		armAttackPosition;
 	public float
-		armAttackRange;
+		armAttackRange = 2f;
 	public GameObject
 		armWeapon;
 	public FloatValue
@@ -28,46 +28,80 @@ public class DireBeast : Enemy
 	public float
 		countDownTimer;
 
-	public EncounterManager EncounterManager; // this reference is used to send a signal when the basilisk dies
+	public EncounterManager
+		EncounterManager; // this reference is used to send a signal when the basilisk dies
+
+	public Animator
+		armAnimator; // the wall attack animation
 	#endregion
 
 	#region Private Variables
 	private float
-		maxTimeBetweenAttacks = 1.2f,
-		minTimeBetweenAttacks = 0.7f;
+		maxTimeBetweenAttacks = 2f,
+		minTimeBetweenAttacks = 1.5f;
 	private BossBlastAttack
 		bossBlastAttack;
+
+	private bool
+		inWall = true,
+		deadLogicHappened = false;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	public override void Start()
+	{
+		base.Start();
+
+		bossBlastAttack = FindObjectOfType<BossBlastAttack>();
+	}
+
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
 
-		bossBlastAttack = FindObjectOfType<BossBlastAttack>();
+		playerPos = GameObject.FindWithTag("Player").transform.position;
 
 		// Stage 2 after half health
 		if (maxHealth.runTimeValue == maxHealth.initialValue * 0.5f)
 		{
-			//StateEnrage();
 			Move();
-			armAttackRange = 2f;
+
+			Destroy(GetComponent<PolygonCollider2D>());
+			gameObject.AddComponent<PolygonCollider2D>();
+
+			inWall = false;
+			characterAnimator.SetTrigger("ExitWall");
 		}
 
-        if (Vector2.Distance(playerPos, gameObject.transform.position) < 5 &&
-			(countDownTimer <= 0 && canAttack && aggro))
+        if (Vector2.Distance(playerPos, gameObject.transform.position) < 7 &&
+			countDownTimer <= 0 && canAttack && aggro)
         {
-			bossBlastAttack.enabled = false;
+			//bossBlastAttack.enabled = false;
 			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
 			MeleeAttack(armWeapon, armAttackPosition, armAttackRange, armDamageToGive, false);
 		}
-		else
+		else if (Vector2.Distance(playerPos, gameObject.transform.position) >= 7 &&
+			countDownTimer <= 0 && canAttack && aggro && inWall == false)
+		{
+			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
+			bossBlastAttack.enabled = true;
+			characterAnimator.SetBool("shoot", true);
+		}
+		 else
 		{
 			countDownTimer -= Time.deltaTime;
-			bossBlastAttack.enabled = true;
 		}
 
+
+
+		if (isDead && deadLogicHappened == false)
+		{
+			deadLogicHappened = true;
+			canAttack = false;
+			EndBlastAttack();
+			EncounterManager.EndEncounter();
+		}
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -84,11 +118,6 @@ public class DireBeast : Enemy
 	public virtual void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
-
-		if (maxHealth.runTimeValue <= 0)
-		{
-			EncounterManager.EndEncounter();
-		}
 	}
 
 	/// <summary> The method deals damage to the passed in player</summary>
@@ -103,24 +132,7 @@ public class DireBeast : Enemy
 	/// <summary> Sets trigger to know boss is moving then moves</summary>
 	private void Move()
 	{
-	
 	    StartCoroutine(MoveOverSeconds(gameObject, campLocation.transform.position, 1f));
-
-	}
-
-	/// <summary> Changes animator states to enraged</summary>
-	private void StateEnrage()
-	{
-		//anim.SetTrigger("Enrage");
-	}
-
-	/// <summary> Find the player</summary>
-	private GameObject CreateTarget()
-	{
-		GameObject targetGameObject = new GameObject("target game object");
-		targetGameObject.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-		return targetGameObject;
 	}
 
 	/// <summary> the attack method used for the enemy and the player to swing light/heavy melee weapons</summary>
@@ -137,10 +149,29 @@ public class DireBeast : Enemy
 			}
 		}
 
-		GameObject weaponInstance = Instantiate(meleeWeapon, attackPosition.transform);
-		Destroy(weaponInstance, 2f);
+		if (inWall)
+		{
+			armAnimator.SetTrigger("Scratch");
+		}
+		else
+		{
+			characterAnimator.SetBool("tailAttack", true);
+		}
 	}
 
+	/// <summary>
+	///  called when the animation fully plays
+	/// </summary>
+	public void EndAttack()
+	{
+		characterAnimator.SetBool("tailAttack", false);
+		characterAnimator.SetBool("shoot", false);
+	}
+
+	public void EndBlastAttack()
+	{
+		bossBlastAttack.enabled = false;
+	}
 	#endregion
 
 	#region Coroutines

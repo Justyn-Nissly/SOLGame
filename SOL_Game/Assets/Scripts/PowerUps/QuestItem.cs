@@ -59,7 +59,7 @@ public class QuestItem : MonoBehaviour
 	}
 
 	/// <summary> Apply the Sprite </summary>
-	void OnTriggerEnter2D(Collider2D collision)
+	public virtual void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
 		{
@@ -96,6 +96,11 @@ public class QuestItem : MonoBehaviour
 			player.playerAnimator.SetBool("AcquiredQuestItem", true);
 			player.FreezePlayer();
 			transform.position = GameObject.FindGameObjectWithTag("Arm").transform.position;
+			if (type == ItemType.unlockBlaster || type == ItemType.unlockHammer ||
+			    type == ItemType.unlockShield  || type == ItemType.unlockSword)
+			{
+				transform.position += new Vector3(-0.3f, 0.3f, 0.0f);
+			}
 			GetComponent<BoxCollider2D>().enabled = false;
 			despawnTimer = DESPAWN_TIME;
 			sprite.sortingOrder = LayeredRender.MAX_Y * 2;
