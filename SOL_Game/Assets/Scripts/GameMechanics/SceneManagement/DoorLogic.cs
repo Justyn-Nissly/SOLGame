@@ -14,6 +14,10 @@ public class DoorLogic : MonoBehaviour
 		doorLockedClosedSprite,
 		doorUnlockedClosedSprite;
 
+	public SpriteRenderer
+		lockedIcon,
+		unlockedIcon;
+
 	public BoxCollider2D
 		doorBoxCollider; // Prevent the player from walking through the door
 
@@ -40,6 +44,7 @@ public class DoorLogic : MonoBehaviour
 		doorSpriteRenderer        = GetComponent<SpriteRenderer>();
 		doorSpriteRenderer.sprite = GetDoorClosedSprite();
 		doorAnimator = GetComponent<Animator>();
+		SetLockIcon();
 	}
 
 	/// <summary> Open an unlocked door </summary>
@@ -72,6 +77,23 @@ public class DoorLogic : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	/// <summary>
+	/// displays a lock icon if the door is closed
+	/// </summary>
+	private void SetLockIcon()
+	{
+		if (doorIsOpen == false && lockedIcon != null && unlockedIcon != null)
+		{
+			lockedIcon.enabled = doorIsLocked;
+			unlockedIcon.enabled = !doorIsLocked;
+		}
+		else if (doorIsOpen && lockedIcon != null && unlockedIcon != null)
+		{
+			lockedIcon.enabled = false;
+			unlockedIcon.enabled = false;
+		}
+	}
+
 	/// <summary> Get the locked or unlocked door sprite </summary>
 	private Sprite GetDoorClosedSprite()
 	{
@@ -86,6 +108,8 @@ public class DoorLogic : MonoBehaviour
 		{
 			doorSpriteRenderer.sprite = GetDoorClosedSprite();
 		}
+
+		SetLockIcon();
 	}
 
 	/// <summary> Toggle the door open or closed </summary>
@@ -116,6 +140,7 @@ public class DoorLogic : MonoBehaviour
 		// Prevent the player from walking through the door
 		doorBoxCollider.enabled = true;
 		doorIsOpen = false;
+		SetLockIcon();
 	}
 
 	/// <summary> Open the door </summary>
@@ -133,6 +158,7 @@ public class DoorLogic : MonoBehaviour
 		// Allow the player to walk through the door
 		doorBoxCollider.enabled = false;
 		doorIsOpen = true;
+		SetLockIcon();
 	}
 	#endregion
 
