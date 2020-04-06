@@ -40,7 +40,15 @@ public class SetVolume : MonoBehaviour
 		sliderValue = slider.value;
 
 		// Set the volume based on that new value
-		mixer.SetFloat("MusicVol", Mathf.Log10(sliderValue) * 20);
+		if(sliderValue != 0)
+		{
+			mixer.SetFloat("MusicVol", Mathf.Log10(sliderValue) * 20);
+		}
+		else
+		{
+			mixer.SetFloat("MusicVol", -80); // this is -80 db which is zero volume
+		}
+
 
 		// This saves the volume setting even after stopping and starting the game
 		PlayerPrefs.SetFloat("MusicVolume", sliderValue);

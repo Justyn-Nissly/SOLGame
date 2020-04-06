@@ -32,6 +32,12 @@ public class ShieldEnemy : Enemy
 	}
 	#endregion
 
-	#region Coroutines (Empty)
+	#region Coroutines
+	public override IEnumerator Die()
+	{
+		enemyMovement.enabled = false;
+
+		return base.Die();
+	}
 	#endregion
 }

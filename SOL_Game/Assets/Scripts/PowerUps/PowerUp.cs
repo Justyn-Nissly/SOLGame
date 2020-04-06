@@ -11,7 +11,7 @@ public class PowerUp : MonoBehaviour
 		SPEED = 2, // Boost the player's speed
 		HEAL = 3; // Heal the player
 	public const float
-		POWER_UP_TIME = 25.0f; // How long power up effects last
+		POWER_UP_TIME = 1000.0f; // How long power up effects last
 	#endregion
 
 	#region Public Variables
@@ -29,7 +29,6 @@ public class PowerUp : MonoBehaviour
 	[HideInInspector]
 	public Sprite
 		powerUp; // Power up graphic
-	[HideInInspector]
 	public Sprite[]
 		powerUps; // Possible power up graphics
 	[HideInInspector]
@@ -39,17 +38,17 @@ public class PowerUp : MonoBehaviour
 		setType;
 	#endregion
 
-	#region Private Variables
-	private Player
+	#region Protected Variables
+	protected Player
 		player; // Apply the power up to the player
-	private float
+	protected float
 		spinTimer; // Make the power up appear to spin
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Determine the power up type </summary>
-	void Awake()
+	public virtual void Awake()
 	{
 		new Random();
 		boxCollider  = GetComponent<BoxCollider2D>();
@@ -71,7 +70,7 @@ public class PowerUp : MonoBehaviour
 	}
 
 	/// <summary> Power ups eventually disappear after dropping </summary>
-	void FixedUpdate()
+	public virtual void FixedUpdate()
 	{
 		spinTimer += Time.deltaTime * 8.0f;
 		powerUpSprite.sprite = powerUps[(int)(spinTimer % 4.0f) + type * (HEAL + 1)];
@@ -86,7 +85,7 @@ public class PowerUp : MonoBehaviour
 	}
 
 	/// <summary> Apply the power up </summary>
-	void OnTriggerEnter2D(Collider2D collision)
+	public virtual void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
 		{

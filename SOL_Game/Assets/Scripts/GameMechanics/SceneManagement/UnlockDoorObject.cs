@@ -179,6 +179,12 @@ public class UnlockDoorObject : MonoBehaviour
 		{
 			spawner.StartCheckingIfEnemiesDefeated();  //1s delay, repeat every .5s
 		}
+
+		// Disable the ! above this object
+		intractableSpriteRenderer.enabled = false;
+
+		// Set bool so that you cant use this any more
+		playerHasUsedObject = true;
 	}
 
 	///<summary> Open or power the pressure plate when the lever is flipped </summary>
@@ -195,6 +201,12 @@ public class UnlockDoorObject : MonoBehaviour
 			pressurePlate.UpdateDoorState();
 			pressurePlate.isLocked = false;
 		}
+
+		// Disable the ! above this object
+		intractableSpriteRenderer.enabled = false;
+
+		// Set bool so that you cant use this any more
+		playerHasUsedObject = true;
 	}
 	#endregion
 

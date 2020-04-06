@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class N13GL : MonoBehaviour
+public class N13GL : Enemy
 {
 	#region Enums
 	public enum AttackPattern
@@ -19,6 +20,8 @@ public class N13GL : MonoBehaviour
 	#region Public Variables
 
 	#region Shared Variables
+	public N13GLEncounter
+		n13GLEncounter; // for fading the screen to white and loading the wyrm fight
 	public AttackPattern
 		currentGuardianPattern; // The current guardian attack pattern type
 	public GameObject
@@ -77,8 +80,10 @@ public class N13GL : MonoBehaviour
 	// Unity Named Methods
 	#region Main Methods
 	// Start is called before the first frame update
-	void Start()
+	public override void Start()
     {
+		base.Start();
+
 		allGuardianPatternTypes = Enum.GetValues(typeof(AttackPattern));
 		typeIsChanged    = true;
 		changething      = 0;
@@ -179,6 +184,13 @@ public class N13GL : MonoBehaviour
 
 	#region Utility Methods
 	#region Shared Methods
+	public override IEnumerator Die()
+	{
+		n13GLEncounter.fadeAndLoadWyrmScene();
+
+		return base.Die();
+	}
+
 	public void SwitchArms()
 	{
 		shieldGuardianArm.GetComponent<SpriteRenderer>().sprite = nextArmSprite; // Take this and set this to "nextSprite" rather than just shieldSprite....It is 3:37...go to bed...

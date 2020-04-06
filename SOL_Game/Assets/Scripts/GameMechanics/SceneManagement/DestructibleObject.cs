@@ -12,6 +12,7 @@ public class DestructibleObject : MonoBehaviour
 		HeavyMelee,
 		LightMelee,
 		Ranged,
+		Any,
 	}
 	#endregion
 
@@ -20,8 +21,8 @@ public class DestructibleObject : MonoBehaviour
 	public List<DoorLogic> doorsUnlocked = new List<DoorLogic>(); // all doors that will be unlocked when this destructible object is destroyed (this list can be empty)
 	public Sprite destroyedSprite; // the sprite that is changed to when this destructible object is destroyed 
 	public int health;
-	public bool canDropItem;
 	public GameObject itemDrop;
+	public float percentDropChance;
 	#endregion
 
 	#region Private Variables
@@ -36,6 +37,7 @@ public class DestructibleObject : MonoBehaviour
 	{
 		// add all doors to the door manager
 		doorManager.doors.AddRange(doorsUnlocked);
+		new UnityEngine.Random();
 	}
 
 	private void FixedUpdate()
@@ -46,22 +48,34 @@ public class DestructibleObject : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// check if the right weapon is whats hitting this object
-		if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)) && damageTimer <= 0.0f)
+		if (weaponDestroysObject == WeaponTag.Any && 
+			 (collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.HeavyMelee)) || 
+			  collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.LightMelee)) || 
+			  collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.Ranged))))		  
 		{
-			if(--health <= 0)
-			{
-				if (canDropItem)
-				{
-					Instantiate(itemDrop, transform.position, Quaternion.identity);
-				}
-				DestroyObject();
-			}
-			damageTimer = 0.2f;
+			damageObject();
+		}
+		else if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)) && damageTimer <= 0.0f)
+		{
+			damageObject();
 		}
 	}
 	#endregion
 
-	#region Utility Methods (Empty)
+	#region Utility Methods
+	private void damageObject()
+	{
+		if (--health <= 0)
+		{
+			if (itemDrop != null && UnityEngine.Random.Range(0.0f, 100.0f) <= percentDropChance)
+			{
+				Instantiate(itemDrop, transform.position, Quaternion.identity);
+			}
+			DestroyObject();
+		}
+		damageTimer = 0.2f;
+	}
+
 	/// <summary> converts a tag to its string value for string comparing</summary>
 	private string ConvertTagToString(WeaponTag weaponTag)
 	{
@@ -94,7 +108,14 @@ public class DestructibleObject : MonoBehaviour
 		if (destroyedSprite != null)
 		{
 			gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
-			gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			if (gameObject.GetComponent<BoxCollider2D>() != null)
+			{
+				gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			}
+			if (gameObject.GetComponent<PolygonCollider2D>() != null)
+			{
+				gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+			}
 		}
 		else
 		{

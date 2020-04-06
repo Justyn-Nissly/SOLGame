@@ -111,6 +111,7 @@ public class BehemothController : Enemy
 		{
 			if ((defeatTimer -= Time.deltaTime) <= 0.0f)
 			{
+				Globals.bossesDefeated = 3;
 				Destroy(gameObject);
 			}
 		}
@@ -145,7 +146,7 @@ public class BehemothController : Enemy
 	private void OnTriggerStay2D(Collider2D collision)
 	{
 		// The boss takes damage if the hammer hits and all outer orbs are destroyed
-		if (collision.gameObject.CompareTag("PlayerHeavyWeapon") && phaseChangeTimer <= 0.0f &&
+		if ((collision.gameObject.CompareTag("PlayerHeavyWeapon") || collision.gameObject.CompareTag("PlayerLightWeapon") || collision.gameObject.CompareTag("Projectile")) && phaseChangeTimer <= 0.0f &&
 			CheckOrbsEmpty(outerOrbs, OUTER_ORBS))
 		{
 			// The fight goes to the next phase if the boss runs out of health
@@ -246,8 +247,8 @@ public class BehemothController : Enemy
 			outerOrbs[i].revolveScript.maxRevolutionDistance = OUTER_ORB_DIST + 2.5f * (phase - 1);
 			outerOrbs[i].revolveScript.minRevolutionDistance = OUTER_ORB_DIST;
 			outerOrbs[i].revolveScript.startAngle            = 360.0f / (float) OUTER_ORBS * i;
-			outerOrbs[i].attackHP                            = (phase > 1) ? phase : 0;
-			outerOrbs[i].destructible.health                 = phase + 1;
+			outerOrbs[i].attackHP                            = 1;//(phase > 1) ? phase : 0;
+			outerOrbs[i].destructible.health                 = 1;//phase + 1;
 			outerOrbs[i].revolveScript.clockwise             = true;
 			outerOrbs[i].revolveScript.revolutionSpeed       = 1.0f;
 		}
@@ -262,7 +263,7 @@ public class BehemothController : Enemy
 				innerOrbs[i].revolveScript.minRevolutionDistance = INNER_ORB_DIST;
 				innerOrbs[i].revolveScript.startAngle            = 360.0f / (float)INNER_ORBS * i;
 				innerOrbs[i].attackHP                            = 0;
-				innerOrbs[i].destructible.health                 = phase * 2 - 1;
+				innerOrbs[i].destructible.health                 = 2;//phase * 2 - 1;
 				outerOrbs[i].revolveScript.revolutionSpeed       = 1.2f;
 			}
 		}

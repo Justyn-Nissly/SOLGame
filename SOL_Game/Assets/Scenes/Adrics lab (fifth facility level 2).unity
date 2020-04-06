@@ -120,49 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &3445826
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &28175799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -411,6 +368,49 @@ MonoBehaviour:
   - {fileID: 1845021225}
   doors: []
   panCamera: 0
+--- !u!21 &41064356
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &63157795
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +519,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &75716314 stripped
 Transform:
@@ -528,6 +528,49 @@ Transform:
   m_PrefabInstance: {fileID: 1912761932}
   m_PrefabAsset: {fileID: 0}
 --- !u!21 &90059411
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!21 &102751814
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -630,49 +673,6 @@ Transform:
   m_Father: {fileID: 1210876451}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &131868853
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &143816068
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,50 +703,7 @@ Transform:
   m_Father: {fileID: 478717468}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &162808847
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &171470051
+--- !u!21 &197175236
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1097,49 +1054,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!21 &205537163
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &234304907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,6 +1114,49 @@ Transform:
   m_Father: {fileID: 478717468}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &250686889
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &252145978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1335,7 +1292,7 @@ PrefabInstance:
     - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
@@ -1355,7 +1312,12 @@ PrefabInstance:
     - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 7.0875006
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
@@ -1365,98 +1327,17 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
+      propertyPath: doorsUnlocked.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
       propertyPath: destroyedSprite
       value: 
       objectReference: {fileID: -8254041366241027250, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b657c25ce175a694c8ddada51b9b1d11, type: 3}
---- !u!21 &291528987
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &294671066
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &296507385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,18 +1580,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 584421982}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &347296649 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6990640965563911027, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
-    type: 3}
-  m_PrefabInstance: {fileID: 584421982}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b35cf834fa473a44950d798e905c6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &373751816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,7 +1628,7 @@ MonoBehaviour:
   - {fileID: 399889826}
   - {fileID: 1137796787}
   pressurePlates: []
---- !u!21 &396149081
+--- !u!21 &394788802
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1972,6 +1841,49 @@ Transform:
   m_Father: {fileID: 1210876451}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &432549688
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &452536933 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 923878127352627859, guid: 8bf1279bc2419b54398ac78ef47d1e53,
@@ -2085,8 +1997,51 @@ Transform:
   - {fileID: 1172468290}
   - {fileID: 1131993952}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &473009536
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &478242451
 GameObject:
   m_ObjectHideFlags: 0
@@ -2119,7 +2074,7 @@ Transform:
   - {fileID: 1720523752}
   - {fileID: 338120048}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &478717467
 GameObject:
@@ -2335,7 +2290,50 @@ MonoBehaviour:
   doors:
   - {fileID: 728441881}
   panCamera: 0
---- !u!21 &512556214
+--- !u!21 &507299153
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!21 &515549253
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -2408,7 +2406,37 @@ Transform:
   m_Father: {fileID: 478717468}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &526577306
+--- !u!1 &537742771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537742772}
+  m_Layer: 0
+  m_Name: Spawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537742772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537742771}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.63, y: -13.81, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1083402276}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &541144431
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -2451,37 +2479,50 @@ Material:
     m_Colors:
     - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!1 &537742771
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 537742772}
-  m_Layer: 0
-  m_Name: Spawner (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &537742772
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537742771}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.63, y: -13.81, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1083402276}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &550952399
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!21 &556935382
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -2601,7 +2642,7 @@ Transform:
   - {fileID: 493977231}
   - {fileID: 785274583}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &579567428
 PrefabInstance:
@@ -2720,6 +2761,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad58cd19889039c4b8526ec12be1b59f, type: 3}
+--- !u!21 &582788475
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &584421982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2731,6 +2815,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: puzzlePressurePlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990640965563911025, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6990640965563911029, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
         type: 3}
@@ -2844,7 +2933,7 @@ PrefabInstance:
     - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
@@ -2861,12 +2950,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1839734630119962565, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
+    - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: doorsUnlocked.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: destroyedSprite
@@ -2905,49 +3009,6 @@ Transform:
   m_Father: {fileID: 31793870}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &596100448
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &597917191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3026,6 +3087,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: puzzlePressurePlate (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990640965563911025, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6990640965563911029, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
         type: 3}
@@ -3235,6 +3301,49 @@ Transform:
   m_Father: {fileID: 478717468}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &639734366
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &642801122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,49 +3545,6 @@ Transform:
   m_Father: {fileID: 597917192}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &667018872
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!21 &687609768
 Material:
   serializedVersion: 6
@@ -3533,6 +3599,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: puzzlePressurePlate (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990640965563911025, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6990640965563911029, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
         type: 3}
@@ -3626,92 +3697,6 @@ Transform:
   m_Father: {fileID: 1210876451}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &709058710
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &721324647
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &727161684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3890,39 +3875,49 @@ Material:
     m_Colors:
     - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!1 &777213014
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+--- !u!21 &766375361
+Material:
   serializedVersion: 6
-  m_Component:
-  - component: {fileID: 777213015}
-  m_Layer: 0
-  m_Name: Managers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &777213015
-Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 777213014}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1124171053}
-  - {fileID: 1009954579}
-  - {fileID: 1858840838}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &785274582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3953,24 +3948,55 @@ Transform:
   m_Father: {fileID: 573242376}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &813139197
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &823309163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6990640965563911029, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
     type: 3}
   m_PrefabInstance: {fileID: 704507747}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &823309168 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6990640965563911027, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
-    type: 3}
-  m_PrefabInstance: {fileID: 704507747}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b35cf834fa473a44950d798e905c6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &852058996
 GameObject:
   m_ObjectHideFlags: 0
@@ -13060,6 +13086,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dfb4bc393a9323419e679fa642b87fa, type: 3}
 --- !u!4 &968460590 stripped
@@ -13068,7 +13099,87 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 968460589}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1009708539
+--- !u!61 &1018358275 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8847381732684700259, guid: 7dfb4bc393a9323419e679fa642b87fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1801793420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1021833320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1021833323}
+  - component: {fileID: 1021833322}
+  - component: {fileID: 1021833321}
+  m_Layer: 0
+  m_Name: teleporterToFirstLevel
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1021833321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021833320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9594ebbcdf4d48c47be29fe933ffe5de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: Adrics lab (fifth facility level 1)
+  onTeleportStartInBeginingPosition: 0
+  playPlayersTeleportAnimation: 1
+  canvasFadeImage: {fileID: 296507386}
+--- !u!61 &1021833322
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021833320}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.4, y: 1.47}
+  m_EdgeRadius: 0
+--- !u!4 &1021833323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021833320}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 18.472343, y: -2.0098, z: 1537.1328}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 468669091}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1024267748
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -13111,181 +13222,6 @@ Material:
     m_Colors:
     - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!1001 &1009954578
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 777213015}
-    m_Modifications:
-    - target: {fileID: 2195325302792828210, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_Name
-      value: DialogueManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828210, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
-        type: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 9.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 46076159922421068, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828211, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: textSpeed
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 2195325302792828211, guid: 4017eeeb675c8bf49b5954f87241a504,
-        type: 3}
-      propertyPath: timer
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4017eeeb675c8bf49b5954f87241a504, type: 3}
---- !u!4 &1009954579 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2195325302792828220, guid: 4017eeeb675c8bf49b5954f87241a504,
-    type: 3}
-  m_PrefabInstance: {fileID: 1009954578}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1018358275 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8847381732684700259, guid: 7dfb4bc393a9323419e679fa642b87fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1801793420}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1021833320
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1021833323}
-  - component: {fileID: 1021833322}
-  - component: {fileID: 1021833321}
-  m_Layer: 0
-  m_Name: teleporterToFirstLevel
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1021833321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021833320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9594ebbcdf4d48c47be29fe933ffe5de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: Adrics lab (fifth facility level 1)
-  onTeleportStartInBeginingPosition: 0
-  canvasFadeImage: {fileID: 296507386}
---- !u!61 &1021833322
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021833320}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.4, y: 1.47}
-  m_EdgeRadius: 0
---- !u!4 &1021833323
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021833320}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.472343, y: -2.0098, z: 1537.1328}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 468669091}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1027886162
 GameObject:
   m_ObjectHideFlags: 0
@@ -13377,94 +13313,8 @@ Transform:
   - {fileID: 452536934}
   - {fileID: 1131284810}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1042726325
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &1071929534
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!21 &1082141059
 Material:
   serializedVersion: 6
@@ -13708,49 +13558,6 @@ Material:
     m_Colors:
     - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &1098314779
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1107569585
 GameObject:
   m_ObjectHideFlags: 0
@@ -13799,81 +13606,6 @@ MonoBehaviour:
   - {fileID: 399889826}
   - {fileID: 1137796787}
   pressurePlates: []
---- !u!1001 &1124171052
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 777213015}
-    m_Modifications:
-    - target: {fileID: 2259566401528189600, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_Name
-      value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.3327047
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.0824575
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -162.26715
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 204e36eb2d958144b888173b4d3536dc, type: 3}
---- !u!4 &1124171053 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2259566401528189605, guid: 204e36eb2d958144b888173b4d3536dc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1124171052}
-  m_PrefabAsset: {fileID: 0}
 --- !u!61 &1125937332 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 8847381732684700259, guid: 7dfb4bc393a9323419e679fa642b87fa,
@@ -14090,34 +13822,6 @@ PrefabInstance:
       value: You are going to have to backtrack and get to that control room if we
         ever want to stop N13GL.
       objectReference: {fileID: 0}
-    - target: {fileID: 1647512517, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1746823841}
-    - target: {fileID: 1585076954, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1082141059}
-    - target: {fileID: 1508725094, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1873322767}
-    - target: {fileID: 1388218065, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 687609768}
-    - target: {fileID: 1331084648, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1947799718}
-    - target: {fileID: 334807806, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 752682616}
-    - target: {fileID: 53410130, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 550952399}
     - target: {fileID: 8179084884490893607, guid: 8bf1279bc2419b54398ac78ef47d1e53,
         type: 3}
       propertyPath: m_Offset.x
@@ -14142,6 +13846,34 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 571906441}
+    - target: {fileID: 53410130, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 550952399}
+    - target: {fileID: 334807806, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 752682616}
+    - target: {fileID: 1331084648, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1947799718}
+    - target: {fileID: 1388218065, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 687609768}
+    - target: {fileID: 1508725094, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1873322767}
+    - target: {fileID: 1585076954, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1082141059}
+    - target: {fileID: 1647512517, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1746823841}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
 --- !u!4 &1131284810 stripped
@@ -14182,6 +13914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: Adrics lab (fifth facility level 3)
   onTeleportStartInBeginingPosition: 1
+  playPlayersTeleportAnimation: 1
   canvasFadeImage: {fileID: 296507386}
 --- !u!61 &1131993951
 BoxCollider2D:
@@ -14235,7 +13968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &1149032906
+--- !u!21 &1139236075
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -14380,49 +14113,6 @@ Transform:
   m_Father: {fileID: 597917192}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1198066015
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1210876449
 GameObject:
   m_ObjectHideFlags: 0
@@ -14491,6 +14181,49 @@ Transform:
   m_Father: {fileID: 573242376}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1227392024
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1227422903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14655,6 +14388,49 @@ Transform:
   m_Father: {fileID: 31793870}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1309995514
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!21 &1321741138
 Material:
   serializedVersion: 6
@@ -20290,6 +20066,49 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!21 &1338238608
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1350744012
 GameObject:
   m_ObjectHideFlags: 0
@@ -20772,6 +20591,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b35cf834fa473a44950d798e905c6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1407511767
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1423674315
 GameObject:
   m_ObjectHideFlags: 0
@@ -67608,6 +67470,49 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!21 &1659097627
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!21 &1682495405
 Material:
   serializedVersion: 6
@@ -67681,49 +67586,6 @@ Transform:
   m_Father: {fileID: 1083402276}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1718999399
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1720523751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67850,6 +67712,49 @@ Transform:
   m_Father: {fileID: 1210876451}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1744010304
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!21 &1746823841
 Material:
   serializedVersion: 6
@@ -68006,34 +67911,6 @@ PrefabInstance:
       propertyPath: dialogue.sentences.Array.data[4]
       value: This is element 4 so this is about where it failed last time
       objectReference: {fileID: 0}
-    - target: {fileID: 1647512517, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1961475938}
-    - target: {fileID: 1585076954, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1242469867}
-    - target: {fileID: 1508725094, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1682495405}
-    - target: {fileID: 1388218065, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2027709854}
-    - target: {fileID: 1331084648, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1379415858}
-    - target: {fileID: 334807806, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1386045320}
-    - target: {fileID: 53410130, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 90059411}
     - target: {fileID: 8179084884490893607, guid: 8bf1279bc2419b54398ac78ef47d1e53,
         type: 3}
       propertyPath: m_Offset.x
@@ -68058,6 +67935,34 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 400456638}
+    - target: {fileID: 53410130, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 90059411}
+    - target: {fileID: 334807806, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1386045320}
+    - target: {fileID: 1331084648, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1379415858}
+    - target: {fileID: 1388218065, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2027709854}
+    - target: {fileID: 1508725094, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1682495405}
+    - target: {fileID: 1585076954, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1242469867}
+    - target: {fileID: 1647512517, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1961475938}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
 --- !u!1 &1765556855
@@ -68105,51 +68010,8 @@ Transform:
   - {fileID: 199184495}
   - {fileID: 1449739060}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1769649529
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1779088367
 GameObject:
   m_ObjectHideFlags: 0
@@ -68206,7 +68068,7 @@ Transform:
   - {fileID: 1892154853}
   - {fileID: 727161685}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1801793420
 PrefabInstance:
@@ -68438,12 +68300,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1839734630119962565, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
         type: 3}
+    - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: doorsUnlocked.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
       propertyPath: destroyedSprite
@@ -68598,129 +68475,8 @@ MonoBehaviour:
   doors:
   - {fileID: 1921719060}
   pressurePlates:
-  - {fileID: 347296649}
   - {fileID: 1395329598}
-  - {fileID: 823309168}
-  - {fileID: 1954500555}
---- !u!1001 &1858840837
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 777213015}
-    m_Modifications:
-    - target: {fileID: 8838569506408781474, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_Name
-      value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 449.2279
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 342.77795
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -44.902348
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7826c58f8eae61c4f94b147d8d5da37b, type: 3}
---- !u!4 &1858840838 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8838569506408781485, guid: 7826c58f8eae61c4f94b147d8d5da37b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1858840837}
-  m_PrefabAsset: {fileID: 0}
 --- !u!21 &1873322767
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &1888029403
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -68769,6 +68525,49 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2098613523}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1893677801
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation
+  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!61 &1902854900 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 8847381732684700259, guid: 7dfb4bc393a9323419e679fa642b87fa,
@@ -68889,34 +68688,6 @@ PrefabInstance:
       propertyPath: dialogue.sentences.Array.data[4]
       value: This is element 4 so this is about where it failed last time
       objectReference: {fileID: 0}
-    - target: {fileID: 1647512517, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 736665446}
-    - target: {fileID: 1585076954, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 870404464}
-    - target: {fileID: 1508725094, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1529187056}
-    - target: {fileID: 1388218065, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1477789880}
-    - target: {fileID: 1331084648, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1093611709}
-    - target: {fileID: 334807806, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1635320106}
-    - target: {fileID: 53410130, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1321741138}
     - target: {fileID: 8179084884490893607, guid: 8bf1279bc2419b54398ac78ef47d1e53,
         type: 3}
       propertyPath: m_Offset.x
@@ -68936,6 +68707,34 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 458000602}
+    - target: {fileID: 53410130, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1321741138}
+    - target: {fileID: 334807806, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1635320106}
+    - target: {fileID: 1331084648, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1093611709}
+    - target: {fileID: 1388218065, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1477789880}
+    - target: {fileID: 1508725094, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1529187056}
+    - target: {fileID: 1585076954, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 870404464}
+    - target: {fileID: 1647512517, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 736665446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bf1279bc2419b54398ac78ef47d1e53, type: 3}
 --- !u!1001 &1921719058
@@ -69084,18 +68883,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 598386952}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1954500555 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6990640965563911027, guid: 6f06f36fdb8eae44ea5b9409aac8523a,
-    type: 3}
-  m_PrefabInstance: {fileID: 598386952}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b35cf834fa473a44950d798e905c6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1961377567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69265,7 +69052,7 @@ Transform:
   - {fileID: 876719410}
   - {fileID: 1371351561}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2001583380
 GameObject:
@@ -69298,49 +69085,6 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &2027709854
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 2DxFX/Standard/NewTeleportation
-  m_Shader: {fileID: 4800000, guid: 092a2ee759883704e894f9cbb69bdb5f, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 552012d14af46f84295286fcde7cb837, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Alpha: 0
-    - _ColorMask: 15
-    - _Distortion: 2
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _Value2: 0
-    - _Value3: 0
-    - _Value4: 0
-    - _Value5: 0
-    m_Colors:
-    - TeleportationColor: {r: 1, g: 0, b: 0.7411765, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &2070354165
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -69465,6 +69209,11 @@ PrefabInstance:
       propertyPath: doorBoxCollider
       value: 
       objectReference: {fileID: 1842946548}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8847381732684700258, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: m_Offset.y
@@ -69602,7 +69351,7 @@ Transform:
   m_Children:
   - {fileID: 1847563030}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2134983758
 GameObject:

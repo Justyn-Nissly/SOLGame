@@ -240,12 +240,12 @@ public class EnemyMovement : MonoBehaviour
 			}
 		};
 
-		if (canMove)
+		if (canMove && enemyAnimator != null)
 		{
 			enemyAnimator.SetLayerWeight(1, 0);
 			enemyAnimator.SetLayerWeight(0, 1);
 		}
-		else
+		else if(enemyAnimator != null)
 		{
 			enemyAnimator.SetLayerWeight(1, 1);
 			enemyAnimator.SetLayerWeight(0, 0);
@@ -301,12 +301,21 @@ public class EnemyMovement : MonoBehaviour
 			enemy.rb2d.position = Vector2.MoveTowards((Vector2)transform.position,
 													  (Vector2)transform.position + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
 													   enemy.moveSpeed * Time.deltaTime);
-			enemyAnimator.SetLayerWeight(1, 0);
+
+			if (enemyAnimator != null)
+			{
+				enemyAnimator.SetLayerWeight(1, 0);
+			}
+
 			enemy.canAttack = false;
 		}
 		else
 		{
-			enemyAnimator.SetLayerWeight(1, 1);
+			if(enemyAnimator != null)
+			{
+				enemyAnimator.SetLayerWeight(1, 1);
+			}
+		
 			enemy.canAttack = true;
 		}
 	}

@@ -21,8 +21,10 @@ public class MeleeShieldEnemy : Enemy
 	// Unity Named Methods
 	#region Main Methods
 	///<summary> Initialize the enemy </summary>
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
+
 		EnableShield();
 		shieldIsEnabled = true;
 		shieldDownTimer = shieldDropTime;

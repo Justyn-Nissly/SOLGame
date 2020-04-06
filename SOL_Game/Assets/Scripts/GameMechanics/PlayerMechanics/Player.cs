@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : BaseCharacter
 {
@@ -33,9 +34,6 @@ public class Player : BaseCharacter
 	public AudioSource
 		audioSourcePlayerMovement;
 
-	public AudioSource
-		shieldSoundSource;
-
 	public float
 		extraSpeed,   // Extra speed gained from a power up
 		powerUpTimer; // How long power ups last
@@ -62,6 +60,10 @@ public class Player : BaseCharacter
 		playerHealthHUD;
 	public FloatValue
 		heartContainers;
+	public AudioClip
+		gameOverSound; // the game over sound effect
+	public Image
+		canvasFadeImage; // used to Fade the whole screen to black
 	#endregion
 
 	#region Private Variables
@@ -97,21 +99,21 @@ public class Player : BaseCharacter
 	// Unity Named Methods
 	#region Main Methods
 	/// <summary> Start is called before the first frame update </summary>
-	void Awake()
+	protected override void Awake()
 	{
 		inputActions = new PlayerControls(); // this in the reference to the new unity input system
 
 		godModeEnabled = false;
 		SetUpInputDetection();
 
-
+		canvasFadeImage.color = Color.clear; // make image transparent
 
 		// The player starts with max health
 		maxHealth.runTimeValue = maxHealth.initialValue;
 		BulletShootingDelay = 0;
 
 		// Set the players movement speed
-		playerMovementSpeed = .1f;
+		playerMovementSpeed = .13f;
 
 		// Get the players Rigidbody2D
 		playerRigidbody = GetComponent<Rigidbody2D>();
@@ -174,26 +176,26 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-/*			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				playerMovementSpeed = fast;
 				this.GetComponent<Rigidbody2D>().isKinematic = true;
-				GlobalVarablesAndMethods.swordUnlocked = true;
-				GlobalVarablesAndMethods.hammerUnlocked = true;
-				GlobalVarablesAndMethods.blasterUnlocked = true;
-				GlobalVarablesAndMethods.shieldUnlocked = true;
+				Globals.swordUnlocked = true;
+				Globals.hammerUnlocked = true;
+				Globals.blasterUnlocked = true;
+				Globals.shieldUnlocked = true;
 				SetUpInputDetection();
 			}
 			if (Input.GetKeyDown(KeyCode.End))
 			{
 				playerMovementSpeed = oldSpeed;
 				this.GetComponent<Rigidbody2D>().isKinematic = false;
-				GlobalVarablesAndMethods.swordUnlocked = true;
-				GlobalVarablesAndMethods.hammerUnlocked = true;
-				GlobalVarablesAndMethods.blasterUnlocked = true;
-				GlobalVarablesAndMethods.shieldUnlocked = true;
+				Globals.swordUnlocked = true;
+				Globals.hammerUnlocked = true;
+				Globals.blasterUnlocked = true;
+				Globals.shieldUnlocked = true;
 				SetUpInputDetection();
-			}*/
+			}
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
@@ -242,24 +244,24 @@ public class Player : BaseCharacter
 		inputActions.Gameplay.Movement.performed += context => playerMovementAmount = context.ReadValue<Vector2>() * (playerMovementSpeed + extraSpeed);
 		inputActions.Gameplay.Movement.canceled += _ => playerMovementAmount = Vector2.zero;
 
-		if (GlobalVarablesAndMethods.shieldUnlocked)
+		if (Globals.shieldUnlocked)
 		{
 			inputActions.Gameplay.ShieldDefense.started += _ => EnableShield();
 			inputActions.Gameplay.ShieldDefense.canceled += _ => DisableShield();
 		}
 
-		if (GlobalVarablesAndMethods.hammerUnlocked)
+		if (Globals.hammerUnlocked)
 		{
 			inputActions.Gameplay.HammerAttack.started += _ => StartHammerAnimation();
 			inputActions.Gameplay.HammerAttack.canceled += _ => canIncrementComboCounter = true;
 		}
 
-		if (GlobalVarablesAndMethods.blasterUnlocked)
+		if (Globals.blasterUnlocked)
 		{
 			inputActions.Gameplay.BlasterAttack.started += _ => Shoot();
 		}
 
-		if (GlobalVarablesAndMethods.swordUnlocked)
+		if (Globals.swordUnlocked)
 		{
 			inputActions.Gameplay.SwordAttack.started += _ => StartSwordAnimation();
 			inputActions.Gameplay.SwordAttack.canceled += _ => canIncrementComboCounter = true;
@@ -369,6 +371,7 @@ public class Player : BaseCharacter
 	{
 		characterAnimator.SetBool("isShieldUp", true); // set bool flag blasting to true
 		FreezePlayer(); // don't let the player move
+		playerRigidbody.isKinematic = false;
 		characterAnimator.SetInteger("attackDirection", GetAnimationDirection(0)); // set the value that plays the right blaster direction animation
 		characterAnimator.SetLayerWeight(5, 2); // increase the blaster layer priority
 	}
@@ -432,12 +435,20 @@ public class Player : BaseCharacter
 			// call the parents TakeDamage()
 			base.TakeDamage(damage, playSwordImpactSound);
 
-			StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.1f, .25f));
 
-			// send a signal saying that the player has taken damage so update his health UI
-			//playerHealthSignal.Raise();
-
+			// the player has taken damage so update his health UI
 			playerHealthHUD.UpdateHearts();
+
+			// kill the player...
+			if(maxHealth.runTimeValue <= 0 && Globals.playerCanDie)
+			{
+				StartCoroutine(PlayerDied());
+			}
+			// just shake the camera
+			else
+			{
+				StartCoroutine(GameObject.Find("Main Camera").GetComponent<cameraMovement>().ShakeCamera(.1f, .25f));
+			}
 		}
 	}
 
@@ -682,11 +693,59 @@ public class Player : BaseCharacter
 				playerShield.color = new Color(playerShield.color.r, playerShield.color.g,
 				                               playerShield.color.b, playerShield.color.a - Time.deltaTime * 4.0f);
 			}
-			shieldCollider.enabled = (playerShield.color.a > 0.0f);
+			//shieldCollider.enabled = (playerShield.color.a > 0.0f);
 		}
+	}
+
+	/// <summary> Fade slowly to black </summary>
+	private void FadeToBlack()
+	{
+		canvasFadeImage.color = Color.Lerp(canvasFadeImage.color, Color.black, 10.0f * Time.deltaTime);
 	}
 	#endregion
 
-	#region Coroutines (Empty)
+	#region Coroutines
+	/// <summary> this plays the game over sound then loads the game over menu</summary>
+	private IEnumerator PlayerDied()
+	{
+		// save the name of the scene the player died in
+		Globals.sceneToLoad = SceneManager.GetActiveScene().name;
+
+		// stop player movement
+		FreezePlayer();
+		Time.timeScale = 0.1f;
+
+		// play the game over sound
+		audioSource.clip = gameOverSound;
+		audioSource.Play();
+
+		// wait till the sound has played
+		yield return new WaitForSecondsRealtime(audioSource.clip.length + .5f);
+
+		StartCoroutine(FadeToBlackCoroutine());
+	}
+
+	/// <summary> Load the scene after fading to black </summary>
+	public IEnumerator FadeToBlackCoroutine()
+	{
+		canvasFadeImage.color = Color.clear; // make image transparent
+
+		while (canvasFadeImage.color.a <= 0.99f)
+		{
+			FadeToBlack();
+
+			yield return null; // wait to the next frame to continue
+		}
+
+		canvasFadeImage.color = Color.black; // make image transparent
+
+		Time.timeScale = 1.0f;
+
+		// heal the player to full health then update his health UI
+		maxHealth.runTimeValue = heartContainers.runTimeValue * 2f;
+		playerHealthHUD.UpdateHearts();
+
+		SceneManager.LoadScene("GameOverMenu");
+	}
 	#endregion
 }
