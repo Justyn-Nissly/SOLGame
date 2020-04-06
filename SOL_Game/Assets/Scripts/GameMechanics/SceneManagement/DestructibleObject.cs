@@ -75,12 +75,13 @@ public class DestructibleObject : MonoBehaviour
 			damage += player.combo + ((player.combo >= 2) ? 1 : 0);
 		}
 
-		if ((health -= damage) <= 0)
+		if ((health -= damage * player.extraDamage) <= 0)
 		{
-			if (itemDrop != null && UnityEngine.Random.Range(0.0f, 100.0f) <= percentDropChance)
+			if (itemDrop != null && UnityEngine.Random.Range(0.0001f, 100.0f) <= percentDropChance)
 			{
 				Instantiate(itemDrop, transform.position, Quaternion.identity);
 			}
+			percentDropChance = 0.0f;
 			DestroyObject();
 		}
 		damageTimer = 0.2f;

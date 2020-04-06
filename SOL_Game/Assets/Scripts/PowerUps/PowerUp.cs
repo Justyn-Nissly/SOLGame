@@ -93,6 +93,7 @@ public class PowerUp : MonoBehaviour
 			if (type != HEAL)
 			{
 				player.powerUpTimers[type] = powerUpTimer;
+				player.powerUpsActive[type] = false;
 			}
 			else
 			{
