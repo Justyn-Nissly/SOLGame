@@ -79,6 +79,17 @@ public class MeleeAttackEnemy : Enemy
 		}
 	}
 
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
+	{
+		// Direct hits stun enemies
+		if (Mathf.Abs(animationDirection - player.animationDirection) == 2 &&
+		    Vector2.Distance(transform.position, player.transform.position) <= 2.0f)
+		{
+			attackCountDownTimer = 1.4f;
+		}
+		base.TakeDamage(damage, playSwordImpactSound);
+	}
+
 
 	/// <summary> ends an attack animation (called with an event in the attack animation)</summary>
 	public void EndAttackAnimation()

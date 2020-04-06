@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestItem : MonoBehaviour
@@ -31,7 +32,7 @@ public class QuestItem : MonoBehaviour
 	protected float
 		despawnTimer;
 	private bool
-		isWeapon,
+		willSpin,
 		spinPositive;
 	private float
 		spin;
@@ -46,13 +47,13 @@ public class QuestItem : MonoBehaviour
 		despawnTimer = 1000000.0f;
 		sprite = GetComponent<SpriteRenderer>();
 		player = FindObjectOfType<Player>();
-		isWeapon = (type == ItemType.unlockSword   || type == ItemType.unlockShield ||
+		willSpin = (type == ItemType.unlockSword   || type == ItemType.unlockShield ||
 		            type == ItemType.unlockBlaster || type == ItemType.unlockHammer);
 	}
 
 	protected virtual void FixedUpdate()
 	{
-		if (isWeapon)
+		if (willSpin)
 		{
 			transform.localScale = new Vector3(Mathf.Cos((spin += Time.deltaTime) * 0.5f * Mathf.PI), 1.0f, 1.0f);
 		}

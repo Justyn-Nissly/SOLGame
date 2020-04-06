@@ -28,6 +28,8 @@ public class DestructibleObject : MonoBehaviour
 	#region Private Variables
 	private DoorManager doorManager = new DoorManager(); // Used to unlock doors if applicable
 	private float damageTimer;
+	private int damage;
+	private Player player;
 	#endregion
 
 	// Unity Named Methods
@@ -38,6 +40,7 @@ public class DestructibleObject : MonoBehaviour
 		// add all doors to the door manager
 		doorManager.doors.AddRange(doorsUnlocked);
 		new UnityEngine.Random();
+		player = FindObjectOfType<Player>();
 	}
 
 	private void FixedUpdate()
@@ -48,15 +51,13 @@ public class DestructibleObject : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// check if the right weapon is whats hitting this object
-		if (weaponDestroysObject == WeaponTag.Any && 
+		if (((weaponDestroysObject == WeaponTag.Any && 
 			 (collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.HeavyMelee)) || 
 			  collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.LightMelee)) || 
-			  collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.Ranged))))		  
+			  collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.Ranged)))) ||
+			(collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)))) && damageTimer <= 0.0f)
 		{
-			damageObject();
-		}
-		else if (collision.gameObject.CompareTag(ConvertTagToString(weaponDestroysObject)) && damageTimer <= 0.0f)
-		{
+			damage = (collision.gameObject.CompareTag(ConvertTagToString(WeaponTag.HeavyMelee))) ? 2 : 1;
 			damageObject();
 		}
 	}
@@ -65,7 +66,16 @@ public class DestructibleObject : MonoBehaviour
 	#region Utility Methods
 	private void damageObject()
 	{
-		if (--health <= 0)
+		if (weaponDestroysObject == WeaponTag.LightMelee && player.swordComboUnlocked && player.combo >= 2)
+		{
+			damage += 2;
+		}
+		else if (weaponDestroysObject == WeaponTag.HeavyMelee && player.hammerComboUnlocked && player.combo > 0)
+		{
+			damage += player.combo + ((player.combo >= 2) ? 1 : 0);
+		}
+
+		if ((health -= damage) <= 0)
 		{
 			if (itemDrop != null && UnityEngine.Random.Range(0.0f, 100.0f) <= percentDropChance)
 			{

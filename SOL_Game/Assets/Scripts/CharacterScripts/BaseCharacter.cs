@@ -18,7 +18,8 @@ public class BaseCharacter : MonoBehaviour
 	public bool
 		canAttack = true,     // Toggle ability to attack
 		canTakeDamage = true; // Toggle vulnerability
-
+	public int
+		animationDirection = 0; // return value for the animations direction
 	public List<AudioClip>
 		takeDamageSounds,       // Play injured sound
 		meleeSwingSoundEffects; // Play melee attack sound
@@ -108,10 +109,8 @@ public class BaseCharacter : MonoBehaviour
 
 	#region Utility Methods
 	/// <summary> this gets the direction that an animations should play based on the characters idle animation state</summary>
-	protected virtual int GetAnimationDirection(int idleLayerIndex)
+	public virtual int GetAnimationDirection(int idleLayerIndex)
 	{
-		int animationDirection = 0; // return value for the animations direction
-
 		AnimatorClipInfo[] animatorStateInfo = characterAnimator.GetCurrentAnimatorClipInfo(idleLayerIndex);
 
 		switch (animatorStateInfo[0].clip.name)

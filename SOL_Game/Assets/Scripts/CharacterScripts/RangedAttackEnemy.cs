@@ -73,7 +73,7 @@ public class RangedAttackEnemy : Enemy
 	}
 
 	/// <summary> this gets the direction that an animations should play based on the characters idle animation state</summary>
-	protected override int GetAnimationDirection(int idleLayerIndex)
+	public override int GetAnimationDirection(int idleLayerIndex)
 	{
 		int animationDirection = 0; // return value for the animations direction
 

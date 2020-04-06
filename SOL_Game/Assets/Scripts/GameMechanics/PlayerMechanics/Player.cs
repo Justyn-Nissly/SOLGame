@@ -38,8 +38,11 @@ public class Player : BaseCharacter
 		extraSpeed,   // Extra speed gained from a power up
 		powerUpTimer; // How long power ups last
 	public int
+		combo = 0,
 		medKits,     // How many med kits the player is holding
-		extraDamage; // Extra damage dealt with a power up
+		extraDamage, // Extra damage dealt with a power up
+		swordComboCounter, // this counts how many times the player presses the sword attack button and is for knowing if the sword attack animator should play the next attack
+		hammerComboCounter; // this counts how many times the player presses the hammer attack button and is for knowing if the hammer attack animator should play the next attack
 	public float[]
 		powerUpTimers; // Make power ups last for a set time
 	public bool[]
@@ -79,9 +82,6 @@ public class Player : BaseCharacter
 		dustTimeInterval = 1.0f,
 		healTimer = 1.0f;          // Time between being able to heal
 
-	private int
-		swordComboCounter, // this counts how many times the player presses the sword attack button and is for knowing if the sword attack animator should play the next attack
-		hammerComboCounter; // this counts how many times the player presses the hammer attack button and is for knowing if the hammer attack animator should play the next attack
 	private bool
 		usingSwordAttack = false, // flags for whether the player is using an attack so that it only plays once
 		usingHammerAttack = false,
@@ -229,11 +229,43 @@ public class Player : BaseCharacter
 	private void CheckIfShouldIncreaseComboCounter()
 	{
 		if (swordComboUnlocked && usingSwordAttack == true && inputActions.Gameplay.SwordAttack.triggered &&
-		    swordComboCounter >= 0 && canIncrementComboCounter)
+			swordComboCounter >= 0 && canIncrementComboCounter)
+		{
 			swordComboCounter++;
+			if (playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordNorth(2)") ||
+				playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordSouth(2)") ||
+				playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordEast(2)") ||
+				playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordWest(2)"))
+			{
+				combo = 1;
+			}
+			else if (playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordNorth(3)") ||
+					playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordSouth(3)") ||
+					playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordEast(3)") ||
+					playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordWest(3)"))
+			{
+				combo = 2;
+			}
+		}
 		else if (hammerComboUnlocked && usingHammerAttack == true && inputActions.Gameplay.HammerAttack.triggered &&
-		         hammerComboCounter >= 0 && canIncrementComboCounter)
+				 hammerComboCounter >= 0 && canIncrementComboCounter)
+		{
 			hammerComboCounter++;
+			if (playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerNorth(2)") ||
+				playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerSouth(2)") ||
+				playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerEast(2)") ||
+				playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerWest(2)"))
+			{
+				combo = 1;
+			}
+			else if (playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerNorth(3)") ||
+					playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerSouth(3)") ||
+					playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerEast(3)") ||
+					playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerWest(3)"))
+			{
+				combo = 2;
+			}
+		}
 	}
 
 	/// <summary> this sets up the players input detection</summary>
@@ -418,6 +450,7 @@ public class Player : BaseCharacter
 		// reset the attack counters
 		swordComboCounter = 0;
 		hammerComboCounter = 0;
+		combo = 0;
 
 		// reset attack flags
 		usingSwordAttack = false;

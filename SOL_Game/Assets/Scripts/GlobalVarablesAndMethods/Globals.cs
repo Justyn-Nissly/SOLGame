@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Globals
 {
-	#region Enums (Empty)
+	#region Enums and Defined Constants
 	public const int
-		MAX_PLAYER_HEALTH = 8;
+		MAX_PLAYER_HEALTH = 8,
+		HEALTH_INCREASES  = MAX_PLAYER_HEALTH - 3;
 	#endregion
 
 	#region Public Variables
@@ -23,6 +24,8 @@ public class Globals
 		blasterUnlocked         = false, // Track if the blaster is unlocked
 		shieldUnlocked          = false, // Track if the shield is unlocked
 		playerCanDie            = false; // This flag enables and disables the players ability to die when getting to zero health
+	public static bool[]
+		acquiredHealthIncrease = new bool[HEALTH_INCREASES];
 	public static int
 		currentPlayerHealth,   // The player's current health
 		maxPlayerHealth   = 8, // The maximum health the player has

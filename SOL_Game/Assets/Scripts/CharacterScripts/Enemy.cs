@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Enemy : BaseCharacter
 {
-	#region Enums
+	#region Enums (Empty)
 	#endregion
 
 	#region Public Variables
@@ -25,8 +25,8 @@ public class Enemy : BaseCharacter
 		  maxHealOverTime,
 		  moveSpeed,   // Base movement speed
 			maxMoveSpeed;
-    public bool
-        aggro; // The enemy has detected the player
+	public bool
+		aggro; // The enemy has detected the player
     public Vector2[]
         patrol; // Enemy patrol points
 	public Vector2
@@ -131,6 +131,15 @@ public class Enemy : BaseCharacter
 	{
 		if(isDead == false)
 		{
+			if (player.swordComboUnlocked && player.combo >= 2)
+			{
+				damage += 2;
+			}
+			else if (player.hammerComboUnlocked && player.combo > 0)
+			{
+				damage += player.combo + ((player.combo >= 2) ? 1 : 0);
+			}
+
 			base.TakeDamage(damage * player.extraDamage, playSwordImpactSound);
 			SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
 

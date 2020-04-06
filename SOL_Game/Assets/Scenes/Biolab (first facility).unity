@@ -35627,7 +35627,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.85, y: 2.19}
+    oldSize: {x: 1.8, y: 2.28}
     newSize: {x: 0.24, y: 0.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -36230,6 +36230,7 @@ GameObject:
   - component: {fileID: 440552191}
   - component: {fileID: 440552195}
   - component: {fileID: 440552194}
+  - component: {fileID: 440552196}
   m_Layer: 9
   m_Name: Basilisk
   m_TagString: Enemy
@@ -36349,6 +36350,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: a4c7dc28fc0ae2648a17c507397831fb, type: 2}
   canAttack: 0
   canTakeDamage: 1
+  animationDirection: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 440552189}
@@ -36541,6 +36543,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &440552196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440552188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0147dbe90c99567408713ebb191969ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldUpdate: 0
 --- !u!1 &453335080
 GameObject:
   m_ObjectHideFlags: 0
@@ -37618,6 +37633,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 4.33
       objectReference: {fileID: 0}
+    - target: {fileID: 9066545704577418336, guid: a88b8780e6139484e8e9abda83199a37,
+        type: 3}
+      propertyPath: itemNumber
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1586011173556012681, guid: a88b8780e6139484e8e9abda83199a37,
         type: 3}
       propertyPath: m_Name
@@ -38341,6 +38361,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066545704577418336, guid: a88b8780e6139484e8e9abda83199a37,
+        type: 3}
+      propertyPath: itemNumber
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1586011173556012681, guid: a88b8780e6139484e8e9abda83199a37,
         type: 3}

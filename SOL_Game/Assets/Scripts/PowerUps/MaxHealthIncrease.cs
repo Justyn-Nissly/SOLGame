@@ -6,7 +6,17 @@ public class MaxHealthIncrease : QuestItem
 {
     public FloatValue heartContainers;
     public FloatValue playerHealth;
+	public int itemNumber;
 	private float spinTimer;
+
+	public override void Awake()
+	{
+		base.Awake();
+		if (Globals.acquiredHealthIncrease[itemNumber])
+		{
+			Destroy(gameObject);
+		}
+	}
 
 	public override void OnTriggerEnter2D(Collider2D other)
    {
@@ -19,6 +29,8 @@ public class MaxHealthIncrease : QuestItem
 		}
          playerHealth.runTimeValue = playerHealth.initialValue = heartContainers.runTimeValue * 2.0f;
          other.transform.GetComponent<Player>().playerHealthHUD.ChangeNumberOfHearts();
-      }
+			Globals.acquiredHealthIncrease[itemNumber] = true;
+
+	  }
    }
 }
