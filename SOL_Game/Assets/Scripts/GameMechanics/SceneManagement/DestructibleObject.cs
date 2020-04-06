@@ -62,12 +62,12 @@ public class DestructibleObject : MonoBehaviour
 	}
 	#endregion
 
-	#region Utility Methods (Empty)
+	#region Utility Methods
 	private void damageObject()
 	{
 		if (--health <= 0)
 		{
-			if (canDropItem)
+			if (itemDrop != null && UnityEngine.Random.Range(0.0f, 100.0f) <= percentDropChance)
 			{
 				Instantiate(itemDrop, transform.position, Quaternion.identity);
 			}
