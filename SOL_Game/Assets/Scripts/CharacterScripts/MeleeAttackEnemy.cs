@@ -83,9 +83,9 @@ public class MeleeAttackEnemy : Enemy
 	{
 		// Direct hits stun enemies
 		if (Mathf.Abs(animationDirection - player.animationDirection) == 2 &&
-		    Vector2.Distance(transform.position, player.transform.position) <= 2.0f)
+		    Vector2.Distance(transform.position, player.transform.position) <= 1.6f)
 		{
-			attackCountDownTimer = 1.4f;
+			attackCountDownTimer = 2.0f;
 		}
 		base.TakeDamage(damage, playSwordImpactSound);
 	}
