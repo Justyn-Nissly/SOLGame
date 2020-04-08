@@ -17,13 +17,15 @@ public class EnemySpawner : MonoBehaviour
 		doors = new List<DoorLogic>(); // all doors that will be locked when the enemies spawn in(and unlock when those enemies are killed)
 
 	public bool
-		panCamera = true; // flag for if you want the camera to pan to the first spawn point when the enemies spawn in
+		panCamera = true, // flag for if you want the camera to pan to the first spawn point when the enemies spawn in
+		connectQuestItem;
 	#endregion
 
 	#region Private Variables
 	private bool
 		enemiesHaveSpawned = false,
-		doorsHaveBeenUnlocked = false;
+		doorsHaveBeenUnlocked = false,
+		questItemFound;
 	private float
 		enemySpawnRate = .5f, // the amount of time before the next enemy (from the list if enemies to spawn) will spawn in
 		timer,
@@ -43,6 +45,16 @@ public class EnemySpawner : MonoBehaviour
 
 		// set the timer
 		timer = CheckInterval;
+
+		questItemFound = false;
+	}
+
+	private void FixedUpdate()
+	{
+		if (questItemFound == false)
+		{
+			
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

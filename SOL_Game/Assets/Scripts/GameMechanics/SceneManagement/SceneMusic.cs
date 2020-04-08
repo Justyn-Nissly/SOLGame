@@ -15,33 +15,33 @@ public class SceneMusic : MonoBehaviour
 		songObject;
 	#endregion
 
-	#region Private Variables
-	private Camera
+	#region Protected Variables
+	protected Camera
 		sceneCamera;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	void Awake()
+	protected virtual void Awake()
 	{
 		sceneCamera = FindObjectOfType<Camera>();
 	}
 
-	void FixedUpdate()
+	protected virtual void FixedUpdate()
 	{
 		if (playThisSong)
 		{
 			songObject.transform.position = Vector2.Lerp(songObject.transform.position, sceneCamera.transform.position,
-			                                             Time.deltaTime);
+			                                             Time.deltaTime * 0.75f);
 		}
 		else
 		{
 			songObject.transform.position = Vector2.Lerp(songObject.transform.position, muteLocation.transform.position,
-			                                             Time.deltaTime * 0.16f);
+			                                             Time.deltaTime * 0.25f);
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D collider)
+	protected virtual void OnTriggerEnter2D(Collider2D collider)
 	{
 		if (collider.gameObject.CompareTag("Player"))
 		{
@@ -49,7 +49,7 @@ public class SceneMusic : MonoBehaviour
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D collider)
+	protected virtual void OnTriggerExit2D(Collider2D collider)
 	{
 		if (collider.gameObject.CompareTag("Player"))
 		{

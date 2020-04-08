@@ -9,8 +9,10 @@ public class PowerUp : MonoBehaviour
 		SHIELD = 0, // Grant temporary invulnerability
 		POWER = 1, // Boost the player's damage
 		SPEED = 2, // Boost the player's speed
-		HEAL = 3; // Heal the player
+		HEAL = 3, // Heal the player
+		EXTRA_PLAYER_DAMAGE = 2; // Powered up damage multiplier
 	public const float
+		EXTRA_PLAYER_SPEED = 0.08f, // Powered up speed multiplier
 		POWER_UP_TIME = 1000.0f; // How long power up effects last
 	#endregion
 

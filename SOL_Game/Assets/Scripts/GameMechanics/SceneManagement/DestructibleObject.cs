@@ -22,7 +22,8 @@ public class DestructibleObject : MonoBehaviour
 	public Sprite destroyedSprite; // the sprite that is changed to when this destructible object is destroyed 
 	public int health;
 	public GameObject itemDrop;
-	public float percentDropChance;
+	[Range(0, 100)]
+	public int percentDropChance;
 	#endregion
 
 	#region Private Variables
@@ -77,11 +78,11 @@ public class DestructibleObject : MonoBehaviour
 
 		if ((health -= damage * player.extraDamage) <= 0)
 		{
-			if (itemDrop != null && UnityEngine.Random.Range(0.0001f, 100.0f) <= percentDropChance)
+			if (itemDrop != null && Mathf.CeilToInt(UnityEngine.Random.Range(0.1f, 100.0f)) <= percentDropChance)
 			{
 				Instantiate(itemDrop, transform.position, Quaternion.identity);
 			}
-			percentDropChance = 0.0f;
+			percentDropChance = 0;
 			DestroyObject();
 		}
 		damageTimer = 0.2f;

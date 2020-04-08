@@ -11,16 +11,35 @@ public class EncounterManager : MonoBehaviour
 	public GameObject
 		enemyToSpawn,
 		spawnPoint;
-	public bool panCamera = true;
+	public bool
+		panCamera = true;
 	#endregion
 
 	#region Private Variables
 	private bool
-		firstTimeTriggerEntered = true;
+		firstTimeTriggerEntered = true,
+		connectQuestItem = true,
+		questItemFound = false,
+		ended = false;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	private void FixedUpdate()
+	{
+		if (questItemFound == false)
+		{
+			if (questItemFound = (GameObject.FindWithTag("QuestItem") != null))
+			{
+				connectQuestItem = false;
+			}
+		}
+		if (ended)
+		{
+			EndEncounter();
+		}
+	}
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.CompareTag("Player") && firstTimeTriggerEntered) // make sure its the player that triggered this and it was there first time
@@ -44,7 +63,12 @@ public class EncounterManager : MonoBehaviour
 	/// <summary> end the boss fight by unlocking the doors</summary>
 	public void EndEncounter()
 	{
-		GetComponent<DoorManager>().UnlockDoors();
+		ended = true;
+		if (connectQuestItem == false && (GameObject.FindWithTag("QuestItem") == null))
+		{
+			GetComponent<DoorManager>().UnlockDoors();
+			Destroy(gameObject);
+		}
 	}
 	#endregion
 

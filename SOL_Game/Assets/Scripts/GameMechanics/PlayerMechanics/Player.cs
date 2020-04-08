@@ -609,10 +609,10 @@ public class Player : BaseCharacter
 		}
 
 		// Apply damage boost
-		extraDamage = (powerUpsActive[PowerUp.POWER] && powerUpTimers[PowerUp.POWER] > 0.0f) ? 2 : 1;
+		extraDamage = (powerUpsActive[PowerUp.POWER] && powerUpTimers[PowerUp.POWER] > 0.0f) ? PowerUp.EXTRA_PLAYER_DAMAGE : 1;
 
 		// Apply Speed boost
-		extraSpeed = (powerUpsActive[PowerUp.SPEED] && powerUpTimers[PowerUp.SPEED] > 0.0f) ? 0.05f : 0.0f;
+		extraSpeed = (powerUpsActive[PowerUp.SPEED] && powerUpTimers[PowerUp.SPEED] > 0.0f) ? PowerUp.EXTRA_PLAYER_SPEED : 0.0f;
 
 		// Apply healing
 		healTimer -= (healTimer > 0.0f) ? Time.deltaTime : 0.0f;

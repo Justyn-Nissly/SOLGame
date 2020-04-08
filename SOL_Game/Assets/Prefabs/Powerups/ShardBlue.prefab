@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1697616091}
   m_Layer: 0
   m_Name: ShardBlue
-  m_TagString: PowerUp
+  m_TagString: QuestItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,6 +126,8 @@ MonoBehaviour:
   player: {fileID: 0}
   type: 5
   sprite: {fileID: 0}
+  shimmer: {fileID: 3195210870672404235}
+  shine: {fileID: 6221638641136533901}
   sprites:
   - {fileID: 21300000, guid: cdaf9ef1d559aa343a6c6e5f97b8e3c2, type: 3}
   - {fileID: 21300000, guid: 889fe196952761b458ccafac247271ca, type: 3}
@@ -133,8 +135,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4cdabfca2b8f0eb4fbd0caa3df1a717f, type: 3}
   - {fileID: 21300000, guid: 9b09734c899e744429793a6da796f0ce, type: 3}
   - {fileID: 21300000, guid: f1d65a29026940244a28b9c7905eef6a, type: 3}
-  shine: {fileID: 6221638641136533901}
-  shimmer: {fileID: 3195210870672404235}
 --- !u!114 &1054831171259543356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 31875e9d593e34e40a7afe0f2e6ed951, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -351,7 +351,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: fdbfcfd63257af448ac96eb1d0b2d7b6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ccc69904f863a9740b709a1c7272e683, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
