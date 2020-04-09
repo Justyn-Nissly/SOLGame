@@ -108,14 +108,17 @@ public class cameraMovement : MonoBehaviour
 		startingPos = objectToMove.transform.position;
 
 		// move the camera back to the player
-		while (elapsedTime < timeBackToPlayer)
+		if(target != null)
 		{
-			objectToMove.transform.position = Vector3.Lerp(startingPos, new Vector3(target.position.x, target.position.y, transform.position.z), (elapsedTime / timeBackToPlayer));
-			elapsedTime += Time.deltaTime;
-			yield return new WaitForEndOfFrame();
-		}
+			while (elapsedTime < timeBackToPlayer)
+			{
+				objectToMove.transform.position = Vector3.Lerp(startingPos, new Vector3(target.position.x, target.position.y, transform.position.z), (elapsedTime / timeBackToPlayer));
+				elapsedTime += Time.deltaTime;
+				yield return new WaitForEndOfFrame();
+			}
 
-		objectToMove.transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+			objectToMove.transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+		}
 
 		// unfreeze player movement
 		if (player != null)
