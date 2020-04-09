@@ -40,10 +40,10 @@ public class PauseMenu : MonoBehaviour
 		}
 
 		/// Load the development menu when 'End' is pressed
-		if (Input.GetKeyDown(KeyCode.Delete))
-		{
-			SceneManager.LoadScene("DevMenu");
-		}
+		//if (Input.GetKeyDown(KeyCode.End))
+		//{
+		//	SceneManager.LoadScene("DevMenu");
+		//}
 	}
 	#endregion
 
@@ -77,7 +77,7 @@ public class PauseMenu : MonoBehaviour
 		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UnFreezePlayer();
 		Destroy(GameObject.Find("PauseMenuCanvas(Clone)"));
 		Time.timeScale = 1.0f;
-		isPaused = false;	
+		isPaused = false;
 	}
 
 	/// Pause the game

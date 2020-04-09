@@ -18,14 +18,14 @@ public class N13GLEncounter : MonoBehaviour
 		N13GL;    // A reference to the N13GL boss
 
 	public DialogueManager
-		n13glDialogue; // A reference to the dialogue controler
+		n13glDialogue; // A reference to the dialogue controller
 
 	public DialogueTrigger
 		n13glTrigger; // A reference to the dialogue trigger for N13GL
 
 	public Animator
-		guardianAnimator, // The animation controler for the Guardian
-		n13glAnimator;    // The animation controler for N13GL
+		guardianAnimator, // The animation controller for the Guardian
+		n13glAnimator;    // The animation controller for N13GL
 
 	public Image
 		canvasFadeImage; // Fade the whole screen to black
@@ -48,10 +48,9 @@ public class N13GLEncounter : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		n13glDialogue = GameObject.FindObjectOfType<DialogueManager>();
-
-		fadeTime = fadeToClearTime;
-		fadeToWhite = true;
+		n13glDialogue = FindObjectOfType<DialogueManager>();
+		fadeTime      = fadeToClearTime;
+		fadeToWhite   = true;
 		buildGuardian = false;
 		isSpawned     = true;
     }
@@ -59,7 +58,7 @@ public class N13GLEncounter : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		// Check if the the guardian parts need to be spawned
+		// Check if the guardian parts need to be spawned
 		if(buildGuardian == false)
 		{
 			if (n13glDialogue.dialogueText.text == n13glTrigger.dialogue.sentences[2])
@@ -78,12 +77,20 @@ public class N13GLEncounter : MonoBehaviour
 			}
 
 			// Start creating the guardian and fade the screen
-			if (n13glDialogue.animator.GetBool("IsOpen") == false && n13glTrigger.canActivate == false)
+			if (n13glDialogue.dialogueText.text == n13glTrigger.dialogue.sentences[3])
 			{
 				isSpawned = true;
 				guardianAnimator.SetTrigger("CreateGuardian");
 				buildGuardian = true;
 				StartCoroutine(FadeToWhite());
+			}
+
+			if (n13glDialogue.animator.GetBool("IsOpen") == false && n13glTrigger.canActivate == false)
+			{
+				StartCoroutine("WaitToAttack");
+				GetComponent<N13GL>().canAttack = true;
+				GetComponent<N13GL>().canMove   = true;
+				this.enabled                    = false;
 			}
 		}
 
@@ -91,9 +98,12 @@ public class N13GLEncounter : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(buildGuardian == false)
+		if(collision.CompareTag("Player"))
 		{
-			n13glAnimator.SetBool("IsActive", true);
+			if(buildGuardian == false)
+			{
+				n13glAnimator.SetBool("IsActive", true);
+			}
 		}
 	}
 	#endregion
@@ -106,7 +116,7 @@ public class N13GLEncounter : MonoBehaviour
 		N13GL.GetComponent<_2dxFX_BurnFX>().Destroyed = 1.0f;
 		N13GL.GetComponent<_2dxFX_BurnFX>().Seed = 0.051f;
 	}
-	
+
 	/// <summary> Spawn in the final Guardian </summary>
 	private void SpawnInGuardian(GameObject guardianParts, int spawnPoint)
 	{
@@ -116,7 +126,7 @@ public class N13GLEncounter : MonoBehaviour
 	/// <summary> Slowly fade an image to clear </summary>
 	private void FadeScreen()
 	{
-		canvasFadeImage.color = (fadeToWhite) ? Color.Lerp(canvasFadeImage.color, Color.white, 1.6f * Time.deltaTime) : 
+		canvasFadeImage.color = (fadeToWhite) ? Color.Lerp(canvasFadeImage.color, Color.white, 1.6f * Time.deltaTime) :
 			                                    Color.Lerp(canvasFadeImage.color, Color.clear, 1.6f * Time.deltaTime);
 		Debug.Log("work");
 		if (fadeTime <= 0.1f && fadeToWhite == true)
@@ -186,6 +196,12 @@ public class N13GLEncounter : MonoBehaviour
 			fadeTime = timer;
 			yield return null;
 		}
+	}
+
+	///<summary> Wait after dialogue before attacking </summary>
+	public IEnumerable WaitToAttack()
+	{
+		yield return new WaitForSeconds(1.0f);
 	}
 	#endregion
 }
