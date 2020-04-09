@@ -30,14 +30,14 @@ public class ShieldGuardian : Enemy
 
 	#region Private Variables
 	private bool
-		Charging = false, // flag for if the enemy is charging at the player
-		stunned = false, // flag for if the enemy is stunned
-		hittingPlayer = false, // flag fir is the enemy is colliding with the player right now
-		canDoHalfHealthEvent = true, // flag so that this health event only happens once
-		canDoQuarterHealthEvent = true, // flag so that this health event only happens once
-		canDoThreeQuarterHealthEvent = true, // flag so that this health event only happens once
-		enemyIsShacking = false, // for making the enemy look "mad"
-		canShoot = true;
+		Charging                     = false, // Flag for if the enemy is charging at the player
+		stunned                      = false, // Flag for if the enemy is stunned
+		hittingPlayer                = false, // Flag fir is the enemy is colliding with the player right now
+		canDoHalfHealthEvent         = true,  // Flag so that this health event only happens once
+		canDoQuarterHealthEvent      = true,  // Flag so that this health event only happens once
+		canDoThreeQuarterHealthEvent = true,  // Flag so that this health event only happens once
+		enemyIsShacking              = false, // For making the enemy look "mad"
+		canShoot                     = true;
 		
 	private float
 		enemyChargeSpeed = 15, // how fast the enemy charges at the player
@@ -107,7 +107,6 @@ public class ShieldGuardian : Enemy
 			}
 		}
 	}
-
 	private void OnCollisionStay2D(Collision2D collision)
 	{
 		// set flag for if the player is being collided with

@@ -186,7 +186,7 @@ public class EnemyMovement : MonoBehaviour
 						Pursue();
 					}
 				}
-				
+
 				break;
 			}
 			case MovementType.EvasiveStrike:
@@ -260,7 +260,7 @@ public class EnemyMovement : MonoBehaviour
 			canMove = false;
 			canMoveAtPlayer = false;
 		}
-			
+
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)

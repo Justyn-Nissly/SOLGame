@@ -35,7 +35,7 @@ public class DevMenu : MonoBehaviour
 	#region Main Methods
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.End))
+		if (Input.GetKeyDown(KeyCode.Delete))
 		{
 			SceneManager.LoadScene("DevMenu");
 		}

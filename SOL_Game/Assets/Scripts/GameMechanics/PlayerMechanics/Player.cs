@@ -176,26 +176,31 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				playerMovementSpeed = fast;
-				this.GetComponent<Rigidbody2D>().isKinematic = true;
-				Globals.swordUnlocked = true;
-				Globals.hammerUnlocked = true;
-				Globals.blasterUnlocked = true;
-				Globals.shieldUnlocked = true;
-				SetUpInputDetection();
-			}
-			if (Input.GetKeyDown(KeyCode.End))
-			{
-				playerMovementSpeed = oldSpeed;
-				this.GetComponent<Rigidbody2D>().isKinematic = false;
-				Globals.swordUnlocked = true;
-				Globals.hammerUnlocked = true;
-				Globals.blasterUnlocked = true;
-				Globals.shieldUnlocked = true;
-				SetUpInputDetection();
-			}
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			playerMovementSpeed = fast;
+			this.GetComponent<Rigidbody2D>().isKinematic = true;
+			Globals.swordUnlocked = true;
+			Globals.hammerUnlocked = true;
+			Globals.blasterUnlocked = true;
+			Globals.shieldUnlocked = true;
+			SetUpInputDetection();
+		}
+		if (Input.GetKeyDown(KeyCode.End))
+		{
+			playerMovementSpeed = oldSpeed;
+			this.GetComponent<Rigidbody2D>().isKinematic = false;
+			Globals.swordUnlocked = true;
+			Globals.hammerUnlocked = true;
+			Globals.blasterUnlocked = true;
+			Globals.shieldUnlocked = true;
+			SetUpInputDetection();
+		}
+
+		if (Input.GetKeyDown(KeyCode.Delete))
+		{
+			SceneManager.LoadScene("DevMenu");
+		}
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************

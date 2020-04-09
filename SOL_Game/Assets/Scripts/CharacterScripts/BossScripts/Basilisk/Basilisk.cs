@@ -103,12 +103,12 @@ public class Basilisk : Enemy
 
 	public void DecreaseSortingLayer()
 	{
-		GetComponent<SpriteRenderer>().sortingOrder--; // change that the basilsik is rendered under other sprites like the player while under ground
+		GetComponent<SpriteRenderer>().sortingOrder = 1; // change that the basilsik is rendered under other sprites like the player while under ground
 	}
 
 	public void IncreaseSortingLayer()
 	{
-		GetComponent<SpriteRenderer>().sortingOrder++; // change the render layer
+		GetComponent<SpriteRenderer>().sortingOrder = 32100; // change the render layer
 	}
 	#endregion
 

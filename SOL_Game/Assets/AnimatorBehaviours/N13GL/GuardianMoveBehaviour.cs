@@ -25,14 +25,17 @@ public class GuardianMoveBehaviour : StateMachineBehaviour
 		if (timeToWait == 150)
 		{
 			timeToWait = 0;
-			animator.SetTrigger("Attack");
+			/*animator.SetTrigger("Attack");*/
 		}
 		else
 		{
-			Vector2 target = new Vector2(player.position.x, player.position.y);
-			Vector2 newPos = Vector2.Lerp(guardianRB.position, target, speed * Time.fixedDeltaTime);
-			guardianRB.MovePosition(newPos);
-			timeToWait += 1;
+			if(animator.GetComponent<N13GL>().canMove == true)
+			{
+				Vector2 target = new Vector2(player.position.x, player.position.y);
+				Vector2 newPos = Vector2.Lerp(guardianRB.position, target, speed * Time.fixedDeltaTime);
+				guardianRB.MovePosition(newPos);
+				timeToWait += 1;
+			}
 		}
 	}
 
