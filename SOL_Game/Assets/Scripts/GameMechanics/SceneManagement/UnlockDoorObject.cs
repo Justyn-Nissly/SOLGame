@@ -193,13 +193,13 @@ public class UnlockDoorObject : MonoBehaviour
 
 		if (isPowerSwitch)
 		{
-			pressurePlate.UpdateDoorState();
 			pressurePlate.isPowered = true;
+			pressurePlate.UpdateDoorState();
 		}
 		else if (isUnlockSwitch)
 		{
-			pressurePlate.UpdateDoorState();
 			pressurePlate.isLocked = false;
+			pressurePlate.UpdateDoorState();
 		}
 
 		// Disable the ! above this object
