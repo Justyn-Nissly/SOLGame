@@ -49,7 +49,8 @@ public class N13GL : Enemy
 		upperLeftSpawnPointLimit,  // Used to get a random position between these two limits
 		lowerRightSpawnPointLimit; // Used to get a random position between these two limits
 	public bool
-		typeIsChanged; // The current guardian type has been changed
+		typeIsChanged, // The current guardian type has been changed
+		canMove;       // The guardian can move
 	#endregion
 
 	#region Shield Guardian
@@ -85,8 +86,6 @@ public class N13GL : Enemy
 
 	public EncounterManager
 		encounterManager;
-	public N13GLEncounter
-		n13GLEncounter;
 	#endregion
 
 	#region Hammer Guardian
@@ -205,7 +204,6 @@ public class N13GL : Enemy
 		//canAttack               = false;
 		canMove                 = false;
 		currentGuardianPattern  = AttackPattern.finalGuardianPattern;
-		currentHealth           = maxHealth.initialValue;
 		defeated                = false;
 		guardianMove            = FindObjectOfType<HammerGuardianMovement>();
 		guardianPhase           = 0;
@@ -321,13 +319,6 @@ public class N13GL : Enemy
 	#region Utility Methods
 
 	#region Shared Methods
-	public override IEnumerator Die()
-	{
-		n13GLEncounter.fadeAndLoadWyrmScene();
-
-		return base.Die();
-	}
-
 	public void ChangeAttackPattern()
 	{
 		currentGuardianPattern = (AttackPattern)allGuardianPatternTypes.GetValue(guardianPhase);
@@ -388,14 +379,14 @@ public class N13GL : Enemy
 	}
 
 	/// <summary> Take damage from the player </summary>
-	public override void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
+	public override void TakeDamage(int damage, bool playSwordImpactSound)
 	{
 		base.StartCoroutine("StartBlinking");
-		currentHealth -= damage;
-		SetHealth(currentHealth / maxHealth.initialValue);
-		if (currentHealth <= 0)
+		maxHealth.runTimeValue -= damage;
+		SetHealth(maxHealth.runTimeValue / maxHealth.initialValue);
+		if (maxHealth.runTimeValue <= 0)
 		{
-			if (currentGuardianPattern == AttackPattern.swordGuardianPattern && currentHealth <= 0)
+			if (currentGuardianPattern == AttackPattern.swordGuardianPattern && maxHealth.runTimeValue <= 0)
 			{
 				GameObject.FindObjectOfType<N13GL>();
 
@@ -404,7 +395,7 @@ public class N13GL : Enemy
 			if (guardianPhase < allGuardianPatternTypes.Length - 1)
 			{
 				guardianPhase += 1;
-				currentHealth = phaseHealth;
+				maxHealth.runTimeValue = phaseHealth;
 			}
 			ChangeAttackPattern();
 
@@ -694,7 +685,7 @@ public class N13GL : Enemy
 
 	public override IEnumerator Die()
 	{
-		n13GLEncounter.FadeAndLoadWyrmScene();
+		n13GLEncounter.fadeAndLoadWyrmScene();
 
 		return base.Die();
 	}

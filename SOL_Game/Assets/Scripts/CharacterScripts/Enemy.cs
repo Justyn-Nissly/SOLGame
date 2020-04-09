@@ -71,7 +71,7 @@ public class Enemy : BaseCharacter
 		}
 
 		enemyAudioManager = GameObject.FindObjectOfType<AudioManager>();
-    countDownTimer = maxHealOverTime;
+		countDownTimer = maxHealOverTime;
 	}
 	/// <summary> Enemy activity depends on whether or not it has detected the player </summary>
 	public virtual void FixedUpdate()
