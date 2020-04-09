@@ -34,7 +34,10 @@ public class DoorKey : MonoBehaviour
 	/// has the key so that it unlocks the next time the player walks next to that door </summary>
 	private void PlayerHasKey()
 	{
-		doorKeyUnlocks.playerHasDoorKey = true;
+		if (doorKeyUnlocks != null)
+		{
+			doorKeyUnlocks.playerHasDoorKey = true;
+		}
 	}
 	#endregion
 

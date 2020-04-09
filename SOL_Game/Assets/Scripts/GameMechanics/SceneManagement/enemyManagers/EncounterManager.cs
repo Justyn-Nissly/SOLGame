@@ -17,28 +17,11 @@ public class EncounterManager : MonoBehaviour
 
 	#region Private Variables
 	private bool
-		firstTimeTriggerEntered = true,
-		connectQuestItem = true,
-		questItemFound = false,
-		ended = false;
+		firstTimeTriggerEntered = true;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
-	private void FixedUpdate()
-	{
-		if (questItemFound == false)
-		{
-			if (questItemFound = (GameObject.FindWithTag("QuestItem") != null))
-			{
-				connectQuestItem = false;
-			}
-		}
-		if (ended)
-		{
-			EndEncounter();
-		}
-	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
@@ -63,12 +46,8 @@ public class EncounterManager : MonoBehaviour
 	/// <summary> end the boss fight by unlocking the doors</summary>
 	public void EndEncounter()
 	{
-		ended = true;
-		if (connectQuestItem == false && (GameObject.FindWithTag("QuestItem") == null))
-		{
-			GetComponent<DoorManager>().UnlockDoors();
-			Destroy(gameObject);
-		}
+		GetComponent<DoorManager>().UnlockDoors();
+		Destroy(gameObject);
 	}
 	#endregion
 

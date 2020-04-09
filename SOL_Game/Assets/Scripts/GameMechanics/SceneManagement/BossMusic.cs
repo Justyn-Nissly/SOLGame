@@ -8,6 +8,8 @@ public class BossMusic : SceneMusic
 	#endregion
 
 	#region Public Variables
+	public bool
+		isGuardian;
 	#endregion
 
 	#region Private Variables
@@ -16,6 +18,9 @@ public class BossMusic : SceneMusic
 		enemyIsPresent;
 	private AudioSource
 		bossTheme;
+	private float
+		guardianFade,
+		songDelay;
 	#endregion
 
 	// Unity Named Methods
@@ -23,8 +28,10 @@ public class BossMusic : SceneMusic
 	protected override void Awake()
 	{
 		base.Awake();
+		songDelay = 0.6f;
 		playThisSong = false;
 		bossTheme = songObject.GetComponent<AudioSource>();
+		bossTheme.volume = 1.0f - (guardianFade = (isGuardian) ? 1.0f : 0.0f);
 	}
 
 	protected override void FixedUpdate()
@@ -35,9 +42,9 @@ public class BossMusic : SceneMusic
 		{
 			playThisSong = true;
 			songObject.transform.position = Vector2.Lerp(songObject.transform.position, sceneCamera.transform.position,
-			                                             Time.deltaTime * 4.0f);
+			                                             Time.deltaTime * 0.75f);
 		}
-		else
+		else if (bossTheme.isPlaying && songDelay <= 0.0f)
 		{
 			songObject.transform.position = Vector2.Lerp(songObject.transform.position, muteLocation.transform.position,
 			                                             Time.deltaTime * 0.25f);
@@ -45,7 +52,19 @@ public class BossMusic : SceneMusic
 
 		if (playThisSong)
 		{
-			PlayBossSong();
+			if (songDelay > 0.0f)
+			{
+				songDelay -= Time.deltaTime;
+			}
+			else
+			{
+				PlayBossSong();
+				if (bossTheme.volume < 1.0f && guardianFade > 0.0f)
+				{
+					bossTheme.volume += Time.deltaTime * 2.5f;
+					guardianFade -= Time.deltaTime * 2.5f;
+				}
+			}
 		}
 	}
 

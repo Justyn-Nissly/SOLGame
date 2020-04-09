@@ -17,7 +17,8 @@ public class Leviadrin : Enemy
 	public GameObject
 		poison,           // The prefab of a poison spot that will get Instantiated under the enemy
 		breathAttack;     // The prefab of a breath attack game object that creates a line of fire (more then one is used to create the fire breath attack)
-
+	public EncounterManager
+		manager;
 	public List<Transform>
 		breathAttackTargets; // Reference to all points that a line of fire should go to
 	#endregion
@@ -164,6 +165,7 @@ public class Leviadrin : Enemy
 			canAttack = false;
 			aggro = false;
 			snakeManager.canMove = false;
+			manager.EndEncounter();
 		}
 		else
 		{

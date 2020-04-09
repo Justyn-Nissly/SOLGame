@@ -37013,7 +37013,6 @@ Transform:
   m_Children:
   - {fileID: 1950696848}
   - {fileID: 189943875}
-  - {fileID: 737829247}
   - {fileID: 587525677}
   m_Father: {fileID: 0}
   m_RootOrder: 10
@@ -37736,12 +37735,12 @@ PrefabInstance:
     - target: {fileID: 3857022783947058035, guid: a88b8780e6139484e8e9abda83199a37,
         type: 3}
       propertyPath: m_Name
-      value: MaxHealthIncrease (1)
+      value: MaxHealthIncrease
       objectReference: {fileID: 0}
     - target: {fileID: 5265193821685664406, guid: a88b8780e6139484e8e9abda83199a37,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5265193821685664406, guid: a88b8780e6139484e8e9abda83199a37,
         type: 3}
@@ -37756,7 +37755,12 @@ PrefabInstance:
     - target: {fileID: 9066545704577418336, guid: a88b8780e6139484e8e9abda83199a37,
         type: 3}
       propertyPath: itemNumber
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066545704577418336, guid: a88b8780e6139484e8e9abda83199a37,
+        type: 3}
+      propertyPath: type
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1586011173556012681, guid: a88b8780e6139484e8e9abda83199a37,
         type: 3}
@@ -38111,7 +38115,6 @@ MonoBehaviour:
   - {fileID: 1435919598}
   doors: []
   panCamera: 1
-  connectQuestItem: 0
 --- !u!61 &642942188
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38471,91 +38474,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 732281099}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &737829246
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 497661792}
-    m_Modifications:
-    - target: {fileID: 5265193821685664406, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066545704577418336, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: itemNumber
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586011173556012681, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_Name
-      value: MaxHealthIncrease
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 36.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7684614529948197754, guid: a88b8780e6139484e8e9abda83199a37,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a88b8780e6139484e8e9abda83199a37, type: 3}
---- !u!4 &737829247 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5265193821685664406, guid: a88b8780e6139484e8e9abda83199a37,
-    type: 3}
-  m_PrefabInstance: {fileID: 737829246}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &760092232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
@@ -38644,7 +38562,6 @@ MonoBehaviour:
   - {fileID: 1085888001}
   doors: []
   panCamera: 1
-  connectQuestItem: 0
 --- !u!61 &770314393
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39058,7 +38975,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doors:
-  - {fileID: 1058895806}
   - {fileID: 127665803}
   pressurePlates: []
 --- !u!61 &919550333
@@ -43939,6 +43855,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8089024676185443775, guid: e59717c6c2a1b0248807903f33bd43a7,
+        type: 3}
+      propertyPath: doorHasKey
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089024676185443775, guid: e59717c6c2a1b0248807903f33bd43a7,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089024676185443775, guid: e59717c6c2a1b0248807903f33bd43a7,
+        type: 3}
+      propertyPath: doorHasShard
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e59717c6c2a1b0248807903f33bd43a7, type: 3}
 --- !u!4 &1058895805 stripped
@@ -43947,18 +43878,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1058895804}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1058895806 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8089024676185443775, guid: e59717c6c2a1b0248807903f33bd43a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1058895804}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1063101335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5490478314212510842, guid: b657c25ce175a694c8ddada51b9b1d11,
@@ -58474,7 +58393,12 @@ PrefabInstance:
     - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
         type: 3}
       propertyPath: doorIsLocked
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorHasChip
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dfb4bc393a9323419e679fa642b87fa, type: 3}
@@ -58777,7 +58701,6 @@ MonoBehaviour:
   - {fileID: 1160760761}
   doors: []
   panCamera: 1
-  connectQuestItem: 0
 --- !u!4 &1450250420
 Transform:
   m_ObjectHideFlags: 0
@@ -59967,7 +59890,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648142955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 120, y: 40, z: 0}
+  m_LocalPosition: {x: 0, y: -80, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 251204524}
@@ -60129,6 +60052,11 @@ PrefabInstance:
       propertyPath: doorIsLocked
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8847381732684700257, guid: 7dfb4bc393a9323419e679fa642b87fa,
+        type: 3}
+      propertyPath: doorHasShard
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dfb4bc393a9323419e679fa642b87fa, type: 3}
 --- !u!4 &1669066782 stripped
@@ -60183,7 +60111,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 31.955462, y: 36.795135}
+  m_Offset: {x: 32.39852, y: 36.795135}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -60194,7 +60122,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 24.544422, y: 27.45623}
+  m_Size: {x: 23.6583, y: 27.45623}
   m_EdgeRadius: 0
 --- !u!114 &1706704165
 MonoBehaviour:
@@ -60211,6 +60139,7 @@ MonoBehaviour:
   playThisSong: 0
   muteLocation: {fileID: 1648142955}
   songObject: {fileID: 2141522987}
+  isGuardian: 1
 --- !u!1 &1714710653
 GameObject:
   m_ObjectHideFlags: 0
@@ -60377,12 +60306,12 @@ PrefabInstance:
     - target: {fileID: 254188806442743227, guid: ec2484c918b73144fb48313f07a39eaf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 120
+      value: 29.4
       objectReference: {fileID: 0}
     - target: {fileID: 254188806442743227, guid: ec2484c918b73144fb48313f07a39eaf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 60
+      value: 87.5
       objectReference: {fileID: 0}
     - target: {fileID: 254188806442743227, guid: ec2484c918b73144fb48313f07a39eaf,
         type: 3}
@@ -60525,6 +60454,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8089024676185443775, guid: e59717c6c2a1b0248807903f33bd43a7,
+        type: 3}
+      propertyPath: doorIsLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089024676185443775, guid: e59717c6c2a1b0248807903f33bd43a7,
+        type: 3}
+      propertyPath: doorHasKey
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089024676185443775, guid: e59717c6c2a1b0248807903f33bd43a7,
+        type: 3}
+      propertyPath: doorHasChip
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e59717c6c2a1b0248807903f33bd43a7, type: 3}
 --- !u!4 &1756536400 stripped
@@ -60533,18 +60477,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1756536399}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1756536401 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8089024676185443775, guid: e59717c6c2a1b0248807903f33bd43a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1756536399}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d84a1e4d846104795ce92ebefdca34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1764883989
 GameObject:
   m_ObjectHideFlags: 0
@@ -60591,7 +60523,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 29.263487, y: 89.58098}
+  m_Offset: {x: 29.263487, y: 90.361015}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -60602,7 +60534,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 22.86951, y: 10.16449}
+  m_Size: {x: 22.86951, y: 8.604416}
   m_EdgeRadius: 0
 --- !u!114 &1764883992
 MonoBehaviour:
@@ -60619,6 +60551,7 @@ MonoBehaviour:
   playThisSong: 0
   muteLocation: {fileID: 1648142955}
   songObject: {fileID: 1752263663}
+  isGuardian: 0
 --- !u!21 &1775242181
 Material:
   serializedVersion: 6
@@ -61178,7 +61111,6 @@ MonoBehaviour:
   - {fileID: 1128162250}
   doors: []
   panCamera: 1
-  connectQuestItem: 0
 --- !u!61 &1888274591
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -66723,7 +66655,6 @@ MonoBehaviour:
   doors:
   - {fileID: 312694458}
   - {fileID: 1749127417}
-  - {fileID: 1756536401}
   pressurePlates: []
 --- !u!61 &1917897406
 BoxCollider2D:
@@ -79480,12 +79411,12 @@ PrefabInstance:
     - target: {fileID: 254188806442743227, guid: ec2484c918b73144fb48313f07a39eaf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 120
+      value: 22.3
       objectReference: {fileID: 0}
     - target: {fileID: 254188806442743227, guid: ec2484c918b73144fb48313f07a39eaf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 60
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 254188806442743227, guid: ec2484c918b73144fb48313f07a39eaf,
         type: 3}

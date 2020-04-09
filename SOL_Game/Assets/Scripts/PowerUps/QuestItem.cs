@@ -14,7 +14,8 @@ public class QuestItem : MonoBehaviour
 		shardGreen,
 		shardBlue,
 		shardYellow,
-		shardRed
+		shardRed,
+		maxHealth
 	}
 	protected const float DESPAWN_TIME = 7.0f;
 	#endregion
@@ -113,6 +114,19 @@ public class QuestItem : MonoBehaviour
 			GetComponent<BoxCollider2D>().enabled = false;
 			despawnTimer = DESPAWN_TIME;
 			sprite.sortingOrder = LayeredRender.MAX_Y * 2;
+
+			DoorLogic[] doors = FindObjectsOfType<DoorLogic>();
+			foreach (DoorLogic door in doors)
+			{
+				if (type >= ItemType.shardGreen && type <= ItemType.shardRed)
+				{
+					door.playerHasShard = true;
+				}
+				else if (type >= ItemType.unlockSword && type <= ItemType.unlockHammer)
+				{
+					door.playerHasChip = true;
+				}
+			}
 		}
 	}
 	#endregion

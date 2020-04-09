@@ -18,6 +18,8 @@ public class ShieldGuardian : Enemy
 		RightShootingLaneLimit;
 	public EnemySpawner
 		ShieldGuardianEnemySpawner; // a reference to the bosses enemy spawner
+	public EncounterManager
+		manager;
 	public SpriteRenderer
 		bossShieldSprite; // a reference to the bosses shield sprite renderer
 	public AttactOrientationControllerEnemy
@@ -135,6 +137,7 @@ public class ShieldGuardian : Enemy
 		{
 			canAttack = false;
 			Charging = false;
+			manager.EndEncounter();
 		}
 
 		// check if the enemy should start a health event

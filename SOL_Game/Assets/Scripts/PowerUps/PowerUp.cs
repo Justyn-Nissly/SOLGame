@@ -13,7 +13,7 @@ public class PowerUp : MonoBehaviour
 		EXTRA_PLAYER_DAMAGE = 2; // Powered up damage multiplier
 	public const float
 		EXTRA_PLAYER_SPEED = 0.08f, // Powered up speed multiplier
-		POWER_UP_TIME = 1000.0f; // How long power up effects last
+		POWER_UP_TIME = 30.0f; // How long power up effects last
 	#endregion
 
 	#region Public Variables

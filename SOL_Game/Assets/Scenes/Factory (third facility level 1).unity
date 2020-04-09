@@ -7527,6 +7527,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 45.91
       objectReference: {fileID: 0}
+    - target: {fileID: 9066545704577418336, guid: a88b8780e6139484e8e9abda83199a37,
+        type: 3}
+      propertyPath: itemNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066545704577418336, guid: a88b8780e6139484e8e9abda83199a37,
+        type: 3}
+      propertyPath: type
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1586011173556012681, guid: a88b8780e6139484e8e9abda83199a37,
         type: 3}
       propertyPath: m_Name
@@ -67948,8 +67958,8 @@ MonoBehaviour:
   doorsUnlocked: []
   destroyedSprite: {fileID: 0}
   health: 1
-  canDropItem: 0
   itemDrop: {fileID: 0}
+  percentDropChance: 0
 --- !u!61 &1571049799
 BoxCollider2D:
   m_ObjectHideFlags: 0

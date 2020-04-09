@@ -17,8 +17,7 @@ public class EnemySpawner : MonoBehaviour
 		doors = new List<DoorLogic>(); // all doors that will be locked when the enemies spawn in(and unlock when those enemies are killed)
 
 	public bool
-		panCamera = true, // flag for if you want the camera to pan to the first spawn point when the enemies spawn in
-		connectQuestItem;
+		panCamera = true; // flag for if you want the camera to pan to the first spawn point when the enemies spawn in
 	#endregion
 
 	#region Private Variables

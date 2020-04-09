@@ -23,7 +23,11 @@ public class DoorLogic : MonoBehaviour
 
 	public bool doorIsLocked = true,
 					doorHasKey = false,
-					playerHasDoorKey = false;
+					doorHasChip = false,
+					doorHasShard = false,
+					playerHasDoorKey = false,
+					playerHasChip = false,
+					playerHasShard = false;
 
 	#endregion
 
@@ -50,19 +54,23 @@ public class DoorLogic : MonoBehaviour
 	/// <summary> Open an unlocked door </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		// Unlocked doors open automatically when the player approaches
-		if (doorIsLocked == false && collision.gameObject.CompareTag("Player"))
+		if(collision.gameObject.CompareTag("Player"))
 		{
-			OpenDoor();
-		}
-		else if(doorHasKey && playerHasDoorKey && collision.gameObject.CompareTag("Player")) // check if this door has a key and if the player has that key to unlock this door
-		{
-			// unlock the door and update the doors sprite
-			doorIsLocked = false;
-			UpdateSprite();
+			// Unlocked doors open automatically when the player approaches
+			if (doorIsLocked == false)
+			{
+				OpenDoor();
+			}
+			// check if this door has a key and if the player has that key to unlock this door
+			else if ((doorHasKey && playerHasDoorKey) || (doorHasChip && playerHasChip) || (doorHasShard && playerHasShard))
+			{
+				// unlock the door and update the doors sprite
+				doorIsLocked = false;
+				UpdateSprite();
 
-			// open the door after a delay
-			Invoke("OpenDoor", .5f);
+				// open the door after a delay
+				Invoke("OpenDoor", .5f);
+			}
 		}
 	}
 
