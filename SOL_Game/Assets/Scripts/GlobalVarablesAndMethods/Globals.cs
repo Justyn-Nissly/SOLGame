@@ -19,17 +19,17 @@ public class Globals
 	/// </summary>
 	public static bool
 		startInBeginingPosition = true,  // Allow the player to start at the initial starting point
-		swordUnlocked           = false, // Track if the sword is unlocked
-		hammerUnlocked          = false, // Track if the hammer is unlocked
-		blasterUnlocked         = false, // Track if the blaster is unlocked
-		shieldUnlocked          = false, // Track if the shield is unlocked
-		playerCanDie            = false; // This flag enables and disables the players ability to die when getting to zero health
+		swordUnlocked = false, // Track if the sword is unlocked
+		hammerUnlocked = false, // Track if the hammer is unlocked
+		blasterUnlocked = false, // Track if the blaster is unlocked
+		shieldUnlocked = false, // Track if the shield is unlocked
+		playerCanDie = false; // This flag enables and disables the players ability to die when getting to zero health
 	public static bool[]
 		acquiredHealthIncrease = new bool[HEALTH_INCREASES];
 	public static int
 		currentPlayerHealth,   // The player's current health
-		maxPlayerHealth   = 8, // The maximum health the player has
-		bossesDefeated    = 0, // Which bosses have been defeated
+		maxPlayerHealth = 8, // The maximum health the player has
+		bossesDefeated = 0, // Which bosses have been defeated
 		guardiansDefeated = 0;
 	public static string
 		sceneToLoad; // this is the name of the scene that will be loaded if you click continue in the game over scene (and the scene that will be loaded when clicking load in main menu?)

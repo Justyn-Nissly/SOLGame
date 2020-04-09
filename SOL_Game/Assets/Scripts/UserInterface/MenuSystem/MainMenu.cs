@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
 	#region Main Methods
 	private void Start()
 	{
-		GameObject.Find("A").GetComponent<Button>().Select();
+		GameObject.Find("NewGameButton").GetComponent<Button>().Select();
 
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if(player != null)
