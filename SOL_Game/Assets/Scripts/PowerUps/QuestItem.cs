@@ -44,6 +44,12 @@ public class QuestItem : MonoBehaviour
 	/// <summary> Determine the Sprite type </summary>
 	public virtual void Awake()
 	{
+		// Prevent the sword module from appearing after the player already has it
+		if (type == ItemType.unlockSword && Globals.swordUnlocked)
+		{
+			Destroy(gameObject);
+		}
+
 		spin = 0.0f;
 		despawnTimer = 1000000.0f;
 		sprite = GetComponent<SpriteRenderer>();

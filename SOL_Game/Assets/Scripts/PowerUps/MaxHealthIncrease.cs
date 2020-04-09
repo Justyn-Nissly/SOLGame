@@ -7,6 +7,7 @@ public class MaxHealthIncrease : QuestItem
     public FloatValue heartContainers;
     public FloatValue playerHealth;
 	public int itemNumber;
+	public Sprite[] sprites;
 	private float spinTimer;
 
 	public override void Awake()
@@ -16,6 +17,13 @@ public class MaxHealthIncrease : QuestItem
 		{
 			Destroy(gameObject);
 		}
+	}
+
+	protected override void FixedUpdate()
+	{
+		base.FixedUpdate();
+		spinTimer += Time.deltaTime * 8.0f;
+		sprite.sprite = sprites[(int) (spinTimer % 4.0f)];
 	}
 
 	public override void OnTriggerEnter2D(Collider2D other)
