@@ -36,7 +36,8 @@ public class Player : BaseCharacter
 
 	public float
 		extraSpeed,   // Extra speed gained from a power up
-		powerUpTimer; // How long power ups last
+		powerUpTimer, // How long power ups last
+		powerUpDivided = 1.0f / PowerUp.MAX_POWER_UP_TIME;
 	public int
 		combo = 0,
 		medKits,     // How many med kits the player is holding
@@ -220,9 +221,9 @@ public class Player : BaseCharacter
 		CheckIfShouldIncreaseComboCounter();
 
 		// Update the power ups HUD
-		UpdateHud(powerUpTimers[PowerUp.POWER] / PowerUp.POWER_UP_TIME,
-		          powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME,
-		          powerUpTimers[PowerUp.SPEED] / PowerUp.POWER_UP_TIME);
+		UpdateHud(powerUpTimers[PowerUp.POWER] * powerUpDivided,
+		          powerUpTimers[PowerUp.SHIELD] * powerUpDivided,
+		          powerUpTimers[PowerUp.SPEED] * powerUpDivided);
 
 		// Show the player's shield when it is active
 		ActivateForceField();
@@ -656,9 +657,9 @@ public class Player : BaseCharacter
 
 		if(RedRing != null && GreenRing != null && BlueRing != null)
 		{
-			UpdateHud(powerUpTimers[PowerUp.POWER]  / PowerUp.POWER_UP_TIME,
-			          powerUpTimers[PowerUp.SHIELD] / PowerUp.POWER_UP_TIME,
-			          powerUpTimers[PowerUp.SPEED]  / PowerUp.POWER_UP_TIME);
+			UpdateHud(powerUpTimers[PowerUp.POWER] * powerUpDivided,
+			          powerUpTimers[PowerUp.SHIELD] * powerUpDivided,
+			          powerUpTimers[PowerUp.SPEED] * powerUpDivided);
 		}
 	}
 

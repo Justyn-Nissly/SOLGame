@@ -44,7 +44,7 @@ public class PowerUpMenu : MonoBehaviour
 			{
 				powerUps[i].powerUpSprite.color =
 					new Color(powerUps[i].powerUpSprite.color.r, powerUps[i].powerUpSprite.color.g,
-					          powerUps[i].powerUpSprite.color.b, player.powerUpTimers[i] / PowerUp.POWER_UP_TIME);
+					          powerUps[i].powerUpSprite.color.b, player.powerUpTimers[i] * player.powerUpDivided);
 			}
 		}
 		if (powerUps[PowerUp.HEAL].powerUpSprite.enabled = (size > 0.0f))

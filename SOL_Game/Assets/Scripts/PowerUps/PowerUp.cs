@@ -13,7 +13,7 @@ public class PowerUp : MonoBehaviour
 		EXTRA_PLAYER_DAMAGE = 2; // Powered up damage multiplier
 	public const float
 		EXTRA_PLAYER_SPEED = 0.08f, // Powered up speed multiplier
-		POWER_UP_TIME = 30.0f; // How long power up effects last
+		MAX_POWER_UP_TIME = 50.0f; // How long power up effects last
 	#endregion
 
 	#region Public Variables
@@ -23,8 +23,7 @@ public class PowerUp : MonoBehaviour
 		timer; // Time for the power up to disappear
 	[HideInInspector]
 	public float
-		timeLeft,     // Time until the power up disappears
-		powerUpTimer; // How long power ups last
+		timeLeft;     // Time until the power up disappears
 	[HideInInspector]
 	public BoxCollider2D
 		boxCollider;
@@ -57,7 +56,6 @@ public class PowerUp : MonoBehaviour
 		player       = GameObject.FindObjectOfType<Player>();
 		spinTimer    = 0.0f;
 		timeLeft     = timer;
-		powerUpTimer = POWER_UP_TIME;
 
 		// Med kits are more common than other power ups
 		if (setType == false)
@@ -94,7 +92,7 @@ public class PowerUp : MonoBehaviour
 			// Enable the player to use the power up
 			if (type != HEAL)
 			{
-				player.powerUpTimers[type] = powerUpTimer;
+				player.powerUpTimers[type] += MAX_POWER_UP_TIME * 0.5f;
 				player.powerUpsActive[type] = false;
 			}
 			else

@@ -27,6 +27,9 @@ public class QuestItem : MonoBehaviour
 		type;
 	public SpriteRenderer
 		sprite; // Sprite graphic
+	public FloatValue
+		playerHealth,
+		heartContainers;
 	#endregion
 
 	#region Private and Protected Variables
@@ -132,6 +135,12 @@ public class QuestItem : MonoBehaviour
 				{
 					door.playerHasChip = true;
 				}
+			}
+
+			// Shards also heal the player to full
+			if (willSpin == false)
+			{
+				playerHealth.runTimeValue = playerHealth.initialValue = heartContainers.runTimeValue * 2.0f;
 			}
 		}
 	}
