@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class poisonObject : MonoBehaviour
+public class PoisonObject : MonoBehaviour
 {
 	#region Enums (Empty)
 	#endregion
@@ -64,12 +64,9 @@ public class poisonObject : MonoBehaviour
 	/// <summary> the method deals damage to the passed in player</summary>
 	private void DamagePlayer(Player player)
 	{
-		if (player != null)
+		if (player != null && player.canTakeDamage && player.playerAnimator.GetBool("isShieldUp") == false)
 		{
 			player.TakeDamage((int)DamageToGive.initialValue, false);
-
-			// DEBUG CODE, REMOVE LATER
-			Debug.Log("players CurrentHealth = " + player.maxHealth.runTimeValue);
 		}
 	}
 

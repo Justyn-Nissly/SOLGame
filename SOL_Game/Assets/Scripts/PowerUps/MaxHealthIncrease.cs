@@ -6,6 +6,7 @@ public class MaxHealthIncrease : QuestItem
 {
 	public int itemNumber;
 	public Sprite[] sprites;
+	public SpriteRenderer glow;
 	private float spinTimer;
 
 	public override void Awake()
@@ -34,7 +35,7 @@ public class MaxHealthIncrease : QuestItem
 		}
 		Globals.acquiredHealthIncrease[itemNumber] = true;
 		base.OnTriggerEnter2D(other);
-		other.GetComponent<Player>().playerHealthHUD.ChangeNumberOfHearts();
+		glow.sortingOrder = LayeredRender.MAX_Y * 2 - 1;
 		}
 	}
 }

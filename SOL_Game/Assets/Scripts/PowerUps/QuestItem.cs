@@ -70,11 +70,13 @@ public class QuestItem : MonoBehaviour
 
 		if (despawnTimer <= DESPAWN_TIME)
 		{
+			player.canTakeDamage = false;
 			player.FreezePlayer();
 		}
 		if ((despawnTimer -= Time.deltaTime) <= 0.0f)
 		{
 			player.playerAnimator.SetBool("AcquiredQuestItem", false);
+			player.canTakeDamage = true;
 			player.UnFreezePlayer();
 			Destroy(gameObject);
 		}
@@ -121,8 +123,8 @@ public class QuestItem : MonoBehaviour
 			player.FreezePlayer();
 			transform.position = GameObject.FindGameObjectWithTag("Arm").transform.position;
 			GetComponent<BoxCollider2D>().enabled = false;
-			despawnTimer = DESPAWN_TIME;
 			sprite.sortingOrder = LayeredRender.MAX_Y * 2;
+			despawnTimer = DESPAWN_TIME;
 
 			DoorLogic[] doors = FindObjectsOfType<DoorLogic>();
 			foreach (DoorLogic door in doors)
@@ -141,6 +143,7 @@ public class QuestItem : MonoBehaviour
 			if (willSpin == false)
 			{
 				playerHealth.runTimeValue = playerHealth.initialValue = heartContainers.runTimeValue * 2.0f;
+				collision.GetComponent<Player>().playerHealthHUD.ChangeNumberOfHearts();
 			}
 		}
 	}

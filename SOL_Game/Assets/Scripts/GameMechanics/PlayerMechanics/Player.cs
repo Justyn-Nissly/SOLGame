@@ -49,6 +49,7 @@ public class Player : BaseCharacter
 	public bool[]
 		powerUpsActive; // Check which power ups are active
 	public bool
+		canPowerUp = false,
 		usingPowerUp = false;
 	public Image
 		RedRing,
@@ -87,7 +88,6 @@ public class Player : BaseCharacter
 		usingSwordAttack = false, // flags for whether the player is using an attack so that it only plays once
 		usingHammerAttack = false,
 		usingBlasterAttack = false,
-		canPowerUp = false,
 		canIncrementComboCounter = false,
 		heal;
 

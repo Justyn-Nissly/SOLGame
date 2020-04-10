@@ -23,6 +23,8 @@ public class TeleporterStation : MonoBehaviour
 		returnTimer;
 	private bool
 		canReturn;
+	private Player
+		player;
 	#endregion
 
 	// Unity Named Methods
@@ -36,7 +38,7 @@ public class TeleporterStation : MonoBehaviour
 		canReturn = false;
 		tractorField.direction = ConveyorBelt.Direction.Up;
 		returnTimer = 7.0f;
-		
+		player = FindObjectOfType<Player>();
 	}
 
 	/// <summary> Turn on the conveyor belt </summary>
@@ -45,19 +47,24 @@ public class TeleporterStation : MonoBehaviour
 		if (canReturn == false)
 		{
 			returnTimer -= Time.deltaTime;
-			if (returnTimer <= 3.0f)
-			{
-				tractorField.direction = ConveyorBelt.Direction.Down;
-			}
-			if (returnTimer <= 1.0f)
-			{
-				teleportPoint.enabled = true;
-				tractorField.GetComponent<BoxCollider2D>().isTrigger = (teleporterOrder == Globals.bossesDefeated);
-			}
 			if (returnTimer <= 0.0f && teleporterOrder == Globals.bossesDefeated)
 			{
 				canReturn = true;
 				tractorField.direction = ConveyorBelt.Direction.Up;
+			}
+			else if (returnTimer <= 1.0f)
+			{
+				teleportPoint.enabled = true;
+				tractorField.GetComponent<BoxCollider2D>().isTrigger = (teleporterOrder == Globals.bossesDefeated);
+			}
+			else if (returnTimer <= 3.0f)
+			{
+				tractorField.direction = ConveyorBelt.Direction.Down;
+				player.UnFreezePlayer();
+			}
+			else if (returnTimer > 3.0f)
+			{
+				player.FreezePlayer();
 			}
 		}
 	}
