@@ -41,7 +41,7 @@ public class BossMusic : SceneMusic
 		if (enemyIsPresent && playerIsPresent)
 		{
 			playThisSong = true;
-			songObject.transform.position = Vector2.Lerp(songObject.transform.position, sceneCamera.transform.position,
+			songObject.transform.position = Vector2.Lerp(songObject.transform.position, player.transform.position,
 			                                             Time.deltaTime * 0.75f);
 		}
 		else if (bossTheme.isPlaying && songDelay <= 0.0f)

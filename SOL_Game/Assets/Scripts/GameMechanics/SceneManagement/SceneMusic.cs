@@ -16,22 +16,22 @@ public class SceneMusic : MonoBehaviour
 	#endregion
 
 	#region Protected Variables
-	protected Camera
-		sceneCamera;
+	protected Player
+		player;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	protected virtual void Awake()
 	{
-		sceneCamera = FindObjectOfType<Camera>();
+		player = FindObjectOfType<Player>();
 	}
 
 	protected virtual void FixedUpdate()
 	{
 		if (playThisSong)
 		{
-			songObject.transform.position = Vector2.Lerp(songObject.transform.position, sceneCamera.transform.position,
+			songObject.transform.position = Vector2.Lerp(songObject.transform.position, player.transform.position,
 			                                             Time.deltaTime * 0.75f);
 		}
 		else
