@@ -48,7 +48,7 @@ public class MainMenu : MonoBehaviour
 	{
 		//FindObjectOfType<AudioManager>().StartBackground();
 		SceneManager.LoadScene("Hub");
-		LoadPlayerHub.UseBeginningPostion = true;
+		Globals.StartNewGame();
 	}
 
 	/// continues the game from the last scene the player was in before dying
@@ -56,7 +56,6 @@ public class MainMenu : MonoBehaviour
 	{
 		//FindObjectOfType<AudioManager>().StartBackground();
 		SceneManager.LoadScene(Globals.sceneToLoad);
-		LoadPlayerHub.UseBeginningPostion = true;
 	}
 
 	/// Quits the game

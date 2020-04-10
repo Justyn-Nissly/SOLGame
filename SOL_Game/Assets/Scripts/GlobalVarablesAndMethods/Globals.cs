@@ -19,11 +19,21 @@ public class Globals
 	/// </summary>
 	public static bool
 		startInBeginingPosition = true,  // Allow the player to start at the initial starting point
-		swordUnlocked           = false, // Track if the sword is unlocked
-		hammerUnlocked          = false, // Track if the hammer is unlocked
-		blasterUnlocked         = false, // Track if the blaster is unlocked
-		shieldUnlocked          = false, // Track if the shield is unlocked
-		playerCanDie            = false; // This flag enables and disables the players ability to die when getting to zero health
+		swordUnlocked = false, // Track if the sword is unlocked
+		hammerUnlocked = false, // Track if the hammer is unlocked
+		blasterUnlocked = false, // Track if the blaster is unlocked
+		shieldUnlocked = false, // Track if the shield is unlocked
+		playerCanDie = true, // This flag enables and disables the players ability to die when getting to zero health
+
+		// these are for staring the player at a check point (passed bosses if the player died)
+		hubCheckPointReached = false,
+		biolabCheckPointReached = false,
+		atlantisCheckPointReached = false,
+		factoryCheckPointReached = false,
+		geothermalCheckPointReached = false,
+		spacebaseCheckPointReached = false;
+
+
 	public static bool[]
 		acquiredHealthIncrease = new bool[HEALTH_INCREASES];
 	public static int
@@ -43,7 +53,25 @@ public class Globals
 	#region Main Methods (Empty)
 	#endregion
 
-	#region Utility Methods (Empty)
+	#region Utility Methods
+	/// <summary>
+	/// resets any saved data from the last play through (don't call this method if you are loading a saved game!!!!)
+	/// </summary>
+	public static void StartNewGame()
+	{
+		startInBeginingPosition = true;
+		swordUnlocked = false;
+		hammerUnlocked = false;
+		blasterUnlocked = false;
+		shieldUnlocked = false;
+
+		hubCheckPointReached = false;
+		biolabCheckPointReached = false;
+		atlantisCheckPointReached = false;
+		factoryCheckPointReached = false;
+		geothermalCheckPointReached = false;
+		spacebaseCheckPointReached = false;
+	}
 	#endregion
 
 	#region Coroutines (Empty)
