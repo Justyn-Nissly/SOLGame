@@ -29,6 +29,8 @@ public class N13GL : Enemy
 	#endregion
 
 	#region Shared Variables
+	public DoorManager
+		doorManager; // for locking the door out of the room
 	public N13GLEncounter
 		n13GLEncounter; // for fading the screen to white and loading the wyrm fight
 	public AttackPattern
@@ -195,6 +197,11 @@ public class N13GL : Enemy
 	// Unity Named Methods
 	#region Main Methods
 	// Start is called before the first frame update
+	private void OnEnable()
+	{
+		doorManager.LockDoors();
+	}
+
 	public override void Start()
     {
 		base.Start();
