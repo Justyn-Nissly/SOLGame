@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class LoadPlayer : MonoBehaviour
 {
-	#region Enums (Empty)
+	#region Enums
+	public enum Facility
+	{
+		Hub,
+		BioLab,
+		Atlantis,
+		Factory,
+		Geothermal,
+		SpaceBase,
+	}
 	#endregion
 
 	#region Public Variables
+	public Facility
+		thisFacility;
 	public Transform 
 		defaultPlayerStartingPosition,
+		checkPointStartingPosition,
 		altStartingPosition;
 
 	public GameObject
@@ -52,10 +64,45 @@ public class LoadPlayer : MonoBehaviour
 		{
 			startingPosition = altStartingPosition;
 		}
+		else if(StartAtCheckPoint(thisFacility) && checkPointStartingPosition != null)
+		{
+			startingPosition = checkPointStartingPosition;
+		}
+
 		else
 		{
 			startingPosition = defaultPlayerStartingPosition;
 		}
+	}
+
+	/// <summary> return the right bool flag for this current facility for if the player should start at the checkpoint</summary>
+	public bool StartAtCheckPoint(Facility currentFacility)
+	{
+		bool startAtCheckPoint = false;
+
+		switch (currentFacility)
+		{
+			case Facility.Hub:
+				startAtCheckPoint = Globals.hubCheckPointReached;
+				break;
+			case Facility.BioLab:
+				startAtCheckPoint = Globals.biolabCheckPointReached;
+				break;
+			case Facility.Atlantis:
+				startAtCheckPoint = Globals.atlantisCheckPointReached;
+				break;
+			case Facility.Factory:
+				startAtCheckPoint = Globals.factoryCheckPointReached;
+				break;
+			case Facility.Geothermal:
+				startAtCheckPoint = Globals.geothermalCheckPointReached;
+				break;
+			case Facility.SpaceBase:
+				startAtCheckPoint = Globals.spacebaseCheckPointReached;
+				break;
+		}
+
+		return startAtCheckPoint;
 	}
 
 	/// <summary> If not already present instantiate the player at the starting position </summary>

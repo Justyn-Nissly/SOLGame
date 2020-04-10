@@ -611,7 +611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8701bfd60013a4a408cf3e9201fa7286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisFacility: 3
   defaultPlayerStartingPosition: {fileID: 1229107800}
+  checkPointStartingPosition: {fileID: 1264453007}
   altStartingPosition: {fileID: 0}
   playerPrefab: {fileID: 6841405128326533482, guid: 5afa98b79fcbd434b819ed5125726ca2,
     type: 3}
@@ -43916,7 +43918,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &385864633
 PrefabInstance:
@@ -80117,6 +80119,77 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1249925306}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1264453004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264453007}
+  - component: {fileID: 1264453006}
+  - component: {fileID: 1264453005}
+  m_Layer: 0
+  m_Name: PlayerCheckPointPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1264453005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264453004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a285d682d48dd6842836bcd19b0f9136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisfacility: 3
+--- !u!61 &1264453006
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264453004}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 6.63}
+  m_EdgeRadius: 0
+--- !u!4 &1264453007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264453004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -63.63, y: -71.39, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1268759180
 GameObject:
   m_ObjectHideFlags: 0
@@ -89136,7 +89209,7 @@ Transform:
   m_Children:
   - {fileID: 1023230927}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1737820775
 PrefabInstance:
@@ -89520,8 +89593,8 @@ MonoBehaviour:
   doorsUnlocked: []
   destroyedSprite: {fileID: 0}
   health: 1
-  canDropItem: 0
   itemDrop: {fileID: 0}
+  percentDropChance: 0
 --- !u!1 &1761146580
 GameObject:
   m_ObjectHideFlags: 0
@@ -90121,7 +90194,7 @@ Transform:
   - {fileID: 1249925307}
   - {fileID: 1508652653}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1914547734
 GameObject:
@@ -90856,7 +90929,7 @@ Transform:
   - {fileID: 1629186097}
   - {fileID: 2076910367}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2134142179
 PrefabInstance:
@@ -91152,7 +91225,13 @@ MonoBehaviour:
     type: 3}
   doorUnlockedClosedSprite: {fileID: 7512675173795543586, guid: fe94d23c86e4f4f4288105b3d9a6d6a3,
     type: 3}
+  lockedIcon: {fileID: 0}
+  unlockedIcon: {fileID: 0}
   doorBoxCollider: {fileID: 2156359682649716707}
   doorIsLocked: 0
   doorHasKey: 0
+  doorHasChip: 0
+  doorHasShard: 0
   playerHasDoorKey: 0
+  playerHasChip: 0
+  playerHasShard: 0

@@ -10,6 +10,8 @@ public class ChangeStartingPosition : MonoBehaviour
 
 	// Empty
 	#region Public Variables
+	public LoadPlayer.Facility
+		thisfacility;
 	#endregion
 
 	// Unity Named Methods
@@ -19,13 +21,38 @@ public class ChangeStartingPosition : MonoBehaviour
 		if (collision.gameObject.CompareTag("Player"))
 		{
 			// change the players starting position
-			LoadPlayerHub.UseBeginningPostion = false;
+			SetCheckPointFlag();
 		}
 	}
 	#endregion
 
-	// Empty
 	#region Utility Methods
+	/// <summary> sets if the player should start at the checkpoint in the current facility</summary>
+	public void SetCheckPointFlag()
+	{
+		switch (thisfacility)
+		{
+			case LoadPlayer.Facility.Hub:
+				// change the players starting position
+				Globals.hubCheckPointReached = true;
+				break;
+			case LoadPlayer.Facility.BioLab:
+				Globals.biolabCheckPointReached = true;
+				break;
+			case LoadPlayer.Facility.Atlantis:
+				Globals.atlantisCheckPointReached = true;
+				break;
+			case LoadPlayer.Facility.Factory:
+				Globals.factoryCheckPointReached = true;
+				break;
+			case LoadPlayer.Facility.Geothermal:
+				 Globals.geothermalCheckPointReached = true;
+				break;
+			case LoadPlayer.Facility.SpaceBase:
+				Globals.spacebaseCheckPointReached = true;
+				break;
+		}
+	}
 	#endregion
 
 	// Empty
