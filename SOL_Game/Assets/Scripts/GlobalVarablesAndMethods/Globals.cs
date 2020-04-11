@@ -23,7 +23,7 @@ public class Globals
 		hammerUnlocked = false, // Track if the hammer is unlocked
 		blasterUnlocked = false, // Track if the blaster is unlocked
 		shieldUnlocked = false, // Track if the shield is unlocked
-		playerCanDie = true, // This flag enables and disables the players ability to die when getting to zero health
+		playerCanDie = false, // This flag enables and disables the players ability to die when getting to zero health
 
 		// these are for staring the player at a check point (passed bosses if the player died)
 		hubCheckPointReached = false,
