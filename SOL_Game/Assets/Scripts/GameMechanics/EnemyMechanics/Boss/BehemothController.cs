@@ -112,6 +112,7 @@ public class BehemothController : Enemy
 			if ((defeatTimer -= Time.deltaTime) <= 0.0f)
 			{
 				Globals.bossesDefeated = 3;
+				Instantiate(powerUp, transform.position, Quaternion.identity);
 				Destroy(gameObject);
 			}
 		}
