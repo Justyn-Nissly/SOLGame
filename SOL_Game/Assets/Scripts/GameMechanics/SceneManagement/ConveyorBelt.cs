@@ -63,7 +63,7 @@ public class ConveyorBelt : MonoBehaviour
 	private void OnTriggerStay2D(Collider2D collider)
 	{
 		// Only characters and items get affected by conveyor belts
-		if (isMoving && (collider.tag == "Player" || collider.tag == "Enemy" || collider.tag == "PuzzleItem"))
+		if (isMoving && (collider.tag == "Player" || collider.tag == "Enemy" || collider.tag == "PuzzleItem") && PlayerUsingShield(collider.gameObject) == false)
 		{
 			collider.attachedRigidbody.AddRelativeForce(movement * speed * (Mathf.Log(collider.attachedRigidbody.mass + 1.0f) + 1.0f),
 			                                            ForceMode2D.Force);
@@ -72,6 +72,21 @@ public class ConveyorBelt : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
+	///
+	private bool PlayerUsingShield(GameObject gameObject)
+	{
+		if (gameObject.CompareTag("Player"))
+		{
+			Player player = gameObject.GetComponent<Player>();
+			if(player != null)
+			{
+				return !player.canTakeDamage; // the player when using the shield can not take damage so this also means that the shield is being used
+			}
+		}
+
+		return false;
+	}
+
 	/// <summary> Get the conveyor belt's direction </summary>
 	void GetDirection()
 	{
