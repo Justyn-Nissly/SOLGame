@@ -23,6 +23,14 @@ public class Wyrm : Enemy
 		headGameobject,
 		breathAttack,     // The prefab of a breath attack game object that creates a line of fire (more then one is used to create the fire breath attack)
 		lazerBreathBlast;
+	public AudioSource
+		damaged,
+		fireBreath,
+		laser,
+		roar,
+		startingRoar;
+	public ShockwaveAttack
+		wyrmWave;
 
 	public List<Transform>
 		breathAttackTargets; // Reference to all points that a line of fire should go to
@@ -43,7 +51,11 @@ public class Wyrm : Enemy
 		attackCountdownTimer = 2,        // The countdown timer for the attacks
 		attackIntervalTime = 2,          // The interval time before attacking again
 		shackSpeed = 50.0f,              // How fast it shakes
-		shackAmount = .01f;              // How much it shakes
+		shackAmount = .01f,              // How much it shakes
+		maxRoarInterval = 12.0f,
+		minRoarInterval = 6.0f,
+		roarTimer,
+		wyrmWaveTimer;
 	#endregion
 
 	// Unity Named Methods
@@ -51,6 +63,9 @@ public class Wyrm : Enemy
 	public override void Start()
 	{
 		base.Start();
+
+		roarTimer = Random.Range(maxRoarInterval, maxRoarInterval);
+		wyrmWaveTimer = 100000.0f;
 
 		// Add this boss to the enemy spawner, so that the doors out of the room only unlock when the boss and all spawned in enemies are dead
 		enemySpawner.AddNewEnemyID(gameObject.GetInstanceID());
@@ -60,6 +75,22 @@ public class Wyrm : Enemy
 	public override void FixedUpdate()
 	{
 		base.FixedUpdate();
+
+		if ((damaged.isPlaying || fireBreath.isPlaying || laser.isPlaying || roar.isPlaying || startingRoar.isPlaying) == false)
+		{
+			if ((roarTimer -= Time.deltaTime) <= 0.0f)
+			{
+				roarTimer = Random.Range(maxRoarInterval, maxRoarInterval);
+				startingRoar.Play();
+			}
+		}
+
+		if ((wyrmWaveTimer -= Time.deltaTime) <= 0.0f)
+		{
+			Instantiate(wyrmWave, transform.position + new Vector3(-5.05f, -5.6f, 0.0f), Quaternion.identity);
+			Instantiate(wyrmWave, transform.position + new Vector3(5.05f, -5.6f, 0.0f), Quaternion.identity);
+			wyrmWaveTimer = 100000.0f;
+		}
 
 		// Only try and do an attack if the timer countdown is zero and the enemy is allowed to attack
 		if (attackCountdownTimer < 0 && canAttack && maxHealth.runTimeValue > 0)
@@ -95,7 +126,7 @@ public class Wyrm : Enemy
 			StartAttackAnimation(AttackType.meleeAttack);
 		}
 		// N% chance to do a lazer attack if below quarter health
-		else if (Random.Range(1, 3) >= 1 && canDoQuarterHealthEvent == false)
+		else if (Random.Range(0.0f, 3.0f) >= 1.0f /*&& canDoQuarterHealthEvent == false*/)
 		{
 			StartAttackAnimation(AttackType.lazerBreathAttack);
 		}
@@ -109,6 +140,8 @@ public class Wyrm : Enemy
 	/// <summary>  create a line of fire to each fire point in the list of breath target points </summary>
 	public void BreathAttack()
 	{
+		fireBreath.Play();
+
 		foreach (Transform attactTarget in breathAttackTargets)
 		{
 			// create the line of fire game object
@@ -137,6 +170,7 @@ public class Wyrm : Enemy
 		{
 			// trigger the melee attack animation
 			characterAnimator.SetBool("MeleeAttack", true);
+			wyrmWaveTimer = 1.0f;
 		}
 		else if(attackType == AttackType.breathAttack)
 		{
@@ -178,6 +212,8 @@ public class Wyrm : Enemy
 	/// <summary>  create a line of fire to each fire point in the list of breath target points </summary>
 	public void LazerBreathBlast()
 	{
+		laser.Play();
+
 		// create a lazer breath attack (it will destroy itself when finished)
 		Instantiate(lazerBreathBlast, headGameobject.transform.position, new Quaternion(0, 0, 0, 0));
 	}
@@ -200,6 +236,9 @@ public class Wyrm : Enemy
 
 		if (maxHealth.runTimeValue > 0)
 		{
+			// play the damaged sound
+			damaged.Play();
+
 			// check if the enemy should start a health event
 			if (maxHealth.runTimeValue <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
 			{

@@ -17,6 +17,7 @@ public class ShockwaveAttack : MonoBehaviour
 	private AudioSource
 		source; // Make the sound
 	private float
+		spread = 0.0f,
 		waveDirection, // Shockwave knocks the player back
 		spinAngle;     // Make the shockwave spin
 	private Vector2
@@ -39,14 +40,14 @@ public class ShockwaveAttack : MonoBehaviour
 	/// <summary> Get the angle to the player and spread the shockwave </summary>
 	void FixedUpdate()
 	{
-		waveDirection = Mathf.Atan2(player.transform.position.y - transform.position.y,
-		                            player.transform.position.x - transform.position.x);
-		knockBack = new Vector2(Mathf.Cos(waveDirection), Mathf.Sin(waveDirection)).normalized;
-
 		// The shockwave expands until it reaches its max size
 		if (transform.localScale.x < maxSpread)
 		{
-			transform.localScale += new Vector3(spreadRate, spreadRate, 0.0f);
+			spread += spreadRate * 0.1f;
+
+			transform.localScale +=
+				new Vector3((0.2f - Mathf.Log(spread / maxSpread + 0.2f) / Mathf.Log(8.0f)) * 0.1f,
+				            (0.2f - Mathf.Log(spread / maxSpread + 0.2f) / Mathf.Log(8.0f)) * 0.1f, 0.0f);
 			SpinShockwave();
 		}
 		else
@@ -60,6 +61,10 @@ public class ShockwaveAttack : MonoBehaviour
 	{
 		if (this.enabled)
 		{
+			waveDirection = Mathf.Atan2(player.transform.position.y - transform.position.y,
+			                            player.transform.position.x - transform.position.x);
+			knockBack = new Vector2(Mathf.Cos(waveDirection), Mathf.Sin(waveDirection)).normalized;
+
 			// The shockwave damages through shields
 			if (canDamage && collision.gameObject.tag == "Player")
 			{

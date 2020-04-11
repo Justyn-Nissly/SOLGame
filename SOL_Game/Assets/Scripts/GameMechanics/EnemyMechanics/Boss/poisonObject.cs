@@ -29,7 +29,7 @@ public class PoisonObject : MonoBehaviour
 		// set the poison sprite to a random sprite from the list of sprites
 		if (poisonSprites.Count > 0)
 		{
-			GetComponent<SpriteRenderer>().sprite = poisonSprites[Random.Range(0, poisonSprites.Count)];
+			GetComponent<SpriteRenderer>().sprite = poisonSprites[Mathf.RoundToInt(Random.Range(0, poisonSprites.Count))];
 		}
 
 		boss = FindObjectOfType<Leviadrin>();
