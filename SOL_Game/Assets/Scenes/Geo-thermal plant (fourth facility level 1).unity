@@ -78763,6 +78763,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: 62949788512714b9cbc07966579cd8c5, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  animationDirection: 0
   takeDamageSounds: []
   meleeSwingSoundEffects: []
   audioSource: {fileID: 0}
@@ -80207,7 +80208,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.85, y: 2.19}
+    oldSize: {x: 1.8, y: 2.28}
     newSize: {x: 0.060058653, y: 0.09}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -90787,7 +90788,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8701bfd60013a4a408cf3e9201fa7286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisFacility: 0
   defaultPlayerStartingPosition: {fileID: 2117816657}
+  checkPointStartingPosition: {fileID: 0}
   altStartingPosition: {fileID: 1602584822}
   playerPrefab: {fileID: 6841405128326533482, guid: 5afa98b79fcbd434b819ed5125726ca2,
     type: 3}
