@@ -1,41 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
-[System.Serializable]
+[Serializable]
 public class SaveData
 {
-	public const int
-		MAX_PLAYER_HEALTH = 8,
-		HEALTH_INCREASES = MAX_PLAYER_HEALTH - 3;
+	public PlayerData myPlayerData { get; set; }
+	public string currentLevel     { get; set; }
 
-	public bool
-		startInBeginingPosition,  // Allow the player to start at the initial starting point
-		swordUnlocked,            // Track if the sword is unlocked
-		hammerUnlocked,           // Track if the hammer is unlocked
-		blasterUnlocked,          // Track if the blaster is unlocked
-		shieldUnlocked,           // Track if the shield is unlocked
-		playerCanDie;             // This flag enables and disables the players ability to die when getting to zero health
-	public bool[]
-		acquiredHealthIncrease = new bool[HEALTH_INCREASES];
-	public int
-		maxPlayerHealth, // The maximum health the player has
-		bossesDefeated, // Which bosses have been defeated
-		guardiansDefeated;
-	public static string
-		sceneToLoad; // this is the name of the scene that will be loaded if you click continue in the game over scene (and the scene that will be loaded when clicking load in main menu?)
-	public float
-		currentPlayerHealth; // The player's current health
-	public SaveData(Player player)
+	public SaveData()
 	{
-		startInBeginingPosition = Globals.startInBeginingPosition;
-		swordUnlocked           = Globals.swordUnlocked;
-		hammerUnlocked          = Globals.hammerUnlocked;
-		blasterUnlocked         = Globals.blasterUnlocked;
-		shieldUnlocked          = Globals.shieldUnlocked;
-		currentPlayerHealth     = player.maxHealth.runTimeValue;
-		bossesDefeated          = Globals.bossesDefeated;
-		guardiansDefeated       = Globals.guardiansDefeated;
-		//sceneToLoad = 
+
+	}
+}
+
+[Serializable]
+public class PlayerData
+{
+	public bool   beginingPosition  { get; set; }
+	public bool   sword             { get; set; }
+	public bool   hammer            { get; set; }
+	public bool   blaster           { get; set; }
+	public bool   shield            { get; set; }
+	public float  playerHealth      { get; set; }
+	public int    bossesDefeated    { get; set; }
+	public int    guardiansDefeated { get; set; }
+	public float health = 3.0f;
+
+	public PlayerData(bool startInBeginingPosition, bool swordUnlocked,  bool  hammerUnlocked,
+		              bool blasterUnlocked,         bool shieldUnlocked, float playerHealth,
+					  int  bossesDefeated,          int  guardiansDefeated)
+	{
+		this.beginingPosition  = startInBeginingPosition;
+		this.sword             = swordUnlocked;
+		this.hammer            = hammerUnlocked;
+		this.blaster           = blasterUnlocked;
+		this.shield            = shieldUnlocked;
+		this.playerHealth      = health;
+		this.bossesDefeated    = bossesDefeated;
+		this.guardiansDefeated = guardiansDefeated;
 	}
 }

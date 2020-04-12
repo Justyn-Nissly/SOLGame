@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class GameData : MonoBehaviour
 {
-	///<summary> Save the game data </summary>
+	/*///<summary> Save the game data </summary>
 	public void SaveGame()
 	{
-		SaveSystem.SaveGame(FindObjectOfType<Player>());
+		SaveManager.SaveGame(FindObjectOfType<Player>());
 	}
 
 	///<summary> Load the game data </summary>
 	public void LoadGame()
 	{
 		SaveData
-			loadData = SaveSystem.LoadData(); // The game data to be loaded
+			loadData = SaveManager.LoadData(); // The game data to be loaded
 
 		Globals.startInBeginingPosition                   = loadData.startInBeginingPosition;
 		Globals.swordUnlocked                             = loadData.swordUnlocked;
@@ -24,5 +24,5 @@ public class GameData : MonoBehaviour
 		FindObjectOfType<Player>().maxHealth.initialValue = loadData.currentPlayerHealth;
 		Globals.bossesDefeated                            = loadData.bossesDefeated;
 		Globals.guardiansDefeated                         = loadData.guardiansDefeated;
-	}
+	}*/
 }
