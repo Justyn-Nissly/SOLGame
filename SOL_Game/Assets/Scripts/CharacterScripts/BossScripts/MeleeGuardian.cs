@@ -158,13 +158,11 @@ public class MeleeGuardian : Enemy
 			yield return new WaitForEndOfFrame();
 		}
 
-		//anim.SetTrigger("Attack");
-		//yield return new WaitForSeconds(1.5f);
-		//throwSword.shouldThrow = true;
-		//anim.SetTrigger("Patrol");
-		yield return new WaitForSeconds(3);
+		anim.SetTrigger("Attack");
+
+		yield return new WaitForSeconds(4.5f);
 		shouldThrow.findTarget = true;
-		//moving = false;
+
 	}
 
 
