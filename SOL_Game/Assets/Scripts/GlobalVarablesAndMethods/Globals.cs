@@ -31,7 +31,8 @@ public class Globals
 		atlantisCheckPointReached = false,
 		factoryCheckPointReached = false,
 		geothermalCheckPointReached = false,
-		spacebaseCheckPointReached = false;
+		spacebaseCheckPointReached = false,
+		wyrmDefeated = false;
 
 
 	public static bool[]

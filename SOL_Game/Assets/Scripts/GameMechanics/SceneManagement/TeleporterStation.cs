@@ -32,8 +32,9 @@ public class TeleporterStation : MonoBehaviour
 	/// <summary> Turn on the conveyor belt </summary>
 	void Awake()
 	{
-		portal.enabled = (teleporterOrder == Globals.bossesDefeated || spawnHere);
-		tractorField.GetComponent<BoxCollider2D>().isTrigger = teleporterOrder == Globals.bossesDefeated || spawnHere;
+		portal.enabled = (teleporterOrder == Globals.bossesDefeated || spawnHere || Globals.wyrmDefeated);
+		tractorField.GetComponent<BoxCollider2D>().isTrigger = teleporterOrder == Globals.bossesDefeated ||
+		                                                       spawnHere || Globals.wyrmDefeated;
 		teleportPoint.enabled = false;
 		canReturn = false;
 		tractorField.direction = ConveyorBelt.Direction.Up;
@@ -47,7 +48,7 @@ public class TeleporterStation : MonoBehaviour
 		if (canReturn == false)
 		{
 			returnTimer -= Time.deltaTime;
-			if (returnTimer <= 0.0f && teleporterOrder == Globals.bossesDefeated)
+			if (returnTimer <= 0.0f && teleporterOrder == Globals.bossesDefeated || Globals.wyrmDefeated)
 			{
 				canReturn = true;
 				tractorField.direction = ConveyorBelt.Direction.Up;
@@ -55,7 +56,7 @@ public class TeleporterStation : MonoBehaviour
 			else if (returnTimer <= 1.0f)
 			{
 				teleportPoint.enabled = true;
-				tractorField.GetComponent<BoxCollider2D>().isTrigger = (teleporterOrder == Globals.bossesDefeated);
+				tractorField.GetComponent<BoxCollider2D>().isTrigger = (teleporterOrder == Globals.bossesDefeated || Globals.wyrmDefeated);
 			}
 			else if (returnTimer <= 3.0f)
 			{

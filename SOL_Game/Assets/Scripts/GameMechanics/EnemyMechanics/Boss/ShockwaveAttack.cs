@@ -6,8 +6,10 @@ public class ShockwaveAttack : MonoBehaviour
 	#endregion
 
 	#region Public Variables
+	[Range (1.0f, 2.0f)]
 	public float
-		spreadRate, // How fast the shockwave spreads
+		spreadRate; // How fast the shockwave spreads
+	public float
 		maxSpread;  // How far the shockwave can reach
 	#endregion
 
@@ -24,6 +26,8 @@ public class ShockwaveAttack : MonoBehaviour
 		knockBack; // Force applied to the player on knockback
 	private bool
 		canDamage = true; // Prevent the shockwave from dealing damage more than once
+	private SpriteRenderer
+		sprite;
 	#endregion
 
 	// Unity Named Methods
@@ -34,21 +38,23 @@ public class ShockwaveAttack : MonoBehaviour
 		spinAngle = 0.0f;
 		player    = FindObjectOfType<Player>();
 		source    = GetComponent<AudioSource>();
+		sprite    = GetComponent<SpriteRenderer>();
 		source.Play();
+		spreadRate *= 0.15f;
 	}
 
 	/// <summary> Get the angle to the player and spread the shockwave </summary>
 	void FixedUpdate()
 	{
 		// The shockwave expands until it reaches its max size
-		if (transform.localScale.x < maxSpread)
+		if (sprite.color.a > 0.0f)
 		{
-			spread += spreadRate * 0.1f;
+			spread += spreadRate;
 
-			transform.localScale +=
-				new Vector3((0.2f - Mathf.Log(spread / maxSpread + 0.2f) / Mathf.Log(8.0f)) * 0.1f,
-				            (0.2f - Mathf.Log(spread / maxSpread + 0.2f) / Mathf.Log(8.0f)) * 0.1f, 0.0f);
+			transform.localScale =
+				new Vector3(maxSpread * Mathf.Sqrt(spread / maxSpread), maxSpread * Mathf.Sqrt(spread / maxSpread), 0.0f);
 			SpinShockwave();
+			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.95f - spread / maxSpread);
 		}
 		else
 		{

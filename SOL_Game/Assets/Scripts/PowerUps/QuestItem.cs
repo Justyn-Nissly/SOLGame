@@ -48,8 +48,13 @@ public class QuestItem : MonoBehaviour
 	/// <summary> Determine the Sprite type </summary>
 	public virtual void Awake()
 	{
-		// Prevent the sword module from appearing after the player already has it
-		if (type == ItemType.unlockSword && Globals.swordUnlocked)
+
+		player = FindObjectOfType<Player>();
+		// Prevent quest items from appearing after the player already has them
+		if ((type == ItemType.unlockSword && Globals.swordUnlocked)      || (type == ItemType.unlockBlaster && Globals.blasterUnlocked) ||
+		    (type == ItemType.unlockShield && Globals.shieldUnlocked)    || (type == ItemType.unlockHammer && Globals.hammerUnlocked)   ||
+		    (type == ItemType.shardBlue && player.swordComboUnlocked)    || (type == ItemType.shardGreen && Globals.shieldUnlocked)     ||
+		    (type == ItemType.shardYellow && player.hammerComboUnlocked) || (type == ItemType.shardRed && Globals.wyrmDefeated))
 		{
 			Destroy(gameObject);
 		}
@@ -57,7 +62,6 @@ public class QuestItem : MonoBehaviour
 		spin = 0.0f;
 		despawnTimer = 1000000.0f;
 		sprite = GetComponent<SpriteRenderer>();
-		player = FindObjectOfType<Player>();
 		willSpin = (type == ItemType.unlockSword   || type == ItemType.unlockShield ||
 		            type == ItemType.unlockBlaster || type == ItemType.unlockHammer);
 	}

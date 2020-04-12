@@ -280,17 +280,13 @@ public class Wyrm : Enemy
 	public override IEnumerator Die()
 	{
 		print("you won the game!!!");
-/*		if (characterAnimator.GetBool("BreathAttack") || characterAnimator.GetBool("MeleeAttack") ||
-		    characterAnimator.GetBool("LazerBreathAttack"))
-		{
-			EndAttackAnimation();
-		}*/
 		yield return null;
 	}
 
 	/// <summary> called after the death animations play</summary>
 	public void DestroyGameObject()
 	{
+		Globals.wyrmDefeated = true;
 		Destroy(gameObject);
 	}
 
