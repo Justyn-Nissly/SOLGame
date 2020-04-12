@@ -43,6 +43,7 @@ public class Enemy : BaseCharacter
 		pixelDesolveMaterial;
 
 	public bool
+		canDropPowerUp,
 		dropPowerUpOnDeath = false; // if this is true this enemy will always drop the power up game object
 	#endregion
 
@@ -50,8 +51,6 @@ public class Enemy : BaseCharacter
 	private float
 		amountHealed = 0,
 		countDownTimer;
-	private bool
-		canDropPowerUp;
 	protected bool
 		isDead = false;
 	#endregion
@@ -171,7 +170,7 @@ public class Enemy : BaseCharacter
 	}
 
 	/// <summary> removes all collider on this enemy (called when the enemy dies)</summary>
-	private void DisableColliders()
+	public void DisableColliders()
 	{
 		// disable all colliders
 		foreach(Collider2D collider2D in GetComponentsInChildren<Collider2D>())

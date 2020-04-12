@@ -7,7 +7,9 @@ public class WyrmMusic : SceneMusic
 	#region Enums (Empty)
 	#endregion
 
-	#region Public Variables (Empty)
+	#region Public Variables
+	public GameObject
+		intensity;
 	#endregion
 
 	#region Private Variables
@@ -44,15 +46,23 @@ public class WyrmMusic : SceneMusic
 			if (wyrmTheme.isPlaying == false)
 			{
 				wyrmTheme.Play();
+				intensity.GetComponent<AudioSource>().loop = true;
+				intensity.GetComponent<AudioSource>().Play();
 			}
 
 			songObject.transform.position = Vector2.Lerp(songObject.transform.position, player.transform.position,
 			                                             Time.deltaTime * 0.75f);
+			intensity.transform.position = Vector2.Lerp(intensity.transform.position,
+			                                            player.transform.position + (Vector3) (Vector2.up *
+			                                           (wyrm.maxHealth.runTimeValue / wyrm.maxHealth.initialValue) * 100.0f),
+			                                            Time.deltaTime * 0.75f);
 		}
 		else
 		{
 			songObject.transform.position = Vector2.Lerp(songObject.transform.position, muteLocation.transform.position,
 			                                             Time.deltaTime * 0.25f);
+			intensity.transform.position = Vector2.Lerp(intensity.transform.position, muteLocation.transform.position,
+			                                            Time.deltaTime * 0.25f);
 		}
 	}
 	#endregion

@@ -117,6 +117,9 @@ public class SpikeSurge : MonoBehaviour
 	/// <summary> Set the movement angle </summary>
 	void SetAngle()
 	{
+		// This code turns the trail into a lock-on missile stream
+/*		target = FindObjectOfType<Player>().transform.position;*/
+
 		// The spikes move in a line
 		angle = Mathf.Atan2(target.y - target.y, target.x - target.x) + 90 * Mathf.Deg2Rad;
 

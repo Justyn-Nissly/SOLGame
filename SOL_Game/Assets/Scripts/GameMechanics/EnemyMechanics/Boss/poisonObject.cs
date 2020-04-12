@@ -18,8 +18,6 @@ public class PoisonObject : MonoBehaviour
 	private float
 		timer = 1, // count down timer for damaging the player
 		maxTimer = 1; // timer interval time for damaging the player
-	private Leviadrin
-		boss;
 	#endregion
 
 	// Unity Named Methods
@@ -31,21 +29,12 @@ public class PoisonObject : MonoBehaviour
 		{
 			GetComponent<SpriteRenderer>().sprite = poisonSprites[Mathf.RoundToInt(Random.Range(0, poisonSprites.Count))];
 		}
-
-		boss = FindObjectOfType<Leviadrin>();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (boss != null)
-		{
-			if (boss.maxHealth.runTimeValue <= 0)
-			{
-				Destroy(gameObject);
-			}
-		}
 		// damage the player
-		else if (collision.gameObject.CompareTag("Player") && DamageToGive != null)
+		if (collision.gameObject.CompareTag("Player") && DamageToGive != null)
 		{
 			DamagePlayer(collision.gameObject.GetComponent<Player>());
 		}

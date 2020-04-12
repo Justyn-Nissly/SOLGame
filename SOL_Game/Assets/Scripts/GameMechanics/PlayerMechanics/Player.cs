@@ -185,6 +185,21 @@ public class Player : BaseCharacter
 			Globals.hammerUnlocked = true;
 			Globals.blasterUnlocked = true;
 			Globals.shieldUnlocked = true;
+			swordComboUnlocked = true;
+			hammerComboUnlocked = true;
+			maxHealth.runTimeValue = maxHealth.initialValue;
+			medKits = PowerUp.MAX_MED_KITS;
+			powerUpTimers[0] = PowerUp.MAX_POWER_UP_TIME;
+			powerUpTimers[1] = PowerUp.MAX_POWER_UP_TIME;
+			powerUpTimers[2] = PowerUp.MAX_POWER_UP_TIME;
+			playerHealthHUD.UpdateHearts();
+			if (medKitImages != null)
+			{
+				for (int i = 0; i < PowerUp.MAX_MED_KITS; i++)
+				{
+					medKitImages[i].enabled = (i < medKits);
+				}
+			}
 			SetUpInputDetection();
 		}
 		if (Input.GetKeyDown(KeyCode.End))
@@ -479,7 +494,7 @@ public class Player : BaseCharacter
 			playerHealthHUD.UpdateHearts();
 
 			// kill the player...
-			if(maxHealth.runTimeValue <= 0 && Globals.playerCanDie)
+			if(maxHealth.runTimeValue <= 0 && false /*Globals.playerCanDie*/)
 			{
 				StartCoroutine(PlayerDied());
 			}

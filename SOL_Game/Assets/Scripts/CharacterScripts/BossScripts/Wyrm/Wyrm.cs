@@ -44,8 +44,8 @@ public class Wyrm : Enemy
 		canDoHalfHealthEvent = true,         // Flag so that this health event only happens once
 		canDoQuarterHealthEvent = true,      // Flag so that this health event only happens once
 		canDoThreeQuarterHealthEvent = true, // Flag so that this health event only happens once
-		enemyIsShacking = false;             // For making the enemy look "mad"
-
+		enemyIsShacking = false,             // For making the enemy look "mad"
+		enemiesCleared = false;
 
 	private float
 		attackCountdownTimer = 2,        // The countdown timer for the attacks
@@ -76,7 +76,7 @@ public class Wyrm : Enemy
 	{
 		base.FixedUpdate();
 
-		if ((damaged.isPlaying || fireBreath.isPlaying || laser.isPlaying || roar.isPlaying || startingRoar.isPlaying) == false)
+		if ((damaged.isPlaying || fireBreath.isPlaying || laser.isPlaying || roar.isPlaying || startingRoar.isPlaying || isDead) == false)
 		{
 			if ((roarTimer -= Time.deltaTime) <= 0.0f)
 			{
@@ -102,9 +102,10 @@ public class Wyrm : Enemy
 			// trigger death animations
 			characterAnimator.SetBool("Dead", true);
 		}
-		else
+		else if ((attackCountdownTimer -= Time.deltaTime) <= 0.0f && (characterAnimator.GetBool("BreathAttack") ||
+		          characterAnimator.GetBool("MeleeAttack")        ||  characterAnimator.GetBool("LazerBreathAttack")) == false)
 		{
-			attackCountdownTimer -= Time.deltaTime;
+			canAttack = true;
 		}
 
 		// If the enemy should be shacking start shacking the enemy
@@ -126,7 +127,7 @@ public class Wyrm : Enemy
 			StartAttackAnimation(AttackType.meleeAttack);
 		}
 		// N% chance to do a lazer attack if below quarter health
-		else if (Random.Range(0.0f, 3.0f) >= 1.0f /*&& canDoQuarterHealthEvent == false*/)
+		else if (canDoQuarterHealthEvent == false && Random.Range(0.0f, 3.0f) >= 1.0f)
 		{
 			StartAttackAnimation(AttackType.lazerBreathAttack);
 		}
@@ -240,21 +241,38 @@ public class Wyrm : Enemy
 			damaged.Play();
 
 			// check if the enemy should start a health event
-			if (maxHealth.runTimeValue <= maxHealth.initialValue / 1.33333f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
+			if (maxHealth.runTimeValue <= maxHealth.initialValue * 0.75f && canDoThreeQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoThreeQuarterHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(4)); // start health event
 			}
-			else if (maxHealth.runTimeValue <= maxHealth.initialValue / 2 && canDoHalfHealthEvent) // check if the enemy is at half health
+			else if (maxHealth.runTimeValue <= maxHealth.initialValue * 0.5f && canDoHalfHealthEvent) // check if the enemy is at half health
 			{
 				canDoHalfHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(6)); // start health event
 			}
-			else if (maxHealth.runTimeValue <= maxHealth.initialValue / 4 && canDoQuarterHealthEvent) // check if the enemy is at quarter health
+			else if (maxHealth.runTimeValue <= maxHealth.initialValue * 0.25f && canDoQuarterHealthEvent) // check if the enemy is at quarter health
 			{
 				canDoQuarterHealthEvent = false; // this flag is here so this only can happen once
 				StartCoroutine(StartHealthEvent(4)); // start health event
 			}
+		}
+		else if (enemiesCleared == false)
+		{
+			if (FindObjectOfType<Enemy>() != null)
+			{
+				Enemy[] enemies = FindObjectsOfType<Enemy>();
+				for (int i = 0; i < enemies.Length; i++)
+				{
+					if (enemies[i] != this)
+					{
+						enemies[i].GetComponent<Enemy>().canDropPowerUp = false;
+						enemies[i].GetComponent<Enemy>().DisableColliders();
+						enemies[i].GetComponent<Enemy>().TakeDamage(100, false);
+					}
+				}
+			}
+			isDead = enemiesCleared = true;
 		}
 	}
 
@@ -262,7 +280,11 @@ public class Wyrm : Enemy
 	public override IEnumerator Die()
 	{
 		print("you won the game!!!");
-
+/*		if (characterAnimator.GetBool("BreathAttack") || characterAnimator.GetBool("MeleeAttack") ||
+		    characterAnimator.GetBool("LazerBreathAttack"))
+		{
+			EndAttackAnimation();
+		}*/
 		yield return null;
 	}
 

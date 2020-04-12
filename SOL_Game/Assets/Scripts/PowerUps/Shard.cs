@@ -33,12 +33,16 @@ public class Shard : QuestItem
 	{
 		base.FixedUpdate();
 		sprite.sprite = sprites[(int)(spinTimer += Time.deltaTime * 8.0f) % 6];
-		if (despawnTimer <= DESPAWN_TIME)
+		if (despawnTimer <= QuestItem.DISAPPEAR)
+		{
+			shine.GetComponent<SpriteRenderer>().enabled = false;
+		}
+		else if (despawnTimer <= DESPAWN_TIME)
 		{
 			shine.sortingOrder = LayeredRender.MAX_Y * 2 - 1;
 			if (shimmer.volume > 0.0f)
 			{
-				shimmer.volume -= Time.deltaTime * 0.25f;
+				shimmer.volume -= Time.deltaTime * 0.3f;
 			}
 		}
 		else

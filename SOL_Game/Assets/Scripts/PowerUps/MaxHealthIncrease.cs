@@ -23,6 +23,10 @@ public class MaxHealthIncrease : QuestItem
 		base.FixedUpdate();
 		spinTimer += Time.deltaTime * 8.0f;
 		sprite.sprite = sprites[(int) (spinTimer % 4.0f)];
+		if (despawnTimer <= QuestItem.DISAPPEAR)
+		{
+			glow.GetComponent<SpriteRenderer>().enabled = false;
+		}
 	}
 
 	public override void OnTriggerEnter2D(Collider2D other)

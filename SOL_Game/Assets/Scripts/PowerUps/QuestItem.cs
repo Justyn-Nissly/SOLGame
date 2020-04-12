@@ -17,7 +17,8 @@ public class QuestItem : MonoBehaviour
 		shardRed,
 		maxHealth
 	}
-	protected const float DESPAWN_TIME = 7.0f;
+	protected const float DESPAWN_TIME = 7.0f,
+	DISAPPEAR = 4.0f;
 	#endregion
 
 	#region Public Variables
@@ -68,17 +69,26 @@ public class QuestItem : MonoBehaviour
 			transform.localScale = new Vector3(Mathf.Cos((spin += Time.deltaTime) * 0.5f * Mathf.PI), 1.0f, 1.0f);
 		}
 
-		if (despawnTimer <= DESPAWN_TIME)
-		{
-			player.canTakeDamage = false;
-			player.FreezePlayer();
-		}
 		if ((despawnTimer -= Time.deltaTime) <= 0.0f)
 		{
 			player.playerAnimator.SetBool("AcquiredQuestItem", false);
 			player.canTakeDamage = true;
 			player.UnFreezePlayer();
+			sprite.enabled = false;
 			Destroy(gameObject);
+		}
+		else if (despawnTimer <= DISAPPEAR && despawnTimer >= 3.8f)
+		{
+			player.playerAnimator.SetBool("AcquiredQuestItem", false);
+			player.canTakeDamage = true;
+			player.UnFreezePlayer();
+			sprite.enabled = false;
+		}
+		else if (despawnTimer <= DESPAWN_TIME && despawnTimer >= DISAPPEAR)
+		{
+			player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+			player.canTakeDamage = false;
+			player.FreezePlayer();
 		}
 	}
 
