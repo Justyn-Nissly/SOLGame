@@ -86,7 +86,10 @@ public class SwordThrow : MonoBehaviour
 				if (returnOrigin)
 				{
 					arm.transform.position = origin.transform.position;
-			        guadianCanMove.moving = false;
+
+					if(guadianCanMove != null)
+						guadianCanMove.moving = false;
+
 					anim.SetTrigger("Patrol");
 					returnOrigin = false;
 					isThrowing = false;

@@ -19,15 +19,6 @@ public class N13GL : Enemy
 	#endregion
 
 	#region Public Variables
-	#region Custom Editor
-	public bool // May be removed not sure yet
-		isShield,
-		isGun,
-		isHammer,
-		isSword,
-		isFinal;
-	#endregion
-
 	#region Shared Variables
 	public DoorManager
 		doorManager; // for locking the door out of the room
@@ -38,15 +29,11 @@ public class N13GL : Enemy
 	public Animator
 		animator; // Reference to the animation controller
 	public GameObject
-		guardianArm, // The arm of the guardian
-		swordArm;
-	public Sprite
-		finalArmSprite,  // The sprite for the final guardian arm
-		gunArmSprite,    // The sprite for the gun guardian arm
-		hammerArmSprite, // The sprite for the hammer guardian arm
-		nextArmSprite,   // The sprite for the next guardian arm to be spawned in
-		shieldArmSprite, // The sprite for the shield guardian arm
-		swordArmSprite;  // The sprite for the sword guardian arm
+		finalArm,  // The GameObject for the final guardian arm
+		gunArm,    // The GameObject for the gun guardian arm
+		hammerArm, // The GameObject for the hammer guardian arm
+		shieldArm, // The GameObject for the shield guardian arm
+		swordArm;  // The GameObject for the sword guardian arm
 	public Transform
 		upperLeftSpawnPointLimit,  // Used to get a random position between these two limits
 		lowerRightSpawnPointLimit; // Used to get a random position between these two limits
@@ -330,47 +317,45 @@ public class N13GL : Enemy
 	{
 		currentGuardianPattern = (AttackPattern)allGuardianPatternTypes.GetValue(guardianPhase);
 		animator.SetTrigger("Idle");
+		animator.ResetTrigger("Idle");
 		switch (currentGuardianPattern)
 		{
 			case AttackPattern.finalGuardianPattern:
 			{
 				typeIsChanged = false;
-				nextArmSprite = finalArmSprite;
+				DisableOldArm();
+				finalArm.SetActive(true);
 				break;
 			}
 			case AttackPattern.shieldGuardianPattern:
 			{
 				// Set the attack type to the shield guardian
 				typeIsChanged = false;
-				nextArmSprite = shieldArmSprite;
-				SwitchArms();
-				gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+				DisableOldArm();
+				shieldArm.SetActive(true);
 				break;
 			}
 			case AttackPattern.gunGuardianPattern:
 			{
 				// Spawn in the gun guardian arm
 				typeIsChanged = false;
-				nextArmSprite = gunArmSprite;
-				SwitchArms();
-				gameObject.transform.localScale = new Vector3(2, 2, 1);
+				DisableOldArm();
+				gunArm.SetActive(true);
 				break;
 			}
 			case AttackPattern.hammerGuardianPattern:
 			{
 				typeIsChanged = false;
-				nextArmSprite = hammerArmSprite;
-				SwitchArms();
-				gameObject.transform.localScale = new Vector3(10, 10, 1);
+				DisableOldArm();
+				hammerArm.SetActive(true);
 				break;
 			}
 			case AttackPattern.swordGuardianPattern:
 			{
 				typeIsChanged = false;
-				nextArmSprite = swordArmSprite;
-				SwitchArms();
-				gameObject.transform.localScale = new Vector3(5, 5, 1);
+				DisableOldArm();
 				swordArm.SetActive(true);
+				animator.SetBool("IsSword", true);
 				break;
 			}
 		};
@@ -380,9 +365,17 @@ public class N13GL : Enemy
 	/// <summary> Switch the currently displayed guardian arm </summary>
 	public void SwitchArms()
 	{
-		guardianArm.GetComponent<SpriteRenderer>().sprite = nextArmSprite; // Take this and set this to "nextSprite" rather than just shieldSprite....It is 3:37...go to bed...
+		//guardianArm.GetComponent<SpriteRenderer>().sprite = nextArmSprite; // Take this and set this to "nextSprite" rather than just shieldSprite....It is 3:37...go to bed...
+		//StartCoroutine(ResetColliders());
+	}
 
-		StartCoroutine(ResetColliders());
+	public void DisableOldArm()
+	{
+		finalArm.SetActive(false);
+		gunArm.SetActive(false);
+		hammerArm.SetActive(false);
+		shieldArm.SetActive(false);
+		swordArm.SetActive(false);
 	}
 
 	/// <summary> Take damage from the player </summary>
@@ -419,6 +412,18 @@ public class N13GL : Enemy
 			// Move the ranged guardian to the closest teleporter location
 			moving = true;
 			StartCoroutine(MoveOverSeconds(gameObject, GetRandomPositionBeweenLimits(), 1f));
+		}
+	}
+
+	/// <summary> starts moving the basilisk to a random point if the basilisk is not moving</summary>
+	private void MoveSword()
+	{
+		// so that you don't call the coroutine again if the boss is already running
+		if (moving == false)
+		{
+			// Move the ranged guardian to the closest teleporter location
+			moving = true;
+			StartCoroutine(MoveOverSecondsSword(gameObject, GetRandomPositionBeweenLimits(), 1f));
 		}
 	}
 
@@ -659,9 +664,9 @@ public class N13GL : Enemy
 		base.FixedUpdate();
 
 		// The guardian is constantly moving
-		if (moving == false && canAttack)
+		if (moving == false)
 		{
-			Move();
+			MoveSword();
 		}
 	}
 	#endregion
@@ -670,7 +675,7 @@ public class N13GL : Enemy
 	/// <summary> The attack pattern for the shield guardian </summary>
 	public void FinalGuardianAttackPattern()
 	{
-		Debug.Log("Final Attack");
+		//Debug.Log("Final Attack");
 	}
 	#endregion
 
@@ -709,6 +714,7 @@ public class N13GL : Enemy
 			elapsedTime += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
+
 		yield return new WaitForSeconds(3);
 		moving = false;
 	}
@@ -826,6 +832,26 @@ public class N13GL : Enemy
 	#endregion
 
 	#region Sword Guardian
+	public IEnumerator MoveOverSecondsSword(GameObject objectToMove, Vector3 endingPosition, float seconds)
+	{
+		float elapsedTime = 0;
+		Vector3 startingPosition = objectToMove.transform.position; // save the starting position
+
+		// move the basilisk a little each frame based on how many seconds it should take to get the ending position
+		while (elapsedTime < seconds)
+		{
+			objectToMove.transform.position = Vector3.Lerp(startingPosition, endingPosition, (elapsedTime / seconds));
+			elapsedTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+
+		animator.SetTrigger("Attack");
+		GetComponent<SwordThrow>().findTarget = true;
+		yield return new WaitForSeconds(6f);
+
+		moving = false;
+	}
 	#endregion
 
 	#region Final Guardian

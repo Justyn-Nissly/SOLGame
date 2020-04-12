@@ -128,7 +128,7 @@ public class N13GLEncounter : MonoBehaviour
 	{
 		canvasFadeImage.color = (fadeToWhite) ? Color.Lerp(canvasFadeImage.color, Color.white, 1.6f * Time.deltaTime) :
 			                                    Color.Lerp(canvasFadeImage.color, Color.clear, 1.6f * Time.deltaTime);
-		Debug.Log("work");
+		//Debug.Log("work");
 		if (fadeTime <= 0.1f && fadeToWhite == true)
 		{
 			fadeToWhite = false;
