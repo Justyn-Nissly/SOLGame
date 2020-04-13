@@ -156,7 +156,6 @@ public class QuestItem : MonoBehaviour
 			if (willSpin == false)
 			{
 				playerHealth.runTimeValue = playerHealth.initialValue = heartContainers.runTimeValue * 2.0f;
-				collision.GetComponent<Player>().playerHealthHUD.ChangeNumberOfHearts();
 			}
 		}
 	}

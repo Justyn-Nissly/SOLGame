@@ -39,6 +39,7 @@ public class MaxHealthIncrease : QuestItem
 		}
 		Globals.acquiredHealthIncrease[itemNumber] = true;
 		base.OnTriggerEnter2D(other);
+		other.GetComponent<Player>().playerHealthHUD.ChangeNumberOfHearts();
 		glow.sortingOrder = LayeredRender.MAX_Y * 2 - 1;
 		}
 	}
