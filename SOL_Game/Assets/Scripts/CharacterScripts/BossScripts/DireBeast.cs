@@ -25,8 +25,6 @@ public class DireBeast : Enemy
 		campLocation; // Location you wish the enemy to move to
 	public FloatValue
 		meleeDamageToGive;
-	public float
-		countDownTimer;
 
 	public EncounterManager
 		EncounterManager; // this reference is used to send a signal when the basilisk dies
@@ -37,6 +35,7 @@ public class DireBeast : Enemy
 
 	#region Private Variables
 	private float
+		attackTimer,
 		maxTimeBetweenAttacks = 2f,
 		minTimeBetweenAttacks = 1.5f;
 	private BossBlastAttack
@@ -75,22 +74,22 @@ public class DireBeast : Enemy
 		}
 
         if (Vector2.Distance(playerPos, gameObject.transform.position) < 7 &&
-			countDownTimer <= 0 && canAttack && aggro)
+			attackTimer <= 0 && canAttack && aggro)
         {
 			//bossBlastAttack.enabled = false;
-			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
+			attackTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
 			MeleeAttack(armWeapon, armAttackPosition, armAttackRange, armDamageToGive, false);
 		}
 		else if (Vector2.Distance(playerPos, gameObject.transform.position) >= 7 &&
-			countDownTimer <= 0 && canAttack && aggro && inWall == false)
+			attackTimer <= 0 && canAttack && aggro && inWall == false)
 		{
-			countDownTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
+			attackTimer = Random.Range(minTimeBetweenAttacks, maxTimeBetweenAttacks); // reset the time between attacks
 			bossBlastAttack.enabled = true;
 			characterAnimator.SetBool("shoot", true);
 		}
 		 else
 		{
-			countDownTimer -= Time.deltaTime;
+			attackTimer -= Time.deltaTime;
 		}
 
 

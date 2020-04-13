@@ -91534,11 +91534,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 1eacc2b544267a34d8c3a3e9367b052b, type: 3}
+      objectReference: {fileID: 8300000, guid: f7190008c6e16a642a71614de39431f7, type: 3}
     - target: {fileID: 254188806442743226, guid: ec2484c918b73144fb48313f07a39eaf,
         type: 3}
       propertyPath: m_PlayOnAwake
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 254188806442743226, guid: ec2484c918b73144fb48313f07a39eaf,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec2484c918b73144fb48313f07a39eaf, type: 3}
@@ -98553,7 +98558,6 @@ GameObject:
   - component: {fileID: 2045046128}
   - component: {fileID: 2045046131}
   - component: {fileID: 2045046130}
-  - component: {fileID: 2045046129}
   m_Layer: 0
   m_Name: GeothermalThemeAreas
   m_TagString: Untagged
@@ -98576,32 +98580,6 @@ Transform:
   m_Father: {fileID: 1557990593}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2045046129
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2045046127}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 20.7058, y: 67.11559}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 15.755859, y: 20.040417}
-  m_EdgeRadius: 0
 --- !u!61 &2045046130
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -98615,7 +98593,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.9039764, y: -7.3779755}
+  m_Offset: {x: -1.9039764, y: -6.6292496}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -98626,7 +98604,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 114.286896, y: 117.61972}
+  m_Size: {x: 114.286896, y: 116.12227}
   m_EdgeRadius: 0
 --- !u!114 &2045046131
 MonoBehaviour:
