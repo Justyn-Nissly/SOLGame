@@ -13,7 +13,7 @@ public class PowerUp : MonoBehaviour
 		EXTRA_PLAYER_DAMAGE = 2; // Powered up damage multiplier
 	public const float
 		EXTRA_PLAYER_SPEED = 0.08f, // Powered up speed multiplier
-		MAX_POWER_UP_TIME = 50.0f; // How long power up effects last
+		MAX_POWER_UP_TIME = 30.0f; // How long power up effects last
 	#endregion
 
 	#region Public Variables
@@ -92,7 +92,11 @@ public class PowerUp : MonoBehaviour
 			// Enable the player to use the power up
 			if (type != HEAL)
 			{
-				player.powerUpTimers[type] += MAX_POWER_UP_TIME * 0.5f;
+				player.powerUpTimers[type] += MAX_POWER_UP_TIME * 0.333333f;
+				if (player.powerUpTimers[type] >= MAX_POWER_UP_TIME)
+				{
+					player.powerUpTimers[type] = MAX_POWER_UP_TIME;
+				}
 				player.powerUpsActive[type] = false;
 			}
 			else
@@ -128,7 +132,7 @@ public class PowerUp : MonoBehaviour
 			spriteRenderer = GetComponent<SpriteRenderer>();
 
 		// Make the power up blink
-		while (timer < 3.0f)
+		while (timer < 5.0f)
 		{
 			// Toggle the sprite's visibility to make it blink
 			spriteRenderer.enabled = !spriteRenderer.enabled;

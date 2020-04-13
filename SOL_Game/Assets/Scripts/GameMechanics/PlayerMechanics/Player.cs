@@ -37,7 +37,7 @@ public class Player : BaseCharacter
 	public float
 		extraSpeed,   // Extra speed gained from a power up
 		powerUpTimer, // How long power ups last
-		powerUpDivided = 1.0f / PowerUp.MAX_POWER_UP_TIME;
+		powerUpDivided;
 	public int
 		combo = 0,
 		medKits,     // How many med kits the player is holding
@@ -125,6 +125,7 @@ public class Player : BaseCharacter
 		powerUpsActive = new bool[PowerUp.SPEED + 1];
 		fast = playerMovementSpeed * 2;
 		oldSpeed = playerMovementSpeed;
+		powerUpDivided = 1.0f / PowerUp.MAX_POWER_UP_TIME;
 
 		swordComboUnlocked = false;
 		hammerComboUnlocked = false;
@@ -236,9 +237,9 @@ public class Player : BaseCharacter
 		CheckIfShouldIncreaseComboCounter();
 
 		// Update the power ups HUD
-		UpdateHud(powerUpTimers[PowerUp.POWER] * powerUpDivided,
+		UpdateHud(powerUpTimers[PowerUp.POWER]  * powerUpDivided,
 		          powerUpTimers[PowerUp.SHIELD] * powerUpDivided,
-		          powerUpTimers[PowerUp.SPEED] * powerUpDivided);
+		          powerUpTimers[PowerUp.SPEED]  * powerUpDivided);
 
 		// Show the player's shield when it is active
 		ActivateForceField();

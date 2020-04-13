@@ -141,6 +141,7 @@ MonoBehaviour:
   maxHealth: {fileID: 11400000, guid: 419b4a6b4cb200d40872b2a2fcaf994f, type: 2}
   canAttack: 1
   canTakeDamage: 1
+  animationDirection: 0
   takeDamageSounds:
   - {fileID: 8300000, guid: 2d6e19d571d86ee419380022b720f70c, type: 3}
   - {fileID: 8300000, guid: b61a13920e949e74d867df4c542bb93f, type: 3}
@@ -188,6 +189,7 @@ MonoBehaviour:
   powerUp: {fileID: 5920347357568972683, guid: fdd5c6594f2534c4dbd9ccc6d18b54be, type: 3}
   pixelDesolveMaterial: {fileID: 2100000, guid: 813cb534eba916c4c80cad3480e3ac13,
     type: 2}
+  canDropPowerUp: 0
   dropPowerUpOnDeath: 1
   attackTime: 2
   restDelay: 3
@@ -466,8 +468,8 @@ MonoBehaviour:
   destroyedSprite: {fileID: 6657893770769798689, guid: e1ce698453699674aac89b48cf7060c1,
     type: 3}
   health: 10
-  canDropItem: 0
   itemDrop: {fileID: 0}
+  percentDropChance: 0
   audioManager: {fileID: 7405863299067263502}
 --- !u!114 &7405863299067263502
 MonoBehaviour:

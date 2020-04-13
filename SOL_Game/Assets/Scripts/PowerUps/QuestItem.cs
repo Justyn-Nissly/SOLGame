@@ -48,7 +48,6 @@ public class QuestItem : MonoBehaviour
 	/// <summary> Determine the Sprite type </summary>
 	public virtual void Awake()
 	{
-
 		player = FindObjectOfType<Player>();
 		// Prevent quest items from appearing after the player already has them
 		if ((type == ItemType.unlockSword && Globals.swordUnlocked)      || (type == ItemType.unlockBlaster && Globals.blasterUnlocked) ||

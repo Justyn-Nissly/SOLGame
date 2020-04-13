@@ -27,7 +27,6 @@ public class BossMusic : SceneMusic
 	#region Main Methods
 	protected override void Awake()
 	{
-		base.Awake();
 		songDelay = 0.6f;
 		playThisSong = false;
 		bossTheme = songObject.GetComponent<AudioSource>();
@@ -72,6 +71,7 @@ public class BossMusic : SceneMusic
 	{
 		if (collider.gameObject.CompareTag("Player"))
 		{
+			player = FindObjectOfType<Player>();
 			playerIsPresent = true;
 		}
 	}
