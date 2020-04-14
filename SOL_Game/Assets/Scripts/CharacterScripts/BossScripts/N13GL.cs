@@ -444,7 +444,6 @@ public class N13GL : Enemy
 	/// <summary> The attack pattern for the shield guardian </summary>
 	public void ShieldGuardianAttackPattern()
 	{
-		Debug.Log("Shield Attack");
 		base.FixedUpdate();
 
 		/*// check if the boss should start charging at the player
@@ -491,7 +490,6 @@ public class N13GL : Enemy
 	/// <summary> The attack pattern for the gun guardian </summary>
 	public void GunGuardianAttackPattern()
 	{
-		Debug.Log("Gun Attack");
 		// Execute the gun guardian attack pattern
 		base.FixedUpdate();
 		if (canAttack)
