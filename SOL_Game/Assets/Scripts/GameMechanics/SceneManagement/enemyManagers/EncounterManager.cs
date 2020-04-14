@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EncounterManager : MonoBehaviour
 {
@@ -49,6 +50,12 @@ public class EncounterManager : MonoBehaviour
 		GetComponent<DoorManager>().UnlockDoors();
 		Destroy(gameObject);
 	}
+
+
+	public void LoadCredits(float delayTime = 12f)
+	{
+		StartCoroutine(LoadCreditsCO(delayTime));
+	}
 	#endregion
 
 	#region Coroutines
@@ -87,6 +94,17 @@ public class EncounterManager : MonoBehaviour
 			enemy.aggro = true;
 			enemy.aggroRange = 100;
 		}
+	}
+
+	private IEnumerator LoadCreditsCO(float delayTime)
+	{
+		Time.timeScale = 0.5f;
+
+		yield return new WaitForSecondsRealtime(delayTime);
+
+		Time.timeScale = 1.0f;
+
+		SceneManager.LoadScene("Credits"); // play credits
 	}
 	#endregion
 }

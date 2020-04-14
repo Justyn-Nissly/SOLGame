@@ -58,6 +58,11 @@ public class MainMenu : MonoBehaviour
 		SceneManager.LoadScene(Globals.sceneToLoad);
 	}
 
+	public void PlayCredits()
+	{
+		SceneManager.LoadScene("Credits");
+	}
+
 	/// Quits the game
 	public void QuitGame()
 	{

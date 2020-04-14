@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wyrm : Enemy
 {
@@ -37,6 +38,9 @@ public class Wyrm : Enemy
 
 	public Transform
 		StartMeleeAttackPoint; // is the players position is higher on the y axis than this transform the Wyrm will use a melee attack
+
+	public EncounterManager
+		encounterManager; // for loading the credits scene when this enemy is destroyed
 	#endregion
 
 	#region Private Variables
@@ -273,6 +277,9 @@ public class Wyrm : Enemy
 				}
 			}
 			isDead = enemiesCleared = true;
+
+
+			encounterManager.LoadCredits();
 		}
 	}
 
