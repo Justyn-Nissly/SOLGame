@@ -19,12 +19,15 @@ public class WyrmMusic : SceneMusic
 		wyrmTheme;
 	private Wyrm
 		wyrm;
+	private float
+		songDelay;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
 	protected override void Awake()
 	{
+		songDelay = 3.0f;
 		playThisSong = false;
 		wyrmTheme = songObject.GetComponent<AudioSource>();
 	}
@@ -41,9 +44,16 @@ public class WyrmMusic : SceneMusic
 			player = FindObjectOfType<Player>();
 		}
 
+		PlayWyrmTheme();
+	}
+	#endregion
+
+	#region Utility Methods
+	private void PlayWyrmTheme()
+	{
 		if (bossIsPresent)
 		{
-			if (wyrmTheme.isPlaying == false)
+			if (wyrmTheme.isPlaying == false && (songDelay -= Time.deltaTime) <= 0.0f)
 			{
 				wyrmTheme.Play();
 				intensity.GetComponent<AudioSource>().loop = true;
@@ -53,8 +63,8 @@ public class WyrmMusic : SceneMusic
 			songObject.transform.position = Vector2.Lerp(songObject.transform.position, player.transform.position,
 			                                             Time.deltaTime * 0.75f);
 			intensity.transform.position = Vector2.Lerp(intensity.transform.position,
-			                                            player.transform.position + (Vector3) (Vector2.up *
-			                                           (wyrm.maxHealth.runTimeValue / wyrm.maxHealth.initialValue) * 100.0f),
+			                                            player.transform.position + (Vector3) (Vector2.down *
+			                                           (wyrm.maxHealth.runTimeValue / wyrm.maxHealth.initialValue) * 40.0f),
 			                                            Time.deltaTime * 0.75f);
 		}
 		else
@@ -65,9 +75,6 @@ public class WyrmMusic : SceneMusic
 			                                            Time.deltaTime * 0.25f);
 		}
 	}
-	#endregion
-
-	#region Utility Methods (Empty)
 	#endregion
 
 	#region Coroutines (Empty)

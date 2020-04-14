@@ -36,6 +36,8 @@ public class QuestItem : MonoBehaviour
 	#region Private and Protected Variables
 	protected float
 		despawnTimer;
+	protected bool
+		pickUp;
 	private bool
 		willSpin,
 		spinPositive;
@@ -93,6 +95,11 @@ public class QuestItem : MonoBehaviour
 			player.canTakeDamage = false;
 			player.FreezePlayer();
 		}
+
+		if (pickUp)
+		{
+			PickUpItem();
+		}
 	}
 
 	/// <summary> Apply the Sprite </summary>
@@ -100,69 +107,81 @@ public class QuestItem : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Player")
 		{
-			GetComponent<AudioSource>().Play();
-			switch (type)
-			{
-				case ItemType.shardGreen:
-					;
-					break;
-				case ItemType.shardBlue:
-					player.swordComboUnlocked = true;
-					break;
-				case ItemType.shardYellow:
-					player.hammerComboUnlocked = true;
-					break;
-				case ItemType.shardRed:
-					;
-					break;
-				case ItemType.unlockSword:
-					Globals.swordUnlocked = true;
-					break;
-				case ItemType.unlockBlaster:
-					Globals.blasterUnlocked = true;
-					break;
-				case ItemType.unlockShield:
-					Globals.shieldUnlocked = true;
-					player.shieldAnimator.SetBool("ShieldUnlocked", true);
-					break;
-				case ItemType.unlockHammer:
-					Globals.hammerUnlocked = true;
-					break;
-			}
-			player.SetUpInputDetection();
-			player.playerAnimator.SetFloat("Horizontal", 0.0f);
-			player.playerAnimator.SetFloat("Vertical", -1.0f);
-			player.playerAnimator.SetBool("AcquiredQuestItem", true);
-			player.FreezePlayer();
-			transform.position = GameObject.FindGameObjectWithTag("Arm").transform.position;
-			GetComponent<BoxCollider2D>().enabled = false;
-			sprite.sortingOrder = LayeredRender.MAX_Y * 2;
-			despawnTimer = DESPAWN_TIME;
+			pickUp = (GameObject.FindWithTag("Enemy") == null);
+		}
+	}
 
-			DoorLogic[] doors = FindObjectsOfType<DoorLogic>();
-			foreach (DoorLogic door in doors)
-			{
-				if (type >= ItemType.shardGreen && type <= ItemType.shardRed)
-				{
-					door.playerHasShard = true;
-				}
-				else if (type >= ItemType.unlockSword && type <= ItemType.unlockHammer)
-				{
-					door.playerHasChip = true;
-				}
-			}
-
-			// Shards also heal the player to full
-			if (willSpin == false)
-			{
-				playerHealth.runTimeValue = playerHealth.initialValue = heartContainers.runTimeValue * 2.0f;
-				player.playerHealthHUD.UpdateHearts();
-			}
+	public virtual void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.gameObject.tag == "Player")
+		{
+			pickUp = false;
 		}
 	}
 	#endregion
 
 	#region Utility Methods (Empty)
+	private void PickUpItem()
+	{
+		GetComponent<AudioSource>().Play();
+		switch (type)
+		{
+			case ItemType.shardGreen:
+				;
+				break;
+			case ItemType.shardBlue:
+				player.swordComboUnlocked = true;
+				break;
+			case ItemType.shardYellow:
+				player.hammerComboUnlocked = true;
+				break;
+			case ItemType.shardRed:
+				;
+				break;
+			case ItemType.unlockSword:
+				Globals.swordUnlocked = true;
+				break;
+			case ItemType.unlockBlaster:
+				Globals.blasterUnlocked = true;
+				break;
+			case ItemType.unlockShield:
+				Globals.shieldUnlocked = true;
+				player.shieldAnimator.SetBool("ShieldUnlocked", true);
+				break;
+			case ItemType.unlockHammer:
+				Globals.hammerUnlocked = true;
+				break;
+		}
+		player.SetUpInputDetection();
+		player.playerAnimator.SetFloat("Horizontal", 0.0f);
+		player.playerAnimator.SetFloat("Vertical", -1.0f);
+		player.playerAnimator.SetBool("AcquiredQuestItem", true);
+		player.FreezePlayer();
+		transform.position = GameObject.FindGameObjectWithTag("Arm").transform.position;
+		GetComponent<BoxCollider2D>().enabled = false;
+		sprite.sortingOrder = LayeredRender.MAX_Y * 2;
+		despawnTimer = DESPAWN_TIME;
+
+		DoorLogic[] doors = FindObjectsOfType<DoorLogic>();
+		foreach (DoorLogic door in doors)
+		{
+			if (type >= ItemType.shardGreen && type <= ItemType.shardRed)
+			{
+				door.playerHasShard = true;
+			}
+			else if (type >= ItemType.unlockSword && type <= ItemType.unlockHammer)
+			{
+				door.playerHasChip = true;
+			}
+		}
+
+		// Shards also heal the player to full
+		if (willSpin == false)
+		{
+			playerHealth.runTimeValue = playerHealth.initialValue = heartContainers.runTimeValue * 2.0f;
+			player.playerHealthHUD.UpdateHearts();
+		}
+	}
 	#endregion
 
 	#region Coroutines (Empty)

@@ -30,17 +30,22 @@ public class MaxHealthIncrease : QuestItem
 	}
 
 	public override void OnTriggerEnter2D(Collider2D other)
-   {
-      if(other.CompareTag("Player") && !other.isTrigger)
-      {
-		if (heartContainers.runTimeValue < Globals.MAX_PLAYER_HEALTH)
+	{
+		if (other.CompareTag("Player") && !other.isTrigger)
 		{
-			heartContainers.runTimeValue += 1;
-		}
-		Globals.acquiredHealthIncrease[itemNumber] = true;
-		base.OnTriggerEnter2D(other);
-		other.GetComponent<Player>().playerHealthHUD.ChangeNumberOfHearts();
-		glow.sortingOrder = LayeredRender.MAX_Y * 2 - 1;
+			base.OnTriggerEnter2D(other);
+			{
+				if (pickUp)
+				{
+					if (heartContainers.runTimeValue < Globals.MAX_PLAYER_HEALTH)
+					{
+						heartContainers.runTimeValue += 1;
+					}
+					Globals.acquiredHealthIncrease[itemNumber] = true;
+					other.GetComponent<Player>().playerHealthHUD.ChangeNumberOfHearts();
+					glow.sortingOrder = LayeredRender.MAX_Y * 2 - 1;
+				}
+			}
 		}
 	}
 }
