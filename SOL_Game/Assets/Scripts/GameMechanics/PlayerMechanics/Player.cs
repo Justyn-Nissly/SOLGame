@@ -234,15 +234,15 @@ public class Player : BaseCharacter
 			swordComboCounter++;
 			if (playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordNorth(2)") ||
 				playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordSouth(2)") ||
-				playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordEast(2)") ||
+				playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordEast(2)")  ||
 				playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordWest(2)"))
 			{
 				combo = 1;
 			}
 			else if (playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordNorth(3)") ||
-					playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordSouth(3)") ||
-					playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordEast(3)") ||
-					playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordWest(3)"))
+					 playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordSouth(3)") ||
+					 playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordEast(3)")  ||
+					 playerAnimator.GetCurrentAnimatorStateInfo(3).IsName("swordWest(3)"))
 			{
 				combo = 2;
 			}
@@ -253,15 +253,15 @@ public class Player : BaseCharacter
 			hammerComboCounter++;
 			if (playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerNorth(2)") ||
 				playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerSouth(2)") ||
-				playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerEast(2)") ||
+				playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerEast(2)")  ||
 				playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerWest(2)"))
 			{
 				combo = 1;
 			}
 			else if (playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerNorth(3)") ||
-					playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerSouth(3)") ||
-					playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerEast(3)") ||
-					playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerWest(3)"))
+					 playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerSouth(3)") ||
+					 playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerEast(3)")  ||
+					 playerAnimator.GetCurrentAnimatorStateInfo(4).IsName("hammerWest(3)"))
 			{
 				combo = 2;
 			}

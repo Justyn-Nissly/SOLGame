@@ -23,32 +23,29 @@ public class SaveManager : MonoBehaviour
 	void Awake()
 	{
 		player = GameObject.FindObjectOfType<Player>();
-		/*foreach (SavedGame saved in saveSlots)
+		/*for(int index = 0; index < saveSlots.Length; index++)
 		{
-			ShowSavedFiles(saved);
+			ShowSavedFiles(saveSlots[index]);
 		}*/
+		
 	}
 
 	void Start()
 	{
-		active = false;
+		for (int index = 0; index < saveSlots.Length; index++)
+		{
+			ShowSavedFiles(saveSlots[index]);
+		}
 	}
 
 	void Update()
 	{
-		if (loadGameMenu.activeInHierarchy == true && active == true)
-		{
-			foreach (SavedGame saved in saveSlots)
-			{
-				ShowSavedFiles(saved);
-			}
-			active = false;
-		}
+		
 	}
 
 	public void Activate()
 	{
-		active = true;
+		GameObject.Find("SaveSlots").GetComponent<Canvas>().sortingOrder = 32767;
 	}
 	private void ShowSavedFiles(SavedGame savedGame)
 	{
@@ -59,6 +56,9 @@ public class SaveManager : MonoBehaviour
 
 			SaveData data = formatter.Deserialize(file) as SaveData;
 			file.Close();
+			/*playerHealthHud = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Hud>();
+			playerHealthHud.heartContainers.runTimeValue = data.gameData.maxHealth;
+			playerHealthHud.UpdateHearts();*/
 			savedGame.ShowSaveData(data);
 		}
 	}
@@ -81,7 +81,7 @@ public class SaveManager : MonoBehaviour
 
 			file.Close();
 
-			ShowSavedFiles(savedGame);
+			savedGame.ShowSaveData(data);
 		}
 		catch(System.Exception)
 		{
@@ -93,9 +93,11 @@ public class SaveManager : MonoBehaviour
 	///<summary> Populate the save data object </summary>
 	private void SavePlayer(SaveData data)
 	{
-		data.myPlayerData = new PlayerData(Globals.startInBeginingPosition, Globals.swordUnlocked,  Globals.hammerUnlocked,
-		                                   Globals.blasterUnlocked,         Globals.shieldUnlocked, player.maxHealth.runTimeValue,
-		                                   Globals.bossesDefeated,          Globals.guardiansDefeated);
+		data.gameData = new GameData(Globals.startInBeginingPosition,     Globals.swordUnlocked,
+									 Globals.hammerUnlocked,              Globals.blasterUnlocked,
+									 Globals.shieldUnlocked,              player.maxHealth.runTimeValue,
+									 player.heartContainers.runTimeValue, Globals.bossesDefeated,
+									 Globals.guardiansDefeated);
 	}
 
 	///<summary> Load the save data </summary>
@@ -107,7 +109,7 @@ public class SaveManager : MonoBehaviour
 			FileStream      file      = File.Open(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat", FileMode.Open);
 			SaveData        data      = formatter.Deserialize(file) as SaveData;
 
-			LoadPlayer(data);
+			//LoadPlayer(data);
 
 			file.Close();
 			playerHealthHud = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Hud>();
@@ -123,13 +125,14 @@ public class SaveManager : MonoBehaviour
 	///<summary> Load the save data back into the game </summary>
 	private void LoadPlayer(SaveData data)
 	{
-		Globals.startInBeginingPosition = data.myPlayerData.beginingPosition;
-		Globals.swordUnlocked = true;//data.myPlayerData.sword;
-		Globals.hammerUnlocked          = data.myPlayerData.hammer;
-		Globals.blasterUnlocked         = data.myPlayerData.blaster;
-		Globals.shieldUnlocked          = data.myPlayerData.shield;
-		player.maxHealth.runTimeValue   = data.myPlayerData.playerHealth;
-		Globals.bossesDefeated          = data.myPlayerData.bossesDefeated;
-		Globals.guardiansDefeated       = data.myPlayerData.guardiansDefeated;
+		Globals.startInBeginingPosition = data.gameData.beginingPosition;
+		Globals.swordUnlocked           = true;//data.myPlayerData.sword;
+		Globals.hammerUnlocked          = data.gameData.hammer;
+		Globals.blasterUnlocked         = data.gameData.blaster;
+		Globals.shieldUnlocked          = data.gameData.shield;
+		player.maxHealth.runTimeValue   = data.gameData.currentHealth;
+		player.maxHealth.initialValue   = data.gameData.maxHealth;
+		Globals.bossesDefeated          = data.gameData.bossesDefeated;
+		Globals.guardiansDefeated       = data.gameData.guardiansDefeated;
 	}
 }
