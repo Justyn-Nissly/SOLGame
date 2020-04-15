@@ -116,7 +116,10 @@ public class PuzzleLogic : MonoBehaviour
 		}
 
 		// Play the puzzle solved sound
-		GetComponent<AudioSource>().Play();
+		if (GetComponent<AudioSource>().isPlaying == false)
+		{
+			GetComponent<AudioSource>().Play();
+		}
 
 		// Unlock the doors
 		if (doorManager.CheckPressurePlatesPressed() == doorManager.pressurePlates.Count)

@@ -32,6 +32,11 @@ public class loadSceneOnTrigger : MonoBehaviour
 		// Change scenes if the player enters a scene-change trigger
 		if (collision.CompareTag("Player"))
 		{
+			Player player = FindObjectOfType<Player>();
+			for (int i = 0; i < player.powerUpsActive.Length; i++)
+			{
+				player.powerUpsActive[i] = false;
+			}
 			TriggerLoadScene(collision);
 
 		}
