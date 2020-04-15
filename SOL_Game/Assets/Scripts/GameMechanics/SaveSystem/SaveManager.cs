@@ -56,9 +56,7 @@ public class SaveManager : MonoBehaviour
 
 			SaveData data = formatter.Deserialize(file) as SaveData;
 			file.Close();
-			/*playerHealthHud = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Hud>();
-			playerHealthHud.heartContainers.runTimeValue = data.gameData.maxHealth;
-			playerHealthHud.UpdateHearts();*/
+			
 			savedGame.ShowSaveData(data);
 		}
 	}
@@ -109,7 +107,7 @@ public class SaveManager : MonoBehaviour
 			FileStream      file      = File.Open(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat", FileMode.Open);
 			SaveData        data      = formatter.Deserialize(file) as SaveData;
 
-			//LoadPlayer(data);
+			LoadPlayer(data);
 
 			file.Close();
 			playerHealthHud = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Hud>();
@@ -126,7 +124,7 @@ public class SaveManager : MonoBehaviour
 	private void LoadPlayer(SaveData data)
 	{
 		Globals.startInBeginingPosition = data.gameData.beginingPosition;
-		Globals.swordUnlocked           = true;//data.myPlayerData.sword;
+		Globals.swordUnlocked           = data.gameData.sword;
 		Globals.hammerUnlocked          = data.gameData.hammer;
 		Globals.blasterUnlocked         = data.gameData.blaster;
 		Globals.shieldUnlocked          = data.gameData.shield;
@@ -134,5 +132,6 @@ public class SaveManager : MonoBehaviour
 		player.maxHealth.initialValue   = data.gameData.maxHealth;
 		Globals.bossesDefeated          = data.gameData.bossesDefeated;
 		Globals.guardiansDefeated       = data.gameData.guardiansDefeated;
+		player.SetUpInputDetection();
 	}
 }

@@ -38,7 +38,7 @@ public class SavedGame : MonoBehaviour
 	///<summary> Set all visuals to false if there is no save data </summary>
 	private void Awake()
 	{
-		//visuals.SetActive(false);
+		visuals.SetActive(false);
 	}
 
 	public void ShowSaveData(SaveData data)
@@ -77,7 +77,7 @@ public class SavedGame : MonoBehaviour
 		item = swordChip.color;
 		if (data.gameData.sword == true)
 		{
-			item.a = 255.0f;
+			swordChip.color = new Color(255,255,255,255);
 		}
 		else
 		{

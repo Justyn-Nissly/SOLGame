@@ -3,8 +3,8 @@
 [Serializable]
 public class SaveData
 {
-	public GameData gameData { get; set; }
-	public string currentLevel     { get; set; }
+	public GameData gameData     { get; set; }
+	public string   currentLevel { get; set; }
 
 	public SaveData()
 	{
@@ -27,11 +27,11 @@ public class GameData
 	public float health = 1.0f;
 
 	public GameData(bool  startInBeginingPosition, bool swordUnlocked,  bool  hammerUnlocked,
-		              bool  blasterUnlocked,         bool shieldUnlocked, float currentHealth,
-					  float maxHealth,               int  bossesDefeated, int   guardiansDefeated)
+		            bool  blasterUnlocked,         bool shieldUnlocked, float currentHealth,
+					float maxHealth,               int  bossesDefeated, int   guardiansDefeated)
 	{
 		this.beginingPosition  = startInBeginingPosition;
-		this.sword             = swordUnlocked;
+		this.sword             = true;
 		this.hammer            = hammerUnlocked;
 		this.blaster           = blasterUnlocked;
 		this.shield            = shieldUnlocked;
