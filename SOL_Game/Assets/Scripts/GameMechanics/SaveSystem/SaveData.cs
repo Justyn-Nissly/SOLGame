@@ -31,7 +31,7 @@ public class GameData
 					float maxHealth,               int  bossesDefeated, int   guardiansDefeated)
 	{
 		this.beginingPosition  = startInBeginingPosition;
-		this.sword             = true;
+		this.sword             = swordUnlocked;
 		this.hammer            = hammerUnlocked;
 		this.blaster           = blasterUnlocked;
 		this.shield            = shieldUnlocked;
