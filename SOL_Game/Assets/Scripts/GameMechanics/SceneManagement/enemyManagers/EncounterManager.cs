@@ -48,7 +48,7 @@ public class EncounterManager : MonoBehaviour
 	public void EndEncounter()
 	{
 		GetComponent<DoorManager>().UnlockDoors();
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 
 

@@ -95,16 +95,16 @@ public class BaseCharacter : MonoBehaviour
 	/// <summary>
 	/// debug code to see the melee attack ranges
 	/// </summary>
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.red;
-		if (heavyMeleeAttackPosition != null)
-			Gizmos.DrawSphere(heavyMeleeAttackPosition.position, heavyMeleeAttackRange);
+	//private void OnDrawGizmosSelected()
+	//{
+	//	Gizmos.color = Color.red;
+	//	if (heavyMeleeAttackPosition != null)
+	//		Gizmos.DrawSphere(heavyMeleeAttackPosition.position, heavyMeleeAttackRange);
 
-		Gizmos.color = Color.yellow;
-		if (lightMeleeAttackPosition != null)
-			Gizmos.DrawSphere(lightMeleeAttackPosition.position, lightMeleeAttackRange);
-	}
+	//	Gizmos.color = Color.yellow;
+	//	if (lightMeleeAttackPosition != null)
+	//		Gizmos.DrawSphere(lightMeleeAttackPosition.position, lightMeleeAttackRange);
+	//}
 	#endregion
 
 	#region Utility Methods

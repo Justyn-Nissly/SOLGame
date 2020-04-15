@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ConveyorBeltControl : MonoBehaviour
 {
@@ -11,8 +13,8 @@ public class ConveyorBeltControl : MonoBehaviour
 		belts; // Keep track of conveyor belts
 	public bool
 		lockLever; // Check if the lever can be used more than once
-	public PolygonCollider2D
-		spawnTrigger; // Trigger enemy spawning
+	public List<Collider2D>
+		spawnTrigger = new List<Collider2D>(); // Trigger enemy spawning
 	#endregion
 
 	#region Private Variables
@@ -72,9 +74,12 @@ public class ConveyorBeltControl : MonoBehaviour
 			reversed = true;
 
 			// Enable an enemy spawner
-			if (spawnTrigger != null)
+			if (spawnTrigger != null && spawnTrigger.Count > 0)
 			{
-				spawnTrigger.enabled = true;
+				foreach(Collider2D collider in spawnTrigger)
+				{
+					collider.enabled = true;
+				}
 			}
 		}
 	}
