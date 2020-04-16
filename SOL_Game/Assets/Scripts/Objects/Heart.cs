@@ -18,10 +18,8 @@ public class Heart : PowerUps
             {
                 playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
             }
-         other.transform.GetComponent<Player>().playerHealthHUD.UpdateHearts();
+            other.transform.GetComponent<Player>().playerHealthHUD.UpdateHearts();
             Destroy(this.gameObject);
         }
     }
 }
-
-
