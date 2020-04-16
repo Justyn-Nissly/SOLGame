@@ -162,6 +162,14 @@ public class Leviadrin : Enemy
 		if (maxHealth.runTimeValue <= 0)
 		{
 			Globals.bossesDefeated = 2;
+
+			TeleporterStation[]
+				stations = FindObjectsOfType<TeleporterStation>();
+			foreach (TeleporterStation station in stations)
+			{
+				station.UpdateTeleporterStatus();
+			}
+
 			canAttack = false;
 			aggro = false;
 			snakeManager.canMove = false;

@@ -66,6 +66,12 @@ public class Basilisk : Enemy
 		if (maxHealth.runTimeValue <= 0)
 		{
 			Globals.bossesDefeated = 1;
+			TeleporterStation[]
+				stations = FindObjectsOfType<TeleporterStation>();
+			foreach (TeleporterStation station in stations)
+			{
+				station.UpdateTeleporterStatus();
+			}
 			basiliskEncounterManager.EndEncounter();
 		}
 	}

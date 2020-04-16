@@ -32,14 +32,9 @@ public class TeleporterStation : MonoBehaviour
 	/// <summary> Turn on the conveyor belt </summary>
 	void Awake()
 	{
-		portal.enabled = (teleporterOrder == Globals.bossesDefeated || spawnHere || Globals.wyrmDefeated);
-		tractorField.GetComponent<BoxCollider2D>().isTrigger = teleporterOrder == Globals.bossesDefeated ||
-		                                                       spawnHere || Globals.wyrmDefeated;
-		teleportPoint.enabled = false;
-		canReturn = false;
-		tractorField.direction = ConveyorBelt.Direction.Up;
 		returnTimer = 7.0f;
 		player = FindObjectOfType<Player>();
+		UpdateTeleporterStatus();
 	}
 
 	/// <summary> Turn on the conveyor belt </summary>
@@ -58,10 +53,12 @@ public class TeleporterStation : MonoBehaviour
 				teleportPoint.enabled = true;
 				tractorField.GetComponent<BoxCollider2D>().isTrigger = (teleporterOrder == Globals.bossesDefeated || Globals.wyrmDefeated);
 			}
-			else if (returnTimer <= 3.0f)
+			else if (returnTimer >= 2.9f && returnTimer <= 3.0f)
 			{
 				tractorField.direction = ConveyorBelt.Direction.Down;
 				player.UnFreezePlayer();
+				player.playerMovementAmount = Vector2.down * 0.01f;
+				player.playerMovementAmount = Vector2.zero;
 			}
 			else if (returnTimer > 3.0f)
 			{
@@ -71,7 +68,16 @@ public class TeleporterStation : MonoBehaviour
 	}
 	#endregion
 
-	#region Utility Methods (Empty)
+	#region Utility Methods
+	public void UpdateTeleporterStatus()
+	{
+		portal.enabled = (teleporterOrder == Globals.bossesDefeated || spawnHere || Globals.wyrmDefeated);
+		tractorField.GetComponent<BoxCollider2D>().isTrigger = teleporterOrder == Globals.bossesDefeated ||
+		                                                       spawnHere || Globals.wyrmDefeated;
+		teleportPoint.enabled = (teleporterOrder == Globals.bossesDefeated || Globals.wyrmDefeated);
+		canReturn = false;
+		tractorField.direction = ConveyorBelt.Direction.Up;
+	}
 	#endregion
 
 	#region Coroutines (Empty)
