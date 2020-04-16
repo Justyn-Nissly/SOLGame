@@ -24,7 +24,7 @@ public class GameData
 	public float maxHealth         { get; set; }
 	public int   bossesDefeated    { get; set; }
 	public int   guardiansDefeated { get; set; }
-	public float health = 1.0f;
+	
 
 	public GameData(bool  startInBeginingPosition, bool swordUnlocked,  bool  hammerUnlocked,
 		            bool  blasterUnlocked,         bool shieldUnlocked, float currentHealth,

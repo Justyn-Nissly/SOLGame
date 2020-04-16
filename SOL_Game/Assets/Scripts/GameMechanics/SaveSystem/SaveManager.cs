@@ -20,14 +20,10 @@ public class SaveManager : MonoBehaviour
 		playerHealthHud;
 	private bool
 		active;
+
 	void Awake()
 	{
 		player = GameObject.FindObjectOfType<Player>();
-		/*for(int index = 0; index < saveSlots.Length; index++)
-		{
-			ShowSavedFiles(saveSlots[index]);
-		}*/
-		
 	}
 
 	void Start()
