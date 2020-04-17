@@ -24,15 +24,10 @@ public class Globals
 		blasterUnlocked = false, // Track if the blaster is unlocked
 		shieldUnlocked = false, // Track if the shield is unlocked
 		playerCanDie = true, // This flag enables and disables the players ability to die when getting to zero health
-
-		// these are for staring the player at a check point (passed bosses if the player died)
-		hubCheckPointReached = false,
-		biolabCheckPointReached = false,
-		atlantisCheckPointReached = false,
-		factoryCheckPointReached = false,
-		geothermalCheckPointReached = false,
-		spacebaseCheckPointReached = false,
 		wyrmDefeated = false;
+
+		
+		
 
 
 	public static bool[]
@@ -41,7 +36,19 @@ public class Globals
 		currentPlayerHealth,   // The player's current health
 		maxPlayerHealth = 8, // The maximum health the player has
 		bossesDefeated = 0, // Which bosses have been defeated
-		guardiansDefeated = 0;
+		guardiansDefeated = 0,
+		// these are for staring the player at a check point the current check point
+		hubCheckPointReached = 0,
+		biolabCheckPointReached = 0,
+		atlantisCheckPointReached = 0,
+		factoryCheckPointReached = 0,
+		factoryLevel2CheckPointReached = 0,
+		geothermalCheckPointReached = 0,
+		geothermalLevel2CheckPointReached = 0,
+		spacebaseCheckPointReached = 0,
+		spacebaseLevel2CheckPointReached = 0, 
+		spacebaseLevel3CheckPointReached = 0,
+		finalWyrmFightCheckPoint = 0;
 	public static string
 		sceneToLoad, // this is the name of the scene that will be loaded if you click continue in the game over scene (and the scene that will be loaded when clicking load in main menu?)
 		currentSaveFile; // The current save file that is being played on
@@ -61,18 +68,30 @@ public class Globals
 	/// </summary>
 	public static void StartNewGame()
 	{
+		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		if(player != null)
+		{
+			player.maxHealth.runTimeValue = player.maxHealth.initialValue;
+		}
+
+
 		startInBeginingPosition = true;
 		swordUnlocked = false;
 		hammerUnlocked = false;
 		blasterUnlocked = false;
 		shieldUnlocked = false;
 
-		hubCheckPointReached = false;
-		biolabCheckPointReached = false;
-		atlantisCheckPointReached = false;
-		factoryCheckPointReached = false;
-		geothermalCheckPointReached = false;
-		spacebaseCheckPointReached = false;
+		hubCheckPointReached = 0;
+		biolabCheckPointReached = 0;
+		atlantisCheckPointReached = 0;
+		factoryCheckPointReached = 0;
+		factoryLevel2CheckPointReached = 0;
+		geothermalCheckPointReached = 0;
+		geothermalLevel2CheckPointReached = 0;
+		spacebaseCheckPointReached = 0;
+		spacebaseLevel2CheckPointReached = 0;
+		spacebaseLevel3CheckPointReached = 0;
+		finalWyrmFightCheckPoint = 0;
 	}
 	#endregion
 

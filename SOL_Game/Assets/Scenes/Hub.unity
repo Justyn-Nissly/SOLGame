@@ -4214,6 +4214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisfacility: 0
+  CheckPointIndex: 1
 --- !u!61 &41897042
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4809,15 +4810,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 2.4
       objectReference: {fileID: 0}
-    - target: {fileID: 4495298295748699323, guid: 3f327fcdf765555489d5000985970c9a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.4
-      objectReference: {fileID: 0}
     - target: {fileID: 4495298295748699320, guid: 3f327fcdf765555489d5000985970c9a,
         type: 3}
       propertyPath: m_SortingOrder
       value: 17000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495298295748699323, guid: 3f327fcdf765555489d5000985970c9a,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f327fcdf765555489d5000985970c9a, type: 3}
@@ -6113,8 +6114,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFacility: 0
   defaultPlayerStartingPosition: {fileID: 127508659}
-  checkPointStartingPosition: {fileID: 1915937648}
   altStartingPosition: {fileID: 0}
+  checkPoints:
+  - {fileID: 127508659}
+  - {fileID: 1915937648}
   playerPrefab: {fileID: 0}
 --- !u!114 &476006114
 MonoBehaviour:
@@ -17086,17 +17089,17 @@ PrefabInstance:
       propertyPath: canvasFadeImage
       value: 
       objectReference: {fileID: 1402548364}
-    - target: {fileID: 9116370587446910118, guid: 0f9d5ce00936e344283a18939936073d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1966756544985338713, guid: 0f9d5ce00936e344283a18939936073d,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d1320bee304e74e40802a556401ac721,
         type: 3}
+    - target: {fileID: 9116370587446910118, guid: 0f9d5ce00936e344283a18939936073d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6790944501451205284, guid: 0f9d5ce00936e344283a18939936073d,
         type: 3}
       propertyPath: isMoving
@@ -22092,15 +22095,15 @@ PrefabInstance:
       propertyPath: doorIsLocked
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4495298295748699323, guid: 3f327fcdf765555489d5000985970c9a,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.4
-      objectReference: {fileID: 0}
     - target: {fileID: 4495298295748699320, guid: 3f327fcdf765555489d5000985970c9a,
         type: 3}
       propertyPath: m_SortingOrder
       value: 17000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495298295748699323, guid: 3f327fcdf765555489d5000985970c9a,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f327fcdf765555489d5000985970c9a, type: 3}
