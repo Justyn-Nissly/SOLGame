@@ -23,14 +23,22 @@ public class SaveManager : MonoBehaviour
 
 	void Awake()
 	{
-		player = GameObject.FindObjectOfType<Player>();
+		//GameManager.FindObjectOfType<GameManager>();
+		//player = GameObject.FindObjectOfType<Player>();
 	}
 
-	void Start()
+	public void ShowFiles()
 	{
-		for (int index = 0; index < saveSlots.Length; index++)
+		if(SceneManager.GetActiveScene().name == "Menu")
 		{
-			ShowSavedFiles(saveSlots[index]);
+			saveSlots[0] = GameObject.Find("Slot1").GetComponent<SavedGame>();
+			saveSlots[1] = GameObject.Find("Slot2").GetComponent<SavedGame>();
+			saveSlots[2] = GameObject.Find("Slot3").GetComponent<SavedGame>();
+			loadGameMenu = GameObject.Find("LoadGameMenu");
+			for (int index = 0; index < saveSlots.Length; index++)
+			{
+				ShowSavedFiles(saveSlots[index]);
+			}
 		}
 	}
 
@@ -57,8 +65,8 @@ public class SaveManager : MonoBehaviour
 		}
 	}
 
-	///<summary> Save the game data </summary>
-	public void Save(SavedGame savedGame)
+	///<summary> Create a new game save </summary>
+	public void NewGame(SavedGame savedGame)
 	{
 		try
 		{
@@ -67,9 +75,7 @@ public class SaveManager : MonoBehaviour
 
 			SaveData data = new SaveData();
 
-			SavePlayer(data);
-
-			data.currentLevel = SceneManager.GetActiveScene().name;
+			NewSave(data);
 
 			formatter.Serialize(file, data);
 
@@ -77,11 +83,42 @@ public class SaveManager : MonoBehaviour
 
 			savedGame.ShowSaveData(data);
 		}
+		catch (System.Exception)
+		{
+			//Handles errors
+			throw;
+		}
+	}
+
+	///<summary> Save the game data </summary>
+	public void Save(string savedGame)
+	{
+		try
+		{
+			BinaryFormatter formatter = new BinaryFormatter();
+			FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame + ".dat", FileMode.Create);
+
+			SaveData data = new SaveData();
+
+			SavePlayer(data);
+
+			data.gameData.currentLevel = SceneManager.GetActiveScene().name;
+
+			formatter.Serialize(file, data);
+
+			file.Close();
+		}
 		catch(System.Exception)
 		{
 			//Handles errors
 			throw;
 		}
+	}
+
+	///<summary> Populate the save data object with the default values </summary>
+	private void NewSave(SaveData data)
+	{
+		data.gameData = new GameData(true, false, false, false, false, 6.0f, 3.0f, 0, 0, "Hub");
 	}
 
 	///<summary> Populate the save data object </summary>
@@ -91,7 +128,7 @@ public class SaveManager : MonoBehaviour
 									 Globals.hammerUnlocked,              Globals.blasterUnlocked,
 									 Globals.shieldUnlocked,              player.maxHealth.runTimeValue,
 									 player.heartContainers.runTimeValue, Globals.bossesDefeated,
-									 Globals.guardiansDefeated);
+									 Globals.guardiansDefeated,           Globals.sceneToLoad);
 	}
 
 	///<summary> Load the save data </summary>

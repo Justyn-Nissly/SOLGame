@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,12 @@ public class SavedGame : MonoBehaviour
 	private int
 		saveSlotIndex; // Index of the save slot
 	public Hud
-		saveHealthHud;
+		saveHealthHud; // The display for the players current and max health for each save
+	public Text
+		btnText,      // The text for the save/load button
+		currentLevel; // The current level the player is on
+	public MainMenu
+		mainMenu; // The reference to the main menu
 
 	///<summary> Accessor to get the save slot index </summary>
 	public int GetIndex
@@ -41,19 +47,27 @@ public class SavedGame : MonoBehaviour
 		visuals.SetActive(false);
 	}
 
+	///<summary> Load all saved files upon entering the file menu </summary>
+	public void ShowAllFiles()
+	{
+		GameObject.FindObjectOfType<SaveManager>().ShowFiles();
+	}
+
+	///<summary> Show the saved data for a specified file </summary>
 	public void ShowSaveData(SaveData data)
 	{
-		Color item; // The colour of the unlockable item
-
-		// Set the visuals for the save slot to active
 		visuals.SetActive(true);
-		saveHealthHud.heartContainers.runTimeValue = data.gameData.maxHealth;
-
-		/*for(int i = 0; i < 4; i++)
+		currentLevel.text = data.gameData.currentLevel;
+		if (File.Exists(Application.persistentDataPath + "/" + this.gameObject.name + ".dat"))
 		{
-			heartContainers[i].SetActive(true);
-		}*/
-
+			btnText.text = "Load";
+		}
+		else
+		{
+			btnText.text = "Save";
+		}
+		// Set the visuals for the save slot to active
+		saveHealthHud.heartContainers.runTimeValue = data.gameData.maxHealth;
 
 		// Display the players current health on a save slot
 		float tempHealth = data.gameData.currentHealth * 0.5f;
@@ -73,48 +87,72 @@ public class SavedGame : MonoBehaviour
 			}
 		}
 
+		for (int i = 0; i < Globals.MAX_PLAYER_HEALTH; i++)
+		{
+			if(i < data.gameData.maxHealth)
+			{
+				heartContainers[i].SetActive(true);
+			}
+			else
+			{
+				heartContainers[i].SetActive(false);
+			}
+		}
+
 		// Show if the sword has been unlocked or not
-		item = swordChip.color;
 		if (data.gameData.sword == true)
 		{
-			swordChip.color = new Color(255,255,255,255);
+			swordChip.color = new Color32(255,255,255,255);
 		}
 		else
 		{
-			item.a = 40.0f;
+			swordChip.color = new Color32(255, 255, 255, 40);
 		}
 
 		// Show if the blaster has been unlocked or not
-		item = blasterChip.color;
 		if (data.gameData.blaster == true)
 		{
-			item.a = 255.0f;
+			blasterChip.color = new Color32(255, 255, 255, 255);
 		}
 		else
 		{
-			item.a = 40.0f;
+			blasterChip.color = new Color32(255, 255, 255, 40);
 		}
 
 		// Show if the shield has been unlocked or not
-		item = shieldChip.color;
 		if (data.gameData.shield == true)
 		{
-			item.a = 255.0f;
+			shieldChip.color = new Color32(255, 255, 255, 255);
 		}
 		else
 		{
-			item.a = 40.0f;
+			shieldChip.color = new Color32(255, 255, 255, 40);
 		}
 
 		// Show if the hammer has been unlocked or not
-		item = hammerChip.color;
 		if (data.gameData.hammer == true)
 		{
-			item.a = 255.0f;
+			hammerChip.color = new Color32(255, 255, 255, 255);
 		}
 		else
 		{
-			item.a = 40.0f;
+			hammerChip.color = new Color32(255, 255, 255, 40);
+		}
+	}
+
+	///<summary> Call the save or load functions in the save manager </summary>
+	public void SaveLoadGame(SavedGame savedGame)
+	{
+		if(btnText.text == "Save" && !File.Exists(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat"))
+		{
+			GameObject.FindObjectOfType<SaveManager>().NewGame(savedGame);
+			btnText.text = "Load";
+		}
+		else
+		{
+			GameObject.FindObjectOfType<SaveManager>().Load(savedGame);
+			Globals.currentSaveFile = savedGame.name;
+			mainMenu.PlayGame();
 		}
 	}
 }

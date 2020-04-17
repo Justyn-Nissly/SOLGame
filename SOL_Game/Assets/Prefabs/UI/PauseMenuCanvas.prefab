@@ -450,7 +450,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: QUIT
+  m_Text: SAVE & QUIT
 --- !u!1 &1615189655363199655
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,11 +630,11 @@ RectTransform:
   m_Children:
   - {fileID: 8737306915340319871}
   m_Father: {fileID: 6662647088819684678}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.0000029, y: -52.8}
+  m_AnchoredPosition: {x: -1, y: -52.8}
   m_SizeDelta: {x: 58.19, y: 11.801}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2836915256115941993
@@ -717,7 +717,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6662647088576149857}
-        m_MethodName: QuitGame
+        m_MethodName: SaveAndQuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -951,7 +951,7 @@ RectTransform:
   m_Children:
   - {fileID: 7610588281364958350}
   m_Father: {fileID: 6662647088819684678}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1884,9 +1884,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1100654551967610388}
-  - {fileID: 5437828828644132670}
   - {fileID: 3253598203112383196}
+  - {fileID: 5437828828644132670}
+  - {fileID: 1100654551967610388}
   m_Father: {fileID: 6662647088576149861}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

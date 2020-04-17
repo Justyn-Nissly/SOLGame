@@ -23,7 +23,7 @@ public class Globals
 		hammerUnlocked = false, // Track if the hammer is unlocked
 		blasterUnlocked = false, // Track if the blaster is unlocked
 		shieldUnlocked = false, // Track if the shield is unlocked
-		playerCanDie = false, // This flag enables and disables the players ability to die when getting to zero health
+		playerCanDie = true, // This flag enables and disables the players ability to die when getting to zero health
 
 		// these are for staring the player at a check point (passed bosses if the player died)
 		hubCheckPointReached = false,
@@ -43,7 +43,8 @@ public class Globals
 		bossesDefeated = 0, // Which bosses have been defeated
 		guardiansDefeated = 0;
 	public static string
-		sceneToLoad; // this is the name of the scene that will be loaded if you click continue in the game over scene (and the scene that will be loaded when clicking load in main menu?)
+		sceneToLoad, // this is the name of the scene that will be loaded if you click continue in the game over scene (and the scene that will be loaded when clicking load in main menu?)
+		currentSaveFile; // The current save file that is being played on
 
 	#endregion
 

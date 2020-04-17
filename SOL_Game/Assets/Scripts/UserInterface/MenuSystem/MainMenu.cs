@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
 	private void Start()
 	{
 		GameObject.Find("NewGameButton").GetComponent<Button>().Select();
-
+		GameObject.FindObjectOfType<SaveManager>().ShowFiles();
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if(player != null)
 		{
@@ -43,12 +43,18 @@ public class MainMenu : MonoBehaviour
 	#endregion
 
 	#region Utility Methods
-	/// Loads the game
-	public void PlayGame()
+	/// Loads a new game
+	public void NewGame()
 	{
 		//FindObjectOfType<AudioManager>().StartBackground();
 		SceneManager.LoadScene("Hub");
 		Globals.StartNewGame();
+	}
+	
+	/// Loads the game
+	public void PlayGame()
+	{
+		SceneManager.LoadScene("Hub");
 	}
 
 	/// continues the game from the last scene the player was in before dying

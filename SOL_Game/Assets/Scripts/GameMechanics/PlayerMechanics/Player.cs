@@ -102,6 +102,7 @@ public class Player : BaseCharacter
 	/// <summary> Start is called before the first frame update </summary>
 	protected override void Awake()
 	{
+		
 		inputActions = new PlayerControls(); // this in the reference to the new unity input system
 
 		godModeEnabled = false;
@@ -495,7 +496,7 @@ public class Player : BaseCharacter
 			playerHealthHUD.UpdateHearts();
 
 			// kill the player...
-			if(maxHealth.runTimeValue <= 0 && false /*Globals.playerCanDie*/)
+			if(maxHealth.runTimeValue <= 0 && Globals.playerCanDie)
 			{
 				StartCoroutine(PlayerDied());
 			}
