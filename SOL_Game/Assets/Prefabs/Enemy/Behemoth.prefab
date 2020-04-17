@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 1342465225995476893}
   - component: {fileID: 5650910468341709627}
   - component: {fileID: 3895479786355467071}
+  - component: {fileID: 1929941708274577844}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -286,6 +287,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldUpdate: 1
+--- !u!114 &1929941708274577844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305641704028017998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fba43a27f9a7d649afb02c668cf48f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5172157395147772508
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +409,7 @@ Transform:
   m_GameObject: {fileID: 8645274407220581160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 6413794133443590656}
   - {fileID: 1303016779692245091}
@@ -441,7 +454,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 01b1d30194e51924682ee0cce4c198dc, type: 3}
+  m_Sprite: {fileID: -5357207727390403315, guid: cc943e82bf46668489f6ec3510ba8b15,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -467,7 +481,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.08}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.26
 --- !u!58 &8645274407220581171
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -481,9 +495,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.08}
   serializedVersion: 2
-  m_Radius: 1.6
+  m_Radius: 0.46
 --- !u!114 &8645274407220581166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +546,7 @@ MonoBehaviour:
   healPerLoop: 0
   MAXPOSSIBLEHEALTH: 0
   maxHealOverTime: 0
-  moveSpeed: 3.5
+  moveSpeed: 3
   maxMoveSpeed: 0
   aggro: 0
   patrol: []
@@ -580,6 +594,7 @@ MonoBehaviour:
   maxEvadeTime: 3
   chargeSpeed: 10
   charging: 0
+  lastPos: {x: 0, y: 0}
 --- !u!50 &8645274407220581164
 Rigidbody2D:
   serializedVersion: 4
@@ -706,7 +721,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8645274407220581160}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: d5a400db15e8f2745b3eaadc6486f6c3, type: 2}
   m_CullingMode: 0

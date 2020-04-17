@@ -496,7 +496,7 @@ public class Player : BaseCharacter
 			playerHealthHUD.UpdateHearts();
 
 			// kill the player...
-			if(maxHealth.runTimeValue <= 0 && Globals.playerCanDie)
+			if(false/*maxHealth.runTimeValue <= 0 && Globals.playerCanDie*/)
 			{
 				StartCoroutine(PlayerDied());
 			}
