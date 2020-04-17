@@ -162,7 +162,7 @@ public class SaveManager : MonoBehaviour
 		Globals.blasterUnlocked         = data.gameData.blaster;
 		Globals.shieldUnlocked          = data.gameData.shield;
 		player.maxHealth.runTimeValue   = data.gameData.currentHealth;
-		player.maxHealth.initialValue   = data.gameData.maxHealth;
+		//player.maxHealth.initialValue   = data.gameData.maxHealth; // don't change the initial value it will break stuff :)
 		Globals.bossesDefeated          = data.gameData.bossesDefeated;
 		Globals.guardiansDefeated       = data.gameData.guardiansDefeated;
 		player.SetUpInputDetection();
