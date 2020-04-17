@@ -20,13 +20,16 @@ public class PauseMenu : MonoBehaviour
 
 	#region Private Variables
 	private PlayerControls
-			inputActions;
+		inputActions;
+	private SaveManager
+		saveManager;
 	#endregion
 	private void Start()
 	{
 		// this sets up the players input detection
 		inputActions = new PlayerControls(); // this in the reference to the new unity input system
 		inputActions.Gameplay.Enable();
+		saveManager = FindObjectOfType<SaveManager>();
 	}
 
 	// Unity Named Methods
@@ -89,8 +92,9 @@ public class PauseMenu : MonoBehaviour
 	}
 
 	/// Quit to the main menu
-	public void QuitGame()
+	public void SaveAndQuitGame()
 	{
+		saveManager.Save(Globals.currentSaveFile);
 		SceneManager.LoadScene("Menu");
 		//FindObjectOfType<AudioManager>().StopBackground();
 		Time.timeScale = 1.0f;

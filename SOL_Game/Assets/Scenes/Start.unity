@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6c7f8c20bbc8143864624873b3eb2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &402451741
+--- !u!21 &238667326
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -436,6 +436,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4017eeeb675c8bf49b5954f87241a504, type: 3}
+--- !u!1 &508117492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2597456194883561588, guid: 7826c58f8eae61c4f94b147d8d5da37b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1604171524}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &508117493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508117492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d70c7b0a6183843a961049fbe486f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  player: {fileID: 1686265098}
+  loadGameMenu: {fileID: 0}
+  playerHealthHud: {fileID: 1452231658}
 --- !u!1001 &719486706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -644,6 +669,61 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1452231658 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8362453281213736822, guid: 5afa98b79fcbd434b819ed5125726ca2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1752377265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b197431bdbd22c44a3097588e1659c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!21 &1530722088
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/NewTeleportation2
+  m_Shader: {fileID: 4800000, guid: 81a8c4a625e2be24abb96978d8656203, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex2:
+        m_Texture: {fileID: 2800000, guid: 736337323af22b344b976fd026e86740, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _Value2: 0
+    - _Value3: 0
+    - _Value4: 0
+    - _Value5: 0
+    m_Colors:
+    - TeleportationColor: {r: 0, g: 0.5, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1604171524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -790,6 +870,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686265098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6841405128326533493, guid: 5afa98b79fcbd434b819ed5125726ca2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1752377265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80b6fb47ed75d045b825214ac97ff67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1752377265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -861,6 +953,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 402451741}
+      objectReference: {fileID: 238667326}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5afa98b79fcbd434b819ed5125726ca2, type: 3}
