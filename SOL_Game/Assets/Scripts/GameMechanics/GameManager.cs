@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 			// Keep items persisting across scenes
 			DontDestroyOnLoad(gameObject);
 
-			AddGameObjectsToDontDestroy("EventSystem", "AudioManager", "DialogueManager", "Player", "PlayerHealthCanvas", "HUD", "SaveManager");
+			AddGameObjectsToDontDestroy("EventSystem", "AudioManager", "DialogueManager", "Player", "PlayerHealthCanvas", "HUD");
 		}
 		else
 		{
