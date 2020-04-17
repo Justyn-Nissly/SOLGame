@@ -12,9 +12,10 @@ public class ConveyorBeltControl : MonoBehaviour
 	public ConveyorBelt[]
 		belts; // Keep track of conveyor belts
 	public bool
-		lockLever; // Check if the lever can be used more than once
+		lockLever, // Check if the lever can be used more than once
+		hasSpawnTrigger;
 	public List<Collider2D>
-		spawnTrigger = new List<Collider2D>(); // Trigger enemy spawning
+		spawnTrigger; // Trigger enemy spawning
 	#endregion
 
 	#region Private Variables
@@ -74,7 +75,7 @@ public class ConveyorBeltControl : MonoBehaviour
 			reversed = true;
 
 			// Enable an enemy spawner
-			if (spawnTrigger != null && spawnTrigger.Count > 0)
+			if (hasSpawnTrigger && spawnTrigger != null && spawnTrigger.Count > 0)
 			{
 				foreach(Collider2D collider in spawnTrigger)
 				{

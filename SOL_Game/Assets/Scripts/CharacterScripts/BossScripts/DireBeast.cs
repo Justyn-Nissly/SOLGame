@@ -62,7 +62,7 @@ public class DireBeast : Enemy
 		playerPos = GameObject.FindWithTag("Player").transform.position;
 
 		// Stage 2 after half health
-		if (maxHealth.runTimeValue == maxHealth.initialValue * 0.5f)
+		if (maxHealth.runTimeValue <= maxHealth.initialValue * 0.5f && inWall)
 		{
 			Move();
 
@@ -99,6 +99,7 @@ public class DireBeast : Enemy
 			deadLogicHappened = true;
 			canAttack = false;
 			EndBlastAttack();
+			Globals.bossesDefeated = 4;
 			EncounterManager.EndEncounter();
 		}
 	}
@@ -117,9 +118,10 @@ public class DireBeast : Enemy
 	public virtual void TakeDamage(int damage, bool playSwordImpactSound, bool fireBreathAttack = false)
 	{
 		base.TakeDamage(damage, playSwordImpactSound);
-
+		Debug.Log("Ouch");
 		if (maxHealth.runTimeValue <= 0)
 		{
+			Debug.Log("Dead");
 			Globals.bossesDefeated = 4;
 			EncounterManager.EndEncounter();
 		}

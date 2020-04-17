@@ -268,9 +268,9 @@ public class EnemyMovement : MonoBehaviour
 
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			if(enemy.canAttack)
+			if(enemy != null)
 			{
-				canMove = true;
+				canMove = enemy.canAttack;
 			}
 
 			canMoveAtPlayer = true;

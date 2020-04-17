@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6069753277006743681}
   - component: {fileID: 6069753277006743687}
   - component: {fileID: 6069753277006743682}
+  - component: {fileID: 3562747880222222307}
   m_Layer: 0
   m_Name: ConveyorBeltControl
   m_TagString: Untagged
@@ -47,6 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8643411d088501943ba75bdee6e2aa08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  belts: []
+  lockLever: 0
+  spawnTrigger: []
 --- !u!212 &6069753277006743686
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -244,3 +248,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3562747880222222307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6069753277006743684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0147dbe90c99567408713ebb191969ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldUpdate: 0

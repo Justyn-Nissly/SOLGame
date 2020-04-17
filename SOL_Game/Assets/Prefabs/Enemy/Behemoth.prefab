@@ -376,7 +376,6 @@ GameObject:
   - component: {fileID: 8645274407220581165}
   - component: {fileID: 8645274407220581164}
   - component: {fileID: 8645274407220581167}
-  - component: {fileID: 8645274407220581170}
   - component: {fileID: 8645274407220581172}
   - component: {fileID: 8645274407220581173}
   - component: {fileID: 8645274407220581174}
@@ -593,8 +592,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20000
-  m_LinearDrag: 100
+  m_Mass: 8000
+  m_LinearDrag: 5
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -614,17 +613,17 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 722bdcbc4aa56fd4f8b9bcfdcd9e5e98,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: af5b52ff5f0666f45b120adb5d827d75, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 80
   DopplerLevel: 0
-  MinDistance: 140
-  MaxDistance: 200
+  MinDistance: 300
+  MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -699,20 +698,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8645274407220581170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8645274407220581160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c31327d10cce7014ca030619197d92e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyDeath: {fileID: 8300000, guid: 02c8b7da0306a73469b7e84abc8abb40, type: 3}
-  enemyAudioSRC: {fileID: 8645274407220581167}
 --- !u!95 &8645274407220581172
 Animator:
   serializedVersion: 3
@@ -770,6 +755,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   lockLever: 0
+  hasSpawnTrigger: 0
   spawnTrigger:
   - {fileID: 0}
 --- !u!114 &2254355971009601435

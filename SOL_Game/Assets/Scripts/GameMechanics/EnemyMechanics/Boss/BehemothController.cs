@@ -82,8 +82,10 @@ public class BehemothController : Enemy
 		innerOrbs = new OrbController [INNER_ORBS];
 
 		// Delay the boss's activation and charge the tractor beam
-		phaseChangeTimer  = phaseChangeDelay * 5.0f;
+		phaseChangeTimer  = phaseChangeDelay * 3.2f;
 		tractorBeamCharge = tractorBeamChargeTime - 5.0f;
+
+		GetComponent<AudioSource>().Play();
 	}
 
 	/// <summary> Turn towards and chase down the player </summary>
