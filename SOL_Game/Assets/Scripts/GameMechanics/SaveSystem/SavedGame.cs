@@ -56,8 +56,8 @@ public class SavedGame : MonoBehaviour
 	///<summary> Show the saved data for a specified file </summary>
 	public void ShowSaveData(SaveData data)
 	{
+		// Set the visuals for the save slot to active
 		visuals.SetActive(true);
-		currentLevel.text = data.gameData.currentLevel;
 		if (File.Exists(Application.persistentDataPath + "/" + this.gameObject.name + ".dat"))
 		{
 			btnText.text = "Load";
@@ -66,9 +66,40 @@ public class SavedGame : MonoBehaviour
 		{
 			btnText.text = "Save";
 		}
-		// Set the visuals for the save slot to active
-		//saveHealthHud.heartContainers.runTimeValue = data.gameData.maxHealth;  // this is setting the heart containers up wrong so that the first heart pick up you find brings you to 7 heart containers
 
+		switch (data.gameData.currentLevel)
+		{
+			case "Hub":
+				currentLevel.text = "Hub";
+				break;
+
+			case "Biolab (first facility)":
+				currentLevel.text = "Biolab";
+				break;
+
+			case "Atlantis (second facility)":
+				currentLevel.text = "Atlantis";
+				break;
+
+			case "Factory (third facility level 1)":
+			case "Factory (third facility level 2)":
+			case "Factory (third facility level 3)":
+				currentLevel.text = "Factory";
+				break;
+
+			case "Geo-thermal plant (fourth facility level 1)":
+			case "Geo-thermal plant (fourth facility level 2)":
+				currentLevel.text = "Geo-thermal Plant";
+				break;
+
+			case "Adrics lab (fifth facility level 1)":
+			case "Adrics lab (fifth facility level 2)":
+			case "Adrics lab (fifth facility level 3)":
+			case "FinalWyrmFight":
+				currentLevel.text = "Adric's Lab";
+				break;
+		}
+		
 		// Display the players current health on a save slot
 		float tempHealth = data.gameData.currentHealth * 0.5f;
 		for (int i = 0; i < Globals.MAX_PLAYER_HEALTH && i < data.gameData.maxHealth; i++)
@@ -152,7 +183,15 @@ public class SavedGame : MonoBehaviour
 		{
 			GameObject.FindObjectOfType<SaveManager>().Load(savedGame);
 			Globals.currentSaveFile = savedGame.name;
-			mainMenu.PlayGame();
+			mainMenu.ContinueGame();
 		}
+	}
+
+	///<summary> Hide visuals when a save has been deleted </summary>
+	public void DeleteGame(SavedGame saveGame)
+	{
+		visuals.SetActive(false);
+		GameObject.FindObjectOfType<SaveManager>().DeleteSave(saveGame);
+		btnText.text = "Save";
 	}
 }
