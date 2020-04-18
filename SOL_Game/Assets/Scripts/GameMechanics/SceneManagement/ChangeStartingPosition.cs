@@ -12,6 +12,7 @@ public class ChangeStartingPosition : MonoBehaviour
 	#region Public Variables
 	public LoadPlayer.Facility
 		thisfacility;
+	public int CheckPointIndex;
 	#endregion
 
 	// Unity Named Methods
@@ -34,22 +35,34 @@ public class ChangeStartingPosition : MonoBehaviour
 		{
 			case LoadPlayer.Facility.Hub:
 				// change the players starting position
-				Globals.hubCheckPointReached = true;
+				Globals.hubCheckPointReached = CheckPointIndex;
 				break;
 			case LoadPlayer.Facility.BioLab:
-				Globals.biolabCheckPointReached = true;
+				Globals.biolabCheckPointReached = CheckPointIndex;
 				break;
 			case LoadPlayer.Facility.Atlantis:
-				Globals.atlantisCheckPointReached = true;
+				Globals.atlantisCheckPointReached = CheckPointIndex;
 				break;
-			case LoadPlayer.Facility.Factory:
-				Globals.factoryCheckPointReached = true;
+			case LoadPlayer.Facility.FactoryLevel1:
+				Globals.factoryCheckPointReached = CheckPointIndex;
 				break;
-			case LoadPlayer.Facility.Geothermal:
-				 Globals.geothermalCheckPointReached = true;
+			case LoadPlayer.Facility.FactoryLevel2:
+				Globals.factoryLevel2CheckPointReached = CheckPointIndex;
 				break;
-			case LoadPlayer.Facility.SpaceBase:
-				Globals.spacebaseCheckPointReached = true;
+			case LoadPlayer.Facility.GeothermalLevel1:
+				 Globals.geothermalCheckPointReached = CheckPointIndex;
+				break;
+			case LoadPlayer.Facility.GeothermalLevel2:
+				Globals.geothermalLevel2CheckPointReached = CheckPointIndex;
+				break;
+			case LoadPlayer.Facility.SpaceBaseLevel1:
+				Globals.spacebaseCheckPointReached = CheckPointIndex;
+				break;
+			case LoadPlayer.Facility.SpaceBaseLevel2:
+				Globals.spacebaseLevel2CheckPointReached = CheckPointIndex;
+				break;
+			case LoadPlayer.Facility.SpaceBaseLevel3:
+				Globals.spacebaseLevel3CheckPointReached = CheckPointIndex;
 				break;
 		}
 	}

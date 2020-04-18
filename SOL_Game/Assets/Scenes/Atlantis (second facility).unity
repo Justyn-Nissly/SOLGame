@@ -4994,6 +4994,78 @@ MonoBehaviour:
   muteLocation: {fileID: 511311213}
   songObject: {fileID: 897788017}
   isGuardian: 0
+--- !u!1 &718490235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 718490236}
+  - component: {fileID: 718490238}
+  - component: {fileID: 718490237}
+  m_Layer: 0
+  m_Name: PlayerCheckPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &718490236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718490235}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.12, y: 67.3, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 1}
+  m_Children: []
+  m_Father: {fileID: 848683078}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &718490237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718490235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a285d682d48dd6842836bcd19b0f9136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisfacility: 2
+  CheckPointIndex: 3
+--- !u!61 &718490238
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718490235}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 0.09}
+  m_EdgeRadius: 0
 --- !u!1001 &724290377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5711,6 +5783,8 @@ Transform:
   m_Children:
   - {fileID: 385014739}
   - {fileID: 1714157607}
+  - {fileID: 1569558072}
+  - {fileID: 718490236}
   - {fileID: 856426401}
   - {fileID: 1536987947}
   m_Father: {fileID: 0}
@@ -5766,7 +5840,7 @@ PrefabInstance:
     - target: {fileID: 7889623365721820637, guid: 0f9d5ce00936e344283a18939936073d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7889623365721820637, guid: 0f9d5ce00936e344283a18939936073d,
         type: 3}
@@ -87931,7 +88005,7 @@ PrefabInstance:
     - target: {fileID: 7889623365721820637, guid: 0f9d5ce00936e344283a18939936073d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7889623365721820637, guid: 0f9d5ce00936e344283a18939936073d,
         type: 3}
@@ -88053,6 +88127,78 @@ MonoBehaviour:
   muteLocation: {fileID: 511311213}
   songObject: {fileID: 1203899704}
   isGuardian: 1
+--- !u!1 &1569558071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1569558072}
+  - component: {fileID: 1569558074}
+  - component: {fileID: 1569558073}
+  m_Layer: 0
+  m_Name: PlayerCheckPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1569558072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569558071}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.53, y: 26.25, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 1}
+  m_Children: []
+  m_Father: {fileID: 848683078}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1569558073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569558071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a285d682d48dd6842836bcd19b0f9136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisfacility: 2
+  CheckPointIndex: 2
+--- !u!61 &1569558074
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569558071}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.92, y: 0.09}
+  m_EdgeRadius: 0
 --- !u!1 &1620838264
 GameObject:
   m_ObjectHideFlags: 0
@@ -95581,7 +95727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714157606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.41, y: 25.64, z: 0}
+  m_LocalPosition: {x: 28.78, y: 32.33, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children: []
   m_Father: {fileID: 848683078}
@@ -95600,6 +95746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisfacility: 2
+  CheckPointIndex: 1
 --- !u!61 &1714157609
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -96123,8 +96270,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFacility: 2
   defaultPlayerStartingPosition: {fileID: 385014739}
-  checkPointStartingPosition: {fileID: 1714157607}
   altStartingPosition: {fileID: 0}
+  checkPoints:
+  - {fileID: 385014739}
+  - {fileID: 1714157607}
+  - {fileID: 1569558072}
+  - {fileID: 718490236}
   playerPrefab: {fileID: 6841405128326533482, guid: 5afa98b79fcbd434b819ed5125726ca2,
     type: 3}
 --- !u!114 &1777837058

@@ -111,7 +111,6 @@ public class Player : BaseCharacter
 		canvasFadeImage.color = Color.clear; // make image transparent
 
 		// The player starts with max health
-		maxHealth.runTimeValue = maxHealth.initialValue;
 		BulletShootingDelay = 0;
 
 		// Set the players movement speed
@@ -189,7 +188,7 @@ public class Player : BaseCharacter
 			Globals.shieldUnlocked = true;
 			swordComboUnlocked = true;
 			hammerComboUnlocked = true;
-			maxHealth.runTimeValue = maxHealth.initialValue;
+			//maxHealth.runTimeValue = maxHealth.initialValue;
 			medKits = PowerUp.MAX_MED_KITS;
 			powerUpTimers[0] = PowerUp.MAX_POWER_UP_TIME;
 			powerUpTimers[1] = PowerUp.MAX_POWER_UP_TIME;

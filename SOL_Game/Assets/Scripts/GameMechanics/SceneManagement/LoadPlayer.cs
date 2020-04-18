@@ -10,9 +10,14 @@ public class LoadPlayer : MonoBehaviour
 		Hub,
 		BioLab,
 		Atlantis,
-		Factory,
-		Geothermal,
-		SpaceBase,
+		FactoryLevel1,
+		FactoryLevel2,
+		GeothermalLevel1,
+		GeothermalLevel2,
+		SpaceBaseLevel1,
+		SpaceBaseLevel2,
+		SpaceBaseLevel3,
+		FinalWyrmFight,
 	}
 	#endregion
 
@@ -21,8 +26,10 @@ public class LoadPlayer : MonoBehaviour
 		thisFacility;
 	public Transform 
 		defaultPlayerStartingPosition,
-		checkPointStartingPosition,
 		altStartingPosition;
+
+	[Header("the fist point should be the default player starting position")]
+	public List<Transform> checkPoints = new List<Transform>();
 
 	public GameObject
 		playerPrefab; // the player prefab, it will be instantiated if there is no player in the scene already
@@ -60,25 +67,25 @@ public class LoadPlayer : MonoBehaviour
 		playerInScene = GameObject.FindGameObjectWithTag("Player");
 
 		// Assign the starting position
-		if (Globals.startInBeginingPosition == false && altStartingPosition != null)
+		//if (Globals.startInBeginingPosition == false && altStartingPosition != null)
+		//{
+		//	startingPosition = altStartingPosition;
+		//}
+		if(checkPoints[GetCheckPointIndex(thisFacility)] != null)
 		{
-			startingPosition = altStartingPosition;
-		}
-		else if(StartAtCheckPoint(thisFacility) && checkPointStartingPosition != null)
-		{
-			startingPosition = checkPointStartingPosition;
+			startingPosition = checkPoints[GetCheckPointIndex(thisFacility)];
 		}
 
-		else
-		{
-			startingPosition = defaultPlayerStartingPosition;
-		}
+		//else
+		//{
+		//	startingPosition = defaultPlayerStartingPosition;
+		//}
 	}
 
 	/// <summary> return the right bool flag for this current facility for if the player should start at the checkpoint</summary>
-	public bool StartAtCheckPoint(Facility currentFacility)
+	public int GetCheckPointIndex(Facility currentFacility)
 	{
-		bool startAtCheckPoint = false;
+		int startAtCheckPoint = 0;
 
 		switch (currentFacility)
 		{
@@ -91,14 +98,29 @@ public class LoadPlayer : MonoBehaviour
 			case Facility.Atlantis:
 				startAtCheckPoint = Globals.atlantisCheckPointReached;
 				break;
-			case Facility.Factory:
+			case Facility.FactoryLevel1:
 				startAtCheckPoint = Globals.factoryCheckPointReached;
 				break;
-			case Facility.Geothermal:
+			case Facility.FactoryLevel2:
+				startAtCheckPoint = Globals.factoryLevel2CheckPointReached;
+				break;
+			case Facility.GeothermalLevel1:
 				startAtCheckPoint = Globals.geothermalCheckPointReached;
 				break;
-			case Facility.SpaceBase:
+			case Facility.GeothermalLevel2:
+				startAtCheckPoint = Globals.geothermalLevel2CheckPointReached;
+				break;
+			case Facility.SpaceBaseLevel1:
 				startAtCheckPoint = Globals.spacebaseCheckPointReached;
+				break;
+			case Facility.SpaceBaseLevel2:
+				startAtCheckPoint = Globals.spacebaseLevel2CheckPointReached;
+				break;
+			case Facility.SpaceBaseLevel3:
+				startAtCheckPoint = Globals.spacebaseLevel3CheckPointReached;
+				break;
+			case Facility.FinalWyrmFight:
+				startAtCheckPoint = Globals.finalWyrmFightCheckPoint;
 				break;
 		}
 

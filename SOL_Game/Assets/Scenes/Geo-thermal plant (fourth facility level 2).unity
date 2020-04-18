@@ -65168,10 +65168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8701bfd60013a4a408cf3e9201fa7286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisFacility: 4
+  thisFacility: 6
   defaultPlayerStartingPosition: {fileID: 1098959934}
-  checkPointStartingPosition: {fileID: 1728532547}
   altStartingPosition: {fileID: 0}
+  checkPoints:
+  - {fileID: 1098959934}
+  - {fileID: 1728532547}
   playerPrefab: {fileID: 6841405128326533482, guid: 5afa98b79fcbd434b819ed5125726ca2,
     type: 3}
 --- !u!114 &689553844
@@ -80440,7 +80442,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a285d682d48dd6842836bcd19b0f9136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisfacility: 4
+  thisfacility: 6
+  CheckPointIndex: 1
 --- !u!4 &1728532547
 Transform:
   m_ObjectHideFlags: 0

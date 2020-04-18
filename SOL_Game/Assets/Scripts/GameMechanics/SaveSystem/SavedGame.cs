@@ -67,11 +67,11 @@ public class SavedGame : MonoBehaviour
 			btnText.text = "Save";
 		}
 		// Set the visuals for the save slot to active
-		saveHealthHud.heartContainers.runTimeValue = data.gameData.maxHealth;
+		//saveHealthHud.heartContainers.runTimeValue = data.gameData.maxHealth;  // this is setting the heart containers up wrong so that the first heart pick up you find brings you to 7 heart containers
 
 		// Display the players current health on a save slot
 		float tempHealth = data.gameData.currentHealth * 0.5f;
-		for (int i = 0; i < Globals.MAX_PLAYER_HEALTH && i < saveHealthHud.heartContainers.runTimeValue; i++)
+		for (int i = 0; i < Globals.MAX_PLAYER_HEALTH && i < data.gameData.maxHealth; i++)
 		{
 			if (i <= tempHealth - 1)
 			{
