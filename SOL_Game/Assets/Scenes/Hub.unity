@@ -5645,31 +5645,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.65
       objectReference: {fileID: 0}
-    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
+    - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -5048836371939073292, guid: 9398fdec56152994695777d91fb9dd01,
-        type: 3}
-    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
+      propertyPath: doorsUnlocked.Array.size
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
+    - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.7783019
-      objectReference: {fileID: 0}
-    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.78852135
+      propertyPath: weaponDestroysObject
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5490478314212510847, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
@@ -5711,15 +5695,31 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
+    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
-      propertyPath: doorsUnlocked.Array.size
-      value: 0
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5048836371939073292, guid: 9398fdec56152994695777d91fb9dd01,
+        type: 3}
+    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5490478314212510843, guid: b657c25ce175a694c8ddada51b9b1d11,
+    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
         type: 3}
-      propertyPath: weaponDestroysObject
-      value: 0
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.7783019
+      objectReference: {fileID: 0}
+    - target: {fileID: 5490478314212510845, guid: b657c25ce175a694c8ddada51b9b1d11,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.78852135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b657c25ce175a694c8ddada51b9b1d11, type: 3}
@@ -21241,6 +21241,7 @@ GameObject:
   - component: {fileID: 1838212566}
   - component: {fileID: 1838212565}
   - component: {fileID: 1838212564}
+  - component: {fileID: 1838212567}
   m_Layer: 0
   m_Name: CM vcam2
   m_TagString: Untagged
@@ -21330,6 +21331,19 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1537431042}
+--- !u!114 &1838212567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838212562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173103d0d4641468a86e5650ed9fa9b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PixelsPerUnit: 32
 --- !u!1 &1872039677
 GameObject:
   m_ObjectHideFlags: 0

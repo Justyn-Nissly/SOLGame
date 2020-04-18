@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,7 +12,14 @@ public class MainMenu : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-
+	public GameObject
+		loadGameMenu, // The reference to the load menu
+		mainMenu;     // The reference to the main menu
+	public Button
+		loadMenuButton; // The reference to the first button selected when the load menu is opened
+	public GameObject
+		mainMenuLogo, // The reference to the main menu logo
+		loadMenuLogo; // The reference to the load menu logo
 	#endregion
 
 	#region Private Variables
@@ -47,8 +55,32 @@ public class MainMenu : MonoBehaviour
 	public void NewGame()
 	{
 		//FindObjectOfType<AudioManager>().StartBackground();
-		SceneManager.LoadScene("Hub");
-		Globals.StartNewGame();
+		if(!File.Exists(Application.persistentDataPath + "/Slot1.dat"))
+		{
+			Globals.currentSaveFile = "Slot1";
+			SceneManager.LoadScene("Hub");
+			Globals.StartNewGame();
+		}
+		else if (!File.Exists(Application.persistentDataPath + "/Slot2.dat"))
+		{
+			Globals.currentSaveFile = "Slot2";
+			SceneManager.LoadScene("Hub");
+			Globals.StartNewGame();
+		}
+		else if (!File.Exists(Application.persistentDataPath + "/Slot3.dat"))
+		{
+			Globals.currentSaveFile = "Slot3";
+			SceneManager.LoadScene("Hub");
+			Globals.StartNewGame();
+		}
+		else
+		{
+			mainMenuLogo.SetActive(false);
+			loadMenuLogo.SetActive(true);
+			loadGameMenu.GetComponent<Canvas>().sortingOrder = 32767;
+			mainMenu.SetActive(false);
+			loadMenuButton.Select();
+		}
 	}
 	
 	/// Loads the game
