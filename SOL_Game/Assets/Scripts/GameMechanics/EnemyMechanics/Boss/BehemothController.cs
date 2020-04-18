@@ -8,8 +8,8 @@ public class BehemothController : Enemy
 		OUTER_ORBS = 8,  // Orbs revolving far from the boss
 		INNER_ORBS = 4;  // Orbs revolving near the boss
 	public const float
-		INNER_ORB_DIST           = 2.5f,                  // How far out the inner orbs rotate
-		OUTER_ORB_DIST           = INNER_ORB_DIST * 2.0f, // How far out the outer orbs rotate
+		INNER_ORB_DIST           = 4.0f,                  // How far out the inner orbs rotate
+		OUTER_ORB_DIST           = INNER_ORB_DIST * 1.6f, // How far out the outer orbs rotate
 		CONVEYOR_BELT_SPEED      = 400.0f,                // The boss activates the conveyor belts
 		CONVEYOR_BELT_SWITCH_MIN = 15.0f,                 // Minimum time before switching conveypr belt direction
 		CONVEYOR_BELT_SWITCH_MAX = 30.0f;                 // Maximum time before switching conveypr belt direction
@@ -48,6 +48,10 @@ public class BehemothController : Enemy
 		emitter; // Use tractor beam
 	private ConveyorBeltControl
 		conveyorBeltControl; // Controls conveyor belts
+	private Vector2
+		facing;
+	private SpriteRenderer
+		sprite;
 	#endregion
 
 	// Unity Named Methods
@@ -69,7 +73,9 @@ public class BehemothController : Enemy
 		// Reference movement, tractor beam, and player scripts
 		enemyMovement = GetComponent<EnemyMovement>();
 		emitter       = GetComponent<TractorBeamEmitter>();
+		sprite        = GetComponent<SpriteRenderer>();
 		player        = FindObjectOfType<Player>();
+		characterAnimator.SetInteger("Facing", 5);
 
 		// Set various members to begin the battle
 		phase       = 0;
@@ -86,15 +92,38 @@ public class BehemothController : Enemy
 		tractorBeamCharge = tractorBeamChargeTime - 5.0f;
 
 		GetComponent<AudioSource>().Play();
+
+		sprite.color = new Color(sprite.color.r * 0.3f, sprite.color.g * 1.2f, sprite.color.b * 0.5f, 1.0f);
 	}
 
 	/// <summary> Turn towards and chase down the player </summary>
 	override public void FixedUpdate()
 	{
-		// Randomly reverse conveyor belt directions after the first phase
-		if (phase > 1)
+		if (phaseChangeTimer <= 0.0f)
 		{
-			ControlConveyorBelts();
+			if (phase <= 1)
+			{
+				facing = player.transform.position - transform.position;
+			}
+			// Randomly reverse conveyor belt directions after the first phase
+			else
+			{
+				ControlConveyorBelts();
+				facing = enemyMovement.GetPath();
+			}
+
+			if (Mathf.Abs(facing.y) >= Mathf.Abs(facing.x))
+			{
+				characterAnimator.SetInteger("Facing", (facing.y > 0.0f) ? 1 : 3);
+			}
+			else if (Mathf.Abs(facing.y) < Mathf.Abs(facing.x))
+			{
+				characterAnimator.SetInteger("Facing", (facing.x > 0.0f) ? 0 : 2);
+			}
+			else
+			{
+				characterAnimator.SetInteger("Facing", 5);
+			}
 		}
 
 		// Keep the orbs following the boss
@@ -179,7 +208,7 @@ public class BehemothController : Enemy
 			tractorBeamCharge = 100.0f;
 			foreach (ConveyorBelt belt in conveyorBeltControl.belts)
 			{
-				belt.speed = 0.0f;
+				belt.isMoving = false;
 			}
 		}
 		// Get ready for the next phase
@@ -204,7 +233,7 @@ public class BehemothController : Enemy
 		enemyMovement.evasionDistance  = -enemyMovement.evasionDistance;
 		enemyMovement.Type             = (phase == 1) ? EnemyMovement.MovementType.EvadePlayer
 		                                              : EnemyMovement.MovementType.FreeRoam;
-		moveSpeed                     *= (phase % 2 == 1) ? 0.33f : 3.0f;
+		moveSpeed                     *= (phase % 2 == 1) ? 0.33f : 2.0f;
 		followRange                    = -followRange;
 		aggroRange                     = -aggroRange;
 	}

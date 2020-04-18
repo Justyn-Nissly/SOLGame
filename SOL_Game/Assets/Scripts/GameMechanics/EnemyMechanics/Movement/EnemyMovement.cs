@@ -282,6 +282,11 @@ public class EnemyMovement : MonoBehaviour
 	#region Utility Methods
 
 	#region Shared Methods
+	public Vector2 GetPath()
+	{
+		return path;
+	}
+
 	/// <summary> Try to stay a set distance away from the player </summary>
 	public void Evade()
 	{
