@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2875060049914026880}
   - component: {fileID: 2875060049914026883}
   - component: {fileID: -6784273479422008407}
-  - component: {fileID: 5261492916914857054}
   m_Layer: 0
   m_Name: TractorBeam
   m_TagString: Untagged
@@ -80,7 +79,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &2875060049914026883
@@ -113,16 +112,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strength: 2300
   moveSpeed: 40
---- !u!114 &5261492916914857054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2875060049914026886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0147dbe90c99567408713ebb191969ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shouldUpdate: 1

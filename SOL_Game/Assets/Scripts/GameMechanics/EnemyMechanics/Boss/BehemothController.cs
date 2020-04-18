@@ -48,14 +48,6 @@ public class BehemothController : Enemy
 		emitter; // Use tractor beam
 	private ConveyorBeltControl
 		conveyorBeltControl; // Controls conveyor belts
-	private Vector2
-		movement;
-	private SpriteRenderer
-		sprite;
-	private float
-		startRed,
-		startGreen,
-		startBlue;
 	#endregion
 
 	// Unity Named Methods
@@ -63,13 +55,6 @@ public class BehemothController : Enemy
 	/// <summary> Initialize the boss and set up scene control </summary>
 	override public void Start()
 	{
-		sprite = GetComponent<SpriteRenderer>();
-		startRed = 0.0f;
-		startGreen = sprite.color.g * 1.8f;
-		startBlue = sprite.color.b * 1.2f;
-
-		characterAnimator = GetComponent<Animator>();
-
 		// Control conveyor belts
 		new Random();
 		conveyorBeltTimer         = Random.Range(CONVEYOR_BELT_SWITCH_MIN, CONVEYOR_BELT_SWITCH_MAX);
@@ -106,8 +91,6 @@ public class BehemothController : Enemy
 	/// <summary> Turn towards and chase down the player </summary>
 	override public void FixedUpdate()
 	{
-		sprite.color = new Color(startRed, startGreen, startBlue, 1.0f);
-
 		// Randomly reverse conveyor belt directions after the first phase
 		if (phase > 1)
 		{
@@ -154,11 +137,9 @@ public class BehemothController : Enemy
 			if (phaseChangeTimer > 0.0f)
 			{
 				phaseChangeTimer      -= Time.deltaTime;
-				enemyMovement.enabled = false;
 				if (phaseChangeTimer <= 0.0f)
 				{
 					AdvancePhase();
-					enemyMovement.enabled = true;
 				}
 			}
 		}

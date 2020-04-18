@@ -65,8 +65,10 @@ public class EnemyMovement : MonoBehaviour
 	#region Private Variables
 
 	#region Shared Variables
-	public Vector2
-		lastPos; // The enemy's previous position
+	private Vector2
+		enemyMovementAmount, // The distance the enemy will move
+		lastPos,             // The enemy's previous position
+		playerPos;           // The player's position
 	private Enemy
 		enemy; // Access the enemy's members
 	private Rigidbody2D
@@ -94,8 +96,6 @@ public class EnemyMovement : MonoBehaviour
 		direction,     // The enemy's current direction (for choosing where to go)
 		lastDirection; // The enemy's last direction
 	private Vector2
-		enemyMovementAmount, // The distance the enemy will move
-		playerPos,           // The player's position
 		path; // The enemy's path: up, down, left, or right (for actually moving)
 	private bool
 		stopped; // An obstacle is hindering the enemy
@@ -133,7 +133,7 @@ public class EnemyMovement : MonoBehaviour
 	}
 
 	/// <summary> Evade the player if aggroed </summary>
-	void EarlyFixedUpdate()
+	void FixedUpdate()
 	{
 		// Update the values in the Animator for the players animation
 		if (enemyAnimator != null)
