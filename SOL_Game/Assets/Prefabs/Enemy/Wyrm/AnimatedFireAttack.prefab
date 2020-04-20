@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 20974556185740438}
   - component: {fileID: 20974556185740439}
   - component: {fileID: 20974556185740435}
-  - component: {fileID: 20974556185740432}
   - component: {fileID: 20974556185740433}
+  - component: {fileID: 4980827294051753452}
   m_Layer: 0
   m_Name: AnimatedFireAttack
   m_TagString: Untagged
@@ -103,21 +103,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &20974556185740432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 20974556185740436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 846401febd7ecb4458b7664ab61002de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageToGive: {fileID: 11400000, guid: aca1919566deb4948851892b8fecfcb9, type: 2}
-  poisonSprites: []
-  isFireBreathAttack: 1
 --- !u!58 &20974556185740433
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,3 +119,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.01}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!114 &4980827294051753452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20974556185740436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846401febd7ecb4458b7664ab61002de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageToGive: {fileID: 11400000, guid: aca1919566deb4948851892b8fecfcb9, type: 2}
+  poisonSprites: []
