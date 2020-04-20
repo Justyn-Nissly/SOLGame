@@ -54,6 +54,8 @@ public class LoadPlayer : MonoBehaviour
 
 		PlacePlayer();
 
+		FindObjectOfType<Player>().canTakeDamage = true;
+
 		teleportScript = playerInScene.GetComponent<_2dxFX_NewTeleportation2>();
 		StartCoroutine(TeleportInPlayer());
 	}
