@@ -26,6 +26,7 @@ public class Wyrm : Enemy
 		lazerBreathBlast;
 	public AudioSource
 		damaged,
+		defeated,
 		fireBreath,
 		laser,
 		roar,
@@ -131,7 +132,7 @@ public class Wyrm : Enemy
 			StartAttackAnimation(AttackType.meleeAttack);
 		}
 		// N% chance to do a lazer attack if below quarter health
-		else if (canDoQuarterHealthEvent == false && Random.Range(0.0f, 3.0f) >= 1.0f)
+		else if (canDoQuarterHealthEvent == false && Random.Range(0.0f, 3.0f) <= 1.0f)
 		{
 			StartAttackAnimation(AttackType.lazerBreathAttack);
 		}
@@ -277,9 +278,7 @@ public class Wyrm : Enemy
 				}
 			}
 			isDead = enemiesCleared = true;
-
-
-			encounterManager.LoadCredits();
+			defeated.Play();
 		}
 	}
 
@@ -294,6 +293,7 @@ public class Wyrm : Enemy
 	public void DestroyGameObject()
 	{
 		Globals.wyrmDefeated = true;
+		encounterManager.LoadCredits();
 		Destroy(gameObject);
 	}
 

@@ -54,7 +54,7 @@ public class PowerUpEffect : MonoBehaviour
 		powerSprite = GetComponent<SpriteRenderer>();
 		powerSprite.color = Color.red;
 		alpha = 0.0f;
-		shieldColor = new Color(0.2f, 1.0f, 0.6f, 1.0f);
+		shieldColor = new Color(0.2f, 1.0f, 0.4f, 1.0f);
 	}
 
 	/// <summary> Power ups eventually disappear after dropping </summary>

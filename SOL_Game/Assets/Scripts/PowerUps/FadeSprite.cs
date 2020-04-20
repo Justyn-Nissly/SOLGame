@@ -23,13 +23,14 @@ public class FadeSprite : MonoBehaviour
 	{
 		fadeSprite = GetComponent<SpriteRenderer>();
 		fadeSprite.sprite = FindObjectOfType<Player>().GetComponent<SpriteRenderer>().sprite;
+		fadeSprite.sortingOrder = FindObjectOfType<Player>().GetComponent<SpriteRenderer>().sortingOrder - 1;
 		alpha = 1.0f;
 	}
 
 	void FixedUpdate()
 	{
 		fadeSprite.color = new Color(fadeSprite.color.r, fadeSprite.color.g, fadeSprite.color.b, alpha);
-		if ((alpha -= 0.1f) <= 0.0f)
+		if ((alpha -= 0.07f) <= 0.0f)
 		{
 			Destroy(gameObject);
 		}
