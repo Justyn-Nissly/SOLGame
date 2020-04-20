@@ -26,6 +26,7 @@ public class Wyrm : Enemy
 		lazerBreathBlast;
 	public AudioSource
 		damaged,
+		defeated,
 		fireBreath,
 		laser,
 		roar,
@@ -277,9 +278,7 @@ public class Wyrm : Enemy
 				}
 			}
 			isDead = enemiesCleared = true;
-
-
-			encounterManager.LoadCredits();
+			defeated.Play();
 		}
 	}
 
@@ -295,6 +294,7 @@ public class Wyrm : Enemy
 	{
 		Globals.wyrmDefeated = true;
 		Destroy(gameObject);
+		encounterManager.LoadCredits();
 	}
 
 
