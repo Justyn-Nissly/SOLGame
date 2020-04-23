@@ -15,7 +15,7 @@ public class QuestItem : MonoBehaviour
 		shardBlue,
 		shardYellow,
 		shardRed,
-		maxHealth
+		maxHealthIncrease
 	}
 	protected const float DESPAWN_TIME = 7.0f,
 	DISAPPEAR = 4.0f;
@@ -64,7 +64,8 @@ public class QuestItem : MonoBehaviour
 		despawnTimer = 1000000.0f;
 		sprite = GetComponent<SpriteRenderer>();
 		willSpin = (type == ItemType.unlockSword   || type == ItemType.unlockShield ||
-		            type == ItemType.unlockBlaster || type == ItemType.unlockHammer);
+		            type == ItemType.unlockBlaster || type == ItemType.unlockHammer ||
+		            type == ItemType.maxHealthIncrease);
 	}
 
 	protected virtual void FixedUpdate()
@@ -176,7 +177,7 @@ public class QuestItem : MonoBehaviour
 		}
 
 		// Shards also heal the player to full
-		if (willSpin == false)
+		if (willSpin == false || type == ItemType.maxHealthIncrease)
 		{
 			playerHealth.runTimeValue = heartContainers.runTimeValue * 2.0f;
 			player.playerHealthHUD.UpdateHearts();

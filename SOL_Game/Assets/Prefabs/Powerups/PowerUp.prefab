@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2708952162030986636}
   - component: {fileID: 2708952162030986634}
-  - component: {fileID: 2708952162030986637}
   - component: {fileID: 9059099402675167221}
+  - component: {fileID: -1371916286313457006}
+  - component: {fileID: -994832509169628170}
   m_Layer: 0
   m_Name: PowerUp
   m_TagString: PowerUp
@@ -59,42 +60,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0.2
---- !u!114 &2708952162030986637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708952162030986632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a62a449976cbf14438428958df2ceb38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  timer: 20
-  timeLeft: 0
-  boxCollider: {fileID: 0}
-  powerUp: {fileID: 0}
-  powerUps:
-  - {fileID: 21300000, guid: 09207c88ba317b64b84c669117b2d401, type: 3}
-  - {fileID: 21300000, guid: 3c6c86ff1a4058649a57f884124500d5, type: 3}
-  - {fileID: 21300000, guid: 3d59f348449d10441b4b22ee5724dd89, type: 3}
-  - {fileID: 21300000, guid: a64f436f41a47fe4e8d125eae69ed98f, type: 3}
-  - {fileID: 21300000, guid: edaa6b50029ab4c42a42f61ee2d5547d, type: 3}
-  - {fileID: 21300000, guid: 3271b1c39a4c672499c40a3ffba8b326, type: 3}
-  - {fileID: 21300000, guid: 05e8b43e02618fa48bb1fd987c08ace3, type: 3}
-  - {fileID: 21300000, guid: a9f16e8a38200c243b7036d394516bd4, type: 3}
-  - {fileID: 21300000, guid: d8f84c1d7cc987c4f907882cd05744e2, type: 3}
-  - {fileID: 21300000, guid: 63d453f13289c9049aa698055c4ac509, type: 3}
-  - {fileID: 21300000, guid: 179c8eba2a7cb734993a4a3421c439ba, type: 3}
-  - {fileID: 21300000, guid: ed5b08393de3166409e7f7224d8c99eb, type: 3}
-  - {fileID: 21300000, guid: 198c0e3374ce28e4595ff9e3588a13a5, type: 3}
-  - {fileID: 21300000, guid: 6f94b8d5ff6e7754bb1552d415a2e8b2, type: 3}
-  - {fileID: 21300000, guid: b141f8b8022f6e74fa6b43d50ccea32e, type: 3}
-  - {fileID: 21300000, guid: 26129f721e592534192d1bca5bb99b30, type: 3}
-  powerUpSprite: {fileID: 0}
-  setType: 0
 --- !u!212 &9059099402675167221
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -144,3 +109,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1371916286313457006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708952162030986632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0147dbe90c99567408713ebb191969ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldUpdate: 0
+--- !u!114 &-994832509169628170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708952162030986632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62a449976cbf14438428958df2ceb38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  timer: 20
+  timeLeft: 0
+  boxCollider: {fileID: 0}
+  powerUp: {fileID: 0}
+  powerUps:
+  - {fileID: 21300000, guid: 09207c88ba317b64b84c669117b2d401, type: 3}
+  - {fileID: 21300000, guid: 3c6c86ff1a4058649a57f884124500d5, type: 3}
+  - {fileID: 21300000, guid: 3d59f348449d10441b4b22ee5724dd89, type: 3}
+  - {fileID: 21300000, guid: a64f436f41a47fe4e8d125eae69ed98f, type: 3}
+  - {fileID: 21300000, guid: edaa6b50029ab4c42a42f61ee2d5547d, type: 3}
+  - {fileID: 21300000, guid: 3271b1c39a4c672499c40a3ffba8b326, type: 3}
+  - {fileID: 21300000, guid: 05e8b43e02618fa48bb1fd987c08ace3, type: 3}
+  - {fileID: 21300000, guid: a9f16e8a38200c243b7036d394516bd4, type: 3}
+  - {fileID: 21300000, guid: d8f84c1d7cc987c4f907882cd05744e2, type: 3}
+  - {fileID: 21300000, guid: 63d453f13289c9049aa698055c4ac509, type: 3}
+  - {fileID: 21300000, guid: 179c8eba2a7cb734993a4a3421c439ba, type: 3}
+  - {fileID: 21300000, guid: ed5b08393de3166409e7f7224d8c99eb, type: 3}
+  - {fileID: 21300000, guid: 198c0e3374ce28e4595ff9e3588a13a5, type: 3}
+  - {fileID: 21300000, guid: 6f94b8d5ff6e7754bb1552d415a2e8b2, type: 3}
+  - {fileID: 21300000, guid: b141f8b8022f6e74fa6b43d50ccea32e, type: 3}
+  - {fileID: 21300000, guid: 26129f721e592534192d1bca5bb99b30, type: 3}
+  - {fileID: 21300000, guid: df43a92fa82ee504a956615a065fed26, type: 3}
+  - {fileID: 21300000, guid: 775ac30241e20e744a22beceef4f3ab7, type: 3}
+  - {fileID: 21300000, guid: 529ed76f44549e04c8f5a70d99af5baf, type: 3}
+  - {fileID: 21300000, guid: 107c56105db022443ab7686004b547b0, type: 3}
+  powerUpSprite: {fileID: 0}
+  setType: 0
