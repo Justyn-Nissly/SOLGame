@@ -10,6 +10,7 @@ public class PowerUp : MonoBehaviour
 		POWER = 1, // Boost the player's damage
 		SPEED = 2, // Boost the player's speed
 		HEAL = 3, // Heal the player
+		FULL_HEAL = 4,
 		EXTRA_PLAYER_DAMAGE = 2; // Powered up damage multiplier
 	public const float
 		EXTRA_PLAYER_SPEED = 0.08f, // Powered up speed multiplier
@@ -90,7 +91,12 @@ public class PowerUp : MonoBehaviour
 		if (collision.gameObject.tag == "Player")
 		{
 			// Enable the player to use the power up
-			if (type != HEAL)
+			if (type == FULL_HEAL)
+			{
+				player.maxHealth.runTimeValue = player.maxHealth.initialValue;
+				player.playerHealthHUD.UpdateHearts();
+			}
+			else if (type != HEAL)
 			{
 				player.powerUpTimers[type] += MAX_POWER_UP_TIME * 0.333333f;
 				if (player.powerUpTimers[type] >= MAX_POWER_UP_TIME)

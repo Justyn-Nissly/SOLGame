@@ -2,14 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Heart : PowerUps
+public class Heart : PowerUp
 {
     //Variables
     public FloatValue playerHealth;
     public FloatValue heartContainers;
     public float amountToIncrease;
 
-    public void OnTriggerEnter2D(Collider2D other)
+	public override void Awake()
+	{
+		powerUpSprite = GetComponent<SpriteRenderer>();
+		spinTimer = 0.0f;
+	}
+
+	public override void FixedUpdate()
+	{
+		spinTimer += Time.deltaTime * 8.0f;
+		powerUpSprite.sprite = powerUps[(int)(spinTimer % 4.0f)];
+	}
+
+	public override void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player") && !other.isTrigger)
         {
@@ -19,7 +31,7 @@ public class Heart : PowerUps
                 playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
             }
             other.transform.GetComponent<Player>().playerHealthHUD.UpdateHearts();
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }
