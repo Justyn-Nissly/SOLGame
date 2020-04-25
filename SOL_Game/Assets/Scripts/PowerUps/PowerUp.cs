@@ -93,7 +93,7 @@ public class PowerUp : MonoBehaviour
 			// Enable the player to use the power up
 			if (type == FULL_HEAL)
 			{
-				player.maxHealth.runTimeValue = player.maxHealth.initialValue;
+				player.maxHealth.runTimeValue = player.heartContainers.runTimeValue * 2f;
 				player.playerHealthHUD.UpdateHearts();
 			}
 			else if (type != HEAL)

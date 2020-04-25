@@ -202,7 +202,7 @@ public class QuestItem : MonoBehaviour
 		if ((willSpin == false || type == ItemType.maxHealthIncrease) && hasIncreasedHealth == false)
 		{
 			hasIncreasedHealth = true;
-			heartContainers.runTimeValue += 1;
+			heartContainers.runTimeValue += (type == ItemType.maxHealthIncrease) ? 1 : 0;
 			playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
 			player.playerHealthHUD.ChangeNumberOfHearts();
 			player.playerHealthHUD.UpdateHearts();
