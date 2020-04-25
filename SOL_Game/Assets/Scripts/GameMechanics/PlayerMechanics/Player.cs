@@ -638,11 +638,11 @@ public class Player : BaseCharacter
 
 		// Apply healing
 		healTimer -= (healTimer > 0.0f) ? Time.deltaTime : 0.0f;
-		if (heal && usingPowerUp && medKits > 0 && maxHealth.runTimeValue < maxHealth.initialValue && healTimer <= 0.0f)
+		if (heal && usingPowerUp && medKits > 0 && maxHealth.runTimeValue < heartContainers.runTimeValue * 2 && healTimer <= 0.0f)
 		{
-			if ((maxHealth.runTimeValue += 2) > maxHealth.initialValue)
+			if ((maxHealth.runTimeValue += 2) > heartContainers.runTimeValue * 2)
 			{
-				maxHealth.runTimeValue = maxHealth.initialValue;
+				maxHealth.runTimeValue = heartContainers.runTimeValue * 2;
 			}
 			playerHealthHUD.UpdateHearts();
 			healTimer = 1.0f;

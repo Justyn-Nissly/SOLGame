@@ -155,7 +155,7 @@ public class SaveManager : MonoBehaviour
 
 			file.Close();
 			playerHealthHud = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Hud>();
-			playerHealthHud.UpdateHearts();
+			//playerHealthHud.ChangeNumberOfHearts();
 			savedGame.ShowSaveData(data);
 		}
 		catch (System.Exception)
@@ -190,7 +190,7 @@ public class SaveManager : MonoBehaviour
 		Globals.spacebaseLevel3CheckPointReached  = data.gameData.spacebaseLevel3CheckPoint;
 		Globals.finalWyrmFightCheckPoint          = data.gameData.finalWyrmFightCheckPoint;
 		player.SetUpInputDetection();
-		/*playerHealthHud.ChangeNumberOfHearts();*/
+		playerHealthHud.ChangeNumberOfHearts();
 		FindObjectOfType<loadSceneOnTrigger>().sceneToLoad = data.gameData.currentLevel;
 	}
 
