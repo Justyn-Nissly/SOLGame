@@ -40,7 +40,8 @@ public class QuestItem : MonoBehaviour
 		pickUp;
 	private bool
 		willSpin,
-		spinPositive;
+		spinPositive,
+		hasInceasedHealth = false;
 	private float
 		spin;
 	#endregion
@@ -177,9 +178,11 @@ public class QuestItem : MonoBehaviour
 		}
 
 		// Shards also heal the player to full
-		if (willSpin == false || type == ItemType.maxHealthIncrease)
+		if ((willSpin == false || type == ItemType.maxHealthIncrease) && hasInceasedHealth == false)
 		{
-			playerHealth.runTimeValue = heartContainers.runTimeValue * 2.0f;
+			heartContainers.runTimeValue += 1;
+			playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
+			player.playerHealthHUD.ChangeNumberOfHearts();
 			player.playerHealthHUD.UpdateHearts();
 		}
 	}

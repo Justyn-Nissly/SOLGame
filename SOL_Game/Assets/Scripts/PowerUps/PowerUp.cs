@@ -37,7 +37,8 @@ public class PowerUp : MonoBehaviour
 	public SpriteRenderer
 		powerUpSprite; // Power up visual
 	public bool
-		setType;
+		setType,
+		dontDestroy = false;
 	#endregion
 
 	#region Protected Variables
@@ -76,7 +77,7 @@ public class PowerUp : MonoBehaviour
 		spinTimer += Time.deltaTime * 8.0f;
 		powerUpSprite.sprite = powerUps[(int)(spinTimer % 4.0f) + type * (HEAL + 1)];
 
-		if (timeLeft <= 0.0f)
+		if (timeLeft <= 0.0f && dontDestroy == false)
 		{
 			Destroy(gameObject);
 		}
