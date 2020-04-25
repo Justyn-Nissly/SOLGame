@@ -38,7 +38,7 @@ public class PauseMenu : MonoBehaviour
 	{
 
 		if (inputActions.Gameplay.PauseMenu.triggered && (SceneManager.GetActiveScene().name != "Menu" &&
-			SceneManager.GetActiveScene().name != "GameOverMenu" && SceneManager.GetActiveScene().name != "Credits"))
+			                                              SceneManager.GetActiveScene().name != "GameOverMenu"))
 		{
 			PauseButtonPressed();
 		}
