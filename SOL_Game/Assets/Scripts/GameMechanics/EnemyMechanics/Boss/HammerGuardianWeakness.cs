@@ -10,11 +10,18 @@ public class HammerGuardianWeakness : DestructibleObject
 		audioManager; // 
 	#endregion
 
-	#region Private Variables (Empty)
+	#region Private Variables
+	public AudioSource
+		damaged;
 	#endregion
 
 	// Unity Named Methods
 	#region Main Methods
+	protected override void Start()
+	{
+		damaged = GetComponent<AudioSource>();
+	}
+
 	/// <summary> Check if the player has hit the guardian </summary>
 	private void OnTriggerEnter2D(Collider2D collision)
 	{

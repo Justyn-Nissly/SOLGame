@@ -36,7 +36,7 @@ public class DestructibleObject : MonoBehaviour
 	// Unity Named Methods
 	#region Main Methods
 
-	private void Start()
+	protected virtual void Start()
 	{
 		// add all doors to the door manager
 		doorManager.doors.AddRange(doorsUnlocked);

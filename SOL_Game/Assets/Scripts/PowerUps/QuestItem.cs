@@ -31,6 +31,8 @@ public class QuestItem : MonoBehaviour
 	public FloatValue
 		playerHealth,
 		heartContainers;
+	public int
+		healthIncreaseID;
 	#endregion
 
 	#region Private and Protected Variables
@@ -41,7 +43,7 @@ public class QuestItem : MonoBehaviour
 	private bool
 		willSpin,
 		spinPositive,
-		hasInceasedHealth = false;
+		hasIncreasedHealth = false;
 	private float
 		spin;
 	#endregion
@@ -56,8 +58,22 @@ public class QuestItem : MonoBehaviour
 		if ((type == ItemType.unlockSword && Globals.swordUnlocked)      || (type == ItemType.unlockBlaster && Globals.blasterUnlocked) ||
 		    (type == ItemType.unlockShield && Globals.shieldUnlocked)    || (type == ItemType.unlockHammer && Globals.hammerUnlocked)   ||
 		    (type == ItemType.shardBlue && player.swordComboUnlocked)    || (type == ItemType.shardGreen && Globals.shieldUnlocked)     ||
-		    (type == ItemType.shardYellow && player.hammerComboUnlocked) || (type == ItemType.shardRed && Globals.wyrmDefeated))
+		    (type == ItemType.shardYellow && player.hammerComboUnlocked) || (type == ItemType.shardRed && Globals.wyrmDefeated)         ||
+		    (type == ItemType.maxHealthIncrease && Globals.acquiredHealthIncrease[healthIncreaseID]))
 		{
+			DoorLogic[] doors = FindObjectsOfType<DoorLogic>();
+			foreach (DoorLogic door in doors)
+			{
+				if (type >= ItemType.shardGreen && type <= ItemType.shardRed)
+				{
+					door.playerHasShard = true;
+				}
+				else if (type >= ItemType.unlockSword && type <= ItemType.unlockHammer)
+				{
+					door.playerHasChip = true;
+				}
+			}
+
 			Destroy(gameObject);
 		}
 
@@ -122,7 +138,7 @@ public class QuestItem : MonoBehaviour
 	}
 	#endregion
 
-	#region Utility Methods (Empty)
+	#region Utility Methods
 	private void PickUpItem()
 	{
 		GetComponent<AudioSource>().Play();
@@ -178,9 +194,9 @@ public class QuestItem : MonoBehaviour
 		}
 
 		// Shards also heal the player to full
-		if ((willSpin == false || type == ItemType.maxHealthIncrease) && hasInceasedHealth == false)
+		if ((willSpin == false || type == ItemType.maxHealthIncrease) && hasIncreasedHealth == false)
 		{
-			hasInceasedHealth = true;
+			hasIncreasedHealth = true;
 			heartContainers.runTimeValue += 1;
 			playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
 			player.playerHealthHUD.ChangeNumberOfHearts();
