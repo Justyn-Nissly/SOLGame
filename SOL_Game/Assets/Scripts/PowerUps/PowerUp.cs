@@ -37,8 +37,7 @@ public class PowerUp : MonoBehaviour
 	public SpriteRenderer
 		powerUpSprite; // Power up visual
 	public bool
-		setType,
-		dontDestroy = false;
+		setType;
 	#endregion
 
 	#region Protected Variables
@@ -64,7 +63,7 @@ public class PowerUp : MonoBehaviour
 		{
 			type = (int)Random.Range((float)SHIELD, (float)HEAL + 1.1f);
 		}
-		if (type > HEAL)
+		if (type > HEAL && setType == false)
 		{
 			type = HEAL;
 		}
@@ -77,7 +76,7 @@ public class PowerUp : MonoBehaviour
 		spinTimer += Time.deltaTime * 8.0f;
 		powerUpSprite.sprite = powerUps[(int)(spinTimer % 4.0f) + type * (HEAL + 1)];
 
-		if (timeLeft <= 0.0f && dontDestroy == false)
+		if (timeLeft <= 0.0f && setType == false)
 		{
 			Destroy(gameObject);
 		}
