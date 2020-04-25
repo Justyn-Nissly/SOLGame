@@ -111,9 +111,6 @@ public class Hud : MonoBehaviour
 			case 4:
 				fourHearts.SetActive(true);
 				break;
-			default:
-				EightHearts.SetActive(true);
-				break;
 		}
 	}
 	#endregion

@@ -193,6 +193,11 @@ public class QuestItem : MonoBehaviour
 			}
 		}
 
+		if(type == ItemType.maxHealthIncrease)
+		{
+			Globals.acquiredHealthIncrease[healthIncreaseID] = true;
+		}
+
 		// Shards also heal the player to full
 		if ((willSpin == false || type == ItemType.maxHealthIncrease) && hasIncreasedHealth == false)
 		{
