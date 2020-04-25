@@ -8,14 +8,14 @@ public class SavedGame : MonoBehaviour
 {
 	[SerializeField]
 	private Image
-		swordChip,   // Sword   item image
-		blasterChip, // Blaster item image
-		shieldChip,  // Shield  item image
-		hammerChip;  // Hammer  item image
+		swordChip = null,   // Sword   item image
+		blasterChip = null, // Blaster item image
+		shieldChip = null,  // Shield  item image
+		hammerChip = null;  // Hammer  item image
 
 	[SerializeField]
 	private GameObject
-		visuals; // Save slot visuals
+		visuals = null; // Save slot visuals
 
 	[SerializeField]
 	private GameObject[]
