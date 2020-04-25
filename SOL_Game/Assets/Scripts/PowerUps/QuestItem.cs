@@ -180,6 +180,7 @@ public class QuestItem : MonoBehaviour
 		// Shards also heal the player to full
 		if ((willSpin == false || type == ItemType.maxHealthIncrease) && hasInceasedHealth == false)
 		{
+			hasInceasedHealth = true;
 			heartContainers.runTimeValue += 1;
 			playerHealth.runTimeValue = heartContainers.runTimeValue * 2f;
 			player.playerHealthHUD.ChangeNumberOfHearts();
