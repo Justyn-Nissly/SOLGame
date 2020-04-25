@@ -88,15 +88,25 @@ public class Hud : MonoBehaviour
 		{
 			case 8:
 				EightHearts.SetActive(true);
+				SevenHearts.SetActive(true);
+				SixHearts.SetActive(true);
+				fiveHearts.SetActive(true);
+				fourHearts.SetActive(true);
 				break;
 			case 7:
-				SevenHearts.SetActive(true);
+				SevenHearts.SetActive(true); 
+				SixHearts.SetActive(true);
+				fiveHearts.SetActive(true);
+				fourHearts.SetActive(true);
 				break;
 			case 6:
 				SixHearts.SetActive(true);
+				fiveHearts.SetActive(true);
+				fourHearts.SetActive(true);
 				break;
 			case 5:
 				fiveHearts.SetActive(true);
+				fourHearts.SetActive(true);
 				break;
 			case 4:
 				fourHearts.SetActive(true);
