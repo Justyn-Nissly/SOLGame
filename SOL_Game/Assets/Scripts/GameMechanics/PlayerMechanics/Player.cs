@@ -178,46 +178,46 @@ public class Player : BaseCharacter
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
 		 *************************************************************************************************************************************************************/
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			playerMovementSpeed = fast;
-			this.GetComponent<Rigidbody2D>().isKinematic = true;
-			Globals.swordUnlocked = true;
-			Globals.hammerUnlocked = true;
-			Globals.blasterUnlocked = true;
-			Globals.shieldUnlocked = true;
-			swordComboUnlocked = true;
-			hammerComboUnlocked = true;
-			//maxHealth.runTimeValue = maxHealth.initialValue;
-			medKits = PowerUp.MAX_MED_KITS;
-			powerUpTimers[0] = PowerUp.MAX_POWER_UP_TIME;
-			powerUpTimers[1] = PowerUp.MAX_POWER_UP_TIME;
-			powerUpTimers[2] = PowerUp.MAX_POWER_UP_TIME;
-			playerHealthHUD.UpdateHearts();
-			if (medKitImages != null)
-			{
-				for (int i = 0; i < PowerUp.MAX_MED_KITS; i++)
-				{
-					medKitImages[i].enabled = (i < medKits);
-				}
-			}
-			SetUpInputDetection();
-		}
-		if (Input.GetKeyDown(KeyCode.End))
-		{
-			playerMovementSpeed = oldSpeed;
-			this.GetComponent<Rigidbody2D>().isKinematic = false;
-			Globals.swordUnlocked = true;
-			Globals.hammerUnlocked = true;
-			Globals.blasterUnlocked = true;
-			Globals.shieldUnlocked = true;
-			SetUpInputDetection();
-		}
+		//if (Input.GetKeyDown(KeyCode.Space))
+		//{
+		//	playerMovementSpeed = fast;
+		//	this.GetComponent<Rigidbody2D>().isKinematic = true;
+		//	Globals.swordUnlocked = true;
+		//	Globals.hammerUnlocked = true;
+		//	Globals.blasterUnlocked = true;
+		//	Globals.shieldUnlocked = true;
+		//	swordComboUnlocked = true;
+		//	hammerComboUnlocked = true;
+		//	//maxHealth.runTimeValue = maxHealth.initialValue;
+		//	medKits = PowerUp.MAX_MED_KITS;
+		//	powerUpTimers[0] = PowerUp.MAX_POWER_UP_TIME;
+		//	powerUpTimers[1] = PowerUp.MAX_POWER_UP_TIME;
+		//	powerUpTimers[2] = PowerUp.MAX_POWER_UP_TIME;
+		//	playerHealthHUD.UpdateHearts();
+		//	if (medKitImages != null)
+		//	{
+		//		for (int i = 0; i < PowerUp.MAX_MED_KITS; i++)
+		//		{
+		//			medKitImages[i].enabled = (i < medKits);
+		//		}
+		//	}
+		//	SetUpInputDetection();
+		//}
+		//if (Input.GetKeyDown(KeyCode.End))
+		//{
+		//	playerMovementSpeed = oldSpeed;
+		//	this.GetComponent<Rigidbody2D>().isKinematic = false;
+		//	Globals.swordUnlocked = true;
+		//	Globals.hammerUnlocked = true;
+		//	Globals.blasterUnlocked = true;
+		//	Globals.shieldUnlocked = true;
+		//	SetUpInputDetection();
+		//}
 
-		if (Input.GetKeyDown(KeyCode.Delete))
-		{
-			SceneManager.LoadScene("DevMenu");
-		}
+		//if (Input.GetKeyDown(KeyCode.Delete))
+		//{
+		//	SceneManager.LoadScene("DevMenu");
+		//}
 		/*************************************************************************************************************************************************************
 		 *******THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************THIS IS DEBUG CODE!!!!!! REMOVE BEFORE FINAL PRODUCTION**************************
 		 *************************************************************************************************************************************************************
