@@ -24,7 +24,7 @@ public class HammerGuardianWeakness : DestructibleObject
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		// If the right weapon hit the weak point deal the guardian damage
-		if (collision.CompareTag("PlayerLightWeapon") && FindObjectOfType<HammerGuardianController>().isAttacking)
+		if (collision.CompareTag("PlayerLightWeapon")) // && FindObjectOfType<HammerGuardianController>().isAttacking)        fix/use this after presenting the game
 		{
 			damaged.Play();
 			if (--health <= 0)

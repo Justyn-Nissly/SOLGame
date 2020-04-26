@@ -40,7 +40,7 @@ public class TractorBeamEmitter : MonoBehaviour
 			else
 			{
 				beamTimer = beamDelay;
-				Instantiate(tractorBeam, transform.position, Quaternion.identity);
+				//Instantiate(tractorBeam, transform.position, Quaternion.identity);  this throws the player off the map if using the shield
 			}
 		}
 	}

@@ -295,7 +295,7 @@ public class BehemothController : Enemy
 				innerOrbs[i].revolveScript.minRevolutionDistance = INNER_ORB_DIST;
 				innerOrbs[i].revolveScript.startAngle            = 360.0f / (float)INNER_ORBS * i;
 				innerOrbs[i].attackHP                            = 0;
-				innerOrbs[i].destructible.health                 = 2;//phase * 2 - 1;
+				innerOrbs[i].destructible.health                 = 1;//phase * 2 - 1;
 				outerOrbs[i].revolveScript.revolutionSpeed       = 1.2f;
 			}
 		}

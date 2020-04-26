@@ -193,7 +193,11 @@ public class Player : BaseCharacter
 		//	powerUpTimers[0] = PowerUp.MAX_POWER_UP_TIME;
 		//	powerUpTimers[1] = PowerUp.MAX_POWER_UP_TIME;
 		//	powerUpTimers[2] = PowerUp.MAX_POWER_UP_TIME;
-		//	playerHealthHUD.UpdateHearts();
+
+		//	heartContainers.runTimeValue = 8;
+		//	maxHealth.runTimeValue = heartContainers.runTimeValue * 2;
+
+		//	playerHealthHUD.ChangeNumberOfHearts();
 		//	if (medKitImages != null)
 		//	{
 		//		for (int i = 0; i < PowerUp.MAX_MED_KITS; i++)
