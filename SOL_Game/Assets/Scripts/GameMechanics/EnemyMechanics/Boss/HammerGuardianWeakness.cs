@@ -5,9 +5,7 @@ public class HammerGuardianWeakness : DestructibleObject
 	#region Enums (Empty)
 	#endregion
 
-	#region Public Variables
-	public AudioManager
-		audioManager; // 
+	#region Public Variables (Empty)
 	#endregion
 
 	#region Private Variables
@@ -28,7 +26,7 @@ public class HammerGuardianWeakness : DestructibleObject
 		// If the right weapon hit the weak point deal the guardian damage
 		if (collision.CompareTag("PlayerLightWeapon") && FindObjectOfType<HammerGuardianController>().isAttacking)
 		{
-			audioManager.PlaySound();
+			damaged.Play();
 			if (--health <= 0)
 			{
 				DestroyObject();
