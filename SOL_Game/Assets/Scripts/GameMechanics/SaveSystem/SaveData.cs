@@ -19,6 +19,8 @@ public class GameData
 	public bool   hammer                     { get; set; }
 	public bool   blaster                    { get; set; }
 	public bool   shield                     { get; set; }
+	public bool   swordCombo                 { get; set; }
+	public bool   hammerCombo                { get; set; }
 	public float  currentHealth              { get; set; }
 	public float  maxHealth                  { get; set; }
 	public string currentLevel               { get; set; }
@@ -38,7 +40,8 @@ public class GameData
 
 	public GameData(bool  startInBeginingPosition,           bool   swordUnlocked,
 					bool  hammerUnlocked,                    bool   blasterUnlocked,
-					bool  shieldUnlocked,                    float  currentHealth,
+					bool  shieldUnlocked,                    bool   swordComboUnlocked,
+					bool  hammerComboUnlocked,               float  currentHealth,
 					float maxHealth,                         string currentPlayerLevel,
 					int   bossesDefeated,                    int    guardiansDefeated,
 					int   hubCheckPointReached,              int    biolabCheckPointReached,
@@ -53,6 +56,8 @@ public class GameData
 		this.hammer                     = hammerUnlocked;
 		this.blaster                    = blasterUnlocked;
 		this.shield                     = shieldUnlocked;
+		this.swordCombo                 = swordComboUnlocked;
+		this.hammerCombo                = hammerComboUnlocked;
 		this.currentHealth              = currentHealth;
 		this.maxHealth                  = maxHealth;
 		this.currentLevel               = currentPlayerLevel;

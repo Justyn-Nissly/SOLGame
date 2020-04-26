@@ -121,7 +121,7 @@ public class SaveManager : MonoBehaviour
 	///<summary> Populate the save data object with the default values </summary>
 	private void NewSave(SaveData data)
 	{
-		data.gameData = new GameData(true, false, false, false, false, player.maxHealth.initialValue,
+		data.gameData = new GameData(true, false, false, false, false, false, false, player.maxHealth.initialValue,
 		                             player.heartContainers.initialValue, "Hub",
 		                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
@@ -131,7 +131,8 @@ public class SaveManager : MonoBehaviour
 	{
 		data.gameData = new GameData(Globals.startInBeginingPosition,           Globals.swordUnlocked,
 									 Globals.hammerUnlocked,                    Globals.blasterUnlocked,
-									 Globals.shieldUnlocked,                    player.maxHealth.runTimeValue,
+									 Globals.shieldUnlocked,                    player.swordComboUnlocked,
+									 player.hammerComboUnlocked,                player.maxHealth.runTimeValue,
 									 player.heartContainers.runTimeValue,       Globals.sceneToLoad, 
 									 Globals.bossesDefeated,                    Globals.guardiansDefeated,                 
 									 Globals.hubCheckPointReached,              Globals.biolabCheckPointReached,
@@ -167,12 +168,13 @@ public class SaveManager : MonoBehaviour
 	///<summary> Load the save data back into the game </summary>
 	private void LoadPlayer(SaveData data)
 	{
-		//player.maxHealth.initialValue   = data.gameData.maxHealth; // don't change the initial value it will break stuff :)
 		Globals.startInBeginingPosition           = data.gameData.beginingPosition;
 		Globals.swordUnlocked                     = data.gameData.sword;
 		Globals.hammerUnlocked                    = data.gameData.hammer;
 		Globals.blasterUnlocked                   = data.gameData.blaster;
 		Globals.shieldUnlocked                    = data.gameData.shield;
+		player.swordComboUnlocked                 = data.gameData.swordCombo;
+		player.hammerComboUnlocked                = data.gameData.hammerCombo;
 		player.maxHealth.runTimeValue             = data.gameData.currentHealth;
 		player.heartContainers.runTimeValue       = data.gameData.maxHealth;
 		Globals.sceneToLoad                       = data.gameData.currentLevel;
